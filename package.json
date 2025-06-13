@@ -11,6 +11,7 @@
   "dependencies": {
     "@astrojs/node": "^9.2.2",
     "@astrojs/react": "^4.3.0",
+    "@astrojs/vercel": "^8.1.5",
     "@sendgrid/mail": "^8.1.5",
     "@sparticuz/chromium": "^133.0.0",
     "aos": "^2.3.4",
