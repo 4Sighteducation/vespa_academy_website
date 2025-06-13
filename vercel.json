@@ -1,6 +1,7 @@
 {
-  "buildCommand": "pnpm install && astro build",
+  "buildCommand": "pnpm install && pnpm run build",
   "outputDirectory": "dist",
+  "framework": "astro",
   "functions": {
     "api/send-report.js": {
       "maxDuration": 30
