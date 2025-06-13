@@ -1,0 +1,240 @@
+---
+import Layout from '../layouts/Layout.astro';
+import VespaReport from '../components/VespaReport.astro';
+
+// Example student data - in production this would come from your questionnaire results
+const exampleStudentData = {
+  name: "John Smith",
+  email: "john.smith@example.com",
+  school: "Example Academy",
+  date: new Date().toISOString(),
+  scores: {
+    vision: 7,
+    effort: 5,
+    systems: 8,
+    practice: 4,
+    attitude: 6,
+    overall: 6
+  },
+  level: 'Level 3' as const
+};
+---
+
+<Layout title="VESPA Report Demo">
+  <main>
+    <div class="controls no-print">
+      <h1>VESPA Report Demo</h1>
+      <p>This is a demonstration of the VESPA assessment report generator.</p>
+      
+      <div class="actions">
+        <button id="downloadPdfBtn" class="btn-primary">
+          Download as PDF
+        </button>
+        <button id="printBtn" class="btn-secondary">
+          Print Report
+        </button>
+      </div>
+      
+      <div class="score-inputs">
+        <h3>Adjust Scores (for demo):</h3>
+        <div class="score-grid">
+          <label>
+            Vision: <input type="range" id="visionScore" min="1" max="10" value="7" />
+            <span id="visionValue">7</span>
+          </label>
+          <label>
+            Effort: <input type="range" id="effortScore" min="1" max="10" value="5" />
+            <span id="effortValue">5</span>
+          </label>
+          <label>
+            Systems: <input type="range" id="systemsScore" min="1" max="10" value="8" />
+            <span id="systemsValue">8</span>
+          </label>
+          <label>
+            Practice: <input type="range" id="practiceScore" min="1" max="10" value="4" />
+            <span id="practiceValue">4</span>
+          </label>
+          <label>
+            Attitude: <input type="range" id="attitudeScore" min="1" max="10" value="6" />
+            <span id="attitudeValue">6</span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div id="reportContainer">
+      <VespaReport studentData={exampleStudentData} />
+    </div>
+  </main>
+</Layout>
+
+<style>
+  main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  .controls {
+    background: #f5f5f5;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+  }
+
+  .controls h1 {
+    margin: 0 0 10px 0;
+    color: #23356f;
+  }
+
+  .actions {
+    display: flex;
+    gap: 10px;
+    margin: 20px 0;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  .btn-primary {
+    background: #23356f;
+    color: white;
+  }
+
+  .btn-primary:hover {
+    background: #1a2754;
+  }
+
+  .btn-secondary {
+    background: #6c757d;
+    color: white;
+  }
+
+  .btn-secondary:hover {
+    background: #5a6268;
+  }
+
+  .score-inputs {
+    margin-top: 30px;
+  }
+
+  .score-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-top: 10px;
+  }
+
+  .score-grid label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+  }
+
+  .score-grid input[type="range"] {
+    flex: 1;
+  }
+
+  .score-grid span {
+    min-width: 20px;
+    text-align: center;
+    font-weight: bold;
+  }
+
+  #reportContainer {
+    background: white;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    margin-bottom: 50px;
+  }
+
+  @media print {
+    .controls {
+      display: none !important;
+    }
+    
+    #reportContainer {
+      box-shadow: none;
+    }
+  }
+</style>
+
+<script>
+  // Print functionality
+  document.getElementById('printBtn')?.addEventListener('click', () => {
+    window.print();
+  });
+
+  // PDF download functionality using browser's print-to-PDF
+  document.getElementById('downloadPdfBtn')?.addEventListener('click', () => {
+    // First trigger print dialog
+    window.print();
+    
+    // Show instructions for saving as PDF
+    alert('To save as PDF:\n1. In the print dialog, select "Save as PDF" as the destination\n2. Click "Save"\n3. Choose where to save your PDF file');
+  });
+
+  // Score adjustment functionality (for demo purposes)
+  const scoreInputs = ['vision', 'effort', 'systems', 'practice', 'attitude'];
+  
+  scoreInputs.forEach(category => {
+    const input = document.getElementById(`${category}Score`) as HTMLInputElement;
+    const value = document.getElementById(`${category}Value`);
+    
+    if (input && value) {
+      input.addEventListener('input', (e) => {
+        const target = e.target as HTMLInputElement;
+        value.textContent = target.value;
+        
+        // In a real implementation, you would update the report here
+        // For now, we'll just show an alert
+        console.log(`${category} score updated to: ${target.value}`);
+      });
+    }
+  });
+
+  // For a production implementation, you might want to use a library like jsPDF
+  // to generate PDFs programmatically. Here's a comment showing how:
+  /*
+  // Using jsPDF (requires installing the library)
+  import { jsPDF } from 'jspdf';
+  import html2canvas from 'html2canvas';
+
+  async function generatePDF() {
+    const element = document.getElementById('vespaReport');
+    const canvas = await html2canvas(element);
+    const imgData = canvas.toDataURL('image/png');
+    
+    const pdf = new jsPDF({
+      orientation: 'portrait',
+      unit: 'mm',
+      format: 'a4'
+    });
+    
+    const imgWidth = 210;
+    const pageHeight = 297;
+    const imgHeight = (canvas.height * imgWidth) / canvas.width;
+    let heightLeft = imgHeight;
+    let position = 0;
+    
+    pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+    heightLeft -= pageHeight;
+    
+    while (heightLeft >= 0) {
+      position = heightLeft - imgHeight;
+      pdf.addPage();
+      pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
+    }
+    
+    pdf.save('vespa-report.pdf');
+  }
+  */
+</script> 

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VESPA Website Editor Helper</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #1a2269;
+            border-bottom: 3px solid #ff8f00;
+            padding-bottom: 10px;
+        }
+        .section {
+            margin: 30px 0;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 8px;
+        }
+        .code-example {
+            background: #2d2d2d;
+            color: #fff;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+            overflow-x: auto;
+        }
+        .preview {
+            padding: 15px;
+            border: 2px dashed #ddd;
+            border-radius: 5px;
+            margin: 10px 0;
+            background: white;
+        }
+        button {
+            background: #ff8f00;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #e67e00;
+        }
+        .color-box {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            border-radius: 5px;
+            margin-right: 10px;
+            vertical-align: middle;
+            border: 1px solid #ddd;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: inherit;
+        }
+        .copy-btn {
+            background: #4CAF50;
+            font-size: 12px;
+            padding: 5px 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🛠️ VESPA Website Editor Helper</h1>
+        <p>This tool helps you generate code snippets for common website edits. Fill in the fields and copy the generated code!</p>
+
+        <!-- Text Editor -->
+        <div class="section">
+            <h2>📝 Text Elements</h2>
+            
+            <h3>Heading Generator</h3>
+            <input type="text" id="headingText" placeholder="Enter your heading text">
+            <select id="headingLevel">
+                <option value="h1">H1 - Main Title</option>
+                <option value="h2">H2 - Section Title</option>
+                <option value="h3">H3 - Subsection</option>
+            </select>
+            <button onclick="generateHeading()">Generate</button>
+            <div id="headingResult" class="code-example" style="display:none;"></div>
+            
+            <h3>Paragraph Generator</h3>
+            <textarea id="paragraphText" rows="3" placeholder="Enter your paragraph text"></textarea>
+            <button onclick="generateParagraph()">Generate</button>
+            <div id="paragraphResult" class="code-example" style="display:none;"></div>
+        </div>
+
+        <!-- Button Generator -->
+        <div class="section">
+            <h2>🔘 Button Generator</h2>
+            <input type="text" id="buttonText" placeholder="Button text (e.g., Learn More)">
+            <input type="text" id="buttonLink" placeholder="Link URL (e.g., /about or https://example.com)">
+            <select id="buttonStyle">
+                <option value="primary">Primary (Orange)</option>
+                <option value="secondary">Secondary (White)</option>
+            </select>
+            <button onclick="generateButton()">Generate Button</button>
+            <div id="buttonResult" class="code-example" style="display:none;"></div>
+        </div>
+
+        <!-- Image Generator -->
+        <div class="section">
+            <h2>🖼️ Image Code Generator</h2>
+            <input type="text" id="imagePath" placeholder="Image path (e.g., /images/team-photo.jpg)">
+            <input type="text" id="imageAlt" placeholder="Image description (important for accessibility)">
+            <button onclick="generateImage()">Generate Image Code</button>
+            <div id="imageResult" class="code-example" style="display:none;"></div>
+        </div>
+
+        <!-- Color Reference -->
+        <div class="section">
+            <h2>🎨 Color Reference</h2>
+            <p>These are the colors used in your website:</p>
+            <div>
+                <span class="color-box" style="background: #1a2269;"></span> theme-primary (Main Blue)
+            </div>
+            <div>
+                <span class="color-box" style="background: #ff8f00;"></span> theme-secondary (Orange)
+            </div>
+            <div>
+                <span class="color-box" style="background: #0f172a;"></span> theme-dark (Dark Blue)
+            </div>
+            <div>
+                <span class="color-box" style="background: #ff8f00;"></span> vision
+            </div>
+            <div>
+                <span class="color-box" style="background: #e91e63;"></span> effort
+            </div>
+            <div>
+                <span class="color-box" style="background: #4caf50;"></span> systems
+            </div>
+            <div>
+                <span class="color-box" style="background: #2196f3;"></span> practice
+            </div>
+            <div>
+                <span class="color-box" style="background: #ffc107;"></span> attitude
+            </div>
+        </div>
+
+        <!-- Quick Tips -->
+        <div class="section">
+            <h2>💡 Quick Tips</h2>
+            <ul>
+                <li>Always save a backup before making changes</li>
+                <li>Test your changes locally at http://localhost:4321</li>
+                <li>Use Ctrl+F (Cmd+F on Mac) to find text you want to change</li>
+                <li>Don't delete HTML tags (< >) or quotes (" ")</li>
+                <li>Make one change at a time and test</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function copyToClipboard(text, resultId) {
+            navigator.clipboard.writeText(text).then(() => {
+                const btn = document.querySelector(`#${resultId} .copy-btn`);
+                btn.textContent = 'Copied!';
+                setTimeout(() => btn.textContent = 'Copy', 2000);
+            });
+        }
+
+        function showResult(resultId, code) {
+            const resultDiv = document.getElementById(resultId);
+            resultDiv.innerHTML = code + `<button class="copy-btn" onclick="copyToClipboard(\`${code.replace(/`/g, '\\`')}\`, '${resultId}')">Copy</button>`;
+            resultDiv.style.display = 'block';
+        }
+
+        function generateHeading() {
+            const text = document.getElementById('headingText').value;
+            const level = document.getElementById('headingLevel').value;
+            const code = `<${level} class="text-4xl font-bold text-white">${text}</${level}>`;
+            showResult('headingResult', code);
+        }
+
+        function generateParagraph() {
+            const text = document.getElementById('paragraphText').value;
+            const code = `<p class="text-lg text-gray-300">${text}</p>`;
+            showResult('paragraphResult', code);
+        }
+
+        function generateButton() {
+            const text = document.getElementById('buttonText').value;
+            const link = document.getElementById('buttonLink').value;
+            const style = document.getElementById('buttonStyle').value;
+            const isExternal = link.startsWith('http');
+            const target = isExternal ? ' target="_blank"' : '';
+            const className = style === 'primary' ? 'btn-primary' : 'btn-secondary';
+            const code = `<a href="${link}"${target} class="${className}">${text}</a>`;
+            showResult('buttonResult', code);
+        }
+
+        function generateImage() {
+            const path = document.getElementById('imagePath').value;
+            const alt = document.getElementById('imageAlt').value;
+            const code = `<img src="${path}" alt="${alt}" class="w-full rounded-lg">`;
+            showResult('imageResult', code);
+        }
+    </script>
+</body>
+</html> 

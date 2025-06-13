@@ -1,0 +1,16 @@
+{
+  "buildCommand": "pnpm install && astro build",
+  "outputDirectory": "dist",
+  "functions": {
+    "api/send-report.js": {
+      "maxDuration": 30
+    }
+  },
+  "env": {
+    "SENDGRID_API_KEY": "@sendgrid-api-key",
+    "SENDGRID_FROM_EMAIL": "@sendgrid-from-email",
+    "SENDGRID_ADMIN_EMAIL": "@sendgrid-admin-email",
+    "SENDGRID_REPORT_TEMPLATE_ID": "@sendgrid-report-template-id",
+    "SENDGRID_LEAD_EMAIL_ID": "@sendgrid-lead-email-id"
+  }
+} 

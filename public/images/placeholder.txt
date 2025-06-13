@@ -1,0 +1,7 @@
+Replace these placeholder references with your actual images:
+
+- students-bg.jpg - Use one of your student background images
+- students-success.jpg - Use another student image for the impact section
+- besa-award.png - Use your BESA award image
+
+The website is now set up to use these images with parallax effects and animations. 

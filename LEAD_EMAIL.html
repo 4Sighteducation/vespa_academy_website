@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" lang="en">
+
+<head>
+	<title>New VESPA Lead Notification</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!--[if mso]><xml><o:OfficeDocumentSettings><o:PixelsPerInch>96</o:PixelsPerInch><o:AllowPNG/></o:OfficeDocumentSettings></xml><![endif]-->
+	<style>
+		* {
+			box-sizing: border-box;
+		}
+
+		body {
+			margin: 0;
+			padding: 0;
+			font-family: 'Helvetica Neue', Arial, sans-serif;
+			background-color: #f5f5f5;
+		}
+
+		.container {
+			max-width: 700px;
+			margin: 0 auto;
+			background-color: #ffffff;
+			box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+		}
+
+		.header {
+			background-color: #102f62;
+			color: white;
+			padding: 30px;
+			text-align: center;
+		}
+
+		.header h1 {
+			margin: 0;
+			font-size: 28px;
+			font-weight: 300;
+		}
+
+		.alert-badge {
+			display: inline-block;
+			background-color: #00e5db;
+			color: #102f62;
+			padding: 5px 15px;
+			border-radius: 20px;
+			font-size: 14px;
+			font-weight: bold;
+			margin-bottom: 15px;
+		}
+
+		.content {
+			padding: 30px;
+		}
+
+		.info-section {
+			background-color: #f8f9fa;
+			border-left: 4px solid #00e5db;
+			padding: 20px;
+			margin: 20px 0;
+			border-radius: 4px;
+		}
+
+		.info-section h2 {
+			margin: 0 0 15px 0;
+			color: #102f62;
+			font-size: 20px;
+		}
+
+		.info-grid {
+			display: grid;
+			grid-template-columns: 150px 1fr;
+			gap: 10px;
+			margin: 10px 0;
+		}
+
+		.info-label {
+			font-weight: bold;
+			color: #666;
+		}
+
+		.info-value {
+			color: #333;
+		}
+
+		.scores-section {
+			background-color: #102f62;
+			color: white;
+			padding: 20px;
+			margin: 20px 0;
+			border-radius: 8px;
+		}
+
+		.scores-section h2 {
+			margin: 0 0 15px 0;
+			color: #00e5db;
+		}
+
+		.score-grid {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			gap: 15px;
+			margin-top: 15px;
+		}
+
+		.score-item {
+			background-color: rgba(255,255,255,0.1);
+			padding: 15px;
+			border-radius: 4px;
+			text-align: center;
+		}
+
+		.score-label {
+			font-size: 12px;
+			color: #ccc;
+			margin-bottom: 5px;
+		}
+
+		.score-value {
+			font-size: 24px;
+			font-weight: bold;
+			color: #00e5db;
+		}
+
+		.score-high { color: #22c55e !important; }
+		.score-medium { color: #f59e0b !important; }
+		.score-low { color: #ef4444 !important; }
+		.score-very-low { color: #dc2626 !important; }
+
+		.location-section {
+			background-color: #fff3cd;
+			border: 1px solid #ffeaa7;
+			padding: 15px;
+			margin: 20px 0;
+			border-radius: 4px;
+		}
+
+		.location-section h3 {
+			margin: 0 0 10px 0;
+			color: #856404;
+			font-size: 16px;
+		}
+
+		.action-section {
+			background-color: #d4edda;
+			border: 1px solid #c3e6cb;
+			padding: 20px;
+			margin: 20px 0;
+			border-radius: 4px;
+			text-align: center;
+		}
+
+		.action-section h3 {
+			margin: 0 0 10px 0;
+			color: #155724;
+		}
+
+		.btn {
+			display: inline-block;
+			padding: 12px 30px;
+			background-color: #102f62;
+			color: white;
+			text-decoration: none;
+			border-radius: 4px;
+			font-weight: bold;
+			margin: 5px;
+		}
+
+		.btn:hover {
+			background-color: #0a1d3f;
+		}
+
+		.btn-secondary {
+			background-color: #6c757d;
+		}
+
+		.btn-secondary:hover {
+			background-color: #5a6268;
+		}
+
+		.footer {
+			background-color: #f8f9fa;
+			padding: 20px;
+			text-align: center;
+			font-size: 12px;
+			color: #666;
+		}
+
+		.timestamp {
+			color: #999;
+			font-size: 12px;
+			margin-top: 20px;
+		}
+
+		@media (max-width: 600px) {
+			.score-grid {
+				grid-template-columns: repeat(2, 1fr);
+			}
+			
+			.info-grid {
+				grid-template-columns: 1fr;
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		<div class="header">
+			<div class="alert-badge">NEW LEAD</div>
+			<h1>VESPA Questionnaire Completed</h1>
+		</div>
+
+		<div class="content">
+			<!-- User Information Section -->
+			<div class="info-section">
+				<h2>📋 User Information</h2>
+				<div class="info-grid">
+					<div class="info-label">Name:</div>
+					<div class="info-value">{{user_name}}</div>
+					
+					<div class="info-label">Email:</div>
+					<div class="info-value"><a href="mailto:{{user_email}}">{{user_email}}</a></div>
+					
+					<div class="info-label">School/Organization:</div>
+					<div class="info-value">{{user_school}}</div>
+					
+					<div class="info-label">Level:</div>
+					<div class="info-value">{{user_level}}</div>
+					
+					<div class="info-label">Completion Date:</div>
+					<div class="info-value">{{completion_date}}</div>
+				</div>
+			</div>
+
+			<!-- VESPA Scores Section -->
+			<div class="scores-section">
+				<h2>📊 VESPA Assessment Results</h2>
+				<div class="score-grid">
+					<div class="score-item">
+						<div class="score-label">VISION</div>
+						<div class="score-value {{vision_class}}">{{vision_score}}/10</div>
+						<div class="score-label">Avg: {{vision_avg}}</div>
+					</div>
+					<div class="score-item">
+						<div class="score-label">EFFORT</div>
+						<div class="score-value {{effort_class}}">{{effort_score}}/10</div>
+						<div class="score-label">Avg: {{effort_avg}}</div>
+					</div>
+					<div class="score-item">
+						<div class="score-label">SYSTEMS</div>
+						<div class="score-value {{systems_class}}">{{systems_score}}/10</div>
+						<div class="score-label">Avg: {{systems_avg}}</div>
+					</div>
+					<div class="score-item">
+						<div class="score-label">PRACTICE</div>
+						<div class="score-value {{practice_class}}">{{practice_score}}/10</div>
+						<div class="score-label">Avg: {{practice_avg}}</div>
+					</div>
+					<div class="score-item">
+						<div class="score-label">ATTITUDE</div>
+						<div class="score-value {{attitude_class}}">{{attitude_score}}/10</div>
+						<div class="score-label">Avg: {{attitude_avg}}</div>
+					</div>
+					<div class="score-item">
+						<div class="score-label">OVERALL</div>
+						<div class="score-value" style="color: #00e5db;">{{overall_score}}/10</div>
+						<div class="score-label">Combined</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Location Information Section -->
+			<div class="location-section">
+				<h3>📍 Location Information</h3>
+				<div class="info-grid">
+					<div class="info-label">IP Address:</div>
+					<div class="info-value">{{user_ip}}</div>
+					
+					<div class="info-label">Location:</div>
+					<div class="info-value">{{user_location}}</div>
+					
+					<div class="info-label">Browser:</div>
+					<div class="info-value">{{user_agent}}</div>
+					
+					<div class="info-label">Referrer:</div>
+					<div class="info-value">{{referrer_url}}</div>
+				</div>
+			</div>
+
+			<!-- Action Items Section -->
+			<div class="action-section">
+				<h3>🎯 Recommended Actions</h3>
+				<p>This user has completed the VESPA questionnaire and received their report.</p>
+				<a href="mailto:{{user_email}}" class="btn">Contact User</a>
+				<a href="https://calendly.com/vespaacademy/15minmeeting" class="btn btn-secondary">View Calendar</a>
+			</div>
+
+			<!-- Additional Notes -->
+			<div class="info-section">
+				<h2>📝 Lead Summary</h2>
+				<ul>
+					<li><strong>Lead Quality:</strong> {{lead_quality}} (based on school type and engagement)</li>
+					<li><strong>Report Sent:</strong> Yes - Full VESPA report with personalized recommendations</li>
+					<li><strong>Calendar Link Provided:</strong> Yes - 15-minute demo booking link included</li>
+					<li><strong>Follow-up Priority:</strong> {{follow_up_priority}}</li>
+				</ul>
+			</div>
+
+			<div class="timestamp">
+				Lead captured at: {{timestamp}}
+			</div>
+		</div>
+
+		<div class="footer">
+			<p>This is an automated notification from the VESPA Academy website.</p>
+			<p>For support, contact: admin@vespa.academy</p>
+		</div>
+	</div>
+</body>
+
+</html>

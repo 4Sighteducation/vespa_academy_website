@@ -1,0 +1,129 @@
+---
+import vespaLogo from '../assets/vespalogo.png';
+---
+<header class="fixed w-full top-0 z-50 transition-all duration-300">
+    <div class="absolute inset-0 bg-gradient-to-r from-theme-dark/90 to-theme-primary/90 backdrop-blur-md"></div>
+    <div class="container mx-auto px-6 py-4 relative">
+        <div class="flex justify-between items-center">
+            <a href="/" class="flex items-center space-x-3 group">
+                <img src={vespaLogo.src} alt="VESPA Academy Logo" class="h-12 transition-transform duration-300 group-hover:scale-110">
+                <span class="text-2xl font-bold text-white">
+                    VESPA <span class="gradient-text">Academy</span>
+                </span>
+            </a>
+            
+            <nav class="hidden md:flex items-center space-x-1">
+                <a href="/solutions" class="nav-link">Solutions</a>
+                <a href="/pricing" class="nav-link">Pricing</a>
+                <a href="/impact" class="nav-link">Our Impact</a>
+                <a href="/about" class="nav-link">About Us</a>
+                <a href="/questionnaire" class="nav-link">Try the Questionnaire</a>
+                <a href="/contact" class="nav-link nav-link-cta">Get Started</a>
+            </nav>
+            
+            <!-- Mobile menu button -->
+            <button id="mobile-menu-button" class="md:hidden text-white p-2 rounded-lg hover:bg-white/10 transition-colors">
+                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                </svg>
+            </button>
+        </div>
+    </div>
+    
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="fixed inset-x-0 top-full bg-theme-dark/95 backdrop-blur-lg transform transition-transform duration-300 -translate-y-full opacity-0 pointer-events-none">
+        <nav class="container mx-auto px-6 py-8 space-y-2">
+            <a href="/solutions" class="mobile-nav-link">Solutions</a>
+            <a href="/pricing" class="mobile-nav-link">Pricing</a>
+            <a href="/impact" class="mobile-nav-link">Our Impact</a>
+            <a href="/about" class="mobile-nav-link">About Us</a>
+            <a href="/questionnaire" class="mobile-nav-link">Try the Questionnaire</a>
+            <a href="/contact" class="mobile-nav-link mobile-nav-link-cta">Get Started</a>
+        </nav>
+    </div>
+</header>
+
+<style>
+    .nav-link {
+        @apply px-4 py-2 rounded-lg text-white font-medium transition-all duration-300 relative overflow-hidden;
+    }
+    
+    .nav-link::before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        width: 0;
+        height: 2px;
+        background: linear-gradient(90deg, #00e5db, #7bd8d0);
+        transform: translateX(-50%);
+        transition: width 0.3s ease;
+    }
+    
+    .nav-link:hover::before {
+        width: 80%;
+    }
+    
+    .nav-link:hover {
+        @apply text-theme-secondary;
+        transform: translateY(-2px);
+    }
+    
+    .nav-link-cta {
+        @apply bg-gradient-to-r from-theme-secondary to-theme-accent1 text-theme-dark font-bold;
+        background-size: 200% 100%;
+        background-position: left bottom;
+        transition: all 0.3s ease;
+    }
+    
+    .nav-link-cta:hover {
+        background-position: right bottom;
+        transform: translateY(-2px) scale(1.05);
+        box-shadow: 0 10px 20px rgba(0, 229, 219, 0.3);
+    }
+    
+    .mobile-nav-link {
+        @apply block px-4 py-3 rounded-lg text-white font-medium transition-all duration-300;
+        background: linear-gradient(135deg, transparent, transparent);
+    }
+    
+    .mobile-nav-link:hover {
+        @apply text-theme-secondary;
+        background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.1));
+        transform: translateX(10px);
+    }
+    
+    .mobile-nav-link-cta {
+        @apply bg-gradient-to-r from-theme-secondary to-theme-accent1 text-theme-dark font-bold text-center mt-4;
+    }
+    
+    #mobile-menu.menu-open {
+        @apply translate-y-0 opacity-100 pointer-events-auto;
+    }
+</style>
+
+<script>
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    
+    if (mobileMenuButton && mobileMenu) {
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('menu-open');
+            
+            // Animate menu icon
+            const icon = mobileMenuButton.querySelector('svg');
+            if (mobileMenu.classList.contains('menu-open')) {
+                icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>';
+            } else {
+                icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>';
+            }
+        });
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!mobileMenuButton.contains(e.target) && !mobileMenu.contains(e.target)) {
+                mobileMenu.classList.remove('menu-open');
+            }
+        });
+    }
+</script> 

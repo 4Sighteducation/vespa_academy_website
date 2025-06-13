@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your VESPA Assessment Report</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+        }
+        .header {
+            background-color: #23356f;
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 28px;
+        }
+        .content {
+            padding: 40px 30px;
+        }
+        .greeting {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        .scores-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .scores-table th,
+        .scores-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        .scores-table th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+            color: #23356f;
+        }
+        .score-value {
+            font-weight: bold;
+            font-size: 18px;
+        }
+        .cta-button {
+            display: inline-block;
+            padding: 15px 30px;
+            background-color: #00e5db;
+            color: #23356f;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+        .footer {
+            background-color: #f8f9fa;
+            padding: 30px;
+            text-align: center;
+            font-size: 14px;
+            color: #666;
+        }
+        .score-high { color: #22c55e; }
+        .score-medium { color: #f59e0b; }
+        .score-low { color: #ef4444; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Your VESPA Assessment Report</h1>
+        </div>
+        
+        <div class="content">
+            <p class="greeting">Hi {{user_name}},</p>
+            
+            <p>Thank you for completing the VESPA questionnaire. Your personalized learning profile report is ready!</p>
+            
+            <h2>Your VESPA Scores</h2>
+            <table class="scores-table">
+                <tr>
+                    <th>Category</th>
+                    <th>Score</th>
+                    <th>Average</th>
+                </tr>
+                <tr>
+                    <td>Vision</td>
+                    <td class="score-value">{{vision_score}}/10</td>
+                    <td>{{vision_avg}}</td>
+                </tr>
+                <tr>
+                    <td>Effort</td>
+                    <td class="score-value">{{effort_score}}/10</td>
+                    <td>{{effort_avg}}</td>
+                </tr>
+                <tr>
+                    <td>Systems</td>
+                    <td class="score-value">{{systems_score}}/10</td>
+                    <td>{{systems_avg}}</td>
+                </tr>
+                <tr>
+                    <td>Practice</td>
+                    <td class="score-value">{{practice_score}}/10</td>
+                    <td>{{practice_avg}}</td>
+                </tr>
+                <tr>
+                    <td>Attitude</td>
+                    <td class="score-value">{{attitude_score}}/10</td>
+                    <td>{{attitude_avg}}</td>
+                </tr>
+                <tr style="background-color: #f8f9fa;">
+                    <td><strong>Overall</strong></td>
+                    <td class="score-value"><strong>{{overall_score}}/10</strong></td>
+                    <td>-</td>
+                </tr>
+            </table>
+            
+            <p>Your detailed report includes:</p>
+            <ul>
+                <li>Personalized feedback for each VESPA category</li>
+                <li>Reflective questions to guide your development</li>
+                <li>Coaching questions and suggested activities</li>
+                <li>Space for your goals and action planning</li>
+            </ul>
+            
+            <div style="text-align: center;">
+                <a href="{{download_link}}" class="cta-button">Download Your Full Report</a>
+            </div>
+            
+            <h3>What's Next?</h3>
+            <p>The VESPA programme offers comprehensive support to help schools develop students' learning mindsets. Our team will be in touch shortly to discuss how we can support {{user_school}}.</p>
+            
+            <p>In the meantime, feel free to explore our resources or contact us with any questions.</p>
+            
+            <p>Best regards,<br>
+            The VESPA Academy Team</p>
+        </div>
+        
+        <div class="footer">
+            <p>© 2024 VESPA Academy. All rights reserved.</p>
+            <p>This email was sent to {{user_email}}</p>
+            <p>
+                <a href="https://vespa-mindset.com" style="color: #23356f;">Visit our website</a> | 
+                <a href="https://vespa-mindset.com/contact" style="color: #23356f;">Contact us</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html> 

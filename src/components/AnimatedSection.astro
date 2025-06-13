@@ -1,0 +1,27 @@
+---
+export interface Props {
+    animation?: string;
+    delay?: number;
+    duration?: number;
+    offset?: number;
+    className?: string;
+}
+
+const { 
+    animation = 'fade-up', 
+    delay = 0, 
+    duration = 1000,
+    offset = 100,
+    className = '' 
+} = Astro.props;
+---
+
+<section 
+    class={className}
+    data-aos={animation}
+    data-aos-delay={delay}
+    data-aos-duration={duration}
+    data-aos-offset={offset}
+>
+    <slot />
+</section> 

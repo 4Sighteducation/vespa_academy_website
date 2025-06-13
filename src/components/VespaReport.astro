@@ -1,0 +1,605 @@
+---
+// VespaReport.astro - Component for generating VESPA reports
+export interface Props {
+  studentData: {
+    name: string;
+    email: string;
+    school: string;
+    date: string;
+    scores: {
+      vision: number;
+      effort: number;
+      systems: number;
+      practice: number;
+      attitude: number;
+      overall: number;
+    };
+    level: 'Level 2' | 'Level 3';
+  };
+}
+
+const { studentData } = Astro.props;
+
+// Import the report text data
+import reportData from '../../assets/reporttext_restructured_complete.json';
+
+// Function to determine performance rating based on score
+function getPerformanceRating(score: number): 'Very Low' | 'Low' | 'Medium' | 'High' {
+  if (score < 4) return 'Very Low';
+  if (score < 6) return 'Low';
+  if (score < 8) return 'Medium';
+  return 'High';
+}
+
+// Function to get report content for a category
+function getReportContent(category: string, score: number, level: string) {
+  const categoryKey = category.charAt(0).toUpperCase() + category.slice(1);
+  const rating = getPerformanceRating(score);
+  
+  const content = reportData.report_data[level]?.[categoryKey]?.[rating]?.english || {
+    description: '',
+    questions: '',
+    activities: '',
+    coaching_questions: ''
+  };
+  
+  return content;
+}
+
+// Get content for each VESPA category
+const visionContent = getReportContent('vision', studentData.scores.vision, studentData.level);
+const effortContent = getReportContent('effort', studentData.scores.effort, studentData.level);
+const systemsContent = getReportContent('systems', studentData.scores.systems, studentData.level);
+const practiceContent = getReportContent('practice', studentData.scores.practice, studentData.level);
+const attitudeContent = getReportContent('attitude', studentData.scores.attitude, studentData.level);
+const overallContent = getReportContent('overall', studentData.scores.overall, studentData.level);
+
+// Format date
+const reportDate = new Date(studentData.date).toLocaleDateString('en-GB', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric'
+});
+
+// Define colors for each VESPA category
+const categoryColors = {
+  vision: '#ffab40',
+  effort: '#a9c8f5',
+  systems: '#90d66f',
+  practice: '#9c57c0',
+  attitude: '#f567ea',
+  overall: '#23356f'
+};
+---
+
+<div class="vespa-report" id="vespaReport">
+  <!-- Report Header -->
+  <div class="report-header">
+    <div class="header-left">
+      <img src="/vespa-logo.png" alt="VESPA" class="logo" />
+    </div>
+    <div class="header-center">
+      <h1 class="header-title">VESPA Assessment Report</h1>
+    </div>
+    <div class="header-right">
+      <div class="header-info">
+        <div><strong>Name:</strong> {studentData.name}</div>
+        <div><strong>School:</strong> {studentData.school}</div>
+        <div><strong>Date:</strong> {reportDate}</div>
+        <div><strong>Level:</strong> {studentData.level}</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Introduction Section -->
+  <div class="intro-section">
+    <div class="intro-text">
+      <h3>Your VESPA Profile</h3>
+      <p>This report provides insights into your learning mindset across five key areas: Vision, Effort, Systems, Practice, and Attitude. Use this feedback to identify your strengths and areas for development.</p>
+    </div>
+    <div class="score-summary">
+      <h4>Score Summary</h4>
+      <div class="score-grid">
+        <div class="score-item">
+          <span class="score-label">V</span>
+          <span class="score-value">{studentData.scores.vision}/10</span>
+        </div>
+        <div class="score-item">
+          <span class="score-label">E</span>
+          <span class="score-value">{studentData.scores.effort}/10</span>
+        </div>
+        <div class="score-item">
+          <span class="score-label">S</span>
+          <span class="score-value">{studentData.scores.systems}/10</span>
+        </div>
+        <div class="score-item">
+          <span class="score-label">P</span>
+          <span class="score-value">{studentData.scores.practice}/10</span>
+        </div>
+        <div class="score-item">
+          <span class="score-label">A</span>
+          <span class="score-value">{studentData.scores.attitude}/10</span>
+        </div>
+        <div class="score-item overall">
+          <span class="score-label">Overall</span>
+          <span class="score-value">{studentData.scores.overall}/10</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VESPA Categories Grid -->
+  <div class="vespa-grid">
+    <!-- Vision -->
+    <div class="vespa-block" style={`border-left-color: ${categoryColors.vision}`}>
+      <div class="block-score">
+        <div class="score-label">VISION</div>
+        <div class="score-val">{studentData.scores.vision}</div>
+        <div class="score-max">/10</div>
+      </div>
+      <div class="block-body">
+        <p>{visionContent.description}</p>
+        {visionContent.questions && (
+          <div class="questions">
+            <strong>Questions to consider:</strong>
+            <div set:html={visionContent.questions}></div>
+          </div>
+        )}
+      </div>
+      <div class="block-questions">
+        {visionContent.coaching_questions && (
+          <div class="coaching">
+            <strong>Coaching Questions:</strong>
+            <div set:html={visionContent.coaching_questions}></div>
+          </div>
+        )}
+        {visionContent.activities && (
+          <div class="activities">
+            <strong>Suggested Activities:</strong>
+            <div set:html={visionContent.activities}></div>
+          </div>
+        )}
+      </div>
+    </div>
+
+    <!-- Effort -->
+    <div class="vespa-block" style={`border-left-color: ${categoryColors.effort}`}>
+      <div class="block-score">
+        <div class="score-label">EFFORT</div>
+        <div class="score-val">{studentData.scores.effort}</div>
+        <div class="score-max">/10</div>
+      </div>
+      <div class="block-body">
+        <p>{effortContent.description}</p>
+        {effortContent.questions && (
+          <div class="questions">
+            <strong>Questions to consider:</strong>
+            <div set:html={effortContent.questions}></div>
+          </div>
+        )}
+      </div>
+      <div class="block-questions">
+        {effortContent.coaching_questions && (
+          <div class="coaching">
+            <strong>Coaching Questions:</strong>
+            <div set:html={effortContent.coaching_questions}></div>
+          </div>
+        )}
+        {effortContent.activities && (
+          <div class="activities">
+            <strong>Suggested Activities:</strong>
+            <div set:html={effortContent.activities}></div>
+          </div>
+        )}
+      </div>
+    </div>
+
+    <!-- Systems -->
+    <div class="vespa-block" style={`border-left-color: ${categoryColors.systems}`}>
+      <div class="block-score">
+        <div class="score-label">SYSTEMS</div>
+        <div class="score-val">{studentData.scores.systems}</div>
+        <div class="score-max">/10</div>
+      </div>
+      <div class="block-body">
+        <p>{systemsContent.description}</p>
+        {systemsContent.questions && (
+          <div class="questions">
+            <strong>Questions to consider:</strong>
+            <div set:html={systemsContent.questions}></div>
+          </div>
+        )}
+      </div>
+      <div class="block-questions">
+        {systemsContent.coaching_questions && (
+          <div class="coaching">
+            <strong>Coaching Questions:</strong>
+            <div set:html={systemsContent.coaching_questions}></div>
+          </div>
+        )}
+        {systemsContent.activities && (
+          <div class="activities">
+            <strong>Suggested Activities:</strong>
+            <div set:html={systemsContent.activities}></div>
+          </div>
+        )}
+      </div>
+    </div>
+
+    <!-- Practice -->
+    <div class="vespa-block" style={`border-left-color: ${categoryColors.practice}`}>
+      <div class="block-score">
+        <div class="score-label">PRACTICE</div>
+        <div class="score-val">{studentData.scores.practice}</div>
+        <div class="score-max">/10</div>
+      </div>
+      <div class="block-body">
+        <p>{practiceContent.description}</p>
+        {practiceContent.questions && (
+          <div class="questions">
+            <strong>Questions to consider:</strong>
+            <div set:html={practiceContent.questions}></div>
+          </div>
+        )}
+      </div>
+      <div class="block-questions">
+        {practiceContent.coaching_questions && (
+          <div class="coaching">
+            <strong>Coaching Questions:</strong>
+            <div set:html={practiceContent.coaching_questions}></div>
+          </div>
+        )}
+        {practiceContent.activities && (
+          <div class="activities">
+            <strong>Suggested Activities:</strong>
+            <div set:html={practiceContent.activities}></div>
+          </div>
+        )}
+      </div>
+    </div>
+
+    <!-- Attitude -->
+    <div class="vespa-block" style={`border-left-color: ${categoryColors.attitude}`}>
+      <div class="block-score">
+        <div class="score-label">ATTITUDE</div>
+        <div class="score-val">{studentData.scores.attitude}</div>
+        <div class="score-max">/10</div>
+      </div>
+      <div class="block-body">
+        <p>{attitudeContent.description}</p>
+        {attitudeContent.questions && (
+          <div class="questions">
+            <strong>Questions to consider:</strong>
+            <div set:html={attitudeContent.questions}></div>
+          </div>
+        )}
+      </div>
+      <div class="block-questions">
+        {attitudeContent.coaching_questions && (
+          <div class="coaching">
+            <strong>Coaching Questions:</strong>
+            <div set:html={attitudeContent.coaching_questions}></div>
+          </div>
+        )}
+        {attitudeContent.activities && (
+          <div class="activities">
+            <strong>Suggested Activities:</strong>
+            <div set:html={attitudeContent.activities}></div>
+          </div>
+        )}
+      </div>
+    </div>
+
+    <!-- Overall -->
+    <div class="vespa-block" style={`border-left-color: ${categoryColors.overall}`}>
+      <div class="block-score">
+        <div class="score-label">OVERALL</div>
+        <div class="score-val">{studentData.scores.overall}</div>
+        <div class="score-max">/10</div>
+      </div>
+      <div class="block-body">
+        <p>{overallContent.description}</p>
+      </div>
+      <div class="block-questions">
+        <!-- Overall section typically doesn't have questions/activities -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Response and Goals Section -->
+  <div class="bottom-section">
+    <h3>Your Reflection & Action Plan</h3>
+    
+    <div class="response-section">
+      <h4>My Response to this Report:</h4>
+      <div class="write-box">
+        <div class="write-lines"></div>
+      </div>
+    </div>
+
+    <div class="goals-section">
+      <h4>My Goals:</h4>
+      <div class="write-box">
+        <div class="write-lines"></div>
+      </div>
+      <div class="date-field">
+        <label>Target Date: ____________________</label>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .vespa-report {
+    width: 210mm;
+    min-height: 297mm;
+    padding: 15mm;
+    margin: 0 auto;
+    background: white;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 10pt;
+    color: #333;
+  }
+
+  .report-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 3px solid #23356f;
+    padding-bottom: 10mm;
+    margin-bottom: 10mm;
+  }
+
+  .header-left .logo {
+    height: 50px;
+  }
+
+  .header-title {
+    font-size: 24pt;
+    color: #23356f;
+    margin: 0;
+    text-align: center;
+  }
+
+  .header-info {
+    text-align: right;
+    line-height: 1.6;
+  }
+
+  .header-info div {
+    font-size: 10pt;
+  }
+
+  .intro-section {
+    display: flex;
+    gap: 15mm;
+    margin-bottom: 10mm;
+    padding-bottom: 10mm;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .intro-text {
+    flex: 2;
+  }
+
+  .intro-text h3 {
+    color: #23356f;
+    margin-bottom: 5mm;
+  }
+
+  .score-summary {
+    flex: 1;
+    background: #f8f9fa;
+    padding: 5mm;
+    border-radius: 5px;
+  }
+
+  .score-summary h4 {
+    margin: 0 0 5mm 0;
+    color: #23356f;
+  }
+
+  .score-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3mm;
+  }
+
+  .score-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2mm;
+    background: white;
+    border-radius: 3px;
+  }
+
+  .score-item.overall {
+    grid-column: 1 / -1;
+    background: #23356f;
+    color: white;
+  }
+
+  .score-label {
+    font-weight: bold;
+  }
+
+  .vespa-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 8mm;
+  }
+
+  .vespa-block {
+    display: grid;
+    grid-template-columns: 80px 1fr 1fr;
+    gap: 10mm;
+    border: 1px solid #ddd;
+    border-left-width: 6px;
+    border-radius: 5px;
+    padding: 8mm;
+    background: #fafafa;
+    page-break-inside: avoid;
+  }
+
+  .block-score {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    border-radius: 5px;
+    padding: 5mm;
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
+  }
+
+  .score-label {
+    font-size: 9pt;
+    font-weight: bold;
+    color: #666;
+    margin-bottom: 2mm;
+  }
+
+  .score-val {
+    font-size: 28pt;
+    font-weight: bold;
+    color: #23356f;
+    line-height: 1;
+  }
+
+  .score-max {
+    font-size: 10pt;
+    color: #666;
+  }
+
+  .block-body {
+    padding-right: 5mm;
+  }
+
+  .block-body p {
+    margin: 0 0 5mm 0;
+    line-height: 1.5;
+  }
+
+  .questions {
+    margin-top: 5mm;
+  }
+
+  .questions strong,
+  .coaching strong,
+  .activities strong {
+    display: block;
+    margin-bottom: 2mm;
+    color: #23356f;
+  }
+
+  .block-questions {
+    border-left: 1px solid #ddd;
+    padding-left: 5mm;
+  }
+
+  .coaching {
+    margin-bottom: 5mm;
+  }
+
+  .activities {
+    font-style: italic;
+  }
+
+  .bottom-section {
+    margin-top: 15mm;
+    page-break-inside: avoid;
+  }
+
+  .bottom-section h3 {
+    color: #23356f;
+    border-bottom: 2px solid #23356f;
+    padding-bottom: 3mm;
+    margin-bottom: 8mm;
+  }
+
+  .response-section,
+  .goals-section {
+    margin-bottom: 10mm;
+  }
+
+  .response-section h4,
+  .goals-section h4 {
+    color: #23356f;
+    margin-bottom: 5mm;
+  }
+
+  .write-box {
+    border: 1px solid #999;
+    min-height: 50mm;
+    background: white;
+    position: relative;
+    padding: 5mm;
+  }
+
+  .write-lines {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: repeating-linear-gradient(
+      transparent,
+      transparent 7mm,
+      #e0e0e0 7mm,
+      #e0e0e0 7.5mm
+    );
+    pointer-events: none;
+  }
+
+  .date-field {
+    margin-top: 5mm;
+    text-align: right;
+  }
+
+  .date-field label {
+    font-weight: bold;
+    color: #666;
+  }
+
+  /* Print styles */
+  @media print {
+    .vespa-report {
+      margin: 0;
+      box-shadow: none;
+      padding: 10mm;
+    }
+
+    .vespa-block {
+      page-break-inside: avoid;
+    }
+
+    .bottom-section {
+      page-break-inside: avoid;
+    }
+  }
+
+  /* Responsive adjustments for screen viewing */
+  @media screen and (max-width: 768px) {
+    .vespa-report {
+      width: 100%;
+      padding: 10px;
+    }
+
+    .vespa-block {
+      grid-template-columns: 1fr;
+      gap: 5mm;
+    }
+
+    .block-score {
+      flex-direction: row;
+      justify-content: space-around;
+      padding: 3mm;
+    }
+
+    .intro-section {
+      flex-direction: column;
+    }
+  }
+</style> 

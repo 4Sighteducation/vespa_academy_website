@@ -1,0 +1,331 @@
+---
+import Header from '../components/Header.astro';
+export interface Props {
+	title: string;
+}
+
+const { title } = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content="VESPA Academy - Transforming students through non-cognitive skills development">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		
+		<!-- Fonts -->
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+		
+		<!-- AOS CSS -->
+		<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+		
+		<title>{title}</title>
+	</head>
+	<body>
+		<Header />
+		<slot />
+		
+		<!-- AOS Script -->
+		<script src="https://unpkg.com/aos@2.3.1/dist/aos.js" is:inline></script>
+		
+		<!-- Initialize animations -->
+		<script is:inline>
+			// Wait for the DOM to be fully loaded
+			document.addEventListener('DOMContentLoaded', function() {
+				// Initialize AOS
+				if (typeof AOS !== 'undefined') {
+					AOS.init({
+						duration: 1000,
+						easing: 'ease-out-cubic',
+						once: false,
+						offset: 100,
+						mirror: true
+					});
+				}
+				
+				// Refresh AOS on window load to catch any late-loading content
+				window.addEventListener('load', function() {
+					if (typeof AOS !== 'undefined') {
+						AOS.refresh();
+					}
+				});
+				
+				// Parallax effect for backgrounds
+				function parallaxScroll() {
+					const scrolled = window.pageYOffset;
+					const parallaxElements = document.querySelectorAll('.parallax-bg');
+					
+					parallaxElements.forEach(element => {
+						const speed = element.dataset.speed || 0.5;
+						const yPos = -(scrolled * speed);
+						element.style.transform = `translateY(${yPos}px)`;
+					});
+				}
+				
+				// Throttle function for better performance
+				function throttle(func, delay) {
+					let timeoutId;
+					let lastExecTime = 0;
+					return function () {
+						const currentTime = Date.now();
+						if (currentTime - lastExecTime > delay) {
+							func.apply(this, arguments);
+							lastExecTime = currentTime;
+						} else {
+							clearTimeout(timeoutId);
+							timeoutId = setTimeout(() => {
+								func.apply(this, arguments);
+								lastExecTime = Date.now();
+							}, delay - (currentTime - lastExecTime));
+						}
+					};
+				}
+				
+				// Add throttled scroll listener for parallax
+				window.addEventListener('scroll', throttle(parallaxScroll, 16));
+				
+				// Header scroll effect
+				const header = document.querySelector('header');
+				let lastScroll = 0;
+				
+				function handleHeaderScroll() {
+					const currentScroll = window.pageYOffset;
+					
+					if (currentScroll > 100) {
+						header?.classList.add('scrolled');
+					} else {
+						header?.classList.remove('scrolled');
+					}
+					
+					lastScroll = currentScroll;
+				}
+				
+				// Add throttled scroll listener for header
+				window.addEventListener('scroll', throttle(handleHeaderScroll, 100));
+				
+				// Initial calls
+				parallaxScroll();
+				handleHeaderScroll();
+			});
+		</script>
+	</body>
+</html>
+
+<style is:global>
+	:root {
+		--font-primary: 'Open Sans', system-ui, sans-serif;
+		--font-display: 'Poppins', sans-serif;
+	}
+	
+	* {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+	}
+	
+	html {
+		font-family: var(--font-primary);
+		background-color: #1a2269;
+		scroll-behavior: smooth;
+		overflow-x: hidden;
+	}
+	
+	body {
+		overflow-x: hidden;
+		position: relative;
+		min-height: 100vh;
+		font-weight: 400;
+		line-height: 1.6;
+	}
+	
+	/* Typography */
+	h1, h2, h3, h4, h5, h6 {
+		font-family: var(--font-display);
+		line-height: 1.2;
+		font-weight: 700;
+	}
+	
+	p {
+		font-weight: 400;
+		line-height: 1.7;
+	}
+	
+	/* Hide any potential video controls or overlays */
+	.parallax-bg::after,
+	.parallax-bg::before,
+	.parallax-bg > * {
+		display: none !important;
+	}
+	
+	/* Ensure background images don't have any overlays */
+	.parallax-bg {
+		position: relative;
+		background-repeat: no-repeat;
+		background-size: cover;
+		background-position: center;
+		pointer-events: none;
+		user-select: none;
+	}
+	
+	/* Remove any potential video or audio elements */
+	video, audio, iframe:not([src*="muse.ai"]) {
+		display: none !important;
+	}
+	
+	/* Ensure AOS animations work */
+	[data-aos] {
+		pointer-events: none;
+	}
+	
+	[data-aos].aos-animate {
+		pointer-events: auto;
+	}
+	
+	[data-aos][data-aos][data-aos-duration="1000"], 
+	body[data-aos-duration="1000"] [data-aos] {
+		transition-duration: 1000ms;
+	}
+	
+	/* Animations */
+	@keyframes fadeInUp {
+		from {
+			opacity: 0;
+			transform: translateY(30px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+	
+	@keyframes slideInLeft {
+		from {
+			opacity: 0;
+			transform: translateX(-50px);
+		}
+		to {
+			opacity: 1;
+			transform: translateX(0);
+		}
+	}
+	
+	@keyframes slideInRight {
+		from {
+			opacity: 0;
+			transform: translateX(50px);
+		}
+		to {
+			opacity: 1;
+			transform: translateX(0);
+		}
+	}
+	
+	@keyframes scaleIn {
+		from {
+			opacity: 0;
+			transform: scale(0.9);
+		}
+		to {
+			opacity: 1;
+			transform: scale(1);
+		}
+	}
+	
+	/* Utility classes */
+	.animate-fadeInUp {
+		animation: fadeInUp 0.8s ease-out forwards;
+	}
+	
+	.animate-slideInLeft {
+		animation: slideInLeft 0.8s ease-out forwards;
+	}
+	
+	.animate-slideInRight {
+		animation: slideInRight 0.8s ease-out forwards;
+	}
+	
+	.animate-scaleIn {
+		animation: scaleIn 0.8s ease-out forwards;
+	}
+	
+	/* Gradient text effect */
+	.gradient-text {
+		background: linear-gradient(135deg, #00e5db 0%, #7bd8d0 50%, #079baa 100%);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-clip: text;
+		display: inline-block;
+		font-weight: 800;
+	}
+	
+	/* Glow effect */
+	.glow {
+		box-shadow: 0 0 20px rgba(0, 229, 219, 0.5);
+		transition: box-shadow 0.3s ease;
+	}
+	
+	.glow:hover {
+		box-shadow: 0 0 30px rgba(0, 229, 219, 0.8);
+	}
+	
+	/* Header styles when scrolled */
+	header {
+		transition: all 0.3s ease;
+		position: fixed;
+		width: 100%;
+		top: 0;
+		z-index: 50;
+	}
+	
+	header.scrolled {
+		background: rgba(26, 34, 105, 0.95);
+		backdrop-filter: blur(10px);
+		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+	}
+	
+	/* Fix for header spacing */
+	main {
+		padding-top: 80px;
+	}
+	
+	/* Loading animation */
+	.loading-dot {
+		animation: loadingDot 1.4s infinite ease-in-out both;
+	}
+	
+	@keyframes loadingDot {
+		0%, 80%, 100% {
+			transform: scale(0);
+			opacity: 0;
+		}
+		40% {
+			transform: scale(1);
+			opacity: 1;
+		}
+	}
+	
+	/* Ensure sections have proper spacing */
+	section {
+		position: relative;
+		width: 100%;
+	}
+	
+	/* Container max width */
+	.container {
+		max-width: 1280px;
+		width: 100%;
+		margin: 0 auto;
+	}
+	
+	/* Make sure no unwanted elements appear */
+	button:not([id]),
+	.toggle,
+	.play-button,
+	.video-play-button {
+		display: none !important;
+	}
+</style>

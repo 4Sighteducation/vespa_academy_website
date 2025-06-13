@@ -1,0 +1,1247 @@
+---
+export const prerender = true; // This page can be statically generated
+
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import VespaReport from '../components/VespaReport.astro';
+
+// VESPA statements organized by category
+const statements = [
+  { id: 'q1', text: "I've worked out the next steps in my life", category: 'VISION' },
+  { id: 'q2', text: "I plan and organise my time to get my work done", category: 'SYSTEMS' },
+  { id: 'q3', text: "I give a lot of attention to my career planning", category: 'VISION' },
+  { id: 'q4', text: "I complete all my homework on time", category: 'SYSTEMS' },
+  { id: 'q5', text: "No matter who you are, you can change your intelligence a lot", category: 'ATTITUDE' },
+  { id: 'q6', text: "I use all my independent study time effectively", category: 'EFFORT' },
+  { id: 'q7', text: "I test myself on important topics until I remember them", category: 'PRACTICE' },
+  { id: 'q8', text: "I have a positive view of myself", category: 'ATTITUDE' },
+  { id: 'q9', text: "I am a hard working student", category: 'EFFORT' },
+  { id: 'q10', text: "I am confident in my academic ability", category: 'ATTITUDE' },
+  { id: 'q11', text: "I always meet deadlines", category: 'SYSTEMS' },
+  { id: 'q12', text: "I spread out my revision, rather than cramming at the last minute.", category: 'PRACTICE' },
+  { id: 'q13', text: "I don't let a poor test/assessment result get me down for too long", category: 'ATTITUDE' },
+  { id: 'q14', text: "I strive to achieve the goals I set for myself", category: 'VISION' },
+  { id: 'q15', text: "I summarise important information in diagrams, tables or lists", category: 'PRACTICE' },
+  { id: 'q16', text: "I enjoy learning new things", category: 'VISION' },
+  { id: 'q17', text: "I'm not happy unless my work is the best it can be", category: 'EFFORT' },
+  { id: 'q18', text: "I take good notes in class which are useful for revision", category: 'SYSTEMS' },
+  { id: 'q19', text: "When revising I mix different kinds of topics/subjects in one study session", category: 'PRACTICE' },
+  { id: 'q20', text: "I feel I can cope with the pressure at school/college/University", category: 'ATTITUDE' },
+  { id: 'q21', text: "I work as hard as I can in most classes", category: 'EFFORT' },
+  { id: 'q22', text: "My books/files are organised", category: 'SYSTEMS' },
+  { id: 'q23', text: "I study by explaining difficult topics out loud", category: 'PRACTICE' },
+  { id: 'q24', text: "I'm happy to ask questions in front of a group.", category: 'ATTITUDE' },
+  { id: 'q25', text: "When revising, I work under timed conditions answering exam-style questions", category: 'PRACTICE' },
+  { id: 'q26', text: "Your intelligence is something about you that you can change very much", category: 'ATTITUDE' },
+  { id: 'q27', text: "I like hearing feedback about how I can improve", category: 'ATTITUDE' },
+  { id: 'q28', text: "I can control my nerves in tests/practical assessments.", category: 'ATTITUDE' }
+];
+
+// Group statements by category for display
+const categories = {
+  VISION: { color: 'bg-vision', textColor: 'text-vision', icon: '👁️', description: 'Your goals and future planning' },
+  EFFORT: { color: 'bg-effort', textColor: 'text-effort', icon: '💡', description: 'Your work ethic and perseverance' },
+  SYSTEMS: { color: 'bg-systems', textColor: 'text-systems', icon: '📦', description: 'Your organization and time management' },
+  PRACTICE: { color: 'bg-practice', textColor: 'text-practice', icon: '📋', description: 'Your study techniques and methods' },
+  ATTITUDE: { color: 'bg-attitude', textColor: 'text-attitude', icon: '😊', description: 'Your mindset and resilience' }
+};
+
+const pageTitle = "VESPA Questionnaire - Assess Your Learning Mindset";
+const pageDescription = "Take the VESPA questionnaire to assess your learning mindset across Vision, Effort, Systems, Practice, and Attitude.";
+---
+
+<Layout title="VESPA Questionnaire - Discover Your Learning Profile">
+  <Header />
+  
+  <main class="pt-24">
+    <!-- Hero Section -->
+    <section class="py-16 bg-gradient-to-b from-theme-dark to-theme-primary">
+      <div class="container mx-auto px-6 text-center">
+        <h1 class="text-5xl font-bold text-white mb-6">
+          Discover Your <span class="gradient-text">Learning Profile</span>
+        </h1>
+        <p class="text-xl text-gray-300 max-w-3xl mx-auto mb-8">
+          Take our validated VESPA questionnaire to understand your strengths and areas for development across five key dimensions of academic success.
+        </p>
+        <div class="flex flex-wrap justify-center gap-4 mb-8">
+          {Object.entries(categories).map(([key, cat]) => (
+            <div class="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full">
+              <span class="text-2xl">{cat.icon}</span>
+              <span class="text-white font-semibold">{key}</span>
+            </div>
+          ))}
+        </div>
+        
+        <!-- Start Button -->
+        <button id="start-questionnaire" class="px-12 py-4 bg-gradient-to-r from-theme-secondary to-theme-accent1 text-theme-dark font-bold rounded-xl text-lg hover:scale-105 transition-transform shadow-xl">
+          Start Questionnaire
+        </button>
+      </div>
+    </section>
+
+    <!-- Registration Modal -->
+    <div id="registration-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden">
+      <div class="flex items-center justify-center min-h-screen p-4">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8">
+          <h2 class="text-3xl font-bold text-gray-800 mb-2">Register Your Interest</h2>
+          <p class="text-gray-600 mb-6">Please provide your details to access the questionnaire and receive your personalised report.</p>
+          
+          <form id="registration-form" class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Email Address *</label>
+              <input type="email" name="email" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-theme-secondary focus:border-transparent">
+            </div>
+            
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Full Name *</label>
+              <input type="text" name="name" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-theme-secondary focus:border-transparent">
+            </div>
+            
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Job Title *</label>
+              <input type="text" name="jobTitle" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-theme-secondary focus:border-transparent">
+            </div>
+            
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">School/Institution *</label>
+              <input type="text" name="school" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-theme-secondary focus:border-transparent">
+            </div>
+            
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">I'm interested in learning more about: *</label>
+              <div class="space-y-2">
+                <label class="flex items-center">
+                  <input type="checkbox" name="interests" value="coaching-portal" class="mr-2">
+                  <span>Coaching Portal</span>
+                </label>
+                <label class="flex items-center">
+                  <input type="checkbox" name="interests" value="resource-portal" class="mr-2">
+                  <span>Resource Portal</span>
+                </label>
+                <label class="flex items-center">
+                  <input type="checkbox" name="interests" value="staff-training" class="mr-2">
+                  <span>Staff Training</span>
+                </label>
+                <label class="flex items-center">
+                  <input type="checkbox" name="interests" value="student-sessions" class="mr-2">
+                  <span>Student Sessions</span>
+                </label>
+                <label class="flex items-center">
+                  <input type="checkbox" name="interests" value="books" class="mr-2">
+                  <span>Books</span>
+                </label>
+                <label class="flex items-center">
+                  <input type="checkbox" name="interests" value="other" class="mr-2">
+                  <span>Other</span>
+                </label>
+              </div>
+            </div>
+            
+            <div class="text-xs text-gray-500 mt-4">
+              <p>* Required fields</p>
+              <p class="mt-2">By submitting this form, you agree to receive communications about VESPA Academy products and services.</p>
+            </div>
+            
+            <button type="submit" class="w-full px-6 py-3 bg-gradient-to-r from-theme-secondary to-theme-accent1 text-theme-dark font-bold rounded-lg hover:scale-105 transition-transform">
+              Continue to Questionnaire
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Questionnaire Modal -->
+    <div id="questionnaire-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden">
+      <div class="flex items-center justify-center min-h-screen p-4">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full">
+          <!-- Progress Bar -->
+          <div class="bg-gray-100 rounded-t-2xl p-4">
+            <div class="flex justify-between items-center mb-2">
+              <span class="text-sm text-gray-600">Question <span id="current-question">1</span> of 28</span>
+              <span class="text-sm text-gray-600"><span id="progress-percentage">0</span>% Complete</span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-2">
+              <div id="progress-bar" class="bg-gradient-to-r from-theme-secondary to-theme-accent1 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
+            </div>
+          </div>
+          
+          <!-- Question Card -->
+          <div class="p-8">
+            <div id="question-container">
+              <!-- Questions will be dynamically inserted here -->
+            </div>
+            
+            <!-- Navigation Buttons -->
+            <div class="flex justify-between mt-8">
+              <button id="prev-btn" class="px-6 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                Previous
+              </button>
+              <button id="next-btn" class="px-6 py-2 bg-gradient-to-r from-theme-secondary to-theme-accent1 text-theme-dark font-bold rounded-lg hover:scale-105 transition-transform disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                Next
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Results Modal -->
+    <div id="results-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden">
+      <div class="flex items-center justify-center min-h-screen p-4">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+          <div id="results-content" class="p-8">
+            <!-- Results will be dynamically inserted here -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PDF Report Container (Hidden, for generation) -->
+    <div id="pdf-report-container" class="hidden">
+      <div class="vespa-report">
+        <!-- Report content will be generated here -->
+      </div>
+    </div>
+  </main>
+
+  <style>
+    /* Include the ReportPrinting.css styles */
+    .vespa-report { 
+      width: 210mm; 
+      min-height: 297mm;
+      padding: 15mm;
+      margin: 0 auto;
+      background: white;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 10pt;
+      color: #333;
+      page-break-after: always;
+    }
+    
+    .report-header { 
+      display: flex; 
+      align-items: center;
+      justify-content: space-between; 
+      border-bottom: 3px solid #23356f;
+      padding-bottom: 10mm;
+      margin-bottom: 10mm;
+    }
+    
+    .header-left .logo {
+      height: 50px;
+    }
+    
+    .header-title { 
+      font-size: 24pt;
+      color: #23356f;
+      margin: 0;
+      text-align: center;
+    }
+    
+    .header-info {
+      text-align: right;
+      line-height: 1.6;
+    }
+    
+    .header-info div {
+      font-size: 10pt;
+    }
+    
+    .intro-section {
+      display: flex;
+      gap: 15mm;
+      margin-bottom: 10mm;
+      padding-bottom: 10mm;
+      border-bottom: 1px solid #ddd;
+    }
+    
+    .intro-text {
+      flex: 2;
+    }
+    
+    .intro-text h3 {
+      color: #23356f;
+      margin-bottom: 5mm;
+    }
+    
+    .score-summary {
+      flex: 1;
+      background: #f8f9fa;
+      padding: 5mm;
+      border-radius: 5px;
+    }
+    
+    .score-summary h4 {
+      margin: 0 0 5mm 0;
+      color: #23356f;
+    }
+    
+    .score-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3mm;
+    }
+    
+    .score-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 2mm;
+      background: white;
+      border-radius: 3px;
+    }
+    
+    .score-item.overall {
+      grid-column: 1 / -1;
+      background: #23356f;
+      color: white;
+    }
+    
+    .score-label {
+      font-weight: bold;
+    }
+    
+    .vespa-grid { 
+      display: flex;
+      flex-direction: column;
+      gap: 8mm;
+    }
+    
+    .vespa-block {
+      display: grid;
+      grid-template-columns: 80px 1fr 1fr;
+      gap: 10mm;
+      border: 1px solid #ddd;
+      border-left-width: 6px;
+      border-radius: 5px;
+      padding: 8mm;
+      background: #fafafa;
+      page-break-inside: avoid;
+    }
+    
+    .block-score {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: white;
+      border-radius: 5px;
+      padding: 5mm;
+      box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
+    }
+    
+    .block-score .score-label {
+      font-size: 9pt;
+      font-weight: bold;
+      color: #666;
+      margin-bottom: 2mm;
+    }
+    
+    .block-score .score-val {
+      font-size: 28pt;
+      font-weight: bold;
+      color: #23356f;
+      line-height: 1;
+    }
+    
+    .block-score .score-max {
+      font-size: 10pt;
+      color: #666;
+    }
+    
+    .block-body {
+      padding-right: 5mm;
+    }
+    
+    .block-body p {
+      margin: 0 0 5mm 0;
+      line-height: 1.5;
+    }
+    
+    .questions {
+      margin-top: 5mm;
+    }
+    
+    .questions strong,
+    .coaching strong,
+    .activities strong {
+      display: block;
+      margin-bottom: 2mm;
+      color: #23356f;
+    }
+    
+    .block-questions {
+      border-left: 1px solid #ddd;
+      padding-left: 5mm;
+    }
+    
+    .coaching {
+      margin-bottom: 5mm;
+    }
+    
+    .activities {
+      font-style: italic;
+    }
+    
+    .bottom-section {
+      margin-top: 15mm;
+      page-break-inside: avoid;
+    }
+    
+    .bottom-section h3 {
+      color: #23356f;
+      border-bottom: 2px solid #23356f;
+      padding-bottom: 3mm;
+      margin-bottom: 8mm;
+    }
+    
+    .response-section,
+    .goals-section {
+      margin-bottom: 10mm;
+    }
+    
+    .response-section h4,
+    .goals-section h4 {
+      color: #23356f;
+      margin-bottom: 5mm;
+    }
+    
+    .write-box {
+      border: 1px solid #999;
+      min-height: 50mm;
+      background: white;
+      position: relative;
+      padding: 5mm;
+    }
+    
+    .write-lines {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: repeating-linear-gradient(
+        transparent,
+        transparent 7mm,
+        #e0e0e0 7mm,
+        #e0e0e0 7.5mm
+      );
+      pointer-events: none;
+    }
+    
+    .date-field {
+      margin-top: 5mm;
+      text-align: right;
+    }
+    
+    .date-field label {
+      font-weight: bold;
+      color: #666;
+    }
+    
+    /* Question card styles */
+    .question-card {
+      text-align: center;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .likert-option {
+      transition: all 0.2s ease;
+    }
+    
+    .likert-option:hover {
+      transform: scale(1.05);
+    }
+    
+    .likert-option input[type="radio"]:checked + div {
+      transform: scale(1.1);
+      box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Anti-abuse styles */
+    .rate-limit-warning {
+      background-color: #fee;
+      border: 1px solid #fcc;
+      color: #c33;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      margin: 1rem 0;
+    }
+  </style>
+
+  <script>
+    // State management
+    let currentQuestionIndex = 0;
+    let responses = {};
+    let userData = {};
+    let questionnaireStartTime = null;
+    let isRegistered = false;
+    
+    // Anti-abuse tracking
+    const RATE_LIMIT_KEY = 'vespa_questionnaire_attempts';
+    const MAX_ATTEMPTS_PER_DAY = 3;
+    const SCHOOL_DOMAIN_PATTERNS = ['.edu', '.ac.uk', '.sch.uk', '.school', '.college'];
+    
+    // Statement categories for scoring
+    const statementCategories = {
+      q1: 'VISION', q2: 'SYSTEMS', q3: 'VISION', q4: 'SYSTEMS', q5: 'ATTITUDE',
+      q6: 'EFFORT', q7: 'PRACTICE', q8: 'ATTITUDE', q9: 'EFFORT', q10: 'ATTITUDE',
+      q11: 'SYSTEMS', q12: 'PRACTICE', q13: 'ATTITUDE', q14: 'VISION', q15: 'PRACTICE',
+      q16: 'VISION', q17: 'EFFORT', q18: 'SYSTEMS', q19: 'PRACTICE', q20: 'ATTITUDE',
+      q21: 'EFFORT', q22: 'SYSTEMS', q23: 'PRACTICE', q24: 'ATTITUDE', q25: 'PRACTICE',
+      q26: 'ATTITUDE', q27: 'ATTITUDE', q28: 'ATTITUDE'
+    };
+    
+    // Define statements directly in JavaScript
+    const statements = [
+      { id: 'q1', text: "I've worked out the next steps in my life", category: 'VISION' },
+      { id: 'q2', text: "I plan and organise my time to get my work done", category: 'SYSTEMS' },
+      { id: 'q3', text: "I give a lot of attention to my career planning", category: 'VISION' },
+      { id: 'q4', text: "I complete all my homework on time", category: 'SYSTEMS' },
+      { id: 'q5', text: "No matter who you are, you can change your intelligence a lot", category: 'ATTITUDE' },
+      { id: 'q6', text: "I use all my independent study time effectively", category: 'EFFORT' },
+      { id: 'q7', text: "I test myself on important topics until I remember them", category: 'PRACTICE' },
+      { id: 'q8', text: "I have a positive view of myself", category: 'ATTITUDE' },
+      { id: 'q9', text: "I am a hard working student", category: 'EFFORT' },
+      { id: 'q10', text: "I am confident in my academic ability", category: 'ATTITUDE' },
+      { id: 'q11', text: "I always meet deadlines", category: 'SYSTEMS' },
+      { id: 'q12', text: "I spread out my revision, rather than cramming at the last minute.", category: 'PRACTICE' },
+      { id: 'q13', text: "I don't let a poor test/assessment result get me down for too long", category: 'ATTITUDE' },
+      { id: 'q14', text: "I strive to achieve the goals I set for myself", category: 'VISION' },
+      { id: 'q15', text: "I summarise important information in diagrams, tables or lists", category: 'PRACTICE' },
+      { id: 'q16', text: "I enjoy learning new things", category: 'VISION' },
+      { id: 'q17', text: "I'm not happy unless my work is the best it can be", category: 'EFFORT' },
+      { id: 'q18', text: "I take good notes in class which are useful for revision", category: 'SYSTEMS' },
+      { id: 'q19', text: "When revising I mix different kinds of topics/subjects in one study session", category: 'PRACTICE' },
+      { id: 'q20', text: "I feel I can cope with the pressure at school/college/University", category: 'ATTITUDE' },
+      { id: 'q21', text: "I work as hard as I can in most classes", category: 'EFFORT' },
+      { id: 'q22', text: "My books/files are organised", category: 'SYSTEMS' },
+      { id: 'q23', text: "I study by explaining difficult topics out loud", category: 'PRACTICE' },
+      { id: 'q24', text: "I'm happy to ask questions in front of a group.", category: 'ATTITUDE' },
+      { id: 'q25', text: "When revising, I work under timed conditions answering exam-style questions", category: 'PRACTICE' },
+      { id: 'q26', text: "Your intelligence is something about you that you can change very much", category: 'ATTITUDE' },
+      { id: 'q27', text: "I like hearing feedback about how I can improve", category: 'ATTITUDE' },
+      { id: 'q28', text: "I can control my nerves in tests/practical assessments.", category: 'ATTITUDE' }
+    ];
+    
+    const categories = {
+      VISION: { color: 'bg-vision', textColor: 'text-vision', icon: '👁️', description: 'Your goals and future planning' },
+      EFFORT: { color: 'bg-effort', textColor: 'text-effort', icon: '💡', description: 'Your work ethic and perseverance' },
+      SYSTEMS: { color: 'bg-systems', textColor: 'text-systems', icon: '📦', description: 'Your organization and time management' },
+      PRACTICE: { color: 'bg-practice', textColor: 'text-practice', icon: '📋', description: 'Your study techniques and methods' },
+      ATTITUDE: { color: 'bg-attitude', textColor: 'text-attitude', icon: '😊', description: 'Your mindset and resilience' }
+    };
+    
+    // Check rate limiting
+    function checkRateLimit() {
+      const attempts = JSON.parse(localStorage.getItem(RATE_LIMIT_KEY) || '[]');
+      const today = new Date().toDateString();
+      const todayAttempts = attempts.filter(a => new Date(a.timestamp).toDateString() === today);
+      
+      if (todayAttempts.length >= MAX_ATTEMPTS_PER_DAY) {
+        return false;
+      }
+      
+      return true;
+    }
+    
+    // Record attempt
+    function recordAttempt() {
+      const attempts = JSON.parse(localStorage.getItem(RATE_LIMIT_KEY) || '[]');
+      attempts.push({
+        timestamp: new Date().toISOString(),
+        email: userData.email,
+        school: userData.school
+      });
+      
+      // Keep only last 7 days of attempts
+      const sevenDaysAgo = new Date();
+      sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+      const recentAttempts = attempts.filter(a => new Date(a.timestamp) > sevenDaysAgo);
+      
+      localStorage.setItem(RATE_LIMIT_KEY, JSON.stringify(recentAttempts));
+    }
+    
+    // Validate email domain
+    function validateEmailDomain(email) {
+      const domain = email.split('@')[1];
+      if (!domain) return { valid: false, isSchool: false };
+      
+      const isSchoolEmail = SCHOOL_DOMAIN_PATTERNS.some(pattern => domain.includes(pattern));
+      
+      // Additional validation for suspicious patterns
+      const suspiciousPatterns = ['student', 'pupil', 'learner'];
+      const emailLocal = email.split('@')[0].toLowerCase();
+      const isSuspicious = suspiciousPatterns.some(pattern => emailLocal.includes(pattern));
+      
+      return {
+        valid: true,
+        isSchool: isSchoolEmail,
+        isSuspicious: isSuspicious
+      };
+    }
+    
+    // Initialize
+    document.addEventListener('DOMContentLoaded', function() {
+      const startBtn = document.getElementById('start-questionnaire');
+      const registrationModal = document.getElementById('registration-modal');
+      const questionnaireModal = document.getElementById('questionnaire-modal');
+      const registrationForm = document.getElementById('registration-form');
+      
+      startBtn.addEventListener('click', function() {
+        if (!checkRateLimit()) {
+          alert('You have reached the maximum number of attempts for today. Please try again tomorrow.');
+          return;
+        }
+        
+        registrationModal.classList.remove('hidden');
+      });
+      
+      registrationForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const formData = new FormData(e.target);
+        userData = {
+          email: formData.get('email'),
+          name: formData.get('name'),
+          jobTitle: formData.get('jobTitle'),
+          school: formData.get('school'),
+          interests: formData.getAll('interests')
+        };
+        
+        // Validate email
+        const emailValidation = validateEmailDomain(userData.email);
+        
+        if (emailValidation.isSuspicious) {
+          if (!confirm('This appears to be a student email address. This questionnaire is designed for educators. Are you an educator?')) {
+            return;
+          }
+        }
+        
+        // Record the attempt
+        recordAttempt();
+        
+        // Store user data (in production, this would be sent to a server)
+        localStorage.setItem('vespa_user_data', JSON.stringify(userData));
+        isRegistered = true;
+        
+        // Close registration modal and open questionnaire
+        registrationModal.classList.add('hidden');
+        startQuestionnaire();
+      });
+    });
+    
+    // Start questionnaire
+    function startQuestionnaire() {
+      questionnaireStartTime = new Date();
+      document.getElementById('questionnaire-modal').classList.remove('hidden');
+      showQuestion(0);
+    }
+    
+    // Show question
+    function showQuestion(index) {
+      const container = document.getElementById('question-container');
+      const statement = statements[index];
+      const category = categories[statement.category];
+      
+      container.innerHTML = `
+        <div class="question-card">
+          <div class="mb-4">
+            <span class="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-full">
+              <span class="text-2xl">${category.icon}</span>
+              <span class="font-semibold ${category.textColor}">${statement.category}</span>
+            </span>
+          </div>
+          
+          <h3 class="text-2xl font-bold text-gray-800 mb-8">${statement.text}</h3>
+          
+          <div class="likert-scale flex justify-between items-center gap-4 max-w-lg mx-auto">
+            ${[1, 2, 3, 4, 5].map(value => `
+              <label class="likert-option cursor-pointer flex-1">
+                <input type="radio" name="current-question" value="${value}" class="sr-only peer" 
+                  ${responses[statement.id] === value ? 'checked' : ''}>
+                <div class="w-16 h-16 rounded-full border-2 border-gray-300 flex items-center justify-center peer-checked:bg-gradient-to-r peer-checked:from-theme-secondary peer-checked:to-theme-accent1 peer-checked:text-white peer-checked:border-transparent hover:border-theme-secondary transition-all">
+                  ${value}
+                </div>
+                <p class="text-xs text-gray-500 mt-2">
+                  ${value === 1 ? 'Strongly<br/>Disagree' : 
+                    value === 2 ? 'Disagree' : 
+                    value === 3 ? 'Neutral' : 
+                    value === 4 ? 'Agree' : 
+                    'Strongly<br/>Agree'}
+                </p>
+              </label>
+            `).join('')}
+          </div>
+        </div>
+      `;
+      
+      // Update progress
+      updateProgress(index);
+      
+      // Add event listeners
+      const radios = container.querySelectorAll('input[type="radio"]');
+      radios.forEach(radio => {
+        radio.addEventListener('change', function() {
+          responses[statement.id] = parseInt(this.value);
+          document.getElementById('next-btn').disabled = false;
+        });
+      });
+      
+      // Update navigation buttons
+      updateNavigationButtons(index);
+    }
+    
+    // Update progress
+    function updateProgress(index) {
+      const percentage = Math.round(((index + 1) / statements.length) * 100);
+      document.getElementById('current-question').textContent = index + 1;
+      document.getElementById('progress-percentage').textContent = percentage;
+      document.getElementById('progress-bar').style.width = percentage + '%';
+    }
+    
+    // Update navigation buttons
+    function updateNavigationButtons(index) {
+      const prevBtn = document.getElementById('prev-btn');
+      const nextBtn = document.getElementById('next-btn');
+      
+      prevBtn.disabled = index === 0;
+      nextBtn.disabled = !responses[statements[index].id];
+      
+      if (index === statements.length - 1) {
+        nextBtn.textContent = 'Complete';
+      } else {
+        nextBtn.textContent = 'Next';
+      }
+      
+      // Remove old event listeners
+      const newPrevBtn = prevBtn.cloneNode(true);
+      const newNextBtn = nextBtn.cloneNode(true);
+      prevBtn.parentNode.replaceChild(newPrevBtn, prevBtn);
+      nextBtn.parentNode.replaceChild(newNextBtn, nextBtn);
+      
+      // Add new event listeners
+      newPrevBtn.addEventListener('click', () => {
+        if (index > 0) {
+          currentQuestionIndex--;
+          showQuestion(currentQuestionIndex);
+        }
+      });
+      
+      newNextBtn.addEventListener('click', () => {
+        if (index < statements.length - 1) {
+          currentQuestionIndex++;
+          showQuestion(currentQuestionIndex);
+        } else {
+          completeQuestionnaire();
+        }
+      });
+    }
+    
+    // Scoring functions
+    function calculateScale(value, thresholds) {
+      for (let i = 0; i < thresholds.length; i++) {
+        if (value < thresholds[i]) return i + 1;
+      }
+      return 10;
+    }
+    
+    function getVisionScale(vision) {
+      return calculateScale(vision, [1.9, 2.7, 3.3, 3.6, 3.8, 4.1, 4.4, 4.7, 5.0]);
+    }
+    
+    function getEffortScale(effort) {
+      return calculateScale(effort, [2.3, 2.64, 2.95, 3.33, 3.675, 4.02, 4.365, 4.71, 5.0]);
+    }
+    
+    function getSystemsScale(systems) {
+      return calculateScale(systems, [2.16, 2.5, 2.85, 3.19, 3.53, 3.875, 4.22, 4.56, 5.0]);
+    }
+    
+    function getPracticeScale(practice) {
+      return calculateScale(practice, [1.86, 2.19, 2.53, 2.87, 3.2, 3.5, 3.87, 4.2, 5.0]);
+    }
+    
+    function getAttitudeScale(attitude) {
+      return calculateScale(attitude, [2.24, 2.53, 2.82, 3.11, 3.4, 3.69, 3.98, 4.27, 5.0]);
+    }
+    
+    // Complete questionnaire
+    function completeQuestionnaire() {
+      // Calculate scores
+      const categoryScores = {
+        VISION: [],
+        EFFORT: [],
+        SYSTEMS: [],
+        PRACTICE: [],
+        ATTITUDE: []
+      };
+      
+      for (const [question, value] of Object.entries(responses)) {
+        const category = statementCategories[question];
+        categoryScores[category].push(value);
+      }
+      
+      const averages = {};
+      for (const [category, scores] of Object.entries(categoryScores)) {
+        averages[category] = scores.reduce((a, b) => a + b, 0) / scores.length;
+      }
+      
+      const scales = {
+        VISION: getVisionScale(averages.VISION),
+        EFFORT: getEffortScale(averages.EFFORT),
+        SYSTEMS: getSystemsScale(averages.SYSTEMS),
+        PRACTICE: getPracticeScale(averages.PRACTICE),
+        ATTITUDE: getAttitudeScale(averages.ATTITUDE)
+      };
+      
+      // Close questionnaire modal
+      document.getElementById('questionnaire-modal').classList.add('hidden');
+      
+      // Store scales and averages globally for email function
+      currentScales = scales;
+      currentAverages = averages;
+      
+      // Generate and show results
+      generateReport(scales, averages);
+    }
+    
+    // Import report text data for generating comprehensive report
+    async function loadReportData() {
+      const response = await fetch('/reporttext_restructured_complete.json');
+      return await response.json();
+    }
+    
+    // Generate report
+    async function generateReport(scales, averages) {
+      const reportContainer = document.getElementById('pdf-report-container');
+      const resultsModal = document.getElementById('results-modal');
+      const resultsContent = document.getElementById('results-content');
+      
+      // Load report data
+      const reportData = await loadReportData();
+      
+      // Calculate overall score (average of all categories)
+      const overallScore = Math.round(Object.values(scales).reduce((a, b) => a + b, 0) / Object.keys(scales).length);
+      
+      // Prepare student data for the report
+      const studentData = {
+        name: userData.name,
+        email: userData.email,
+        school: userData.school,
+        date: new Date().toISOString(),
+        scores: {
+          vision: scales.VISION,
+          effort: scales.EFFORT,
+          systems: scales.SYSTEMS,
+          practice: scales.PRACTICE,
+          attitude: scales.ATTITUDE,
+          overall: overallScore
+        },
+        level: 'Level 3' // Default to Level 3 for now - you can add logic to determine this
+      };
+      
+      // Function to determine performance rating
+      function getPerformanceRating(score) {
+        if (score < 4) return 'Very Low';
+        if (score < 6) return 'Low';
+        if (score < 8) return 'Medium';
+        return 'High';
+      }
+      
+      // Function to get report content for a category
+      function getReportContent(category, score, level) {
+        const categoryKey = category.charAt(0).toUpperCase() + category.slice(1);
+        const rating = getPerformanceRating(score);
+        
+        const content = reportData.report_data[level]?.[categoryKey]?.[rating]?.english || {
+          description: '',
+          questions: '',
+          activities: '',
+          coaching_questions: ''
+        };
+        
+        return content;
+      }
+      
+      // Generate comprehensive PDF report content
+      const reportHTML = `
+        <div class="vespa-report">
+          <div class="report-header">
+            <div class="header-left">
+              <img src="/vespa-logo.png" alt="VESPA" class="logo" style="height: 50px;" />
+            </div>
+            <div class="header-center">
+              <h1 class="header-title">VESPA Assessment Report</h1>
+            </div>
+            <div class="header-right">
+              <div class="header-info">
+                <div><strong>Name:</strong> ${studentData.name}</div>
+                <div><strong>School:</strong> ${studentData.school}</div>
+                <div><strong>Date:</strong> ${new Date(studentData.date).toLocaleDateString('en-GB', {
+                  day: 'numeric',
+                  month: 'long',
+                  year: 'numeric'
+                })}</div>
+                <div><strong>Level:</strong> ${studentData.level}</div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="intro-section">
+            <div class="intro-text">
+              <h3>Your VESPA Profile</h3>
+              <p>This report provides insights into your learning mindset across five key areas: Vision, Effort, Systems, Practice, and Attitude. Use this feedback to identify your strengths and areas for development.</p>
+            </div>
+            <div class="score-summary">
+              <h4>Score Summary</h4>
+              <div class="score-grid">
+                <div class="score-item">
+                  <span class="score-label">V</span>
+                  <span class="score-value">${studentData.scores.vision}/10</span>
+                </div>
+                <div class="score-item">
+                  <span class="score-label">E</span>
+                  <span class="score-value">${studentData.scores.effort}/10</span>
+                </div>
+                <div class="score-item">
+                  <span class="score-label">S</span>
+                  <span class="score-value">${studentData.scores.systems}/10</span>
+                </div>
+                <div class="score-item">
+                  <span class="score-label">P</span>
+                  <span class="score-value">${studentData.scores.practice}/10</span>
+                </div>
+                <div class="score-item">
+                  <span class="score-label">A</span>
+                  <span class="score-value">${studentData.scores.attitude}/10</span>
+                </div>
+                <div class="score-item overall">
+                  <span class="score-label">Overall</span>
+                  <span class="score-value">${studentData.scores.overall}/10</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="vespa-grid">
+            ${['vision', 'effort', 'systems', 'practice', 'attitude', 'overall'].map(category => {
+              const score = studentData.scores[category];
+              const content = getReportContent(category, score, studentData.level);
+              const categoryColors = {
+                vision: '#ffab40',
+                effort: '#a9c8f5',
+                systems: '#90d66f',
+                practice: '#9c57c0',
+                attitude: '#f567ea',
+                overall: '#23356f'
+              };
+              
+              return `
+                <div class="vespa-block" style="border-left-color: ${categoryColors[category]}">
+                  <div class="block-score">
+                    <div class="score-label">${category.toUpperCase()}</div>
+                    <div class="score-val">${score}</div>
+                    <div class="score-max">/10</div>
+                  </div>
+                  <div class="block-body">
+                    <p>${content.description}</p>
+                    ${content.questions ? `
+                      <div class="questions">
+                        <strong>Questions to consider:</strong>
+                        <div>${content.questions}</div>
+                      </div>
+                    ` : ''}
+                  </div>
+                  <div class="block-questions">
+                    ${content.coaching_questions ? `
+                      <div class="coaching">
+                        <strong>Coaching Questions:</strong>
+                        <div>${content.coaching_questions}</div>
+                      </div>
+                    ` : ''}
+                    ${content.activities ? `
+                      <div class="activities">
+                        <strong>Suggested Activities:</strong>
+                        <div>${content.activities}</div>
+                      </div>
+                    ` : ''}
+                  </div>
+                </div>
+              `;
+            }).join('')}
+          </div>
+          
+          <div class="bottom-section">
+            <h3>Your Reflection & Action Plan</h3>
+            
+            <div class="response-section">
+              <h4>My Response to this Report:</h4>
+              <div class="write-box">
+                <div class="write-lines"></div>
+              </div>
+            </div>
+            
+            <div class="goals-section">
+              <h4>My Goals:</h4>
+              <div class="write-box">
+                <div class="write-lines"></div>
+              </div>
+              <div class="date-field">
+                <label>Target Date: ____________________</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+      
+      reportContainer.innerHTML = reportHTML;
+      
+      // Show results modal with download option
+      resultsContent.innerHTML = `
+        <div class="text-center mb-8">
+          <h2 class="text-4xl font-bold text-gray-800 mb-4">Your VESPA Learning Profile</h2>
+          <p class="text-xl text-gray-600">Here's how you scored across the five dimensions</p>
+        </div>
+        
+        <div class="grid md:grid-cols-2 gap-8 mb-8">
+          <div>
+            <canvas id="vespa-chart" width="400" height="400"></canvas>
+          </div>
+          
+          <div class="space-y-4">
+            ${Object.entries(scales).map(([category, score]) => `
+              <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                <div class="flex items-center gap-3">
+                  <span class="text-2xl">${categories[category].icon}</span>
+                  <div>
+                    <h3 class="font-bold text-lg">${category}</h3>
+                    <p class="text-sm text-gray-600">${categories[category].description}</p>
+                  </div>
+                </div>
+                <div class="text-right">
+                  <div class="text-3xl font-bold ${getScoreColor(score)}">${score}/10</div>
+                  <div class="text-xs text-gray-500">Average: ${averages[category].toFixed(2)}</div>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+        
+        <div class="bg-gradient-to-r from-theme-secondary/10 to-theme-accent1/10 p-6 rounded-xl mb-8">
+          <h3 class="text-2xl font-bold mb-4">Your Personalised Report</h3>
+          <p class="text-gray-700 mb-4">
+            Download your detailed VESPA report with coaching questions and recommendations.
+          </p>
+          <div class="flex gap-4">
+            <button onclick="downloadPDF()" class="px-6 py-3 bg-gradient-to-r from-theme-secondary to-theme-accent1 text-theme-dark font-bold rounded-lg hover:scale-105 transition-transform">
+              Download PDF Report
+            </button>
+            <button onclick="emailAndGetAccess()" class="px-6 py-3 bg-white text-gray-800 font-semibold rounded-lg border-2 border-gray-300 hover:bg-gray-50 transition-colors">
+              Email Report & Get Full Access
+            </button>
+          </div>
+        </div>
+      `;
+      
+      resultsModal.classList.remove('hidden');
+      
+      // Initialize chart
+      setTimeout(() => {
+        const ctx = document.getElementById('vespa-chart').getContext('2d');
+        new Chart(ctx, {
+          type: 'radar',
+          data: {
+            labels: Object.keys(scales),
+            datasets: [{
+              label: 'Your VESPA Profile',
+              data: Object.values(scales),
+              backgroundColor: 'rgba(0, 229, 219, 0.2)',
+              borderColor: 'rgba(0, 229, 219, 1)',
+              borderWidth: 2,
+              pointBackgroundColor: 'rgba(0, 229, 219, 1)',
+              pointBorderColor: '#fff',
+              pointHoverBackgroundColor: '#fff',
+              pointHoverBorderColor: 'rgba(0, 229, 219, 1)'
+            }]
+          },
+          options: {
+            scales: {
+              r: {
+                beginAtZero: true,
+                max: 10,
+                ticks: {
+                  stepSize: 2
+                }
+              }
+            },
+            plugins: {
+              legend: {
+                display: false
+              }
+            }
+          }
+        });
+      }, 100);
+    }
+    
+    function getScoreColor(score) {
+      if (score >= 8) return 'text-green-600';
+      if (score >= 6) return 'text-yellow-600';
+      if (score >= 4) return 'text-orange-600';
+      return 'text-red-600';
+    }
+    
+    // Store global variables for report data
+    let currentScales = null;
+    let currentAverages = null;
+    
+    // Download PDF function
+    window.downloadPDF = function() {
+      // Get the report content
+      const reportContent = document.getElementById('pdf-report-container').innerHTML;
+      
+      // Create a new window for printing
+      const printWindow = window.open('', '_blank', 'width=800,height=600');
+      
+      // Get all the styles from the current page
+      const styles = Array.from(document.querySelectorAll('style')).map(style => style.textContent).join('\n');
+      
+      printWindow.document.write(`
+        <!DOCTYPE html>
+        <html>
+          <head>
+            <title>VESPA Report - ${userData.name}</title>
+            <style>
+              ${styles}
+              
+              /* Additional print-specific styles */
+              @media print {
+                body { 
+                  margin: 0;
+                  -webkit-print-color-adjust: exact;
+                  print-color-adjust: exact;
+                }
+                .vespa-report { 
+                  margin: 0;
+                  box-shadow: none;
+                  page-break-after: always;
+                }
+                .vespa-block {
+                  page-break-inside: avoid;
+                }
+                .bottom-section {
+                  page-break-inside: avoid;
+                }
+              }
+              
+              /* Ensure proper rendering in the print preview */
+              body {
+                margin: 0;
+                padding: 0;
+                background: white;
+              }
+            </style>
+          </head>
+          <body>
+            ${reportContent}
+            <script>
+              // Auto-trigger print dialog
+              window.onload = function() {
+                window.print();
+                // Close window after printing (user can cancel if needed)
+                window.onafterprint = function() {
+                  window.close();
+                };
+              };
+            <\/script>
+          </body>
+        </html>
+      `);
+      
+      printWindow.document.close();
+    };
+    
+    // Email report and get access function
+    window.emailAndGetAccess = async function() {
+      try {
+        // Show loading state
+        const button = event.target;
+        const originalText = button.textContent;
+        button.disabled = true;
+        button.textContent = 'Sending report...';
+        
+        // Get the report HTML
+        const reportHTML = document.getElementById('pdf-report-container').innerHTML;
+        
+        // Send the report via API
+        const response = await fetch('/api/send-report', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            userData: userData,
+            reportHTML: reportHTML,
+            scores: currentScales,
+            averages: currentAverages
+          })
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+          // Show success message
+          button.textContent = 'Report sent! ✓';
+          button.classList.add('bg-green-500', 'text-white');
+          
+          // Show thank you message
+          setTimeout(() => {
+            const resultsContent = document.getElementById('results-content');
+            resultsContent.innerHTML = `
+              <div class="text-center py-12">
+                <div class="mb-6">
+                  <svg class="w-24 h-24 mx-auto text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                  </svg>
+                </div>
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Report Sent Successfully!</h2>
+                <p class="text-lg text-gray-600 mb-6">
+                  We've emailed your VESPA report to <strong>${userData.email}</strong>
+                </p>
+                <p class="text-gray-600 mb-8">
+                  A member of our team will be in touch shortly to discuss how the VESPA programme can help your school.
+                </p>
+                <div class="space-y-4">
+                  <a href="/" class="inline-block px-6 py-3 bg-gradient-to-r from-theme-secondary to-theme-accent1 text-theme-dark font-bold rounded-lg hover:scale-105 transition-transform">
+                    Return to Homepage
+                  </a>
+                  <p class="text-sm text-gray-500">
+                    Didn't receive the email? Check your spam folder or <a href="/contact" class="text-theme-secondary hover:underline">contact us</a>
+                  </p>
+                </div>
+              </div>
+            `;
+          }, 1500);
+        } else {
+          // Show error
+          button.textContent = originalText;
+          button.disabled = false;
+          alert('Sorry, there was an error sending your report. Please try downloading the PDF instead.');
+        }
+      } catch (error) {
+        console.error('Error sending report:', error);
+        alert('Sorry, there was an error sending your report. Please try downloading the PDF instead.');
+      }
+    };
+  </script>
+  
+  <!-- Include Chart.js for the radar chart -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</Layout>
