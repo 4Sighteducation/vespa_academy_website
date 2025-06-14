@@ -14,10 +14,24 @@ import Layout from '../layouts/Layout.astro';
 
     <!-- Video Section -->
     <section class="py-20 bg-theme-primary">
-      <div class="container mx-auto px-6 max-w-4xl">
+      <div class="container mx-auto px-6 max-w-6xl">
         <h2 class="text-4xl font-bold text-center text-white mb-12">BESA Awards - Evidence & Impact Submission</h2>
-        <div class="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow-2xl">
-          <iframe src="https://muse.ai/embed/Y9ydBfY?links=0&style=minimal" frameborder="0" allowfullscreen class="w-full h-full"></iframe>
+        <div class="relative w-full" style="padding-bottom: 56.25%;">
+          <iframe 
+            src="https://muse.ai/embed/Y9ydBfY?links=0&style=minimal" 
+            frameborder="0" 
+            allowfullscreen 
+            class="absolute top-0 left-0 w-full h-full rounded-lg shadow-2xl"
+            style="background-color: #000;">
+          </iframe>
+        </div>
+        <div class="text-center mt-6">
+          <button onclick="openVideoFullscreen()" class="inline-flex items-center px-6 py-3 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-xl transition-all duration-300">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path>
+            </svg>
+            View Fullscreen
+          </button>
         </div>
       </div>
     </section>
@@ -71,4 +85,17 @@ import Layout from '../layouts/Layout.astro';
     </section>
 
   </main>
-</Layout> 
+</Layout>
+
+<script is:inline>
+function openVideoFullscreen() {
+  const iframe = document.querySelector('iframe[src*="muse.ai"]');
+  if (iframe.requestFullscreen) {
+    iframe.requestFullscreen();
+  } else if (iframe.webkitRequestFullscreen) {
+    iframe.webkitRequestFullscreen();
+  } else if (iframe.msRequestFullscreen) {
+    iframe.msRequestFullscreen();
+  }
+}
+</script> 
