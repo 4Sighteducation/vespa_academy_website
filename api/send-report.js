@@ -285,9 +285,16 @@ export default async function handler(req, res) {
 
   } catch (error) {
     console.error('Error sending report:', error);
+    
+    // Log detailed SendGrid error if available
+    if (error.response && error.response.body && error.response.body.errors) {
+      console.error('SendGrid errors:', JSON.stringify(error.response.body.errors, null, 2));
+    }
+    
     res.status(500).json({ 
       error: 'Failed to send report', 
-      details: error.message 
+      details: error.message,
+      sendgrid_errors: error.response?.body?.errors || null
     });
   }
 } 
