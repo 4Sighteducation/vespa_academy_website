@@ -1,4 +1,6 @@
 import sgMail from '@sendgrid/mail';
+import fs from 'fs';
+import path from 'path';
 
 export default async function handler(req, res) {
   // Enable CORS
@@ -24,37 +26,49 @@ export default async function handler(req, res) {
     console.log('SENDGRID_API_KEY exists:', !!process.env.SENDGRID_API_KEY);
     console.log('SENDGRID_API_KEY length:', process.env.SENDGRID_API_KEY?.length);
     console.log('SENDGRID_FROM_EMAIL:', process.env.SENDGRID_FROM_EMAIL);
-    console.log('SENDGRID_REPORT_TEMPLATE_ID:', process.env.SENDGRID_REPORT_TEMPLATE_ID);
 
-    // Simple test email
+    // Read the HTML template
+    const templatePath = path.join(process.cwd(), 'REPORT_TEMPLATE.html');
+    let htmlContent = fs.readFileSync(templatePath, 'utf8');
+
+    // Replace placeholders with test data
+    const testData = {
+      user_name: 'Test User',
+      user_email: 'test@example.com',
+      user_school: 'Test School',
+      vision_score: 7.5,
+      vision_avg: 6.8,
+      effort_score: 8.2,
+      effort_avg: 7.1,
+      systems_score: 6.9,
+      systems_avg: 6.5,
+      practice_score: 7.8,
+      practice_avg: 7.2,
+      attitude_score: 8.5,
+      attitude_avg: 7.9,
+      overall_score: 7.8,
+      download_link: 'https://www.vespa.academy'
+    };
+
+    // Replace all placeholders in the HTML
+    Object.keys(testData).forEach(key => {
+      const regex = new RegExp(`{{${key}}}`, 'g');
+      htmlContent = htmlContent.replace(regex, testData[key]);
+    });
+
+    // Simple test email using HTML content
     const msg = {
-      to: 'test@example.com',
+      to: 'tony@vespa.academy', // Using a real email for testing
       from: process.env.SENDGRID_FROM_EMAIL,
-      templateId: process.env.SENDGRID_REPORT_TEMPLATE_ID,
-      dynamicTemplateData: {
-        user_name: 'Test User',
-        user_email: 'test@example.com',
-        user_school: 'Test School',
-        vision_score: 7.5,
-        vision_avg: 6.8,
-        effort_score: 8.2,
-        effort_avg: 7.1,
-        systems_score: 6.9,
-        systems_avg: 6.5,
-        practice_score: 7.8,
-        practice_avg: 7.2,
-        attitude_score: 8.5,
-        attitude_avg: 7.9,
-        overall_score: 7.8,
-        download_link: 'https://www.vespa.academy'
-      }
+      subject: 'Your VESPA Assessment Report - Test Email',
+      html: htmlContent
     };
 
     console.log('Attempting to send email with config:', {
       to: msg.to,
       from: msg.from,
-      templateId: msg.templateId,
-      hasTemplateData: !!msg.dynamicTemplateData
+      subject: msg.subject,
+      hasHtmlContent: !!msg.html
     });
 
     await sgMail.send(msg);
@@ -64,7 +78,8 @@ export default async function handler(req, res) {
       message: 'Test email sent successfully',
       config: {
         from: msg.from,
-        templateId: msg.templateId
+        to: msg.to,
+        subject: msg.subject
       }
     });
 
