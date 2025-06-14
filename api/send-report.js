@@ -1,6 +1,8 @@
 import sgMail from '@sendgrid/mail';
 import chromium from '@sparticuz/chromium';
 import puppeteer from 'puppeteer-core';
+import fs from 'fs';
+import path from 'path';
 
 // Initialize SendGrid
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
@@ -225,28 +227,41 @@ export default async function handler(req, res) {
       }
     }
 
+    // Read the HTML template
+    const templatePath = path.join(process.cwd(), 'REPORT_TEMPLATE.html');
+    let htmlContent = fs.readFileSync(templatePath, 'utf8');
+
+    // Prepare template data
+    const templateData = {
+      user_name,
+      user_email,
+      user_school,
+      vision_score,
+      vision_avg,
+      effort_score,
+      effort_avg,
+      systems_score,
+      systems_avg,
+      practice_score,
+      practice_avg,
+      attitude_score,
+      attitude_avg,
+      overall_score,
+      download_link: `https://www.vespa.academy/download-report?email=${encodeURIComponent(user_email)}`
+    };
+
+    // Replace all placeholders in the HTML
+    Object.keys(templateData).forEach(key => {
+      const regex = new RegExp(`{{${key}}}`, 'g');
+      htmlContent = htmlContent.replace(regex, templateData[key]);
+    });
+
     // Prepare email message
     const msg = {
       to: user_email,
       from: process.env.SENDGRID_FROM_EMAIL,
-      templateId: process.env.SENDGRID_REPORT_TEMPLATE_ID,
-      dynamicTemplateData: {
-        user_name,
-        user_email,
-        user_school,
-        vision_score,
-        vision_avg,
-        effort_score,
-        effort_avg,
-        systems_score,
-        systems_avg,
-        practice_score,
-        practice_avg,
-        attitude_score,
-        attitude_avg,
-        overall_score,
-        download_link: `https://www.vespa.academy/download-report?email=${encodeURIComponent(user_email)}` // Fallback link
-      }
+      subject: 'Your VESPA Assessment Report',
+      html: htmlContent
     };
 
     // Add PDF attachment if available
@@ -264,14 +279,29 @@ export default async function handler(req, res) {
 
     // Also send lead notification
     if (process.env.SENDGRID_ADMIN_EMAIL) {
+      // Create simple lead notification HTML
+      const leadHtml = `
+        <h2>New VESPA Assessment Completed</h2>
+        <p><strong>Name:</strong> ${user_name}</p>
+        <p><strong>Email:</strong> ${user_email}</p>
+        <p><strong>School:</strong> ${user_school || 'Not provided'}</p>
+        <p><strong>Timestamp:</strong> ${new Date().toLocaleString('en-GB', { timeZone: 'Europe/London' })}</p>
+        <h3>Scores:</h3>
+        <ul>
+          <li>Vision: ${vision_score}/10 (Avg: ${vision_avg})</li>
+          <li>Effort: ${effort_score}/10 (Avg: ${effort_avg})</li>
+          <li>Systems: ${systems_score}/10 (Avg: ${systems_avg})</li>
+          <li>Practice: ${practice_score}/10 (Avg: ${practice_avg})</li>
+          <li>Attitude: ${attitude_score}/10 (Avg: ${attitude_avg})</li>
+          <li><strong>Overall: ${overall_score}/10</strong></li>
+        </ul>
+      `;
+
       const leadMsg = {
         to: process.env.SENDGRID_ADMIN_EMAIL,
         from: process.env.SENDGRID_FROM_EMAIL,
-        templateId: process.env.SENDGRID_LEAD_EMAIL_ID,
-        dynamicTemplateData: {
-          ...req.body,
-          timestamp: new Date().toLocaleString('en-GB', { timeZone: 'Europe/London' })
-        }
+        subject: `New VESPA Lead: ${user_name} - ${user_school || 'Unknown School'}`,
+        html: leadHtml
       };
       
       await sgMail.send(leadMsg);
