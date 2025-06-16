@@ -9,6 +9,106 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 // Professional HTML template for PDF generation - EXACT MATCH to reference image structure
 const generateProfessionalReportHTML = (data) => {
+  
+  // VESPA color mapping
+  const vespaColors = {
+    'VISION': '#ffab40',    // Orange
+    'EFFORT': '#a9c8f5',   // Light Blue  
+    'SYSTEMS': '#90d66f',  // Green
+    'PRACTICE': '#9c57c0', // Purple
+    'ATTITUDE': '#f567ea'  // Pink
+  };
+
+  // Function to get performance level based on score ranges
+  const getPerformanceLevel = (score) => {
+    if (score < 4) return 'Very Low';
+    if (score < 6) return 'Low';
+    if (score < 9) return 'Medium';
+    return 'High';
+  };
+
+  // Function to get coaching questions from JSON structure
+  const getCoachingQuestions = (category, score) => {
+    const level = getPerformanceLevel(score);
+    
+    // Sample coaching questions based on the JSON structure - you would load from the actual JSON file
+    const coachingData = {
+      'VISION': {
+        'High': 'What skills are you learning that will benefit your future self?<br />Imagine you are 25 and when you wake up in the morning… what does your perfect working life look like?<br />What do you see as the benefits of getting a good education?',
+        'Medium': 'What do you want to do next? What if you don't get the grades? What other options are there?<br />Do you compare yourself to other people? Who would you like to be, and why?<br />Where do you want to be next year, in 2 years or 5 years? What will stop you getting there?',
+        'Low': 'What does success look like for you? What might you want to achieve in the next year?<br />What would be important to you in a job? Describe a good day at work.<br />What things do you not want to be doing in 2 years' time?',
+        'Very Low': 'If you could only do one subject in lots of detail, which would it be and why?<br />Describe a lesson you've enjoyed recently.<br />What obstacles do you think you may have to overcome while studying at this level?'
+      },
+      'EFFORT': {
+        'High': 'Describe a typical hour of your study.<br />What is your best time of day for working?<br />How much work would you have to do in order to feel satisfied? How do you know you have done enough?',
+        'Medium': 'In an average week how many hours do you spend on hard/challenging/uncomfortable study outside of class?<br />What are you good at, and what did you do to get so good at it?<br />Where do you normally spend your study periods?',
+        'Low': 'Think of a student who works harder than you. What do they do?<br />If you get stuck on a piece of work, what do you do to get past the blockage?<br />What should you be doing, that you know you're not?',
+        'Very Low': 'How many hours have you studied for this week outside the classroom? How many hours do you think you should be studying?<br />Are you working now as hard as you did last year or earlier in your school career?<br />For your last homework, was your objective… to avoid doing it for as long as possible… to complete it as quickly as possible… or to get the best possible grade?'
+      },
+      'SYSTEMS': {
+        'High': 'Are you spending more time on one subject than the others? Why?<br />How could you create an extra hour every day to use in a productive way?<br />What organisational advice would you give to a new student?',
+        'Medium': 'What is next week looking like for you?<br />How do you tackle writing an extended response to a difficult question if you're given ten days to do it?<br />How do you follow-up classwork done during the day?',
+        'Low': 'Are you comfortable meeting all deadlines? Describe a time you missed a deadline.<br />Do you still work in the same ways as you used to? What is good about these? What isn't working and why?<br />Suggest an object/thing – maybe something you could buy or borrow - that would make you more organised.',
+        'Very Low': 'Would you rather spend 1 hour working in class or 1 hr working at home? Why?<br />How do you know what work is currently outstanding?<br />If you could change one aspect about the way you work – what would it be and how would you change it?'
+      },
+      'PRACTICE': {
+        'High': 'What do you \'do\' with the information we give you? How do you use it/transform it?<br />When was the last time you tested yourself? When did you last ask someone else to test you?<br />Is getting something wrong a disaster, is it a spur to (eventually) find the right answer, or something else?',
+        'Medium': 'Pick one of your subjects - which aspects of this subject do you least need to revise? Why?<br />How comfortable is the process of revision for you? How could you make it less comfortable?<br />Do you tend to focus/practice the content that you enjoy?',
+        'Low': 'Choose a subject. If you had one hour, and no homework, what would you do to help your learning in it?<br />Do you do past paper questions? Describe the last time you tried something under timed conditions.<br />What's the hardest exam question you expect to face? What are you doing about it?',
+        'Very Low': 'Is revision boring for you? Why? Explain your answer.<br />If you could pick one revision activity to use to prepare for an exam what would it be?<br />Describe a revision session you've recently done.'
+      },
+      'ATTITUDE': {
+        'High': 'How do you feel and respond when you get marked work back?<br />If you get a low grade, what do you do to make sure it doesn't happen again?<br />Describe a moment when you felt proud.',
+        'Medium': 'When something goes wrong in your studies, what do you do?<br />Describe something you have persevered with in the past. How did you conquer the challenge?<br />Describe a time you've taken the initiative.',
+        'Low': 'What's the biggest mistake you have made so far? What have you learnt/how did you deal with it?<br />How do other people respond to disappointing grades? Can you name someone who responds differently to you? How?<br />What do you feel is the difference between you and a top 'A grade' student? List five if you can',
+        'Very Low': 'What have you done since the start of the year that you are proud of?<br />Are you willing to contribute in class? Name a student who contributes more than you. What is their learning like?<br />Advise your friend if they have a grade they're unhappy with.'
+      }
+    };
+    
+    return coachingData[category] && coachingData[category][level] ? coachingData[category][level] : 'No coaching questions available.';
+  };
+
+  // Function to get description from JSON structure  
+  const getDescription = (category, score) => {
+    const level = getPerformanceLevel(score);
+    
+    // Sample descriptions based on JSON structure
+    const descriptions = {
+      'VISION': {
+        'High': 'You are a person with a very clear idea of what you would like to achieve in the future. Once you set a goal you strive hard to reach it, making lists of actions you must take.',
+        'Medium': 'You are a person with a reasonably clear idea of what you want to do in the future, but you might not be 100% sure whether university, employment or work-based training is the right choice for you.',
+        'Low': 'You are a person with some idea of what you would like to achieve in the future, but you might not give much attention to your career planning, preferring to defer the decision.',
+        'Very Low': 'At the moment you may be the type of person who finds thinking about the future challenging or uncomfortable. It might feel much easier to just ignore it.'
+      },
+      'EFFORT': {
+        'High': 'You are a very hard-working student. You are likely to be very focused in lessons and give your best to every task.',
+        'Medium': 'You are a reasonably hard-working student, but you know that you could be working harder. You generally use your study periods effectively.',
+        'Low': 'Your score suggests that you are working within your comfort zone. You might have made small improvements to last year\'s levels of effort but deep down you know you could be working much harder.',
+        'Very Low': 'It\'s very likely you are currently not achieving what you could be and deep down you know that you are not working hard enough to achieve your goals.'
+      },
+      'SYSTEMS': {
+        'High': 'You are very good at organising your time and meeting deadlines. Your score suggests you are good at organising information in files or folders.',
+        'Medium': 'You are likely to use most of your study periods effectively, organising your time well. You meet many of your deadlines, only missing when work piles up.',
+        'Low': 'This systems score suggests you are fairly good at organising your time, and sometimes meet deadlines. However, it also suggests you don\'t always complete your homework on time.',
+        'Very Low': 'Your systems score suggests that at the moment you prefer not to organise your time, and as a result you often miss deadlines.'
+      },
+      'PRACTICE': {
+        'High': 'Your responses indicate you are able to revise and study in a targeted, efficient way. You\'ve summarised your courses efficiently.',
+        'Medium': 'You use a reasonable range of revision strategies such as completing past paper questions under timed conditions. You might have handed in extra work for marking.',
+        'Low': 'You are able to revise using familiar techniques, perhaps ones you\'ve used a lot before. Often your revision is passive and you may feel bored.',
+        'Very Low': 'You may currently find it difficult to revise and you only use a small range of approaches. Perhaps when you do revise you only study the topics you are confident with.'
+      },
+      'ATTITUDE': {
+        'High': 'You are likely to feel in control and calm before taking any assessments or exams. Most of the time you are confident in your own ability.',
+        'Medium': 'You often feel confident and in control before tests and exams. You also feel confident in your own abilities, though there are infrequent occasions where you might question yourself.',
+        'Low': 'You may feel nervous before assessments or exams. Normally you\'ll feel quite confident in your abilities although you could be set back by a disappointing result.',
+        'Very Low': 'Currently you may tend to feel quite anxious on the build-up to assessments or exams. You might well feel angry at your situation and with yourself.'
+      }
+    };
+    
+    return descriptions[category] && descriptions[category][level] ? descriptions[category][level] : 'No description available.';
+  };
+
   return `
     <!DOCTYPE html>
     <html>
@@ -16,7 +116,6 @@ const generateProfessionalReportHTML = (data) => {
       <meta charset="UTF-8">
       <title>VESPA Report - ${data.user_name}</title>
       <style>
-        /* Import exact styles from examplereport.css for professional formatting */
         body {
           margin: 0;
           padding: 0;
@@ -55,61 +154,27 @@ const generateProfessionalReportHTML = (data) => {
           align-self: center;
         }
         
+        .report-header .header-info {
+          text-align: left;
+          font-size: 10pt;
+          line-height: 1.3;
+        }
+        
         .report-header .header-info div {
-          font-weight: bold !important;
-          font-size: 10pt !important;
-          line-height: 1.3 !important;
-        }
-
-        .intro-section {
-          display: flex;
-          gap: 8mm;
-          margin-bottom: 5mm;
-          border-bottom: 1px solid #ccc;
-          padding-bottom: 5mm;
-        }
-        
-        .intro-questions {
-          flex: 2;
-          font-size: 9pt;
-        }
-        
-        .intro-questions h4 {
-          margin: 0 0 2mm 0;
-          font-size: 11pt;
-        }
-        
-        .intro-questions ul {
-          padding-left: 5mm;
-          margin: 0;
-        }
-        
-        .chart-placeholder {
-          flex: 1;
-          min-height: 50mm;
-          background: #f9f9f9;
-          border: 1px solid #eee;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: #999;
-          text-align: center;
-          font-size: 12pt;
           font-weight: bold;
+          margin-bottom: 2mm;
         }
 
-        /* EXACT STRUCTURE FROM REFERENCE IMAGE */
         .vespa-grid-title {
           display: grid;
-          grid-template-columns: 24mm 1fr 1fr !important;
+          grid-template-columns: 40mm 1fr 1fr !important;
           grid-gap: 8mm;
           margin-bottom: 4mm !important;
           font-weight: bold;
           color: #555;
           font-size: 10pt !important;
-          padding-left: 0 !important;
+          padding: 8px 0;
           border-bottom: 2px solid #333 !important;
-          padding-bottom: 2mm;
         }
         .vespa-grid-title div {
           text-align: center;
@@ -129,8 +194,8 @@ const generateProfessionalReportHTML = (data) => {
           box-shadow: 0 1px 3px rgba(0,0,0,0.07) !important;
           padding: 3mm !important;
           display: grid !important;
-          grid-template-columns: 24mm 1fr 1fr !important;
-          grid-gap: 5mm !important;
+          grid-template-columns: 40mm 1fr 1.2fr !important;
+          grid-gap: 6mm !important;
           align-items: stretch !important;
           min-height: 40mm !important;
         }
@@ -141,30 +206,21 @@ const generateProfessionalReportHTML = (data) => {
           align-items: center;
           justify-content: center;
           text-align: center;
-          padding: 2mm;
-          background: #f8f9fa;
           border-radius: 4px;
-          box-shadow: inset 0 0 4px rgba(0,0,0,0.15) !important;
+          padding: 8px;
+          color: white;
+          font-weight: bold;
         }
         
         .block-score .score-label {
-          font-size: 14pt;
+          font-size: 12pt;
           font-weight: bold;
-          margin-bottom: 2mm;
-          color: #333;
+          margin-bottom: 4px;
         }
         
         .block-score .score-val {
           font-size: 28pt !important;
           font-weight: bold;
-          color: #333;
-          line-height: 1;
-        }
-        
-        .block-score .score-max {
-          font-size: 12pt;
-          color: #666;
-          margin-top: 1mm;
         }
         
         .block-body {
@@ -173,14 +229,9 @@ const generateProfessionalReportHTML = (data) => {
           font-size: 8.5pt;
         }
         
-        .block-body p {
-          margin: 0 0 2mm 0;
-        }
-        
-        .block-body .long-comment {
-          margin: 2px 0;
-          font-size: 8.5pt;
-          line-height: 1.3;
+        .block-body .average-score {
+          font-weight: bold;
+          margin: 4px 0;
         }
         
         .block-questions {
@@ -191,26 +242,14 @@ const generateProfessionalReportHTML = (data) => {
           padding-left: 5mm;
         }
         
-        .block-questions .coaching {
-          margin-bottom: 3mm;
-        }
-        
-        .coach-qs { 
-          padding-left: 14px; 
-          margin: 2px 0; 
-        }
-        
-        .coach-qs li { 
-          margin-bottom: 2px; 
-        }
-        
-        .block-questions .activities {
-          margin-top: 2mm;
-          font-style: italic;
-        }
-        
-        .activities span {
+        .block-questions h5 {
+          margin: 0 0 2mm 0;
           font-weight: bold;
+          color: #333;
+        }
+        
+        .block-questions .coaching-content {
+          margin-bottom: 3mm;
         }
 
         .bottom-section { 
@@ -220,16 +259,9 @@ const generateProfessionalReportHTML = (data) => {
           padding-top: 4mm;
         }
         
-        .bottom-section h3 {
-          font-size: 12pt;
+        .bottom-section h4 {
+          font-size: 11pt;
           margin: 0 0 3mm 0;
-          color: #333;
-        }
-        
-        .bottom-row {
-          display: flex !important;
-          flex-direction: column !important;
-          gap: 6mm !important;
         }
         
         .comment-box {
@@ -237,236 +269,78 @@ const generateProfessionalReportHTML = (data) => {
           padding: 3mm;
           margin-bottom: 3mm;
           background: #fdfdfd;
-          min-height: 25mm;
+          min-height: 20mm;
+        }
+        
+        .bottom-row {
+          display: flex !important;
+          flex-direction: column !important;
+          gap: 6mm !important;
+        }
+        .bottom-row .comment-box {
           width: 100% !important;
         }
-        
-        .comment-box p {
-          margin: 0 0 1mm 0;
-        }
-        
-        .reflection, .action-plan { 
-          border: 1px solid #888; 
-          padding: 4px; 
-          flex: 1; 
-          min-height: 40mm; 
-        }
-        
-        /* VESPA color coding - EXACT colors from reference */
-        .border-vision { border-left-color: #ffab40 !important; }
-        .border-effort { border-left-color: #a9c8f5 !important; }
-        .border-systems { border-left-color: #90d66f !important; }
-        .border-practice { border-left-color: #9c57c0 !important; }
-        .border-attitude { border-left-color: #f567ea !important; }
       </style>
     </head>
     <body>
       <div class="vespa-report">
-        <!-- EXACT HEADER STRUCTURE FROM REFERENCE -->
+        <!-- Header Section -->
         <div class="report-header">
-          <div class="header-left">
-            <div class="header-info">
-              <div>Student: ${data.user_name}</div>
-              <div>School: ${data.user_school || 'Not provided'}</div>
-              <div>Date: ${new Date().toLocaleDateString('en-GB')}</div>
-              <div>Overall Score: ${data.overall_score}/10</div>
-            </div>
+          <div class="header-info">
+            <div>Student: ${data.user_name}</div>
+            <div>School: VESPA Academy</div>
+            <div>Date: ${new Date().toLocaleDateString('en-GB')}</div>
+            <div>Overall Score: ${Math.round((data.vision_score + data.effort_score + data.systems_score + data.practice_score + data.attitude_score) / 5)}</div>
           </div>
-          <div class="header-center">
-            <h1 class="header-title">VESPA Assessment Report</h1>
-          </div>
-          <div class="header-right">
-            <div class="chart-placeholder">
-              Your VESPA<br/>
-              Score Chart<br/>
-              <div style="font-size: 16pt; margin-top: 5mm;">${data.overall_score}/10</div>
-            </div>
-          </div>
+          <div class="header-title">VESPA Assessment Report</div>
+          <div style="width: 80px;"></div> <!-- Spacer for layout balance -->
         </div>
 
-        <!-- INTRO SECTION MATCHING REFERENCE -->
-        <div class="intro-section">
-          <div class="intro-questions">
-            <h4>What is VESPA?</h4>
-            <ul>
-              <li>A framework for developing learning mindsets</li>
-              <li>Based on 5 key areas: Vision, Effort, Systems, Practice, Attitude</li>
-              <li>Helps students take ownership of their learning</li>
-              <li>Proven to improve academic outcomes</li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- EXACT 3-COLUMN GRID STRUCTURE FROM REFERENCE -->
+        <!-- VESPA Grid Header -->
         <div class="vespa-grid-title">
-          <div></div>
           <div>VESPA REPORT</div>
           <div>COACHING QUESTIONS</div>
         </div>
 
+        <!-- VESPA Categories -->
         <div class="vespa-grid">
-          <!-- VISION BLOCK -->
-          <div class="vespa-block border-vision">
-            <div class="block-score">
-              <div class="score-label">V</div>
-              <div class="score-val">${data.vision_score}</div>
-              <div class="score-max">/10</div>
-            </div>
-            <div class="block-body">
-              <p><strong>VISION</strong></p>
-              <p class="long-comment">You are a person with a very clear idea of what you would like to achieve in the future. Once you set a goal you strive hard to reach it, making lists of actions you must take. It's likely that you've spent some time considering some reasonably long-term goals for yourself. You might find some time to making an action plan and are likely to have already achieved some of the targets that you've set yourself. Remember though, the hard part is sticking to the plan and keep a note of which actions to take next.</p>
-              <p><strong>Average score:</strong> ${data.vision_avg}/10</p>
-              <p class="long-comment">Imagine you are 25 and when you wake up in the morning... what does your perfect day look like?</p>
-              <p class="long-comment">What do you see as the blooms of a good education?</p>
-            </div>
-            <div class="block-questions">
-              <div class="coaching">
-                <strong>Reflection Questions:</strong>
-                <ul class="coach-qs">
-                  <li>What are your main learning goals?</li>
-                  <li>How do these connect to your future plans?</li>
-                  <li>What motivates you to learn?</li>
-                </ul>
+          ${['VISION', 'EFFORT', 'SYSTEMS', 'PRACTICE', 'ATTITUDE'].map(category => {
+            const scoreKey = category.toLowerCase() + '_score';
+            const score = data[scoreKey] || 0;
+            const description = getDescription(category, score);
+            const coachingQuestions = getCoachingQuestions(category, score);
+            const avgScore = (score / 10 * 100).toFixed(0) + '%';
+            
+            return `
+              <div class="vespa-block" style="border-left-color: ${vespaColors[category]};">
+                <div class="block-score" style="background-color: ${vespaColors[category]};">
+                  <div class="score-label">${category.charAt(0)}</div>
+                  <div class="score-val">${score}</div>
+                </div>
+                <div class="block-body">
+                  <strong>${category}</strong>
+                  <div class="average-score">Average score: ${avgScore}</div>
+                  <p>${description}</p>
+                </div>
+                <div class="block-questions">
+                  <h5>Coaching Questions:</h5>
+                  <div class="coaching-content">${coachingQuestions}</div>
+                </div>
               </div>
-              <div class="activities">
-                <span>Suggested Activities:</span> Take 10 Getting Dreams Done
-              </div>
-            </div>
-          </div>
-
-          <!-- EFFORT BLOCK -->
-          <div class="vespa-block border-effort">
-            <div class="block-score">
-              <div class="score-label">E</div>
-              <div class="score-val">${data.effort_score}</div>
-              <div class="score-max">/10</div>
-            </div>
-            <div class="block-body">
-              <p><strong>EFFORT</strong></p>
-              <p class="long-comment">You are a reasonably hard-working student, but you know that you could be working harder. You generally are fairly effective when it comes to hard work and doing what you know you need to do. It might be that you cut corners or rush tasks. You work hard in most classes, but perhaps you could be more actively involved in your classes most of the time rather than only when you know you need to work yet again. You might end up occasionally doing what you need to do but not more often. How could you improve your effort habit? Are there particular subjects where you could increase your effort?</p>
-              <p><strong>Average score:</strong> ${data.effort_avg}/10</p>
-              <p class="long-comment">So on average week how many hours do you spend on your challenging and uncomfortable study outside of class?</p>
-              <p class="long-comment">What are you good at and what did you do to get so good at it? What do you normally spend most study periods?</p>
-            </div>
-            <div class="block-questions">
-              <div class="coaching">
-                <strong>Reflection Questions:</strong>
-                <ul class="coach-qs">
-                  <li>How do you respond to difficult tasks?</li>
-                  <li>What helps you stay motivated?</li>
-                  <li>When do you work hardest?</li>
-                </ul>
-              </div>
-              <div class="activities">
-                <span>Suggested Activities:</span> Recognising your blockages, Power of if
-              </div>
-            </div>
-          </div>
-
-          <!-- SYSTEMS BLOCK -->
-          <div class="vespa-block border-systems">
-            <div class="block-score">
-              <div class="score-label">S</div>
-              <div class="score-val">${data.systems_score}</div>
-              <div class="score-max">/10</div>
-            </div>
-            <div class="block-body">
-              <p><strong>SYSTEMS</strong></p>
-              <p class="long-comment">You are likely to use most of your study periods effectively, organising your time well. You meet many of your deadlines by completing some homework. You are organised and systematic for most of the time although there may be a few gaps. Your notes are generally very clear, organised and helpful and you can locate most information effectively. Do you make much use of the content covered in your lessons and homework? You are likely to break down tasks into parts or think about key ideas and use them to help build up your knowledge effectively. Could you do it more often. Do you use a diary or planner to break down timetables and what record systems work so you have more overall clarity about what works and what doesn't so you can make improvements?</p>
-              <p><strong>Average score:</strong> ${data.systems_avg}/10</p>
-              <p class="long-comment">What at least make studying fun for you?</p>
-              <p class="long-comment">Do you do any habits writing or extended response to a difficult challenge?</p>
-              <p class="long-comment">How do you revise class ones during the day?</p>
-            </div>
-            <div class="block-questions">
-              <div class="coaching">
-                <strong>Reflection Questions:</strong>
-                <ul class="coach-qs">
-                  <li>How do you organize your study time?</li>
-                  <li>What systems help you learn best?</li>
-                  <li>How do you track your progress?</li>
-                </ul>
-              </div>
-              <div class="activities">
-                <span>Suggested Activities:</span> Study Don't Binge, Project Progress Chart
-              </div>
-            </div>
-          </div>
-
-          <!-- PRACTICE BLOCK -->
-          <div class="vespa-block border-practice">
-            <div class="block-score">
-              <div class="score-label">P</div>
-              <div class="score-val">${data.practice_score}</div>
-              <div class="score-max">/10</div>
-            </div>
-            <div class="block-body">
-              <p><strong>PRACTICE</strong></p>
-              <p class="long-comment">You use a reasonable range of revision strategies such as completing past paper questions under timed conditions. You might have handed in extra work for marking or sought feedback on how you can improve but you might not do this as often as you could. You know you'll attend all of your lessons and perhaps you wouldn't find yourself just re-reading notes over highlighting. Do you revise as efficiently as you could? When questioned during the challenging revision tasks, often you might find yourself just re-reading notes over highlighting and not actually recall more information. Have you always practise under timed conditions?</p>
-              <p><strong>Average score:</strong> ${data.practice_avg}/10</p>
-              <p class="long-comment">Pick one of your subjects, which aspects of this subject do you find most recall to assess? Why?</p>
-              <p class="long-comment">Is there anything in the process of revision for you? How could you make it more comfortable?</p>
-              <p class="long-comment">Describe a time when you have practised the content that you simply didn't want to know?</p>
-            </div>
-            <div class="block-questions">
-              <div class="coaching">
-                <strong>Reflection Questions:</strong>
-                <ul class="coach-qs">
-                  <li>How do you practice new skills?</li>
-                  <li>What do you do when you make mistakes?</li>
-                  <li>How do you get better at difficult subjects?</li>
-                </ul>
-              </div>
-              <div class="activities">
-                <span>Suggested Activities:</span> Learn from Mistakes, Labour Bank
-              </div>
-            </div>
-          </div>
-
-          <!-- ATTITUDE BLOCK -->
-          <div class="vespa-block border-attitude">
-            <div class="block-score">
-              <div class="score-label">A</div>
-              <div class="score-val">${data.attitude_score}</div>
-              <div class="score-max">/10</div>
-            </div>
-            <div class="block-body">
-              <p><strong>ATTITUDE</strong></p>
-              <p class="long-comment">You often feel confident and in control before tests and exams. You also feel confident in your own abilities, although there are infrequent occasions where you might question yourself. You recognise the importance of hard work and you believe in your abilities and know that with your own efforts you could can learn from your failures? Could you learn from your failures?</p>
-              <p><strong>Average score:</strong> ${data.attitude_avg}/10</p>
-              <p class="long-comment">Is there something good about being wrong in your studies, what do you do?</p>
-              <p class="long-comment">Describe something you you have persevered with in the past. How did you sustain that motivation?</p>
-              <p class="long-comment">Is your goal to stop any learning challenges?</p>
-            </div>
-            <div class="block-questions">
-              <div class="coaching">
-                <strong>Reflection Questions:</strong>
-                <ul class="coach-qs">
-                  <li>How do you feel about challenges?</li>
-                  <li>What's your attitude to feedback?</li>
-                  <li>How do you view your abilities?</li>
-                </ul>
-              </div>
-              <div class="activities">
-                <span>Suggested Activities:</span> Stand Tall, Change Curve
-              </div>
-            </div>
-          </div>
+            `;
+          }).join('')}
         </div>
 
-        <!-- BOTTOM SECTION MATCHING REFERENCE -->
+        <!-- Bottom Section -->
         <div class="bottom-section">
           <div class="bottom-row">
             <div class="comment-box">
-              <h3>Personal Reflection</h3>
-              <p><strong>What does this report tell you about your learning mindset?</strong></p>
-              <div style="min-height: 25mm; border: 1px solid #ddd; margin-top: 2mm; background: #fafafa;"></div>
+              <h4>Personal Reflection</h4>
+              <p>Use this space to reflect on your VESPA results and consider what they mean for your learning journey.</p>
             </div>
-
             <div class="comment-box">
-              <h3>Action Plan</h3>
-              <p><strong>Based on your scores, what will you focus on improving?</strong></p>
-              <div style="min-height: 25mm; border: 1px solid #ddd; margin-top: 2mm; background: #fafafa;"></div>
+              <h4>Action Plan</h4>
+              <p>Based on your results, what specific actions will you take to improve your learning mindset?</p>
             </div>
           </div>
         </div>
