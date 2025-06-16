@@ -1451,6 +1451,25 @@ const pageDescription = "Take the VESPA questionnaire to assess your learning mi
       console.log('Modal content set, showing modal...');
       resultsModal.classList.remove('hidden');
       
+      // Enhanced debugging
+      console.log('Results content HTML:', resultsContent.innerHTML);
+      console.log('Buttons should be visible now');
+      
+      // Ensure buttons are properly rendered
+      setTimeout(() => {
+        const emailButton = document.querySelector('button[onclick*="emailAndGetAccess"]');
+        const pdfButton = document.querySelector('button[onclick*="downloadPDF"]');
+        console.log('Email button found:', emailButton);
+        console.log('PDF button found:', pdfButton);
+        
+        if (!emailButton) {
+          console.error('EMAIL BUTTON NOT FOUND! This is the issue.');
+        }
+        if (!pdfButton) {
+          console.error('PDF BUTTON NOT FOUND!');
+        }
+      }, 500);
+      
       // Add event listener for the close button within the results content
       setTimeout(() => {
         const closeBtn = document.getElementById('close-results-btn');
@@ -1460,7 +1479,7 @@ const pageDescription = "Take the VESPA questionnaire to assess your learning mi
           });
         }
       }, 100);
-      
+
       // Initialize chart
       setTimeout(() => {
         try {
@@ -1514,8 +1533,6 @@ const pageDescription = "Take the VESPA questionnaire to assess your learning mi
       if (score >= 4) return 'text-orange-600';
       return 'text-red-600';
     }
-    
-    // Global variables already declared at top of script
     
     // Download PDF function
     window.downloadPDF = function() {
