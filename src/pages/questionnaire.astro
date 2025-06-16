@@ -54,125 +54,297 @@ const pageDescription = "Take the VESPA questionnaire to assess your learning mi
   <Header />
   
   <main class="pt-24">
-    <!-- Hero Section with Background Image -->
-    <section class="py-16 bg-gradient-to-b from-theme-dark to-theme-primary relative overflow-hidden">
-      <!-- Background Image -->
-      <div class="absolute inset-0 opacity-20">
-        <img src="/assets/questionnaireinsights2.png" alt="VESPA Insights" class="w-full h-full object-cover">
+    <!-- Hero Section with Consistent Background -->
+    <section class="relative py-20 overflow-hidden bg-gradient-to-br from-theme-dark via-theme-primary to-theme-dark">
+      <!-- Animated background elements -->
+      <div class="absolute inset-0">
+        <div class="absolute top-0 left-0 w-96 h-96 bg-theme-secondary/20 rounded-full blur-3xl animate-pulse"></div>
+        <div class="absolute bottom-0 right-0 w-96 h-96 bg-theme-accent1/20 rounded-full blur-3xl animate-pulse" style="animation-delay: 1s;"></div>
       </div>
       
-      <div class="container mx-auto px-6 text-center relative z-10">
-        <h1 class="text-5xl font-bold text-white mb-6">
-          Discover Your <span class="gradient-text">Learning Profile</span>
-        </h1>
-        <p class="text-xl text-gray-300 max-w-3xl mx-auto mb-8">
-          Take our validated VESPA questionnaire to understand your strengths and areas for development across five key dimensions of academic success.
-        </p>
-        <div class="flex flex-wrap justify-center gap-4 mb-8">
-          {Object.entries(categories).map(([key, cat]) => (
-            <div class={`flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full border-2 ${cat.borderColor}`}>
-              <div class={`w-8 h-8 rounded-full ${cat.color} flex items-center justify-center`}>
-                <span class="text-white font-bold text-sm">{key.charAt(0)}</span>
+      <div class="container mx-auto px-6 relative z-10">
+        <div class="max-w-4xl mx-auto text-center">
+          <h1 class="text-5xl md:text-6xl font-bold text-white mb-6 fade-in-up">
+            Discover Your <span class="gradient-text">Learning Profile</span>
+          </h1>
+          <p class="text-xl text-gray-300 mb-8 fade-in-up" style="animation-delay: 0.2s;">
+            Take our validated VESPA questionnaire to understand your strengths and areas for development across five key dimensions of academic success.
+          </p>
+          
+          <!-- VESPA Categories Display -->
+          <div class="flex flex-wrap justify-center gap-3 mb-10 fade-in-up" style="animation-delay: 0.4s;">
+            {Object.entries(categories).map(([key, cat]) => (
+              <div class={`flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full border ${cat.borderColor} hover:bg-white/20 transition-all`}>
+                <div class={`w-8 h-8 rounded-full ${cat.color} flex items-center justify-center`}>
+                  <span class="text-white font-bold text-sm">{key.charAt(0)}</span>
+                </div>
+                <span class="text-white font-medium">{key}</span>
               </div>
-              <span class="text-white font-semibold">{key}</span>
-            </div>
-          ))}
+            ))}
+          </div>
+          
+          <!-- CTA Button -->
+          <button id="start-questionnaire" class="px-12 py-4 bg-gradient-to-r from-theme-secondary to-theme-accent1 text-theme-dark font-bold rounded-xl text-lg hover:scale-105 transition-transform shadow-xl fade-in-up" style="animation-delay: 0.6s;">
+            Try the VESPA Questionnaire
+          </button>
         </div>
-        
-        <!-- Start Button -->
-        <button id="start-questionnaire" class="px-12 py-4 bg-gradient-to-r from-theme-secondary to-theme-accent1 text-theme-dark font-bold rounded-xl text-lg hover:scale-105 transition-transform shadow-xl">
-          Start Questionnaire
-        </button>
       </div>
     </section>
 
-    <!-- About the Questionnaire Section -->
-    <section class="py-16 bg-white">
+    <!-- What is the VESPA Questionnaire Section -->
+    <section class="py-20 bg-white">
       <div class="container mx-auto px-6">
-        <h2 class="text-4xl font-bold text-center mb-12 text-theme-dark">About the VESPA Questionnaire</h2>
+        <div class="max-w-6xl mx-auto">
+          <h2 class="text-4xl font-bold text-center mb-16 text-theme-dark fade-in-up">
+            What is the VESPA Questionnaire?
+          </h2>
+          
+          <!-- Main Introduction Card -->
+          <div class="bg-gradient-to-br from-theme-primary/5 to-theme-secondary/5 rounded-3xl p-10 mb-12 fade-in-up" style="animation-delay: 0.2s;">
+            <p class="text-lg text-gray-700 leading-relaxed text-center max-w-4xl mx-auto">
+              The VESPA Questionnaire is a psychometric tool designed to help educators and students understand the behaviours and mindsets that contribute to academic success. Based on the VESPA model—Vision, Effort, Systems, Practice, and Attitude—this validated self-report questionnaire provides a snapshot of how students perceive themselves in relation to these five key areas.
+            </p>
+          </div>
+
+          <!-- Features Grid -->
+          <div class="grid md:grid-cols-3 gap-8 mb-16">
+            <!-- Development Story -->
+            <div class="bg-white rounded-2xl shadow-lg p-8 hover:shadow-xl transition-all fade-in-up" style="animation-delay: 0.3s;">
+              <div class="w-16 h-16 bg-vision/20 rounded-2xl flex items-center justify-center mb-6">
+                <svg class="w-8 h-8 text-vision" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                </svg>
+              </div>
+              <h3 class="text-xl font-bold mb-4 text-theme-dark">Proven Success</h3>
+              <p class="text-gray-600">
+                Originally developed by Steve Oakes and Martin Griffin at The Blue Coat School in Oldham, leading to measurable improvements in student confidence and academic performance.
+              </p>
+            </div>
+
+            <!-- Research-Based -->
+            <div class="bg-white rounded-2xl shadow-lg p-8 hover:shadow-xl transition-all fade-in-up" style="animation-delay: 0.4s;">
+              <div class="w-16 h-16 bg-effort/20 rounded-2xl flex items-center justify-center mb-6">
+                <svg class="w-8 h-8 text-effort" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+              </div>
+              <h3 class="text-xl font-bold mb-4 text-theme-dark">Research-Based</h3>
+              <p class="text-gray-600">
+                Developed with Dr. Neil Dagnall and Dr. Andrew Donovan (Manchester Metropolitan University). Trialled with 1,669 students achieving a 0.85 Cronbach's Alpha score.
+              </p>
+            </div>
+
+            <!-- Immediate Results -->
+            <div class="bg-white rounded-2xl shadow-lg p-8 hover:shadow-xl transition-all fade-in-up" style="animation-delay: 0.5s;">
+              <div class="w-16 h-16 bg-systems/20 rounded-2xl flex items-center justify-center mb-6">
+                <svg class="w-8 h-8 text-systems" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                </svg>
+              </div>
+              <h3 class="text-xl font-bold mb-4 text-theme-dark">Instant Insights</h3>
+              <p class="text-gray-600">
+                Students receive immediate feedback with a personalised report, while educators gain access to powerful analytics and cohort insights.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- What You'll Receive Section -->
+    <section class="py-20 bg-gray-50">
+      <div class="container mx-auto px-6">
+        <h2 class="text-4xl font-bold text-center mb-16 text-theme-dark fade-in-up">
+          What You'll Receive
+        </h2>
         
-        <div class="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto">
-          <!-- Left Column - Overview -->
-          <div>
-            <h3 class="text-2xl font-bold mb-4 text-theme-primary">A Note from Steve and Martin</h3>
-            <p class="text-gray-700 mb-4">
-              We've developed the VESPA questionnaire as a tool for teachers to support the coaching process with individual pupils or to identify areas for development with large cohorts. There are a number of strengths and weaknesses of using this type of questionnaire that we provide to pupils that the best starting point for a discussion.
-            </p>
-            <p class="text-gray-700 mb-4">
-              It should be made explicit to pupils that the questionnaire is being used to support them and help them achieve some other goal, remember that they are being measured for some other reason, they are unlikely to offer honest answers. And of course, remember the fluidity of character. The questionnaire will provide a snapshot of how the pupil feels about themselves now. It is not a permanent state that won't yield to development or change.
-            </p>
-            
-            <div class="bg-theme-primary/10 p-6 rounded-lg mt-6">
-              <h4 class="font-bold text-theme-primary mb-2">Key Features:</h4>
-              <ul class="space-y-2 text-gray-700">
+        <div class="max-w-6xl mx-auto">
+          <!-- Student Report -->
+          <div class="grid lg:grid-cols-2 gap-12 items-center mb-20">
+            <div class="order-2 lg:order-1 fade-in-up" style="animation-delay: 0.2s;">
+              <h3 class="text-3xl font-bold mb-6 text-theme-primary">Personalised Student Report</h3>
+              <p class="text-lg text-gray-700 mb-6">
+                Students receive a comprehensive report immediately after completing the questionnaire, featuring:
+              </p>
+              <ul class="space-y-3">
                 <li class="flex items-start">
-                  <span class="text-theme-secondary mr-2">✓</span>
-                  <span>28 validated questions across 5 dimensions</span>
+                  <svg class="w-6 h-6 text-theme-secondary mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  <span class="text-gray-700">Detailed scores across all five VESPA dimensions with visual representations</span>
                 </li>
                 <li class="flex items-start">
-                  <span class="text-theme-secondary mr-2">✓</span>
-                  <span>Developed with Dr Neil Dagnall and Dr Andrew Donovan at Manchester Metropolitan University</span>
+                  <svg class="w-6 h-6 text-theme-secondary mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  <span class="text-gray-700">Personalised coaching questions tailored to their specific results</span>
                 </li>
                 <li class="flex items-start">
-                  <span class="text-theme-secondary mr-2">✓</span>
-                  <span>Trialled with 1,669 students for reliability</span>
+                  <svg class="w-6 h-6 text-theme-secondary mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  <span class="text-gray-700">Recommended activities and strategies for improvement</span>
                 </li>
                 <li class="flex items-start">
-                  <span class="text-theme-secondary mr-2">✓</span>
-                  <span>0.85 Cronbach's Alpha score (excellent reliability)</span>
+                  <svg class="w-6 h-6 text-theme-secondary mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  <span class="text-gray-700">Space for reflection, goal setting, and action planning</span>
                 </li>
               </ul>
             </div>
+            <div class="order-1 lg:order-2 fade-in-up" style="animation-delay: 0.3s;">
+              <div class="rounded-2xl overflow-hidden shadow-2xl hover:shadow-3xl transition-shadow">
+                <img src="/assets/REport Main.png" alt="VESPA Student Report Example" class="w-full h-auto">
+              </div>
+            </div>
           </div>
-          
-          <!-- Right Column - Details -->
-          <div>
-            <h3 class="text-2xl font-bold mb-4 text-theme-primary">What Are Psychometric Tests and Why Use Them?</h3>
-            <p class="text-gray-700 mb-4">
-              The term psychometric refers generally to any branch of psychology concerned with psychological measurement. Psychometric tests are standard measures of mental capabilities and behavioural style. Tests assess important individual differences, such as intelligence (ability), skills (aptitude) and personality. To achieve this, psychometric tests employ systematic, standardised procedures to sample (snapshot) and describe sample behaviour using scores or categories.
-            </p>
-            
-            <h4 class="font-bold text-theme-primary mb-2 mt-6">Good Psychometric Tests:</h4>
-            <ul class="space-y-2 text-gray-700 mb-6">
-              <li>• Demonstrate several essential properties</li>
-              <li>• Be standardised and objective</li>
-              <li>• Have pre-determined test administration procedures</li>
-              <li>• Ensure that performance is not influenced by the test administrator</li>
-              <li>• Provide comparable results across different testing sessions</li>
-            </ul>
-            
-            <h4 class="font-bold text-theme-primary mb-2">Measuring Mindset Using Psychometric Tests:</h4>
-            <p class="text-gray-700 mb-4">
-              Through important transitions, such as changing year, preparing for GCSEs and moving from GCSEs to A levels. Additionally, psychometric profiling enables comparison (norm) groups. This permits assessment of pupil ability via comparison (norm) groups. This permits assessment of pupil ability via comparison with peers (classmates). This is invaluable information that can help to enhance academic performance and identify areas of aptitude and strengths.
-            </p>
-            
-            <div class="bg-theme-secondary/10 p-6 rounded-lg">
-              <h4 class="font-bold text-theme-secondary mb-2">Benefits of Using a Measure When Working with Young People:</h4>
-              <ul class="space-y-2 text-gray-700">
-                <li>• Allows pupils to better appreciate their abilities</li>
-                <li>• Helps identify strengths and areas of interest</li>
-                <li>• Delivers qualified educators insight into pupil needs</li>
-                <li>• Enhances academic performance and well-being</li>
-                <li>• Provides a basis for structured coaching conversations</li>
+
+          <!-- Educator Dashboard -->
+          <div class="grid lg:grid-cols-2 gap-12 items-center">
+            <div class="fade-in-up" style="animation-delay: 0.4s;">
+              <div class="rounded-2xl overflow-hidden shadow-2xl hover:shadow-3xl transition-shadow">
+                <img src="/assets/questionnaireinsights2.png" alt="VESPA Insights Dashboard" class="w-full h-auto">
+              </div>
+            </div>
+            <div class="fade-in-up" style="animation-delay: 0.5s;">
+              <h3 class="text-3xl font-bold mb-6 text-theme-primary">Educator Insights Dashboard</h3>
+              <p class="text-lg text-gray-700 mb-6">
+                Educators gain access to powerful analytics that transform questionnaire data into actionable insights:
+              </p>
+              <ul class="space-y-3">
+                <li class="flex items-start">
+                  <svg class="w-6 h-6 text-theme-secondary mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                  </svg>
+                  <span class="text-gray-700">Cohort-wide performance metrics and trend analysis</span>
+                </li>
+                <li class="flex items-start">
+                  <svg class="w-6 h-6 text-theme-secondary mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                  </svg>
+                  <span class="text-gray-700">Individual student tracking and progress monitoring</span>
+                </li>
+                <li class="flex items-start">
+                  <svg class="w-6 h-6 text-theme-secondary mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                  </svg>
+                  <span class="text-gray-700">Word clouds and sentiment analysis from student responses</span>
+                </li>
+                <li class="flex items-start">
+                  <svg class="w-6 h-6 text-theme-secondary mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                  </svg>
+                  <span class="text-gray-700">Data-driven recommendations for targeted interventions</span>
+                </li>
               </ul>
             </div>
           </div>
         </div>
-        
-        <!-- Bottom Section -->
-        <div class="mt-12 bg-gradient-to-r from-theme-primary to-theme-dark p-8 rounded-xl text-white">
-          <h3 class="text-2xl font-bold mb-4 text-center">Introduction to the GCSE Mindset Questionnaire</h3>
-          <p class="text-center max-w-4xl mx-auto">
-            Steve Oakes and Martin Griffin devised the VESPA system as a way of identifying and developing the key behaviours and characteristics of successful students. The VESPA model comprises five key areas: Vision, Effort, Systems, Practice, and Attitude. Implementation of the VESPA system was successful in the sixth form of The Blue Coat School in Oldham where Oakes and Griffin taught. Over a sustained period, grades and attendance improved, and students reported being more confident and better prepared for examinations. Noting the success of the VESPA system, Oakes and Griffin developed a self-report questionnaire to gauge pupil levels within each of the five core behaviours and characteristics. This measure, in the tradition of psychometric tests, once refined and tested, will have the potential to facilitate pupil performance and well-being.
-          </p>
+      </div>
+    </section>
+
+    <!-- Why Use Psychometric Tests Section -->
+    <section class="py-20 bg-white">
+      <div class="container mx-auto px-6">
+        <div class="max-w-4xl mx-auto">
+          <h2 class="text-4xl font-bold text-center mb-12 text-theme-dark fade-in-up">
+            The Science Behind VESPA
+          </h2>
+          
+          <div class="prose prose-lg mx-auto text-gray-700 fade-in-up" style="animation-delay: 0.2s;">
+            <p class="text-center text-xl mb-8">
+              Psychometric testing provides systematic, standardised methods to capture a snapshot of individual characteristics like aptitude, attitudes, and personality.
+            </p>
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-8 mt-12">
+            <div class="bg-gradient-to-br from-practice/10 to-attitude/10 rounded-2xl p-8 fade-in-up" style="animation-delay: 0.3s;">
+              <h3 class="text-xl font-bold mb-4 text-theme-dark">High-Quality Assessment</h3>
+              <ul class="space-y-3 text-gray-700">
+                <li class="flex items-start">
+                  <span class="text-practice mr-2 mt-1">•</span>
+                  <span>Standardised and objective measurement</span>
+                </li>
+                <li class="flex items-start">
+                  <span class="text-practice mr-2 mt-1">•</span>
+                  <span>Clear test administration procedures</span>
+                </li>
+                <li class="flex items-start">
+                  <span class="text-attitude mr-2 mt-1">•</span>
+                  <span>Unbiased results across all test-takers</span>
+                </li>
+                <li class="flex items-start">
+                  <span class="text-attitude mr-2 mt-1">•</span>
+                  <span>Comparable results across sessions</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="bg-gradient-to-br from-vision/10 to-effort/10 rounded-2xl p-8 fade-in-up" style="animation-delay: 0.4s;">
+              <h3 class="text-xl font-bold mb-4 text-theme-dark">Key Benefits</h3>
+              <ul class="space-y-3 text-gray-700">
+                <li class="flex items-start">
+                  <span class="text-vision mr-2 mt-1">•</span>
+                  <span>Helps pupils recognise their abilities</span>
+                </li>
+                <li class="flex items-start">
+                  <span class="text-vision mr-2 mt-1">•</span>
+                  <span>Identifies strengths and growth areas</span>
+                </li>
+                <li class="flex items-start">
+                  <span class="text-effort mr-2 mt-1">•</span>
+                  <span>Provides educator insights into needs</span>
+                </li>
+                <li class="flex items-start">
+                  <span class="text-effort mr-2 mt-1">•</span>
+                  <span>Enhances academic performance</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Note from Founders -->
+    <section class="py-20 bg-gradient-to-br from-theme-dark to-theme-primary text-white">
+      <div class="container mx-auto px-6">
+        <div class="max-w-4xl mx-auto text-center">
+          <h2 class="text-4xl font-bold mb-12 fade-in-up">A Note from Steve and Martin</h2>
+          
+          <div class="bg-white/10 backdrop-blur-sm rounded-3xl p-10 fade-in-up" style="animation-delay: 0.2s;">
+            <div class="space-y-6 text-lg leading-relaxed">
+              <p>
+                "We created the VESPA Questionnaire to support both individual coaching and group development. When used well, it provides the perfect starting point for productive conversations. But it's important to remember a few things.
+              </p>
+              <p>
+                First, the questionnaire only offers a snapshot in time—a reflection of how students feel about themselves right now. It's not a permanent verdict or fixed state. Second, students are far more likely to answer honestly when they know the questionnaire is being used to support them, not judge them. Make this clear.
+              </p>
+              <p class="font-semibold text-theme-accent1">
+                Most importantly, the aim of the VESPA questionnaire is not simply to measure—but to motivate growth and spark change."
+              </p>
+            </div>
+          </div>
+          
+          <button onclick="document.getElementById('start-questionnaire').click()" class="mt-10 px-12 py-4 bg-white text-theme-dark font-bold rounded-xl text-lg hover:scale-105 transition-transform shadow-xl fade-in-up" style="animation-delay: 0.4s;">
+            Try the VESPA Questionnaire
+          </button>
         </div>
       </div>
     </section>
 
     <!-- Registration Modal -->
-    <div id="registration-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden">
+    <div id="registration-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden" onclick="if(event.target === this) this.classList.add('hidden')">
       <div class="flex items-center justify-center min-h-screen p-4">
-        <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 relative">
+          <!-- Close button -->
+          <button onclick="document.getElementById('registration-modal').classList.add('hidden')" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </button>
+          
           <h2 class="text-3xl font-bold text-gray-800 mb-2">Register Your Interest</h2>
           <p class="text-gray-600 mb-6">Please provide your details to access the questionnaire and receive your personalised report.</p>
           
@@ -232,9 +404,14 @@ const pageDescription = "Take the VESPA questionnaire to assess your learning mi
               <p class="mt-2">By submitting this form, you agree to receive communications about VESPA Academy products and services.</p>
             </div>
             
-            <button type="submit" class="w-full px-6 py-3 bg-gradient-to-r from-theme-secondary to-theme-accent1 text-theme-dark font-bold rounded-lg hover:scale-105 transition-transform">
-              Continue to Questionnaire
-            </button>
+            <div class="flex gap-4">
+              <button type="button" onclick="document.getElementById('registration-modal').classList.add('hidden')" class="flex-1 px-6 py-3 bg-gray-200 text-gray-700 font-semibold rounded-lg hover:bg-gray-300 transition-colors">
+                Cancel
+              </button>
+              <button type="submit" class="flex-1 px-6 py-3 bg-gradient-to-r from-theme-secondary to-theme-accent1 text-theme-dark font-bold rounded-lg hover:scale-105 transition-transform">
+                Submit & Continue
+              </button>
+            </div>
           </form>
         </div>
       </div>
@@ -276,9 +453,15 @@ const pageDescription = "Take the VESPA questionnaire to assess your learning mi
     </div>
 
     <!-- Results Modal -->
-    <div id="results-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden">
+    <div id="results-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden" onclick="if(event.target === this) this.classList.add('hidden')">
       <div class="flex items-center justify-center min-h-screen p-4">
-        <div class="bg-white rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto relative">
+          <!-- Close button -->
+          <button onclick="document.getElementById('results-modal').classList.add('hidden')" class="absolute top-4 right-4 z-10 text-gray-400 hover:text-gray-600 bg-white rounded-full p-2 shadow-lg">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </button>
           <div id="results-content" class="p-8">
             <!-- Results will be dynamically inserted here -->
           </div>
@@ -295,6 +478,20 @@ const pageDescription = "Take the VESPA questionnaire to assess your learning mi
   </main>
 
   <style>
+    /* Animation styles */
+    .fade-in-up {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.8s ease-out forwards;
+    }
+    
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
     /* Include the ReportPrinting.css styles */
     .vespa-report { 
       width: 210mm; 
@@ -744,7 +941,9 @@ const pageDescription = "Take the VESPA questionnaire to assess your learning mi
         <div class="question-card">
           <div class="mb-4">
             <span class="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-full">
-              <span class="text-2xl">${category.icon}</span>
+              <div class="${category.color} w-8 h-8 rounded-full flex items-center justify-center">
+                <span class="text-white font-bold text-sm">${statement.category.charAt(0)}</span>
+              </div>
               <span class="font-semibold ${category.textColor}">${statement.category}</span>
             </span>
           </div>
@@ -1109,7 +1308,9 @@ const pageDescription = "Take the VESPA questionnaire to assess your learning mi
             ${Object.entries(scales).map(([category, score]) => `
               <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
                 <div class="flex items-center gap-3">
-                  <span class="text-2xl">${categories[category].icon}</span>
+                  <div class="${categories[category].color} w-10 h-10 rounded-full flex items-center justify-center">
+                    <span class="text-white font-bold">${category.charAt(0)}</span>
+                  </div>
                   <div>
                     <h3 class="font-bold text-lg">${category}</h3>
                     <p class="text-sm text-gray-600">${categories[category].description}</p>
@@ -1127,16 +1328,28 @@ const pageDescription = "Take the VESPA questionnaire to assess your learning mi
         <div class="bg-gradient-to-r from-theme-secondary/10 to-theme-accent1/10 p-6 rounded-xl mb-8">
           <h3 class="text-2xl font-bold mb-4">Your Personalised Report</h3>
           <p class="text-gray-700 mb-4">
-            Download your detailed VESPA report with coaching questions and recommendations.
+            Download your detailed VESPA report with coaching questions and recommendations, or have it emailed to you.
           </p>
-          <div class="flex gap-4">
-            <button onclick="downloadPDF()" class="px-6 py-3 bg-gradient-to-r from-theme-secondary to-theme-accent1 text-theme-dark font-bold rounded-lg hover:scale-105 transition-transform">
-              Download PDF Report
+          <div class="flex flex-col sm:flex-row gap-4">
+            <button onclick="downloadPDF()" class="px-6 py-3 bg-white text-gray-800 font-semibold rounded-lg border-2 border-gray-300 hover:bg-gray-50 transition-colors">
+              <svg class="inline-block w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+              </svg>
+              Download PDF
             </button>
-            <button onclick="emailAndGetAccess()" class="px-6 py-3 bg-white text-gray-800 font-semibold rounded-lg border-2 border-gray-300 hover:bg-gray-50 transition-colors">
-              Email Report & Get Full Access
+            <button onclick="emailAndGetAccess(event)" class="px-6 py-3 bg-gradient-to-r from-theme-secondary to-theme-accent1 text-theme-dark font-bold rounded-lg hover:scale-105 transition-transform">
+              <svg class="inline-block w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+              </svg>
+              Send Me My Report
             </button>
           </div>
+        </div>
+        
+        <div class="text-center">
+          <button onclick="document.getElementById('results-modal').classList.add('hidden')" class="text-gray-500 hover:text-gray-700 underline">
+            Close Results
+          </button>
         </div>
       `;
       
@@ -1259,16 +1472,21 @@ const pageDescription = "Take the VESPA questionnaire to assess your learning mi
     };
     
     // Email report and get access function
-    window.emailAndGetAccess = async function() {
+    window.emailAndGetAccess = async function(event) {
       try {
         // Show loading state
-        const button = event.target;
-        const originalText = button.textContent;
+        const button = event.currentTarget || event.target;
+        const originalText = button.innerHTML;
         button.disabled = true;
-        button.textContent = 'Sending report...';
+        button.innerHTML = '<svg class="inline-block w-5 h-5 mr-2 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>Sending report...';
         
         // Get the report HTML
         const reportHTML = document.getElementById('pdf-report-container').innerHTML;
+        
+        // Add interests to userData if not already present
+        if (!userData.interests) {
+          userData.interests = [];
+        }
         
         // Send the report via API
         const response = await fetch('/api/send-report', {
@@ -1280,7 +1498,8 @@ const pageDescription = "Take the VESPA questionnaire to assess your learning mi
             userData: userData,
             reportHTML: reportHTML,
             scores: currentScales,
-            averages: currentAverages
+            averages: currentAverages,
+            level: 'Level 3' // You can add logic to determine this based on user selection
           })
         });
         
@@ -1288,8 +1507,9 @@ const pageDescription = "Take the VESPA questionnaire to assess your learning mi
         
         if (result.success) {
           // Show success message
-          button.textContent = 'Report sent! ✓';
+          button.innerHTML = '<svg class="inline-block w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Report sent!';
           button.classList.add('bg-green-500', 'text-white');
+          button.classList.remove('from-theme-secondary', 'to-theme-accent1');
           
           // Show thank you message
           setTimeout(() => {
@@ -1321,12 +1541,17 @@ const pageDescription = "Take the VESPA questionnaire to assess your learning mi
           }, 1500);
         } else {
           // Show error
-          button.textContent = originalText;
+          button.innerHTML = originalText;
           button.disabled = false;
           alert('Sorry, there was an error sending your report. Please try downloading the PDF instead.');
         }
-      } catch (error) {
+              } catch (error) {
         console.error('Error sending report:', error);
+        const button = document.querySelector('button[onclick*="emailAndGetAccess"]');
+        if (button) {
+          button.innerHTML = '<svg class="inline-block w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>Send Me My Report';
+          button.disabled = false;
+        }
         alert('Sorry, there was an error sending your report. Please try downloading the PDF instead.');
       }
     };

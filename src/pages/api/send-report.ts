@@ -56,7 +56,7 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
       download_link: `${import.meta.env.PUBLIC_SITE_URL || 'https://vespa-academy.com'}/api/download-report?token=${generateToken()}`
     };
 
-    // Send email to user
+    // Send email to user using SendGrid template
     const userEmailResponse = await fetch('https://api.sendgrid.com/v3/mail/send', {
       method: 'POST',
       headers: {
@@ -99,12 +99,19 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
     const adminTemplateResponse = await fetch(new URL('../../../LEAD_EMAIL.html', import.meta.url));
     let adminTemplate = await adminTemplateResponse.text();
     
+    // Format interests for display
+    const interestsDisplay = userData.interests && userData.interests.length > 0 
+      ? userData.interests.join(', ') 
+      : 'Not specified';
+    
     // Prepare admin template data
     const adminTemplateData = {
       user_name: userData.name,
       user_email: userData.email,
       user_school: userData.school,
-      user_level: userData.level || 'Not specified',
+      user_job_title: userData.jobTitle || 'Not specified',
+      user_interests: interestsDisplay,
+      user_level: data.level || 'Not specified',
       completion_date: reportDate,
       vision_score: scores.VISION,
       vision_avg: averages.VISION.toFixed(2),
