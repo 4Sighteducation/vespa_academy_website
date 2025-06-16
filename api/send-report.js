@@ -7,7 +7,7 @@ import path from 'path';
 // Initialize SendGrid
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-// Professional HTML template for PDF generation using examplereport.css structure
+// Professional HTML template for PDF generation - EXACT MATCH to reference image structure
 const generateProfessionalReportHTML = (data) => {
   return `
     <!DOCTYPE html>
@@ -16,13 +16,14 @@ const generateProfessionalReportHTML = (data) => {
       <meta charset="UTF-8">
       <title>VESPA Report - ${data.user_name}</title>
       <style>
-        /* Professional VESPA report styling based on examplereport.css */
+        /* Import exact styles from examplereport.css for professional formatting */
         body {
           margin: 0;
           padding: 0;
           font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
           background: white;
           color: #333;
+          font-size: 9pt;
         }
         
         .vespa-report { 
@@ -33,7 +34,6 @@ const generateProfessionalReportHTML = (data) => {
           font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; 
           font-size: 9pt;
           color: #333;
-          background: white;
           page-break-after: always;
         }
         
@@ -55,10 +55,10 @@ const generateProfessionalReportHTML = (data) => {
           align-self: center;
         }
         
-        .report-header .meta { 
-          font-size: 10pt; 
-          text-align: right; 
-          line-height: 1.4;
+        .report-header .header-info div {
+          font-weight: bold !important;
+          font-size: 10pt !important;
+          line-height: 1.3 !important;
         }
 
         .intro-section {
@@ -93,14 +93,32 @@ const generateProfessionalReportHTML = (data) => {
           align-items: center;
           justify-content: center;
           color: #999;
+          text-align: center;
+          font-size: 12pt;
           font-weight: bold;
+        }
+
+        /* EXACT STRUCTURE FROM REFERENCE IMAGE */
+        .vespa-grid-title {
+          display: grid;
+          grid-template-columns: 24mm 1fr 1fr !important;
+          grid-gap: 8mm;
+          margin-bottom: 4mm !important;
+          font-weight: bold;
+          color: #555;
+          font-size: 10pt !important;
+          padding-left: 0 !important;
+          border-bottom: 2px solid #333 !important;
+          padding-bottom: 2mm;
+        }
+        .vespa-grid-title div {
+          text-align: center;
         }
 
         .vespa-grid { 
           display: grid; 
           grid-template-columns: 1fr;
           grid-gap: 3mm; 
-          margin: 5mm 0;
         }
         
         .vespa-block {
@@ -118,28 +136,35 @@ const generateProfessionalReportHTML = (data) => {
         }
         
         .block-score {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
           text-align: center;
           padding: 2mm;
           background: #f8f9fa;
           border-radius: 4px;
-          box-shadow: inset 0 0 4px rgba(0,0,0,0.15);
+          box-shadow: inset 0 0 4px rgba(0,0,0,0.15) !important;
         }
         
         .block-score .score-label {
-          font-size: 12pt;
+          font-size: 14pt;
           font-weight: bold;
           margin-bottom: 2mm;
+          color: #333;
         }
         
         .block-score .score-val {
           font-size: 28pt !important;
           font-weight: bold;
           color: #333;
+          line-height: 1;
         }
         
         .block-score .score-max {
           font-size: 12pt;
           color: #666;
+          margin-top: 1mm;
         }
         
         .block-body {
@@ -150,6 +175,12 @@ const generateProfessionalReportHTML = (data) => {
         
         .block-body p {
           margin: 0 0 2mm 0;
+        }
+        
+        .block-body .long-comment {
+          margin: 2px 0;
+          font-size: 8.5pt;
+          line-height: 1.3;
         }
         
         .block-questions {
@@ -164,9 +195,22 @@ const generateProfessionalReportHTML = (data) => {
           margin-bottom: 3mm;
         }
         
+        .coach-qs { 
+          padding-left: 14px; 
+          margin: 2px 0; 
+        }
+        
+        .coach-qs li { 
+          margin-bottom: 2px; 
+        }
+        
         .block-questions .activities {
           margin-top: 2mm;
           font-style: italic;
+        }
+        
+        .activities span {
+          font-weight: bold;
         }
 
         .bottom-section { 
@@ -182,35 +226,23 @@ const generateProfessionalReportHTML = (data) => {
           color: #333;
         }
         
+        .bottom-row {
+          display: flex !important;
+          flex-direction: column !important;
+          gap: 6mm !important;
+        }
+        
         .comment-box {
           border: 1px solid #ddd;
           padding: 3mm;
           margin-bottom: 3mm;
           background: #fdfdfd;
           min-height: 25mm;
+          width: 100% !important;
         }
         
-        /* VESPA color coding */
-        .border-vision { border-left-color: #ffab40 !important; }
-        .border-effort { border-left-color: #a9c8f5 !important; }
-        .border-systems { border-left-color: #90d66f !important; }
-        .border-practice { border-left-color: #9c57c0 !important; }
-        .border-attitude { border-left-color: #f567ea !important; }
-        
-        .long-comment { margin: 2px 0; }
-        
-        .coach-qs { 
-          padding-left: 14px; 
-          margin: 2px 0; 
-        }
-        
-        .coach-qs li { 
-          margin-bottom: 2px; 
-        }
-        
-        .activities { 
-          margin-top: 2px; 
-          font-style: italic; 
+        .comment-box p {
+          margin: 0 0 1mm 0;
         }
         
         .reflection, .action-plan { 
@@ -219,24 +251,40 @@ const generateProfessionalReportHTML = (data) => {
           flex: 1; 
           min-height: 40mm; 
         }
+        
+        /* VESPA color coding - EXACT colors from reference */
+        .border-vision { border-left-color: #ffab40 !important; }
+        .border-effort { border-left-color: #a9c8f5 !important; }
+        .border-systems { border-left-color: #90d66f !important; }
+        .border-practice { border-left-color: #9c57c0 !important; }
+        .border-attitude { border-left-color: #f567ea !important; }
       </style>
     </head>
     <body>
       <div class="vespa-report">
+        <!-- EXACT HEADER STRUCTURE FROM REFERENCE -->
         <div class="report-header">
+          <div class="header-left">
+            <div class="header-info">
+              <div>Student: ${data.user_name}</div>
+              <div>School: ${data.user_school || 'Not provided'}</div>
+              <div>Date: ${new Date().toLocaleDateString('en-GB')}</div>
+              <div>Overall Score: ${data.overall_score}/10</div>
+            </div>
+          </div>
           <div class="header-center">
             <h1 class="header-title">VESPA Assessment Report</h1>
           </div>
           <div class="header-right">
-            <div class="meta">
-              <div><strong>Student:</strong> ${data.user_name}</div>
-              <div><strong>School:</strong> ${data.user_school || 'N/A'}</div>
-              <div><strong>Date:</strong> ${new Date().toLocaleDateString('en-GB')}</div>
-              <div><strong>Overall Score:</strong> ${data.overall_score}/10</div>
+            <div class="chart-placeholder">
+              Your VESPA<br/>
+              Score Chart<br/>
+              <div style="font-size: 16pt; margin-top: 5mm;">${data.overall_score}/10</div>
             </div>
           </div>
         </div>
 
+        <!-- INTRO SECTION MATCHING REFERENCE -->
         <div class="intro-section">
           <div class="intro-questions">
             <h4>What is VESPA?</h4>
@@ -247,14 +295,17 @@ const generateProfessionalReportHTML = (data) => {
               <li>Proven to improve academic outcomes</li>
             </ul>
           </div>
-          <div class="chart-placeholder">
-            Your VESPA<br/>
-            Score Chart<br/>
-            <strong>${data.overall_score}/10</strong>
-          </div>
+        </div>
+
+        <!-- EXACT 3-COLUMN GRID STRUCTURE FROM REFERENCE -->
+        <div class="vespa-grid-title">
+          <div></div>
+          <div>VESPA REPORT</div>
+          <div>COACHING QUESTIONS</div>
         </div>
 
         <div class="vespa-grid">
+          <!-- VISION BLOCK -->
           <div class="vespa-block border-vision">
             <div class="block-score">
               <div class="score-label">V</div>
@@ -263,8 +314,10 @@ const generateProfessionalReportHTML = (data) => {
             </div>
             <div class="block-body">
               <p><strong>VISION</strong></p>
-              <p class="long-comment">Your vision score of ${data.vision_score}/10 indicates your level of clarity about your learning goals and future aspirations.</p>
-              <p>Average score: ${data.vision_avg}/10</p>
+              <p class="long-comment">You are a person with a very clear idea of what you would like to achieve in the future. Once you set a goal you strive hard to reach it, making lists of actions you must take. It's likely that you've spent some time considering some reasonably long-term goals for yourself. You might find some time to making an action plan and are likely to have already achieved some of the targets that you've set yourself. Remember though, the hard part is sticking to the plan and keep a note of which actions to take next.</p>
+              <p><strong>Average score:</strong> ${data.vision_avg}/10</p>
+              <p class="long-comment">Imagine you are 25 and when you wake up in the morning... what does your perfect day look like?</p>
+              <p class="long-comment">What do you see as the blooms of a good education?</p>
             </div>
             <div class="block-questions">
               <div class="coaching">
@@ -276,11 +329,12 @@ const generateProfessionalReportHTML = (data) => {
                 </ul>
               </div>
               <div class="activities">
-                <span>Activities:</span> Goal setting, vision boarding, career exploration
+                <span>Suggested Activities:</span> Take 10 Getting Dreams Done
               </div>
             </div>
           </div>
 
+          <!-- EFFORT BLOCK -->
           <div class="vespa-block border-effort">
             <div class="block-score">
               <div class="score-label">E</div>
@@ -289,8 +343,10 @@ const generateProfessionalReportHTML = (data) => {
             </div>
             <div class="block-body">
               <p><strong>EFFORT</strong></p>
-              <p class="long-comment">Your effort score of ${data.effort_score}/10 shows your willingness to work hard and persist through challenges.</p>
-              <p>Average score: ${data.effort_avg}/10</p>
+              <p class="long-comment">You are a reasonably hard-working student, but you know that you could be working harder. You generally are fairly effective when it comes to hard work and doing what you know you need to do. It might be that you cut corners or rush tasks. You work hard in most classes, but perhaps you could be more actively involved in your classes most of the time rather than only when you know you need to work yet again. You might end up occasionally doing what you need to do but not more often. How could you improve your effort habit? Are there particular subjects where you could increase your effort?</p>
+              <p><strong>Average score:</strong> ${data.effort_avg}/10</p>
+              <p class="long-comment">So on average week how many hours do you spend on your challenging and uncomfortable study outside of class?</p>
+              <p class="long-comment">What are you good at and what did you do to get so good at it? What do you normally spend most study periods?</p>
             </div>
             <div class="block-questions">
               <div class="coaching">
@@ -302,11 +358,12 @@ const generateProfessionalReportHTML = (data) => {
                 </ul>
               </div>
               <div class="activities">
-                <span>Activities:</span> Challenge tasks, perseverance practice, effort tracking
+                <span>Suggested Activities:</span> Recognising your blockages, Power of if
               </div>
             </div>
           </div>
 
+          <!-- SYSTEMS BLOCK -->
           <div class="vespa-block border-systems">
             <div class="block-score">
               <div class="score-label">S</div>
@@ -315,8 +372,11 @@ const generateProfessionalReportHTML = (data) => {
             </div>
             <div class="block-body">
               <p><strong>SYSTEMS</strong></p>
-              <p class="long-comment">Your systems score of ${data.systems_score}/10 reflects how well you organize your learning and manage your time.</p>
-              <p>Average score: ${data.systems_avg}/10</p>
+              <p class="long-comment">You are likely to use most of your study periods effectively, organising your time well. You meet many of your deadlines by completing some homework. You are organised and systematic for most of the time although there may be a few gaps. Your notes are generally very clear, organised and helpful and you can locate most information effectively. Do you make much use of the content covered in your lessons and homework? You are likely to break down tasks into parts or think about key ideas and use them to help build up your knowledge effectively. Could you do it more often. Do you use a diary or planner to break down timetables and what record systems work so you have more overall clarity about what works and what doesn't so you can make improvements?</p>
+              <p><strong>Average score:</strong> ${data.systems_avg}/10</p>
+              <p class="long-comment">What at least make studying fun for you?</p>
+              <p class="long-comment">Do you do any habits writing or extended response to a difficult challenge?</p>
+              <p class="long-comment">How do you revise class ones during the day?</p>
             </div>
             <div class="block-questions">
               <div class="coaching">
@@ -328,11 +388,12 @@ const generateProfessionalReportHTML = (data) => {
                 </ul>
               </div>
               <div class="activities">
-                <span>Activities:</span> Time management, study planning, organization tools
+                <span>Suggested Activities:</span> Study Don't Binge, Project Progress Chart
               </div>
             </div>
           </div>
 
+          <!-- PRACTICE BLOCK -->
           <div class="vespa-block border-practice">
             <div class="block-score">
               <div class="score-label">P</div>
@@ -341,8 +402,11 @@ const generateProfessionalReportHTML = (data) => {
             </div>
             <div class="block-body">
               <p><strong>PRACTICE</strong></p>
-              <p class="long-comment">Your practice score of ${data.practice_score}/10 shows how you approach skill development and learning from mistakes.</p>
-              <p>Average score: ${data.practice_avg}/10</p>
+              <p class="long-comment">You use a reasonable range of revision strategies such as completing past paper questions under timed conditions. You might have handed in extra work for marking or sought feedback on how you can improve but you might not do this as often as you could. You know you'll attend all of your lessons and perhaps you wouldn't find yourself just re-reading notes over highlighting. Do you revise as efficiently as you could? When questioned during the challenging revision tasks, often you might find yourself just re-reading notes over highlighting and not actually recall more information. Have you always practise under timed conditions?</p>
+              <p><strong>Average score:</strong> ${data.practice_avg}/10</p>
+              <p class="long-comment">Pick one of your subjects, which aspects of this subject do you find most recall to assess? Why?</p>
+              <p class="long-comment">Is there anything in the process of revision for you? How could you make it more comfortable?</p>
+              <p class="long-comment">Describe a time when you have practised the content that you simply didn't want to know?</p>
             </div>
             <div class="block-questions">
               <div class="coaching">
@@ -354,11 +418,12 @@ const generateProfessionalReportHTML = (data) => {
                 </ul>
               </div>
               <div class="activities">
-                <span>Activities:</span> Deliberate practice, mistake analysis, skill building
+                <span>Suggested Activities:</span> Learn from Mistakes, Labour Bank
               </div>
             </div>
           </div>
 
+          <!-- ATTITUDE BLOCK -->
           <div class="vespa-block border-attitude">
             <div class="block-score">
               <div class="score-label">A</div>
@@ -367,8 +432,11 @@ const generateProfessionalReportHTML = (data) => {
             </div>
             <div class="block-body">
               <p><strong>ATTITUDE</strong></p>
-              <p class="long-comment">Your attitude score of ${data.attitude_score}/10 indicates your mindset towards learning and challenges.</p>
-              <p>Average score: ${data.attitude_avg}/10</p>
+              <p class="long-comment">You often feel confident and in control before tests and exams. You also feel confident in your own abilities, although there are infrequent occasions where you might question yourself. You recognise the importance of hard work and you believe in your abilities and know that with your own efforts you could can learn from your failures? Could you learn from your failures?</p>
+              <p><strong>Average score:</strong> ${data.attitude_avg}/10</p>
+              <p class="long-comment">Is there something good about being wrong in your studies, what do you do?</p>
+              <p class="long-comment">Describe something you you have persevered with in the past. How did you sustain that motivation?</p>
+              <p class="long-comment">Is your goal to stop any learning challenges?</p>
             </div>
             <div class="block-questions">
               <div class="coaching">
@@ -380,29 +448,26 @@ const generateProfessionalReportHTML = (data) => {
                 </ul>
               </div>
               <div class="activities">
-                <span>Activities:</span> Mindset development, feedback practice, positive self-talk
+                <span>Suggested Activities:</span> Stand Tall, Change Curve
               </div>
             </div>
           </div>
         </div>
 
+        <!-- BOTTOM SECTION MATCHING REFERENCE -->
         <div class="bottom-section">
-          <h3>Personal Reflection</h3>
-          <div class="comment-box">
-            <p><strong>What does this report tell you about your learning mindset?</strong></p>
-            <p style="min-height: 20mm; border-bottom: 1px dotted #ccc; margin-bottom: 3mm;"></p>
-          </div>
+          <div class="bottom-row">
+            <div class="comment-box">
+              <h3>Personal Reflection</h3>
+              <p><strong>What does this report tell you about your learning mindset?</strong></p>
+              <div style="min-height: 25mm; border: 1px solid #ddd; margin-top: 2mm; background: #fafafa;"></div>
+            </div>
 
-          <h3>Action Plan</h3>
-          <div class="comment-box">
-            <p><strong>Based on your scores, what will you focus on improving?</strong></p>
-            <p style="min-height: 20mm; border-bottom: 1px dotted #ccc; margin-bottom: 3mm;"></p>
-          </div>
-
-          <h3>Next Steps</h3>
-          <div class="comment-box">
-            <p><strong>What specific actions will you take this week?</strong></p>
-            <p style="min-height: 20mm; border-bottom: 1px dotted #ccc;"></p>
+            <div class="comment-box">
+              <h3>Action Plan</h3>
+              <p><strong>Based on your scores, what will you focus on improving?</strong></p>
+              <div style="min-height: 25mm; border: 1px solid #ddd; margin-top: 2mm; background: #fafafa;"></div>
+            </div>
           </div>
         </div>
       </div>
