@@ -1,0 +1,166 @@
+---
+export const prerender = false;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>VESPA Debug - Test Email Functionality</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gray-100 min-h-screen py-8">
+    <div class="max-w-4xl mx-auto px-4">
+      <h1 class="text-3xl font-bold mb-8 text-center">VESPA Email Debug Panel</h1>
+      
+      <!-- SendGrid Config Test -->
+      <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+        <h2 class="text-xl font-bold mb-4">1. Test SendGrid Configuration</h2>
+        <button id="test-sendgrid" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+          Test SendGrid Config
+        </button>
+        <div id="sendgrid-result" class="mt-4 p-4 bg-gray-50 rounded hidden">
+          <h3 class="font-bold mb-2">Results:</h3>
+          <pre id="sendgrid-output" class="text-sm overflow-auto"></pre>
+        </div>
+      </div>
+
+      <!-- Email Test -->
+      <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+        <h2 class="text-xl font-bold mb-4">2. Test Email Sending</h2>
+        <form id="email-test-form" class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium mb-1">Test Email Address:</label>
+            <input type="email" id="test-email" value="admin@vespa-academy.com" required 
+                   class="w-full px-3 py-2 border border-gray-300 rounded-md">
+          </div>
+          <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
+            Send Test Email
+          </button>
+        </form>
+        <div id="email-result" class="mt-4 p-4 bg-gray-50 rounded hidden">
+          <h3 class="font-bold mb-2">Results:</h3>
+          <pre id="email-output" class="text-sm overflow-auto"></pre>
+        </div>
+      </div>
+
+      <!-- Questionnaire Data Test -->
+      <div class="bg-white rounded-lg shadow-md p-6">
+        <h2 class="text-xl font-bold mb-4">3. Test Report Data Loading</h2>
+        <button id="test-report-data" class="bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600">
+          Test Report Data
+        </button>
+        <div id="report-data-result" class="mt-4 p-4 bg-gray-50 rounded hidden">
+          <h3 class="font-bold mb-2">Results:</h3>
+          <pre id="report-data-output" class="text-sm overflow-auto max-h-96"></pre>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.getElementById('test-sendgrid').addEventListener('click', async function() {
+        const button = this;
+        const resultDiv = document.getElementById('sendgrid-result');
+        const output = document.getElementById('sendgrid-output');
+        
+        button.disabled = true;
+        button.textContent = 'Testing...';
+        resultDiv.classList.remove('hidden');
+        
+        try {
+          const response = await fetch('/api/test-sendgrid', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' }
+          });
+          
+          const data = await response.json();
+          output.textContent = JSON.stringify(data, null, 2);
+        } catch (error) {
+          output.textContent = 'Error: ' + error.message;
+        }
+        
+        button.disabled = false;
+        button.textContent = 'Test SendGrid Config';
+      });
+
+      document.getElementById('email-test-form').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const email = document.getElementById('test-email').value;
+        const resultDiv = document.getElementById('email-result');
+        const output = document.getElementById('email-output');
+        
+        resultDiv.classList.remove('hidden');
+        output.textContent = 'Sending test email...';
+        
+        // Create test data
+        const testData = {
+          userData: {
+            email: email,
+            name: 'Test User',
+            jobTitle: 'Test Role',
+            school: 'Test School',
+            interests: ['coaching-portal']
+          },
+          reportHTML: '<div>Test Report HTML</div>',
+          scores: {
+            VISION: 7,
+            EFFORT: 8,
+            SYSTEMS: 6,
+            PRACTICE: 7,
+            ATTITUDE: 8
+          },
+          averages: {
+            VISION: 6.5,
+            EFFORT: 7.2,
+            SYSTEMS: 6.8,
+            PRACTICE: 6.9,
+            ATTITUDE: 7.5
+          },
+          level: 'Level 3'
+        };
+        
+        try {
+          const response = await fetch('/api/send-report', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(testData)
+          });
+          
+          const data = await response.json();
+          output.textContent = JSON.stringify(data, null, 2);
+        } catch (error) {
+          output.textContent = 'Error: ' + error.message;
+        }
+      });
+
+      document.getElementById('test-report-data').addEventListener('click', async function() {
+        const button = this;
+        const resultDiv = document.getElementById('report-data-result');
+        const output = document.getElementById('report-data-output');
+        
+        button.disabled = true;
+        button.textContent = 'Loading...';
+        resultDiv.classList.remove('hidden');
+        
+        try {
+          const response = await fetch('/reporttext_restructured_complete.json');
+          
+          if (!response.ok) {
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+          }
+          
+          const data = await response.json();
+          output.textContent = JSON.stringify(data, null, 2);
+        } catch (error) {
+          output.textContent = 'Error loading report data: ' + error.message;
+        }
+        
+        button.disabled = false;
+        button.textContent = 'Test Report Data';
+      });
+    </script>
+  </body>
+</html> 

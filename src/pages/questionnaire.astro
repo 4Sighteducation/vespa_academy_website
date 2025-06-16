@@ -410,7 +410,7 @@ const pageDescription = "Take the VESPA questionnaire to assess your learning mi
               <button type="button" onclick="document.getElementById('registration-modal').classList.add('hidden')" class="flex-1 px-6 py-3 bg-gray-200 text-gray-700 font-semibold rounded-lg hover:bg-gray-300 transition-colors">
                 Cancel
               </button>
-              <button type="submit" class="flex-1 px-6 py-3 bg-gradient-to-r from-theme-secondary to-theme-accent1 text-theme-dark font-bold rounded-lg hover:scale-105 transition-transform shadow-lg">
+              <button type="submit" id="registration-submit-btn" class="flex-1 px-6 py-3 bg-gradient-to-r from-theme-secondary to-theme-accent1 text-theme-dark font-bold rounded-lg hover:scale-105 transition-transform shadow-lg">
                 Submit & Continue
               </button>
             </div>
@@ -456,11 +456,11 @@ const pageDescription = "Take the VESPA questionnaire to assess your learning mi
     </div>
 
     <!-- Results Modal -->
-    <div id="results-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden" onclick="if(event.target === this) this.classList.add('hidden')">
+    <div id="results-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden">
       <div class="flex items-center justify-center min-h-screen p-4">
         <div class="bg-white rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto relative">
           <!-- Close button -->
-          <button onclick="document.getElementById('results-modal').classList.add('hidden')" class="absolute top-4 right-4 z-10 text-gray-400 hover:text-gray-600 bg-white rounded-full p-2 shadow-lg">
+          <button id="results-close-btn" class="absolute top-4 right-4 z-10 text-gray-400 hover:text-gray-600 bg-white rounded-full p-2 shadow-lg">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
             </svg>
@@ -778,6 +778,8 @@ const pageDescription = "Take the VESPA questionnaire to assess your learning mi
     let userData = {};
     let questionnaireStartTime = null;
     let isRegistered = false;
+    let currentScales = null;
+    let currentAverages = null;
     
     // Anti-abuse tracking
     const RATE_LIMIT_KEY = 'vespa_questionnaire_attempts';
@@ -889,6 +891,35 @@ const pageDescription = "Take the VESPA questionnaire to assess your learning mi
       const registrationModal = document.getElementById('registration-modal');
       const questionnaireModal = document.getElementById('questionnaire-modal');
       const registrationForm = document.getElementById('registration-form');
+      const resultsModal = document.getElementById('results-modal');
+      const resultsCloseBtn = document.getElementById('results-close-btn');
+      
+      // Handle modal close events
+      resultsCloseBtn.addEventListener('click', function() {
+        resultsModal.classList.add('hidden');
+      });
+      
+      // Close modal when clicking outside
+      resultsModal.addEventListener('click', function(e) {
+        if (e.target === resultsModal) {
+          resultsModal.classList.add('hidden');
+        }
+      });
+      
+      // ESC key to close modal
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          if (!resultsModal.classList.contains('hidden')) {
+            resultsModal.classList.add('hidden');
+          }
+          if (!registrationModal.classList.contains('hidden')) {
+            registrationModal.classList.add('hidden');
+          }
+          if (!questionnaireModal.classList.contains('hidden')) {
+            questionnaireModal.classList.add('hidden');
+          }
+        }
+      });
       
       startBtn.addEventListener('click', function() {
         if (!checkRateLimit()) {
@@ -1121,8 +1152,58 @@ const pageDescription = "Take the VESPA questionnaire to assess your learning mi
     
     // Import report text data for generating comprehensive report
     async function loadReportData() {
-      const response = await fetch('/reporttext_restructured_complete.json');
-      return await response.json();
+      try {
+        const response = await fetch('/reporttext_restructured_complete.json');
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return await response.json();
+      } catch (error) {
+        console.error('Error loading report data:', error);
+        // Return a fallback structure
+        return {
+          report_data: {
+            'Level 3': {
+              'Vision': {
+                'High': { english: { description: 'You have a strong vision for your future.', questions: '', activities: '', coaching_questions: '' } },
+                'Medium': { english: { description: 'You have a moderate vision for your future.', questions: '', activities: '', coaching_questions: '' } },
+                'Low': { english: { description: 'You could benefit from developing a clearer vision.', questions: '', activities: '', coaching_questions: '' } },
+                'Very Low': { english: { description: 'Focus on developing your future vision.', questions: '', activities: '', coaching_questions: '' } }
+              },
+              'Effort': {
+                'High': { english: { description: 'You consistently put in strong effort.', questions: '', activities: '', coaching_questions: '' } },
+                'Medium': { english: { description: 'You put in good effort most of the time.', questions: '', activities: '', coaching_questions: '' } },
+                'Low': { english: { description: 'You could benefit from increasing your effort.', questions: '', activities: '', coaching_questions: '' } },
+                'Very Low': { english: { description: 'Focus on building consistent effort habits.', questions: '', activities: '', coaching_questions: '' } }
+              },
+              'Systems': {
+                'High': { english: { description: 'You have excellent organizational systems.', questions: '', activities: '', coaching_questions: '' } },
+                'Medium': { english: { description: 'You have good organizational systems.', questions: '', activities: '', coaching_questions: '' } },
+                'Low': { english: { description: 'You could benefit from better organization.', questions: '', activities: '', coaching_questions: '' } },
+                'Very Low': { english: { description: 'Focus on developing organizational systems.', questions: '', activities: '', coaching_questions: '' } }
+              },
+              'Practice': {
+                'High': { english: { description: 'You use excellent study practices.', questions: '', activities: '', coaching_questions: '' } },
+                'Medium': { english: { description: 'You use good study practices.', questions: '', activities: '', coaching_questions: '' } },
+                'Low': { english: { description: 'You could improve your study practices.', questions: '', activities: '', coaching_questions: '' } },
+                'Very Low': { english: { description: 'Focus on developing effective study practices.', questions: '', activities: '', coaching_questions: '' } }
+              },
+              'Attitude': {
+                'High': { english: { description: 'You have a very positive attitude.', questions: '', activities: '', coaching_questions: '' } },
+                'Medium': { english: { description: 'You have a generally positive attitude.', questions: '', activities: '', coaching_questions: '' } },
+                'Low': { english: { description: 'You could benefit from a more positive attitude.', questions: '', activities: '', coaching_questions: '' } },
+                'Very Low': { english: { description: 'Focus on developing a more positive mindset.', questions: '', activities: '', coaching_questions: '' } }
+              },
+              'Overall': {
+                'High': { english: { description: 'Overall, you show strong learning characteristics.', questions: '', activities: '', coaching_questions: '' } },
+                'Medium': { english: { description: 'Overall, you show good learning characteristics.', questions: '', activities: '', coaching_questions: '' } },
+                'Low': { english: { description: 'There are several areas you could focus on developing.', questions: '', activities: '', coaching_questions: '' } },
+                'Very Low': { english: { description: 'Focus on developing your learning characteristics across all areas.', questions: '', activities: '', coaching_questions: '' } }
+              }
+            }
+          }
+        };
+      }
     }
     
     // Generate report
@@ -1365,7 +1446,7 @@ const pageDescription = "Take the VESPA questionnaire to assess your learning mi
         </div>
         
         <div class="text-center">
-          <button onclick="document.getElementById('results-modal').classList.add('hidden')" class="text-gray-500 hover:text-gray-700 underline">
+          <button id="close-results-btn" class="text-gray-500 hover:text-gray-700 underline">
             Close Results
           </button>
         </div>
@@ -1373,43 +1454,61 @@ const pageDescription = "Take the VESPA questionnaire to assess your learning mi
       
       resultsModal.classList.remove('hidden');
       
+      // Add event listener for the close button within the results content
+      setTimeout(() => {
+        const closeBtn = document.getElementById('close-results-btn');
+        if (closeBtn) {
+          closeBtn.addEventListener('click', function() {
+            document.getElementById('results-modal').classList.add('hidden');
+          });
+        }
+      }, 100);
+      
       // Initialize chart
       setTimeout(() => {
-        const ctx = document.getElementById('vespa-chart').getContext('2d');
-        new Chart(ctx, {
-          type: 'radar',
-          data: {
-            labels: Object.keys(scales),
-            datasets: [{
-              label: 'Your VESPA Profile',
-              data: Object.values(scales),
-              backgroundColor: 'rgba(0, 229, 219, 0.2)',
-              borderColor: 'rgba(0, 229, 219, 1)',
-              borderWidth: 2,
-              pointBackgroundColor: 'rgba(0, 229, 219, 1)',
-              pointBorderColor: '#fff',
-              pointHoverBackgroundColor: '#fff',
-              pointHoverBorderColor: 'rgba(0, 229, 219, 1)'
-            }]
-          },
-          options: {
-            scales: {
-              r: {
-                beginAtZero: true,
-                max: 10,
-                ticks: {
-                  stepSize: 2
+        try {
+          const ctx = document.getElementById('vespa-chart').getContext('2d');
+          if (typeof Chart !== 'undefined') {
+            new Chart(ctx, {
+              type: 'radar',
+              data: {
+                labels: Object.keys(scales),
+                datasets: [{
+                  label: 'Your VESPA Profile',
+                  data: Object.values(scales),
+                  backgroundColor: 'rgba(0, 229, 219, 0.2)',
+                  borderColor: 'rgba(0, 229, 219, 1)',
+                  borderWidth: 2,
+                  pointBackgroundColor: 'rgba(0, 229, 219, 1)',
+                  pointBorderColor: '#fff',
+                  pointHoverBackgroundColor: '#fff',
+                  pointHoverBorderColor: 'rgba(0, 229, 219, 1)'
+                }]
+              },
+              options: {
+                scales: {
+                  r: {
+                    beginAtZero: true,
+                    max: 10,
+                    ticks: {
+                      stepSize: 2
+                    }
+                  }
+                },
+                plugins: {
+                  legend: {
+                    display: false
+                  }
                 }
               }
-            },
-            plugins: {
-              legend: {
-                display: false
-              }
-            }
+            });
+          } else {
+            console.error('Chart.js not loaded');
           }
-        });
-      }, 100);
+        } catch (error) {
+          console.error('Error initializing chart:', error);
+        }
+      }, 200);
     }
     
     function getScoreColor(score) {
@@ -1419,9 +1518,7 @@ const pageDescription = "Take the VESPA questionnaire to assess your learning mi
       return 'text-red-600';
     }
     
-    // Store global variables for report data
-    let currentScales = null;
-    let currentAverages = null;
+    // Global variables already declared at top of script
     
     // Download PDF function
     window.downloadPDF = function() {
@@ -1492,19 +1589,36 @@ const pageDescription = "Take the VESPA questionnaire to assess your learning mi
     // Email report and get access function
     window.emailAndGetAccess = async function(event) {
       try {
+        console.log('Starting email process...');
+        
         // Show loading state
         const button = event.currentTarget || event.target;
         const originalText = button.innerHTML;
         button.disabled = true;
         button.innerHTML = '<svg class="inline-block w-5 h-5 mr-2 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>Sending report...';
         
+        // Check if we have the required data
+        if (!userData || !userData.email) {
+          throw new Error('User data is missing');
+        }
+        
+        if (!currentScales || !currentAverages) {
+          throw new Error('Report data is missing');
+        }
+        
         // Get the report HTML
         const reportHTML = document.getElementById('pdf-report-container').innerHTML;
+        
+        if (!reportHTML) {
+          throw new Error('Report HTML is missing');
+        }
         
         // Add interests to userData if not already present
         if (!userData.interests) {
           userData.interests = [];
         }
+        
+        console.log('Sending API request...');
         
         // Send the report via API
         const response = await fetch('/api/send-report', {
@@ -1517,11 +1631,20 @@ const pageDescription = "Take the VESPA questionnaire to assess your learning mi
             reportHTML: reportHTML,
             scores: currentScales,
             averages: currentAverages,
-            level: 'Level 3' // You can add logic to determine this based on user selection
+            level: 'Level 3'
           })
         });
         
+        console.log('API response status:', response.status);
+        
+        if (!response.ok) {
+          const errorText = await response.text();
+          console.error('API error response:', errorText);
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
         const result = await response.json();
+        console.log('API result:', result);
         
         if (result.success) {
           // Show success message
@@ -1559,18 +1682,19 @@ const pageDescription = "Take the VESPA questionnaire to assess your learning mi
           }, 1500);
         } else {
           // Show error
-          button.innerHTML = originalText;
-          button.disabled = false;
-          alert('Sorry, there was an error sending your report. Please try downloading the PDF instead.');
+          throw new Error(result.error || 'Unknown error occurred');
         }
-              } catch (error) {
+      } catch (error) {
         console.error('Error sending report:', error);
-        const button = document.querySelector('button[onclick*="emailAndGetAccess"]');
+        
+        // Reset button state
+        const button = event.currentTarget || event.target || document.querySelector('button[onclick*="emailAndGetAccess"]');
         if (button) {
           button.innerHTML = '<svg class="inline-block w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>Send Me My Report';
           button.disabled = false;
         }
-        alert('Sorry, there was an error sending your report. Please try downloading the PDF instead.');
+        
+        alert(`Sorry, there was an error sending your report: ${error.message}. Please try downloading the PDF instead or contact support.`);
       }
     };
   </script>
