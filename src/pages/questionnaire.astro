@@ -37,13 +37,13 @@ const statements = [
   { id: 'q28', text: "I can control my nerves in tests/practical assessments.", category: 'ATTITUDE' }
 ];
 
-// Group statements by category for display
+// Group statements by category for display with VESPA colors
 const categories = {
-  VISION: { color: 'bg-vision', textColor: 'text-vision', icon: '👁️', description: 'Your goals and future planning' },
-  EFFORT: { color: 'bg-effort', textColor: 'text-effort', icon: '💡', description: 'Your work ethic and perseverance' },
-  SYSTEMS: { color: 'bg-systems', textColor: 'text-systems', icon: '📦', description: 'Your organization and time management' },
-  PRACTICE: { color: 'bg-practice', textColor: 'text-practice', icon: '📋', description: 'Your study techniques and methods' },
-  ATTITUDE: { color: 'bg-attitude', textColor: 'text-attitude', icon: '😊', description: 'Your mindset and resilience' }
+  VISION: { color: 'bg-vision', textColor: 'text-vision', borderColor: 'border-vision', description: 'Your goals and future planning' },
+  EFFORT: { color: 'bg-effort', textColor: 'text-effort', borderColor: 'border-effort', description: 'Your work ethic and perseverance' },
+  SYSTEMS: { color: 'bg-systems', textColor: 'text-systems', borderColor: 'border-systems', description: 'Your organization and time management' },
+  PRACTICE: { color: 'bg-practice', textColor: 'text-practice', borderColor: 'border-practice', description: 'Your study techniques and methods' },
+  ATTITUDE: { color: 'bg-attitude', textColor: 'text-attitude', borderColor: 'border-attitude', description: 'Your mindset and resilience' }
 };
 
 const pageTitle = "VESPA Questionnaire - Assess Your Learning Mindset";
@@ -54,9 +54,14 @@ const pageDescription = "Take the VESPA questionnaire to assess your learning mi
   <Header />
   
   <main class="pt-24">
-    <!-- Hero Section -->
-    <section class="py-16 bg-gradient-to-b from-theme-dark to-theme-primary">
-      <div class="container mx-auto px-6 text-center">
+    <!-- Hero Section with Background Image -->
+    <section class="py-16 bg-gradient-to-b from-theme-dark to-theme-primary relative overflow-hidden">
+      <!-- Background Image -->
+      <div class="absolute inset-0 opacity-20">
+        <img src="/assets/questionnaireinsights2.png" alt="VESPA Insights" class="w-full h-full object-cover">
+      </div>
+      
+      <div class="container mx-auto px-6 text-center relative z-10">
         <h1 class="text-5xl font-bold text-white mb-6">
           Discover Your <span class="gradient-text">Learning Profile</span>
         </h1>
@@ -65,8 +70,10 @@ const pageDescription = "Take the VESPA questionnaire to assess your learning mi
         </p>
         <div class="flex flex-wrap justify-center gap-4 mb-8">
           {Object.entries(categories).map(([key, cat]) => (
-            <div class="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full">
-              <span class="text-2xl">{cat.icon}</span>
+            <div class={`flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full border-2 ${cat.borderColor}`}>
+              <div class={`w-8 h-8 rounded-full ${cat.color} flex items-center justify-center`}>
+                <span class="text-white font-bold text-sm">{key.charAt(0)}</span>
+              </div>
               <span class="text-white font-semibold">{key}</span>
             </div>
           ))}
@@ -76,6 +83,89 @@ const pageDescription = "Take the VESPA questionnaire to assess your learning mi
         <button id="start-questionnaire" class="px-12 py-4 bg-gradient-to-r from-theme-secondary to-theme-accent1 text-theme-dark font-bold rounded-xl text-lg hover:scale-105 transition-transform shadow-xl">
           Start Questionnaire
         </button>
+      </div>
+    </section>
+
+    <!-- About the Questionnaire Section -->
+    <section class="py-16 bg-white">
+      <div class="container mx-auto px-6">
+        <h2 class="text-4xl font-bold text-center mb-12 text-theme-dark">About the VESPA Questionnaire</h2>
+        
+        <div class="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto">
+          <!-- Left Column - Overview -->
+          <div>
+            <h3 class="text-2xl font-bold mb-4 text-theme-primary">A Note from Steve and Martin</h3>
+            <p class="text-gray-700 mb-4">
+              We've developed the VESPA questionnaire as a tool for teachers to support the coaching process with individual pupils or to identify areas for development with large cohorts. There are a number of strengths and weaknesses of using this type of questionnaire that we provide to pupils that the best starting point for a discussion.
+            </p>
+            <p class="text-gray-700 mb-4">
+              It should be made explicit to pupils that the questionnaire is being used to support them and help them achieve some other goal, remember that they are being measured for some other reason, they are unlikely to offer honest answers. And of course, remember the fluidity of character. The questionnaire will provide a snapshot of how the pupil feels about themselves now. It is not a permanent state that won't yield to development or change.
+            </p>
+            
+            <div class="bg-theme-primary/10 p-6 rounded-lg mt-6">
+              <h4 class="font-bold text-theme-primary mb-2">Key Features:</h4>
+              <ul class="space-y-2 text-gray-700">
+                <li class="flex items-start">
+                  <span class="text-theme-secondary mr-2">✓</span>
+                  <span>28 validated questions across 5 dimensions</span>
+                </li>
+                <li class="flex items-start">
+                  <span class="text-theme-secondary mr-2">✓</span>
+                  <span>Developed with Dr Neil Dagnall and Dr Andrew Donovan at Manchester Metropolitan University</span>
+                </li>
+                <li class="flex items-start">
+                  <span class="text-theme-secondary mr-2">✓</span>
+                  <span>Trialled with 1,669 students for reliability</span>
+                </li>
+                <li class="flex items-start">
+                  <span class="text-theme-secondary mr-2">✓</span>
+                  <span>0.85 Cronbach's Alpha score (excellent reliability)</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          
+          <!-- Right Column - Details -->
+          <div>
+            <h3 class="text-2xl font-bold mb-4 text-theme-primary">What Are Psychometric Tests and Why Use Them?</h3>
+            <p class="text-gray-700 mb-4">
+              The term psychometric refers generally to any branch of psychology concerned with psychological measurement. Psychometric tests are standard measures of mental capabilities and behavioural style. Tests assess important individual differences, such as intelligence (ability), skills (aptitude) and personality. To achieve this, psychometric tests employ systematic, standardised procedures to sample (snapshot) and describe sample behaviour using scores or categories.
+            </p>
+            
+            <h4 class="font-bold text-theme-primary mb-2 mt-6">Good Psychometric Tests:</h4>
+            <ul class="space-y-2 text-gray-700 mb-6">
+              <li>• Demonstrate several essential properties</li>
+              <li>• Be standardised and objective</li>
+              <li>• Have pre-determined test administration procedures</li>
+              <li>• Ensure that performance is not influenced by the test administrator</li>
+              <li>• Provide comparable results across different testing sessions</li>
+            </ul>
+            
+            <h4 class="font-bold text-theme-primary mb-2">Measuring Mindset Using Psychometric Tests:</h4>
+            <p class="text-gray-700 mb-4">
+              Through important transitions, such as changing year, preparing for GCSEs and moving from GCSEs to A levels. Additionally, psychometric profiling enables comparison (norm) groups. This permits assessment of pupil ability via comparison (norm) groups. This permits assessment of pupil ability via comparison with peers (classmates). This is invaluable information that can help to enhance academic performance and identify areas of aptitude and strengths.
+            </p>
+            
+            <div class="bg-theme-secondary/10 p-6 rounded-lg">
+              <h4 class="font-bold text-theme-secondary mb-2">Benefits of Using a Measure When Working with Young People:</h4>
+              <ul class="space-y-2 text-gray-700">
+                <li>• Allows pupils to better appreciate their abilities</li>
+                <li>• Helps identify strengths and areas of interest</li>
+                <li>• Delivers qualified educators insight into pupil needs</li>
+                <li>• Enhances academic performance and well-being</li>
+                <li>• Provides a basis for structured coaching conversations</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Bottom Section -->
+        <div class="mt-12 bg-gradient-to-r from-theme-primary to-theme-dark p-8 rounded-xl text-white">
+          <h3 class="text-2xl font-bold mb-4 text-center">Introduction to the GCSE Mindset Questionnaire</h3>
+          <p class="text-center max-w-4xl mx-auto">
+            Steve Oakes and Martin Griffin devised the VESPA system as a way of identifying and developing the key behaviours and characteristics of successful students. The VESPA model comprises five key areas: Vision, Effort, Systems, Practice, and Attitude. Implementation of the VESPA system was successful in the sixth form of The Blue Coat School in Oldham where Oakes and Griffin taught. Over a sustained period, grades and attendance improved, and students reported being more confident and better prepared for examinations. Noting the success of the VESPA system, Oakes and Griffin developed a self-report questionnaire to gauge pupil levels within each of the five core behaviours and characteristics. This measure, in the tradition of psychometric tests, once refined and tested, will have the potential to facilitate pupil performance and well-being.
+          </p>
+        </div>
       </div>
     </section>
 
@@ -531,11 +621,11 @@ const pageDescription = "Take the VESPA questionnaire to assess your learning mi
     ];
     
     const categories = {
-      VISION: { color: 'bg-vision', textColor: 'text-vision', icon: '👁️', description: 'Your goals and future planning' },
-      EFFORT: { color: 'bg-effort', textColor: 'text-effort', icon: '💡', description: 'Your work ethic and perseverance' },
-      SYSTEMS: { color: 'bg-systems', textColor: 'text-systems', icon: '📦', description: 'Your organization and time management' },
-      PRACTICE: { color: 'bg-practice', textColor: 'text-practice', icon: '📋', description: 'Your study techniques and methods' },
-      ATTITUDE: { color: 'bg-attitude', textColor: 'text-attitude', icon: '😊', description: 'Your mindset and resilience' }
+      VISION: { color: 'bg-vision', textColor: 'text-vision', borderColor: 'border-vision', description: 'Your goals and future planning' },
+      EFFORT: { color: 'bg-effort', textColor: 'text-effort', borderColor: 'border-effort', description: 'Your work ethic and perseverance' },
+      SYSTEMS: { color: 'bg-systems', textColor: 'text-systems', borderColor: 'border-systems', description: 'Your organization and time management' },
+      PRACTICE: { color: 'bg-practice', textColor: 'text-practice', borderColor: 'border-practice', description: 'Your study techniques and methods' },
+      ATTITUDE: { color: 'bg-attitude', textColor: 'text-attitude', borderColor: 'border-attitude', description: 'Your mindset and resilience' }
     };
     
     // Check rate limiting
