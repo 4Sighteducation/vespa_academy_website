@@ -337,18 +337,20 @@ const pageDescription = "Take the VESPA questionnaire to assess your learning mi
     <!-- Registration Modal -->
     <div id="registration-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden" onclick="if(event.target === this) this.classList.add('hidden')">
       <div class="flex items-center justify-center min-h-screen p-4">
-        <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 relative max-h-[85vh] overflow-y-auto">
-          <!-- Close button -->
-          <button onclick="document.getElementById('registration-modal').classList.add('hidden')" class="absolute top-3 right-3 text-gray-400 hover:text-gray-600 z-10">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-            </svg>
-          </button>
-          
-          <h2 class="text-2xl font-bold text-gray-800 mb-2">Register Your Interest</h2>
-          <p class="text-sm text-gray-600 mb-4">Please provide your details to access the questionnaire and receive your personalised report.</p>
-          
-          <form id="registration-form" class="space-y-3">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full relative" style="max-height: 90vh; display: flex; flex-direction: column;">
+          <!-- Modal content wrapper -->
+          <div class="p-6 overflow-y-auto flex-1">
+            <!-- Close button -->
+            <button onclick="document.getElementById('registration-modal').classList.add('hidden')" class="absolute top-3 right-3 text-gray-400 hover:text-gray-600 z-10">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+              </svg>
+            </button>
+            
+            <h2 class="text-2xl font-bold text-gray-800 mb-2">Register Your Interest</h2>
+            <p class="text-sm text-gray-600 mb-4">Please provide your details to access the questionnaire and receive your personalised report.</p>
+            
+            <form id="registration-form" class="space-y-3">
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-1">Email Address *</label>
               <input type="email" name="email" required class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-theme-secondary focus:border-transparent">
@@ -413,6 +415,7 @@ const pageDescription = "Take the VESPA questionnaire to assess your learning mi
               </button>
             </div>
           </form>
+          </div>
         </div>
       </div>
     </div>
@@ -761,26 +764,10 @@ const pageDescription = "Take the VESPA questionnaire to assess your learning mi
       margin: 1rem 0;
     }
     
-    /* Fix for registration modal to ensure buttons are visible */
-    #registration-modal .bg-white {
-      display: flex;
-      flex-direction: column;
-    }
-    
-    #registration-form {
-      display: flex;
-      flex-direction: column;
-      min-height: 0;
-      flex: 1;
-    }
-    
-    #registration-form > div:last-child {
-      margin-top: auto;
-      padding-top: 1rem;
-      position: sticky;
-      bottom: 0;
-      background: white;
-      z-index: 10;
+    /* Simple fix to ensure form is scrollable if needed */
+    #registration-modal form {
+      max-height: calc(85vh - 120px);
+      overflow-y: auto;
     }
   </style>
 
