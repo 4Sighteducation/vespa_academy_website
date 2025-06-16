@@ -23,9 +23,18 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
     const SENDGRID_FROM_EMAIL = import.meta.env.SENDGRID_FROM_EMAIL;
     const SENDGRID_ADMIN_EMAIL = import.meta.env.SENDGRID_ADMIN_EMAIL;
     const SENDGRID_REPORT_TEMPLATE_ID = import.meta.env.SENDGRID_REPORT_TEMPLATE_ID;
+    const SENDGRID_LEAD_EMAIL_ID = import.meta.env.SENDGRID_LEAD_EMAIL_ID;
 
     if (!SENDGRID_API_KEY) {
       throw new Error('SendGrid API key not configured');
+    }
+
+    if (!SENDGRID_REPORT_TEMPLATE_ID) {
+      throw new Error('SendGrid report template ID not configured');
+    }
+
+    if (!SENDGRID_LEAD_EMAIL_ID) {
+      throw new Error('SendGrid lead email template ID not configured');
     }
 
     // Format the date
@@ -95,16 +104,12 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
                        userData.school.toLowerCase().includes('university') || 
                        userData.school.toLowerCase().includes('academy') ? 'High' : 'Medium';
 
-    // Read the admin email template
-    const adminTemplateResponse = await fetch(new URL('../../../LEAD_EMAIL.html', import.meta.url));
-    let adminTemplate = await adminTemplateResponse.text();
-    
     // Format interests for display
     const interestsDisplay = userData.interests && userData.interests.length > 0 
       ? userData.interests.join(', ') 
       : 'Not specified';
     
-    // Prepare admin template data
+    // Prepare admin template data for SendGrid template
     const adminTemplateData = {
       user_name: userData.name,
       user_email: userData.email,
@@ -137,13 +142,8 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
       follow_up_priority: scores.VISION < 6 || scores.EFFORT < 6 ? 'High' : 'Normal',
       timestamp: new Date().toLocaleString('en-GB', { timeZone: 'Europe/London' })
     };
-    
-    // Replace all placeholders in the template
-    Object.entries(adminTemplateData).forEach(([key, value]) => {
-      adminTemplate = adminTemplate.replace(new RegExp(`{{${key}}}`, 'g'), String(value));
-    });
 
-    // Send notification email to admin
+    // Send notification email to admin using SendGrid template
     const adminEmailResponse = await fetch('https://api.sendgrid.com/v3/mail/send', {
       method: 'POST',
       headers: {
@@ -153,16 +153,13 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
       body: JSON.stringify({
         personalizations: [{
           to: [{ email: SENDGRID_ADMIN_EMAIL }],
-          subject: `New VESPA Lead: ${userData.name} - ${userData.school}`
+          dynamic_template_data: adminTemplateData
         }],
         from: {
           email: SENDGRID_FROM_EMAIL,
           name: 'VESPA Academy'
         },
-        content: [{
-          type: 'text/html',
-          value: adminTemplate
-        }]
+        template_id: SENDGRID_LEAD_EMAIL_ID
       })
     });
 
