@@ -1,0 +1,167 @@
+---
+// No server-side code needed
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test API - Generate Logs</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        button { background: #0070f3; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; margin: 10px 0; }
+        button:hover { background: #0051cc; }
+        .result { background: #f5f5f5; border: 1px solid #ddd; padding: 15px; margin: 10px 0; border-radius: 5px; }
+        .success { border-color: #28a745; background: #d4edda; }
+        .error { border-color: #dc3545; background: #f8d7da; }
+        pre { white-space: pre-wrap; word-wrap: break-word; }
+    </style>
+</head>
+<body>
+    <h1>🔍 API Test - Generate Logs</h1>
+    <p>This will test your send-report API and generate logs in Vercel.</p>
+    
+    <h2>1. Test Send Report API</h2>
+    <button onclick="testSendReport()">Test Send Report API</button>
+    <div id="sendResult" class="result" style="display: none;"></div>
+    
+    <h2>2. Test Debug API</h2>
+    <button onclick="testDebugAPI()">Test Debug API</button>
+    <div id="debugResult" class="result" style="display: none;"></div>
+    
+    <h2>3. Check Logs</h2>
+    <p>After running the tests above:</p>
+    <ol>
+        <li>Go to <a href="https://vercel.com/dashboard" target="_blank">Vercel Dashboard</a></li>
+        <li>Click on your <strong>vespa-academy-new</strong> project</li>
+        <li>Click on the latest deployment</li>
+        <li>Click on <strong>"Functions"</strong> tab</li>
+        <li>Click on <strong>/api/send-report</strong> to see logs</li>
+    </ol>
+
+    <script>
+        async function testSendReport() {
+            const button = event.target;
+            const resultDiv = document.getElementById('sendResult');
+            
+            button.disabled = true;
+            button.textContent = 'Testing...';
+            resultDiv.style.display = 'block';
+            resultDiv.className = 'result';
+            resultDiv.innerHTML = 'Testing send-report API...';
+            
+            const testData = {
+                userData: {
+                    email: 'tony@vespa.academy',
+                    name: 'Test User',
+                    school: 'Test School',
+                    jobTitle: 'Test Role',
+                    interests: ['coaching-portal']
+                },
+                reportHTML: '<div><h1>Test Report</h1><p>This is a test report HTML content.</p></div>',
+                scores: {
+                    VISION: 7,
+                    EFFORT: 8,
+                    SYSTEMS: 6,
+                    PRACTICE: 7,
+                    ATTITUDE: 8
+                },
+                averages: {
+                    VISION: 6.5,
+                    EFFORT: 7.2,
+                    SYSTEMS: 6.8,
+                    PRACTICE: 6.9,
+                    ATTITUDE: 7.5
+                },
+                level: 'Level 3'
+            };
+            
+            try {
+                const response = await fetch('/api/send-report', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(testData)
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    resultDiv.className = 'result success';
+                    resultDiv.innerHTML = `
+                        <strong>✅ SUCCESS!</strong><br>
+                        Status: ${response.status}<br>
+                        Message: ${data.message}<br>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    `;
+                } else {
+                    resultDiv.className = 'result error';
+                    resultDiv.innerHTML = `
+                        <strong>❌ ERROR</strong><br>
+                        Status: ${response.status}<br>
+                        Error: ${data.error}<br>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    `;
+                }
+            } catch (error) {
+                resultDiv.className = 'result error';
+                resultDiv.innerHTML = `
+                    <strong>❌ NETWORK ERROR</strong><br>
+                    ${error.message}
+                `;
+            }
+            
+            button.disabled = false;
+            button.textContent = 'Test Send Report API';
+        }
+        
+        async function testDebugAPI() {
+            const button = event.target;
+            const resultDiv = document.getElementById('debugResult');
+            
+            button.disabled = true;
+            button.textContent = 'Testing...';
+            resultDiv.style.display = 'block';
+            resultDiv.className = 'result';
+            resultDiv.innerHTML = 'Testing debug API...';
+            
+            try {
+                const response = await fetch('/api/send-report-debug', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({test: 'data'})
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    resultDiv.className = 'result success';
+                    resultDiv.innerHTML = `
+                        <strong>✅ SUCCESS!</strong><br>
+                        Status: ${response.status}<br>
+                        Message: ${data.message}<br>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    `;
+                } else {
+                    resultDiv.className = 'result error';
+                    resultDiv.innerHTML = `
+                        <strong>❌ ERROR</strong><br>
+                        Status: ${response.status}<br>
+                        Error: ${data.error}<br>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    `;
+                }
+            } catch (error) {
+                resultDiv.className = 'result error';
+                resultDiv.innerHTML = `
+                    <strong>❌ NETWORK ERROR</strong><br>
+                    ${error.message}
+                `;
+            }
+            
+            button.disabled = false;
+            button.textContent = 'Test Debug API';
+        }
+    </script>
+</body>
+</html> 

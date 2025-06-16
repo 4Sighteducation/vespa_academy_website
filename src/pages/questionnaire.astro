@@ -372,6 +372,16 @@ const pageDescription = "Take the VESPA questionnaire to assess your learning mi
             </div>
             
             <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Report Level *</label>
+              <select name="level" required class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-theme-secondary focus:border-transparent">
+                <option value="">Please select...</option>
+                <option value="Level 2">Level 2 (Key Stage 4 / GCSE)</option>
+                <option value="Level 3">Level 3 (Key Stage 5 / A Level)</option>
+              </select>
+              <p class="text-xs text-gray-500 mt-1">Choose the level that best matches your students' current stage</p>
+            </div>
+            
+            <div>
               <label class="block text-sm font-medium text-gray-700 mb-1">I'm interested in learning more about: *</label>
               <div class="grid grid-cols-2 gap-2 text-sm">
                 <label class="flex items-center">
@@ -590,6 +600,98 @@ const pageDescription = "Take the VESPA questionnaire to assess your learning mi
     
     .score-label {
       font-weight: bold;
+    }
+    
+    /* New 3x5 Grid Styles for VESPA Report */
+    .vespa-grid-3x5 {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2mm;
+      margin: 5mm 0;
+      font-size: 8pt;
+    }
+    
+    .grid-header {
+      display: grid;
+      grid-template-columns: 60mm 1fr 1fr;
+      gap: 3mm;
+      background: #23356f;
+      color: white;
+      padding: 3mm;
+      font-weight: bold;
+      border-radius: 3px;
+    }
+    
+    .vespa-row {
+      display: grid;
+      grid-template-columns: 60mm 1fr 1fr;
+      gap: 3mm;
+      border: 1px solid #ddd;
+      border-left-width: 4px;
+      border-radius: 3px;
+      background: white;
+      page-break-inside: avoid;
+      min-height: 30mm;
+    }
+    
+    .col1-score {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 3mm;
+      border-radius: 3px 0 0 3px;
+      border-right: 1px solid #eee;
+    }
+    
+    .category-label {
+      font-size: 12pt;
+      font-weight: bold;
+      margin-bottom: 1mm;
+      text-align: center;
+    }
+    
+    .score-large {
+      font-size: 24pt;
+      font-weight: bold;
+      line-height: 1;
+      color: #333;
+    }
+    
+    .score-max {
+      font-size: 10pt;
+      color: #666;
+    }
+    
+    .col2-description {
+      padding: 3mm;
+      border-right: 1px solid #eee;
+    }
+    
+    .description-text {
+      line-height: 1.4;
+      margin-bottom: 2mm;
+      font-size: 8pt;
+    }
+    
+    .reflection-questions {
+      margin-top: 2mm;
+      font-size: 7pt;
+      color: #555;
+    }
+    
+    .col3-coaching {
+      padding: 3mm;
+    }
+    
+    .coaching-section {
+      margin-bottom: 2mm;
+      font-size: 7pt;
+    }
+    
+    .activities-section {
+      font-size: 7pt;
+      color: #666;
     }
     
     .vespa-grid { 
@@ -939,15 +1041,16 @@ const pageDescription = "Take the VESPA questionnaire to assess your learning mi
         }
       });
       
-      registrationForm.addEventListener('submit', function(e) {
+      registrationForm.addEventListener('submit', async function(e) {
         e.preventDefault();
         
         const formData = new FormData(e.target);
         userData = {
-          email: formData.get('email'),
           name: formData.get('name'),
+          email: formData.get('email'),
           jobTitle: formData.get('jobTitle'),
           school: formData.get('school'),
+          level: formData.get('level'),
           interests: formData.getAll('interests')
         };
         
@@ -958,6 +1061,27 @@ const pageDescription = "Take the VESPA questionnaire to assess your learning mi
           if (!confirm('This appears to be a student email address. This questionnaire is designed for educators. Are you an educator?')) {
             return;
           }
+        }
+        
+        // Send lead notification immediately on registration
+        try {
+          console.log('Sending lead notification...');
+          const leadResponse = await fetch('/api/send-lead', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(userData)
+          });
+          
+          if (leadResponse.ok) {
+            console.log('Lead notification sent successfully');
+          } else {
+            console.error('Lead notification failed:', await leadResponse.text());
+          }
+        } catch (error) {
+          console.error('Error sending lead notification:', error);
+          // Don't block the user flow if lead email fails
         }
         
         // Record the attempt
@@ -1153,7 +1277,7 @@ const pageDescription = "Take the VESPA questionnaire to assess your learning mi
     // Import report text data for generating comprehensive report
     async function loadReportData() {
       try {
-        const response = await fetch('/reporttext_restructured_complete.json');
+        const response = await fetch('/assets/reporttext_restructured_complete.json');
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -1232,7 +1356,7 @@ const pageDescription = "Take the VESPA questionnaire to assess your learning mi
           attitude: scales.ATTITUDE,
           overall: overallScore
         },
-        level: 'Level 3' // Default to Level 3 for now - you can add logic to determine this
+        level: userData.level || 'Level 3' // Use the selected level from the form
       };
       
       // Function to determine performance rating
@@ -1318,8 +1442,13 @@ const pageDescription = "Take the VESPA questionnaire to assess your learning mi
             </div>
           </div>
           
-          <div class="vespa-grid">
-            ${['vision', 'effort', 'systems', 'practice', 'attitude', 'overall'].map(category => {
+          <div class="vespa-grid-3x5">
+            <div class="grid-header">
+              <div class="header-col1">VESPA Element</div>
+              <div class="header-col2">Your Score & Description</div>
+              <div class="header-col3">Coaching Questions & Activities</div>
+            </div>
+            ${['vision', 'effort', 'systems', 'practice', 'attitude'].map(category => {
               const score = studentData.scores[category];
               const content = getReportContent(category, score, studentData.level);
               const categoryColors = {
@@ -1327,37 +1456,36 @@ const pageDescription = "Take the VESPA questionnaire to assess your learning mi
                 effort: '#a9c8f5',
                 systems: '#90d66f',
                 practice: '#9c57c0',
-                attitude: '#f567ea',
-                overall: '#23356f'
+                attitude: '#f567ea'
               };
               
               return `
-                <div class="vespa-block" style="border-left-color: ${categoryColors[category]}">
-                  <div class="block-score">
-                    <div class="score-label">${category.toUpperCase()}</div>
-                    <div class="score-val">${score}</div>
+                <div class="vespa-row" style="border-left-color: ${categoryColors[category]}">
+                  <div class="col1-score" style="background-color: ${categoryColors[category]}20; border-color: ${categoryColors[category]}">
+                    <div class="category-label" style="color: ${categoryColors[category]}">${category.toUpperCase()}</div>
+                    <div class="score-large">${score}</div>
                     <div class="score-max">/10</div>
                   </div>
-                  <div class="block-body">
-                    <p>${content.description}</p>
+                  <div class="col2-description">
+                    <div class="description-text">${content.description || 'Description not available'}</div>
                     ${content.questions ? `
-                      <div class="questions">
-                        <strong>Questions to consider:</strong>
-                        <div>${content.questions}</div>
+                      <div class="reflection-questions">
+                        <strong>Consider:</strong><br>
+                        ${content.questions}
                       </div>
                     ` : ''}
                   </div>
-                  <div class="block-questions">
+                  <div class="col3-coaching">
                     ${content.coaching_questions ? `
-                      <div class="coaching">
-                        <strong>Coaching Questions:</strong>
-                        <div>${content.coaching_questions}</div>
+                      <div class="coaching-section">
+                        <strong>Coaching Questions:</strong><br>
+                        ${content.coaching_questions}
                       </div>
                     ` : ''}
                     ${content.activities ? `
-                      <div class="activities">
-                        <strong>Suggested Activities:</strong>
-                        <div>${content.activities}</div>
+                      <div class="activities-section">
+                        <strong>Suggested Activities:</strong><br>
+                        <em>${content.activities}</em>
                       </div>
                     ` : ''}
                   </div>
@@ -1425,18 +1553,15 @@ const pageDescription = "Take the VESPA questionnaire to assess your learning mi
           </div>
         </div>
         
-        <!-- BUTTONS SECTION - TESTING -->
-        <div class="bg-red-100 border-2 border-red-500 p-6 rounded-xl mb-8">
-          <h3 class="text-2xl font-bold mb-4 text-red-800">🚨 TESTING - Your Personalised Report</h3>
+        <!-- SEND REPORT SECTION -->
+        <div class="bg-gradient-to-r from-blue-50 to-cyan-50 border border-cyan-200 p-6 rounded-xl mb-8">
+          <h3 class="text-2xl font-bold mb-4 text-gray-800">📈 Your Personalised Report</h3>
           <p class="text-gray-700 mb-6">
-            Download your detailed VESPA report with coaching questions and recommendations, or have it emailed to you.
+            Get your detailed VESPA report with coaching questions and recommendations emailed to you.
           </p>
           <div class="flex flex-col gap-4">
-            <button onclick="emailAndGetAccess(event)" class="w-full px-8 py-4 bg-gradient-to-r from-green-400 to-blue-500 text-white font-bold rounded-lg hover:scale-105 transition-transform text-xl shadow-lg border-4 border-yellow-400" style="display: block !important; visibility: visible !important;">
-              📧 SEND ME MY REPORT - TESTING
-            </button>
-            <button onclick="downloadPDF()" class="w-full px-6 py-3 bg-purple-500 text-white font-semibold rounded-lg border-2 border-purple-700 hover:bg-purple-600 transition-colors" style="display: block !important; visibility: visible !important;">
-              💾 Print/Save as PDF - TESTING
+            <button onclick="emailAndGetAccess(event)" class="w-full px-8 py-4 bg-gradient-to-r from-green-500 to-blue-600 text-white font-bold rounded-lg hover:from-green-600 hover:to-blue-700 transition-all duration-300 text-xl shadow-lg" style="display: block !important; visibility: visible !important;">
+              📧 Send Me My Report
             </button>
           </div>
         </div>
@@ -1634,19 +1759,35 @@ const pageDescription = "Take the VESPA questionnaire to assess your learning mi
         
         console.log('Sending API request...');
         
+        // Prepare the data to send
+        const requestData = {
+          userData: userData,
+          reportHTML: reportHTML,
+          scores: currentScales,
+          averages: currentAverages,
+          level: userData.level || 'Level 3'
+        };
+        
+        // Add detailed logging
+        console.log('=== API REQUEST DATA DEBUG ===');
+        console.log('Full request data:', JSON.stringify(requestData, null, 2));
+        console.log('userData:', userData);
+        console.log('userData keys:', userData ? Object.keys(userData) : 'undefined');
+        console.log('currentScales:', currentScales);
+        console.log('currentScales keys:', currentScales ? Object.keys(currentScales) : 'undefined');
+        console.log('currentAverages:', currentAverages);  
+        console.log('currentAverages keys:', currentAverages ? Object.keys(currentAverages) : 'undefined');
+        console.log('reportHTML length:', reportHTML ? reportHTML.length : 'undefined');
+        console.log('reportHTML preview:', reportHTML ? reportHTML.substring(0, 200) + '...' : 'undefined');
+        console.log('=== END DEBUG ===');
+        
         // Send the report via API
         const response = await fetch('/api/send-report', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify({
-            userData: userData,
-            reportHTML: reportHTML,
-            scores: currentScales,
-            averages: currentAverages,
-            level: 'Level 3'
-          })
+          body: JSON.stringify(requestData)
         });
         
         console.log('API response status:', response.status);
