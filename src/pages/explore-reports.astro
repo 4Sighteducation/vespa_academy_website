@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import 'aos/dist/aos.css';
 ---
 
 <Layout title="VESPA Coaching Reports | VESPA Academy">
@@ -429,7 +430,7 @@ import Layout from '../layouts/Layout.astro';
     }
 
     .feature-card:hover {
-      @apply bg-white/15 transform translateY(-5px);
+      @apply bg-white/15 transform -translate-y-1;
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
     }
 
@@ -452,7 +453,7 @@ import Layout from '../layouts/Layout.astro';
     }
 
     .ai-feature-card:hover {
-      @apply transform translateY(-5px);
+      @apply transform -translate-y-1;
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
     }
 
@@ -499,17 +500,16 @@ import Layout from '../layouts/Layout.astro';
   </style>
 
   <script>
-    // Initialize AOS animations
     import AOS from 'aos';
-    import 'aos/dist/aos.css';
     
+    // Initialize AOS
     AOS.init({
       duration: 800,
       easing: 'ease-out-cubic',
       once: true,
       offset: 50
     });
-
+    
     // Parallax effect
     const parallaxElements = document.querySelectorAll('.parallax-bg');
     
