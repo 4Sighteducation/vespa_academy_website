@@ -660,21 +660,34 @@ import Layout from '../layouts/Layout.astro';
           }
         }
 
-        try {
-          // For now, just send to info@vespa.academy and admin@vespa.academy
-          // This would need an API endpoint to handle the email sending
-          console.log('Training request data:', data);
-          alert('Training request submitted successfully! We will contact you shortly.');
-          trainingModal.classList.add('hidden');
-          trainingForm.reset();
-          page2.classList.add('hidden');
-          page1.classList.remove('hidden');
-          staffSection.classList.add('hidden');
-          studentSection.classList.add('hidden');
-        } catch (error) {
-          console.error('Error:', error);
-          alert('There was an error submitting your request. Please try again.');
-        }
+            try {
+      console.log('Submitting training request data:', data);
+      
+      const response = await fetch('/api/send-training-request', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+      });
+
+      const result = await response.json();
+      
+      if (response.ok) {
+        alert('Training request submitted successfully! We will contact you shortly.');
+        trainingModal.classList.add('hidden');
+        trainingForm.reset();
+        page2.classList.add('hidden');
+        page1.classList.remove('hidden');
+        staffSection.classList.add('hidden');
+        studentSection.classList.add('hidden');
+      } else {
+        throw new Error(result.error || 'Failed to submit request');
+      }
+    } catch (error) {
+      console.error('Error submitting training request:', error);
+      alert('There was an error submitting your request. Please try again.');
+    }
       });
     });
   </script>
