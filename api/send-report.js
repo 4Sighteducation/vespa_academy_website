@@ -324,7 +324,7 @@ const generateProfessionalReportHTML = async (data) => {
             </div>
             <div class="header-title">VESPA COACHING REPORT</div>
             <div class="logo-container">
-              <img src="https://vespawebsite-b6f6u9omx-tony-dennis-projects.vercel.app/_astro/vespalogo.BGrK1ARl.png" alt="VESPA Academy" style="max-height: 25px; width: auto;" />
+              <img src="https://www.vespa.academy/assets/images/full-trimmed-transparent-customcolor-1-832x947.png" alt="VESPA Academy" style="max-height: 25px; width: auto;" />
             </div>
           </div>
           <div class="intro-questions">
@@ -557,7 +557,8 @@ export default async function handler(req, res) {
       practice_avg: emailData.practice_avg,
       attitude_score: emailData.attitude_score,
       attitude_avg: emailData.attitude_avg,
-      overall_score: emailData.overall_score
+      overall_score: emailData.overall_score,
+      download_link: 'https://www.vespa.academy' // Since PDF is attached, link to main site
     };
 
     console.log('Template data prepared:', Object.keys(templateData));
