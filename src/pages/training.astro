@@ -293,7 +293,7 @@ import Layout from '../layouts/Layout.astro';
 
     <!-- Training Contact Modal -->
     <div id="training-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4" onclick="if(event.target === this) this.classList.add('hidden')">
-      <div class="bg-gradient-to-br from-white to-gray-50 rounded-3xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto relative border border-gray-200">
+      <div class="bg-gradient-to-br from-white to-gray-50 rounded-3xl shadow-2xl max-w-2xl w-full max-h-[90vh] flex flex-col relative border border-gray-200">
         <!-- Close button -->
         <button onclick="document.getElementById('training-modal').classList.add('hidden')" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 z-10 bg-white/80 backdrop-blur-sm rounded-full p-2 transition-all hover:scale-110">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -301,8 +301,9 @@ import Layout from '../layouts/Layout.astro';
           </svg>
         </button>
         
-        <div class="p-8">
-          <div class="text-center mb-8">
+        <!-- Header Section (Fixed) -->
+        <div class="p-8 pb-4 border-b border-gray-200">
+          <div class="text-center">
             <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-theme-secondary to-theme-accent1 rounded-full mb-4">
               <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
@@ -311,7 +312,10 @@ import Layout from '../layouts/Layout.astro';
             <h2 class="text-3xl font-bold text-theme-dark mb-4">Training Request</h2>
             <p class="text-gray-600">Please submit the form below to make a request about VESPA training</p>
           </div>
-          
+        </div>
+        
+        <!-- Scrollable Form Content -->
+        <div class="flex-1 overflow-y-auto px-8 py-6">
           <form id="training-form" class="space-y-6">
             <!-- Page 1 Fields -->
             <div id="page-1" class="space-y-6">
@@ -534,17 +538,21 @@ import Layout from '../layouts/Layout.astro';
                   <textarea name="studentAdditionalInfo" rows="4" class="w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-theme-secondary focus:border-transparent"></textarea>
                 </div>
               </div>
-              
-              <div class="flex gap-4">
-                <button type="button" id="back-btn" class="flex-1 px-6 py-3 bg-gray-200 text-gray-700 font-semibold rounded-lg hover:bg-gray-300 transition-colors">
-                  Back
-                </button>
-                <button type="submit" class="flex-1 px-6 py-3 bg-gradient-to-r from-theme-secondary to-theme-accent1 text-theme-dark font-bold rounded-lg hover:scale-105 transition-transform">
-                  Submit Request
-                </button>
-              </div>
             </div>
           </form>
+        </div>
+        
+        <!-- Fixed Footer with Buttons -->
+        <div id="form-buttons" class="p-6 border-t border-gray-200 bg-white rounded-b-3xl">
+          <!-- Page 2 buttons (initially hidden) -->
+          <div id="page-2-buttons" class="flex gap-4 hidden">
+            <button type="button" id="back-btn" class="flex-1 px-6 py-3 bg-gray-200 text-gray-700 font-semibold rounded-lg hover:bg-gray-300 transition-colors">
+              Back
+            </button>
+            <button type="submit" form="training-form" class="flex-1 px-6 py-3 bg-gradient-to-r from-theme-secondary to-theme-accent1 text-theme-dark font-bold rounded-lg hover:scale-105 transition-transform">
+              Submit Request
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -779,6 +787,9 @@ import Layout from '../layouts/Layout.astro';
         trainingModal.classList.remove('hidden');
       });
 
+      // Get button container
+      const page2Buttons = document.getElementById('page-2-buttons');
+
       // Next button functionality
       nextBtn.addEventListener('click', function() {
         const trainingTypes = document.querySelectorAll('input[name="trainingType"]:checked');
@@ -791,6 +802,9 @@ import Layout from '../layouts/Layout.astro';
         // Show page 2
         page1.classList.add('hidden');
         page2.classList.remove('hidden');
+        
+        // Show page 2 buttons
+        page2Buttons.classList.remove('hidden');
 
         // Show relevant sections based on selection
         const selectedValues = Array.from(trainingTypes).map(cb => cb.value);
@@ -810,6 +824,9 @@ import Layout from '../layouts/Layout.astro';
         page1.classList.remove('hidden');
         staffSection.classList.add('hidden');
         studentSection.classList.add('hidden');
+        
+        // Hide page 2 buttons
+        page2Buttons.classList.add('hidden');
       });
 
       // Form submission

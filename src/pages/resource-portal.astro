@@ -85,31 +85,88 @@ import ActivityModal from '../components/ActivityModal.astro';
 				</div>
 				
 				<!-- Purchase Options -->
-				<div class="bg-white/10 backdrop-blur-sm p-10 rounded-3xl border border-white/20 max-w-4xl mx-auto" data-aos="zoom-in">
-					<h3 class="text-3xl font-bold text-white mb-6 text-center">Purchase Options</h3>
-					<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-						<div class="text-center">
-							<div class="bg-theme-secondary/20 p-8 rounded-2xl">
-								<h4 class="text-2xl font-bold text-theme-secondary mb-4">Standalone Access</h4>
-								<p class="text-gray-300 mb-6">Purchase the Resource Portal independently for classroom-based VESPA delivery</p>
-								<p class="text-3xl font-bold text-white mb-2">£1,495</p>
-								<p class="text-gray-400 mb-6">Per school, annual license</p>
-								<a href="/pricing" class="inline-flex items-center px-6 py-3 bg-theme-secondary hover:bg-theme-accent1 text-theme-dark font-bold rounded-xl transition-all duration-300">
-									View Pricing Details
-								</a>
-							</div>
+				<div class="bg-white/10 backdrop-blur-sm p-10 rounded-3xl border border-white/20 max-w-5xl mx-auto" data-aos="zoom-in">
+					<h3 class="text-3xl font-bold text-white mb-8 text-center">Purchase Options</h3>
+					
+					<!-- Resource Portal Pricing Table -->
+					<div class="mb-10">
+						<h4 class="text-2xl font-bold text-theme-secondary mb-6 text-center">Resource Portal Pricing</h4>
+						<p class="text-gray-300 mb-6 text-center">Starting from <span class="text-theme-secondary font-bold">£10 per staff member</span> - flexible packages available</p>
+						
+						<div class="overflow-x-auto mb-6">
+							<table class="w-full text-left">
+								<thead>
+									<tr class="border-b border-gray-600">
+										<th class="pb-4 text-gray-300 font-semibold">Package Type</th>
+										<th class="pb-4 text-gray-300 font-semibold text-center">Price</th>
+										<th class="pb-4 text-gray-300 font-semibold text-center">Best For</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr class="border-b border-gray-700/50">
+										<td class="py-4 text-white">Individual Licence</td>
+										<td class="py-4 text-center">
+											<span class="text-2xl font-bold text-theme-secondary">£120</span>
+										</td>
+										<td class="py-4 text-center text-gray-400">Single users or trial</td>
+									</tr>
+									<tr class="border-b border-gray-700/50">
+										<td class="py-4 text-white">Small Team (5 licences)</td>
+										<td class="py-4 text-center">
+											<span class="text-2xl font-bold text-theme-secondary">£495</span>
+										</td>
+										<td class="py-4 text-center text-gray-400">Departments</td>
+									</tr>
+									<tr class="border-b border-gray-700/50">
+										<td class="py-4 text-white">Medium Team (10 licences)</td>
+										<td class="py-4 text-center">
+											<span class="text-2xl font-bold text-theme-secondary">£795</span>
+										</td>
+										<td class="py-4 text-center text-gray-400">Year Team</td>
+									</tr>
+									<tr class="border-b border-gray-700/50">
+										<td class="py-4 text-white">Large Team (30 licences)</td>
+										<td class="py-4 text-center">
+											<span class="text-2xl font-bold text-theme-secondary">£1,495</span>
+										</td>
+										<td class="py-4 text-center text-gray-400">Key Stage</td>
+									</tr>
+									<tr class="border-b border-gray-700/50">
+										<td class="py-4 text-white">Whole School (Unlimited)</td>
+										<td class="py-4 text-center">
+											<span class="text-2xl font-bold text-theme-secondary">£2,225</span>
+										</td>
+										<td class="py-4 text-center text-gray-400">Large institutions</td>
+									</tr>
+									<tr>
+										<td class="py-4 text-white">Multi-Site</td>
+										<td class="py-4 text-center">
+											<span class="text-xl font-bold text-effort">Quote on request</span>
+										</td>
+										<td class="py-4 text-center text-gray-400">Trusts & groups</td>
+									</tr>
+								</tbody>
+							</table>
 						</div>
-						<div class="text-center">
-							<div class="bg-gradient-to-br from-theme-accent1/20 to-theme-accent2/20 p-8 rounded-2xl border-2 border-theme-accent1/50">
-								<div class="bg-theme-accent1 text-theme-dark text-sm font-bold px-3 py-1 rounded-full inline-block mb-4">BEST VALUE</div>
-								<h4 class="text-2xl font-bold text-theme-accent1 mb-4">Included with Coaching Portal</h4>
-								<p class="text-gray-300 mb-6">Get full Resource Portal access PLUS student assessments, reports, and analytics</p>
-								<p class="text-3xl font-bold text-white mb-2">From £2,495</p>
-								<p class="text-gray-400 mb-6">Complete solution</p>
-								<a href="/coaching-portal" class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-theme-accent1 to-theme-accent2 text-theme-dark font-bold rounded-xl transition-all duration-300">
-									Explore Coaching Portal
-								</a>
-							</div>
+						
+						<div class="p-4 bg-white/5 rounded-lg text-center">
+							<p class="text-sm text-gray-300">
+								All packages can be customised - speak to us about what works best for your school.
+							</p>
+						</div>
+					</div>
+					
+					<!-- Best Value Option -->
+					<div class="text-center">
+						<div class="bg-gradient-to-br from-theme-accent1/20 to-theme-accent2/20 p-8 rounded-2xl border-2 border-theme-accent1/50 max-w-2xl mx-auto">
+							<div class="bg-theme-accent1 text-theme-dark text-sm font-bold px-3 py-1 rounded-full inline-block mb-4">BEST VALUE</div>
+							<h4 class="text-2xl font-bold text-theme-accent1 mb-4">Get More with Coaching Portal</h4>
+							<p class="text-gray-300 mb-6">Resource Portal access is included FREE with our Coaching Portal - plus you get student assessments, reports, and analytics</p>
+							<p class="text-3xl font-bold text-white mb-2">From £5/student</p>
+							<p class="text-gray-400 mb-6">Complete solution with everything included</p>
+							<a href="/coaching-portal" class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-theme-accent1 to-theme-accent2 text-theme-dark font-bold rounded-xl transition-all duration-300">
+								Explore Coaching Portal
+							</a>
 						</div>
 					</div>
 				</div>
