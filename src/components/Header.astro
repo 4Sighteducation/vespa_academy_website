@@ -32,7 +32,7 @@ import vespaLogo from '../assets/vespalogo.png';
     </div>
     
     <!-- Mobile menu -->
-    <div id="mobile-menu" class="fixed inset-x-0 top-full bg-theme-dark/95 backdrop-blur-lg transform transition-transform duration-300 -translate-y-full opacity-0 pointer-events-none">
+    <div id="mobile-menu" class="md:hidden fixed left-0 right-0 top-[72px] bg-theme-dark/95 backdrop-blur-lg transition-all duration-300 max-h-0 overflow-hidden">
         <nav class="container mx-auto px-6 py-8 space-y-2">
             <a href="/solutions" class="mobile-nav-link">Solutions</a>
             <a href="/training" class="mobile-nav-link">Training</a>
@@ -100,31 +100,53 @@ import vespaLogo from '../assets/vespalogo.png';
     }
     
     #mobile-menu.menu-open {
-        @apply translate-y-0 opacity-100 pointer-events-auto;
+        @apply max-h-[500px];
     }
 </style>
 
 <script>
     const mobileMenuButton = document.getElementById('mobile-menu-button');
     const mobileMenu = document.getElementById('mobile-menu');
+    let isMenuOpen = false;
     
     if (mobileMenuButton && mobileMenu) {
-        mobileMenuButton.addEventListener('click', () => {
-            mobileMenu.classList.toggle('menu-open');
+        mobileMenuButton.addEventListener('click', (e) => {
+            e.stopPropagation();
+            isMenuOpen = !isMenuOpen;
+            
+            if (isMenuOpen) {
+                mobileMenu.classList.add('menu-open');
+            } else {
+                mobileMenu.classList.remove('menu-open');
+            }
             
             // Animate menu icon
             const icon = mobileMenuButton.querySelector('svg');
-            if (mobileMenu.classList.contains('menu-open')) {
+            if (isMenuOpen) {
                 icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>';
             } else {
                 icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>';
             }
         });
         
+        // Close menu when clicking on a link
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                isMenuOpen = false;
+                mobileMenu.classList.remove('menu-open');
+                const icon = mobileMenuButton.querySelector('svg');
+                icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>';
+            });
+        });
+        
         // Close menu when clicking outside
         document.addEventListener('click', (e) => {
-            if (!mobileMenuButton.contains(e.target) && !mobileMenu.contains(e.target)) {
+            if (isMenuOpen && !mobileMenuButton.contains(e.target) && !mobileMenu.contains(e.target)) {
+                isMenuOpen = false;
                 mobileMenu.classList.remove('menu-open');
+                const icon = mobileMenuButton.querySelector('svg');
+                icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>';
             }
         });
     }
