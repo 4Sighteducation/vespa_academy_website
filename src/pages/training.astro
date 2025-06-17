@@ -1,0 +1,681 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Training | VESPA Academy - Professional Development & Student Workshops">
+  <main class="overflow-hidden">
+    <!-- Hero Section with Background Image -->
+    <section class="relative py-24 bg-gradient-to-br from-theme-dark via-theme-primary to-theme-accent2 text-white">
+      <div class="absolute inset-0 opacity-30">
+        <div class="parallax-bg h-full w-full" data-speed="0.3"
+          style="background-image: url('/assets/pexels-diva-plavalaguna-6150527-2000x1333.webp'); background-size: cover; background-position: center;">
+        </div>
+      </div>
+      
+      <div class="absolute inset-0">
+        <div class="absolute top-0 left-0 w-96 h-96 bg-theme-secondary/20 rounded-full blur-3xl animate-pulse"></div>
+        <div class="absolute bottom-0 right-0 w-96 h-96 bg-theme-accent1/20 rounded-full blur-3xl animate-pulse" style="animation-delay: 1s;"></div>
+      </div>
+      
+      <div class="container mx-auto px-6 text-center relative z-10">
+        <h1 class="text-5xl md:text-6xl font-extrabold mb-6 fade-in-up">
+          VESPA <span class="gradient-text">Training</span>
+        </h1>
+        <p class="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto mb-8 fade-in-up" style="animation-delay: 0.2s;">
+          Transform your educational approach with our comprehensive training programs designed for staff development and student empowerment.
+        </p>
+        <button id="training-contact-btn" class="px-12 py-4 bg-gradient-to-r from-theme-secondary to-theme-accent1 text-theme-dark font-bold rounded-xl text-lg hover:scale-105 transition-transform shadow-xl fade-in-up" style="animation-delay: 0.4s;">
+          Request Training Information
+        </button>
+      </div>
+    </section>
+
+    <!-- Staff Training Section -->
+    <section class="py-24 bg-white">
+      <div class="container mx-auto px-6">
+        <div class="max-w-6xl mx-auto">
+          <div class="text-center mb-16 fade-in-up">
+            <h2 class="text-4xl md:text-5xl font-bold text-theme-dark mb-6">
+              Staff <span class="text-effort">INSET Training</span>
+            </h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+              Comprehensive professional development programs to empower your teaching staff with VESPA methodologies
+            </p>
+          </div>
+
+          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Introduction to VESPA -->
+            <div class="training-card fade-in-up" style="animation-delay: 0.1s;">
+              <div class="training-icon bg-vision">
+                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                </svg>
+              </div>
+              <h3 class="text-2xl font-bold mb-4 text-theme-dark">Introduction to VESPA</h3>
+              <p class="text-gray-600 mb-6">
+                An overview of the VESPA model and the research behind it. Staff will explore practical strategies to help students maximise their exam performance.
+              </p>
+              <div class="training-features">
+                <span class="feature-tag">Foundation Level</span>
+                <span class="feature-tag">Research-Based</span>
+              </div>
+            </div>
+
+            <!-- Coaching -->
+            <div class="training-card fade-in-up" style="animation-delay: 0.2s;">
+              <div class="training-icon bg-effort">
+                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                </svg>
+              </div>
+              <h3 class="text-2xl font-bold mb-4 text-theme-dark">Coaching</h3>
+              <p class="text-gray-600 mb-6">
+                Designed for schools that have completed the Introduction to VESPA. This session explores how to coach students using the VESPA model, with practical examples and resources.
+              </p>
+              <div class="training-features">
+                <span class="feature-tag">Intermediate</span>
+                <span class="feature-tag">Practical Focus</span>
+              </div>
+            </div>
+
+            <!-- Implementation -->
+            <div class="training-card fade-in-up" style="animation-delay: 0.3s;">
+              <div class="training-icon bg-systems">
+                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>
+                </svg>
+              </div>
+              <h3 class="text-2xl font-bold mb-4 text-theme-dark">Implementation</h3>
+              <p class="text-gray-600 mb-6">
+                For schools familiar with the VESPA model, this session focuses on effective implementation across the academic year. Staff will learn how to embed VESPA into the curriculum using a structured cycle.
+              </p>
+              <div class="training-features">
+                <span class="feature-tag">Advanced</span>
+                <span class="feature-tag">Curriculum Integration</span>
+              </div>
+            </div>
+
+            <!-- Effective Coaching -->
+            <div class="training-card fade-in-up" style="animation-delay: 0.4s;">
+              <div class="training-icon bg-practice">
+                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                </svg>
+              </div>
+              <h3 class="text-2xl font-bold mb-4 text-theme-dark">Effective Coaching</h3>
+              <p class="text-gray-600 mb-6">
+                Focused on developing productive and impactful coaching conversations. Staff will learn how to guide students through meaningful dialogue that promotes ownership and motivation.
+              </p>
+              <div class="training-features">
+                <span class="feature-tag">Communication</span>
+                <span class="feature-tag">Student Engagement</span>
+              </div>
+            </div>
+
+            <!-- Effective Goal Setting -->
+            <div class="training-card fade-in-up" style="animation-delay: 0.5s;">
+              <div class="training-icon bg-attitude">
+                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
+                </svg>
+              </div>
+              <h3 class="text-2xl font-bold mb-4 text-theme-dark">Effective Goal Setting</h3>
+              <p class="text-gray-600 mb-6">
+                This session explores how to help students set goals that are specific, challenging, and achievable. Staff will learn proven techniques for linking long-term vision with daily actions.
+              </p>
+              <div class="training-features">
+                <span class="feature-tag">Goal Planning</span>
+                <span class="feature-tag">Student Motivation</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Student Keynotes & Workshops Section -->
+    <section class="py-24 bg-gradient-to-br from-gray-50 to-blue-50">
+      <div class="container mx-auto px-6">
+        <div class="max-w-6xl mx-auto">
+          <div class="text-center mb-16 fade-in-up">
+            <h2 class="text-4xl md:text-5xl font-bold text-theme-dark mb-6">
+              Student <span class="text-practice">Keynotes & Workshops</span>
+            </h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+              Engaging sessions designed to inspire and equip students with essential skills for academic success
+            </p>
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-12 items-center mb-16">
+            <div class="fade-in-up" style="animation-delay: 0.2s;">
+              <img src="/assets/questionniareimage1.jpg" alt="Students in workshop" class="rounded-2xl shadow-2xl hover:shadow-3xl transition-shadow">
+            </div>
+            <div class="space-y-8 fade-in-up" style="animation-delay: 0.3s;">
+              <!-- Developing a VESPA Mindset -->
+              <div class="student-session-card">
+                <div class="session-icon bg-vision">
+                  <span class="text-white font-bold text-xl">V</span>
+                </div>
+                <div>
+                  <h3 class="text-2xl font-bold mb-3 text-theme-dark">Developing a VESPA Mindset</h3>
+                  <p class="text-gray-600 mb-4">
+                    Designed to foster proactive, independent learners. Delivered as an assembly or workshop, this session introduces VESPA through interactive activities. Suitable for Key Stages 3–5.
+                  </p>
+                  <div class="session-features">
+                    <span class="session-tag">Assembly Format</span>
+                    <span class="session-tag">Interactive</span>
+                    <span class="session-tag">KS3-5</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Revision & Study Skills -->
+              <div class="student-session-card">
+                <div class="session-icon bg-practice">
+                  <span class="text-white font-bold text-xl">P</span>
+                </div>
+                <div>
+                  <h3 class="text-2xl font-bold mb-3 text-theme-dark">Revision & Study Skills Workshops</h3>
+                  <p class="text-gray-600 mb-4">
+                    Tailored to your school's context, each session equips students with a research-informed study framework. Covers revision techniques, environment setup, and habit formation.
+                  </p>
+                  <div class="session-features">
+                    <span class="session-tag">Tailored</span>
+                    <span class="session-tag">Research-Based</span>
+                    <span class="session-tag">Study Skills</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Preparing for University -->
+              <div class="student-session-card">
+                <div class="session-icon bg-attitude">
+                  <span class="text-white font-bold text-xl">A</span>
+                </div>
+                <div>
+                  <h3 class="text-2xl font-bold mb-3 text-theme-dark">Preparing for University</h3>
+                  <p class="text-gray-600 mb-4">
+                    Targeted at end-of-Year 12 or start-of-Year 13 students. Led by an experienced university lecturer, this session explores the challenges and skills needed for higher education success.
+                  </p>
+                  <div class="session-features">
+                    <span class="session-tag">University Focused</span>
+                    <span class="session-tag">Expert Led</span>
+                    <span class="session-tag">Year 12-13</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-gradient-to-r from-theme-primary to-theme-dark text-white">
+      <div class="container mx-auto px-6 text-center">
+        <h2 class="text-4xl font-bold mb-6 fade-in-up">Ready to Transform Your School?</h2>
+        <p class="text-xl text-gray-300 mb-8 max-w-3xl mx-auto fade-in-up" style="animation-delay: 0.2s;">
+          Join hundreds of schools already using VESPA training to improve student outcomes and staff confidence.
+        </p>
+        <button id="training-contact-btn-2" class="px-12 py-4 bg-gradient-to-r from-theme-secondary to-theme-accent1 text-theme-dark font-bold rounded-xl text-lg hover:scale-105 transition-transform shadow-xl fade-in-up" style="animation-delay: 0.4s;">
+          Request Training Information
+        </button>
+      </div>
+    </section>
+
+    <!-- Training Contact Modal -->
+    <div id="training-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden" onclick="if(event.target === this) this.classList.add('hidden')">
+      <div class="flex items-center justify-center min-h-screen p-4">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto relative">
+          <!-- Close button -->
+          <button onclick="document.getElementById('training-modal').classList.add('hidden')" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 z-10">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </button>
+          
+          <div class="p-8">
+            <div class="text-center mb-8">
+              <h2 class="text-3xl font-bold text-theme-dark mb-4">Training Request</h2>
+              <p class="text-gray-600">Please submit the form below to make a request about VESPA training</p>
+            </div>
+            
+            <form id="training-form" class="space-y-6">
+              <!-- Page 1 Fields -->
+              <div id="page-1" class="space-y-6">
+                <div class="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">First Name</label>
+                    <input type="text" name="firstName" required class="w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-theme-secondary focus:border-transparent">
+                  </div>
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Last Name</label>
+                    <input type="text" name="lastName" required class="w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-theme-secondary focus:border-transparent">
+                  </div>
+                </div>
+                
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Organisation</label>
+                  <input type="text" name="organisation" required class="w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-theme-secondary focus:border-transparent">
+                </div>
+                
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Email: eg. john@example.com</label>
+                  <input type="email" name="email" required class="w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-theme-secondary focus:border-transparent">
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Area Code</label>
+                    <input type="text" name="areaCode" class="w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-theme-secondary focus:border-transparent">
+                  </div>
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
+                    <input type="tel" name="phoneNumber" class="w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-theme-secondary focus:border-transparent">
+                  </div>
+                </div>
+                
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-4">Which type of training are you interested in?</label>
+                  <div class="space-y-3">
+                    <label class="flex items-center">
+                      <input type="checkbox" name="trainingType" value="staff-training" class="mr-3">
+                      <span>Staff Training</span>
+                    </label>
+                    <label class="flex items-center">
+                      <input type="checkbox" name="trainingType" value="student-training" class="mr-3">
+                      <span>Student Training</span>
+                    </label>
+                    <label class="flex items-center">
+                      <input type="checkbox" name="trainingType" value="both" class="mr-3">
+                      <span>Both</span>
+                    </label>
+                  </div>
+                </div>
+                
+                <div class="text-center">
+                  <button type="button" id="next-btn" class="px-8 py-3 bg-gradient-to-r from-theme-secondary to-theme-accent1 text-theme-dark font-bold rounded-lg hover:scale-105 transition-transform">
+                    Next
+                  </button>
+                </div>
+              </div>
+              
+              <!-- Page 2 Fields -->
+              <div id="page-2" class="space-y-6 hidden">
+                <!-- Staff Training Details -->
+                <div id="staff-training-section" class="hidden">
+                  <h3 class="text-xl font-bold text-theme-dark mb-4">Staff Training</h3>
+                  <p class="text-sm text-gray-600 mb-4">Please select one of the following options:</p>
+                  
+                  <div class="space-y-3 mb-6">
+                    <label class="flex items-center">
+                      <input type="radio" name="staffSession" value="session1" class="mr-3">
+                      <span>SESSION 1 - Introduction to VESPA Model</span>
+                    </label>
+                    <label class="flex items-center">
+                      <input type="radio" name="staffSession" value="session2" class="mr-3">
+                      <span>SESSION 2 - Coaching Model / Follow Up</span>
+                    </label>
+                    <label class="flex items-center">
+                      <input type="radio" name="staffSession" value="session3" class="mr-3">
+                      <span>SESSION 3 - Implementation Models</span>
+                    </label>
+                    <label class="flex items-center">
+                      <input type="radio" name="staffSession" value="bespoke" class="mr-3">
+                      <span>BESPOKE - Please see text below for ideas</span>
+                    </label>
+                  </div>
+                  
+                  <div class="mb-6">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Bespoke Session Ideas (select one or choose others)</label>
+                    <select name="bespokeIdeas" class="w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-theme-secondary focus:border-transparent">
+                      <option value="">Please select...</option>
+                      <option value="option1">Custom Option 1</option>
+                      <option value="option2">Custom Option 2</option>
+                    </select>
+                  </div>
+                  
+                  <div class="mb-6">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Please add your bespoke training requirements</label>
+                    <textarea name="bespokeRequirements" rows="4" class="w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-theme-secondary focus:border-transparent"></textarea>
+                  </div>
+                  
+                  <div class="grid md:grid-cols-3 gap-4 mb-6">
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-2">Staff Numbers</label>
+                      <input type="number" name="staffNumbers" class="w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-theme-secondary focus:border-transparent">
+                    </div>
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-2">Planned Date</label>
+                      <input type="date" name="plannedDate" class="w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-theme-secondary focus:border-transparent">
+                    </div>
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-2">Location Preference</label>
+                      <select name="locationPreference" class="w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-theme-secondary focus:border-transparent">
+                        <option value="">Please select...</option>
+                        <option value="on-site">On-site</option>
+                        <option value="virtual">Virtual</option>
+                        <option value="hybrid">Hybrid</option>
+                      </select>
+                    </div>
+                  </div>
+                  
+                  <div class="grid md:grid-cols-5 gap-2 mb-6">
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-2">Planned Start Time</label>
+                      <select name="startHour" class="w-full px-2 py-2 text-sm border border-gray-300 rounded">
+                        <option value="">Hour</option>
+                        <option value="09">09</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-2">Minutes</label>
+                      <select name="startMinute" class="w-full px-2 py-2 text-sm border border-gray-300 rounded">
+                        <option value="">Min</option>
+                        <option value="00">00</option>
+                        <option value="15">15</option>
+                        <option value="30">30</option>
+                        <option value="45">45</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-2">Until Hour</label>
+                      <select name="endHour" class="w-full px-2 py-2 text-sm border border-gray-300 rounded">
+                        <option value="">Hour</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="15">15</option>
+                        <option value="16">16</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-2">Until Minutes</label>
+                      <select name="endMinute" class="w-full px-2 py-2 text-sm border border-gray-300 rounded">
+                        <option value="">Min</option>
+                        <option value="00">00</option>
+                        <option value="15">15</option>
+                        <option value="30">30</option>
+                        <option value="45">45</option>
+                      </select>
+                    </div>
+                  </div>
+                  
+                  <div class="mb-6">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Any Further Information</label>
+                    <textarea name="additionalInfo" rows="4" class="w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-theme-secondary focus:border-transparent"></textarea>
+                  </div>
+                </div>
+                
+                <!-- Student Training Details -->
+                <div id="student-training-section" class="hidden">
+                  <h3 class="text-xl font-bold text-theme-dark mb-4">Student Session</h3>
+                  <p class="text-sm text-gray-600 mb-4">Please select one of the following options:</p>
+                  
+                  <div class="space-y-3 mb-6">
+                    <label class="flex items-center">
+                      <input type="radio" name="studentSession" value="developing-mindset" class="mr-3">
+                      <span>1 - Developing a VESPA Mindset</span>
+                    </label>
+                    <label class="flex items-center">
+                      <input type="radio" name="studentSession" value="revision-workshop" class="mr-3">
+                      <span>2 - Revision Workshop</span>
+                    </label>
+                    <label class="flex items-center">
+                      <input type="radio" name="studentSession" value="university-prep" class="mr-3">
+                      <span>3 - Preparing for University Study</span>
+                    </label>
+                    <label class="flex items-center">
+                      <input type="radio" name="studentSession" value="bespoke" class="mr-3">
+                      <span>Bespoke - Please add your ideas below</span>
+                    </label>
+                  </div>
+                  
+                  <div class="grid md:grid-cols-2 gap-4 mb-6">
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-2">Student Age</label>
+                      <select name="studentAge" class="w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-theme-secondary focus:border-transparent">
+                        <option value="">Please select...</option>
+                        <option value="ks3">Key Stage 3</option>
+                        <option value="ks4">Key Stage 4</option>
+                        <option value="ks5">Key Stage 5</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-2">Student Numbers</label>
+                      <input type="number" name="studentNumbers" class="w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-theme-secondary focus:border-transparent">
+                    </div>
+                  </div>
+                  
+                  <div class="grid md:grid-cols-2 gap-4 mb-6">
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-2">Location Preference</label>
+                      <select name="studentLocationPreference" class="w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-theme-secondary focus:border-transparent">
+                        <option value="">Please select...</option>
+                        <option value="on-site">On-site</option>
+                        <option value="virtual">Virtual</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-2">Planned Date</label>
+                      <input type="date" name="studentPlannedDate" class="w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-theme-secondary focus:border-transparent">
+                    </div>
+                  </div>
+                  
+                  <div class="mb-6">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Please add any additional information, ideas for Bespoke Sessions</label>
+                    <textarea name="studentAdditionalInfo" rows="4" class="w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-theme-secondary focus:border-transparent"></textarea>
+                  </div>
+                </div>
+                
+                <div class="flex gap-4">
+                  <button type="button" id="back-btn" class="flex-1 px-6 py-3 bg-gray-200 text-gray-700 font-semibold rounded-lg hover:bg-gray-300 transition-colors">
+                    Back
+                  </button>
+                  <button type="submit" class="flex-1 px-6 py-3 bg-gradient-to-r from-theme-secondary to-theme-accent1 text-theme-dark font-bold rounded-lg hover:scale-105 transition-transform">
+                    Submit
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <style>
+    /* Animation styles */
+    .fade-in-up {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.8s ease-out forwards;
+    }
+    
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Training card styles */
+    .training-card {
+      background: white;
+      border-radius: 20px;
+      padding: 2rem;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+      border: 1px solid #f1f5f9;
+      height: 100%;
+    }
+
+    .training-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    }
+
+    .training-icon {
+      width: 4rem;
+      height: 4rem;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .training-features {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .feature-tag {
+      background: #f1f5f9;
+      color: #475569;
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    /* Student session styles */
+    .student-session-card {
+      display: flex;
+      gap: 1.5rem;
+      padding: 1.5rem;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      transition: all 0.3s ease;
+    }
+
+    .student-session-card:hover {
+      transform: translateX(8px);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+    }
+
+    .session-icon {
+      width: 3rem;
+      height: 3rem;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .session-features {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .session-tag {
+      background: #e2e8f0;
+      color: #475569;
+      padding: 0.25rem 0.5rem;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+  </style>
+
+  <script>
+    // Training contact form functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const trainingModal = document.getElementById('training-modal');
+      const trainingForm = document.getElementById('training-form');
+      const page1 = document.getElementById('page-1');
+      const page2 = document.getElementById('page-2');
+      const nextBtn = document.getElementById('next-btn');
+      const backBtn = document.getElementById('back-btn');
+      const staffSection = document.getElementById('staff-training-section');
+      const studentSection = document.getElementById('student-training-section');
+
+      // Open modal buttons
+      document.getElementById('training-contact-btn').addEventListener('click', () => {
+        trainingModal.classList.remove('hidden');
+      });
+      
+      document.getElementById('training-contact-btn-2').addEventListener('click', () => {
+        trainingModal.classList.remove('hidden');
+      });
+
+      // Next button functionality
+      nextBtn.addEventListener('click', function() {
+        const trainingTypes = document.querySelectorAll('input[name="trainingType"]:checked');
+        
+        if (trainingTypes.length === 0) {
+          alert('Please select at least one training type.');
+          return;
+        }
+
+        // Show page 2
+        page1.classList.add('hidden');
+        page2.classList.remove('hidden');
+
+        // Show relevant sections based on selection
+        const selectedValues = Array.from(trainingTypes).map(cb => cb.value);
+        
+        if (selectedValues.includes('staff-training') || selectedValues.includes('both')) {
+          staffSection.classList.remove('hidden');
+        }
+        
+        if (selectedValues.includes('student-training') || selectedValues.includes('both')) {
+          studentSection.classList.remove('hidden');
+        }
+      });
+
+      // Back button functionality
+      backBtn.addEventListener('click', function() {
+        page2.classList.add('hidden');
+        page1.classList.remove('hidden');
+        staffSection.classList.add('hidden');
+        studentSection.classList.add('hidden');
+      });
+
+      // Form submission
+      trainingForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const formData = new FormData(trainingForm);
+        const data = {};
+        
+        // Convert FormData to object
+        for (let [key, value] of formData.entries()) {
+          if (data[key]) {
+            if (Array.isArray(data[key])) {
+              data[key].push(value);
+            } else {
+              data[key] = [data[key], value];
+            }
+          } else {
+            data[key] = value;
+          }
+        }
+
+        try {
+          // For now, just send to info@vespa.academy and admin@vespa.academy
+          // This would need an API endpoint to handle the email sending
+          console.log('Training request data:', data);
+          alert('Training request submitted successfully! We will contact you shortly.');
+          trainingModal.classList.add('hidden');
+          trainingForm.reset();
+          page2.classList.add('hidden');
+          page1.classList.remove('hidden');
+          staffSection.classList.add('hidden');
+          studentSection.classList.add('hidden');
+        } catch (error) {
+          console.error('Error:', error);
+          alert('There was an error submitting your request. Please try again.');
+        }
+      });
+    });
+  </script>
+</Layout> 

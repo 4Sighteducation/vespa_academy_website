@@ -54,8 +54,15 @@ const pageDescription = "Take the VESPA questionnaire to assess your learning mi
   <Header />
   
   <main class="pt-24">
-    <!-- Hero Section with Consistent Background -->
-    <section class="relative py-20 overflow-hidden bg-gradient-to-br from-theme-dark via-theme-primary to-theme-dark">
+    <!-- Hero Section with Background Image -->
+    <section class="relative py-24 overflow-hidden bg-gradient-to-br from-theme-dark via-theme-primary to-theme-dark">
+      <!-- Background Image -->
+      <div class="absolute inset-0 opacity-30">
+        <div class="parallax-bg h-full w-full" data-speed="0.3"
+          style="background-image: url('/assets/pexels-stanley-morales-1454360-2000x1333.jpg'); background-size: cover; background-position: center;">
+        </div>
+      </div>
+      
       <!-- Animated background elements -->
       <div class="absolute inset-0">
         <div class="absolute top-0 left-0 w-96 h-96 bg-theme-secondary/20 rounded-full blur-3xl animate-pulse"></div>
@@ -64,8 +71,8 @@ const pageDescription = "Take the VESPA questionnaire to assess your learning mi
       
       <div class="container mx-auto px-6 relative z-10">
         <div class="max-w-4xl mx-auto text-center">
-          <h1 class="text-5xl md:text-6xl font-bold text-white mb-6 fade-in-up">
-            Discover Your <span class="gradient-text">Learning Profile</span>
+          <h1 class="text-5xl md:text-6xl font-bold text-white mb-8 fade-in-up pb-4">
+            Discover Your <span class="vespa-gradient-text">VESPA Profile</span>
           </h1>
           <p class="text-xl text-gray-300 mb-8 fade-in-up" style="animation-delay: 0.2s;">
             Take our validated VESPA questionnaire to understand your strengths and areas for development across five key dimensions of academic success.
@@ -146,6 +153,82 @@ const pageDescription = "Take the VESPA questionnaire to assess your learning mi
                 Students receive immediate feedback with a personalised report, while educators gain access to powerful analytics and cohort insights.
               </p>
             </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Note from Founders - Enhanced and Prominent -->
+    <section class="py-24 bg-gradient-to-br from-theme-primary via-theme-dark to-theme-accent2 text-white relative overflow-hidden">
+      <!-- Background Pattern -->
+      <div class="absolute inset-0 opacity-10">
+        <div class="absolute top-0 left-0 w-96 h-96 bg-theme-secondary rounded-full blur-3xl animate-pulse"></div>
+        <div class="absolute bottom-0 right-0 w-96 h-96 bg-theme-accent1 rounded-full blur-3xl animate-pulse" style="animation-delay: 1s;"></div>
+      </div>
+      
+      <div class="container mx-auto px-6 relative z-10">
+        <div class="max-w-5xl mx-auto">
+          <!-- Enhanced Header -->
+          <div class="text-center mb-16 fade-in-up">
+            <div class="inline-flex items-center gap-4 mb-6">
+              <div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center">
+                <svg class="w-8 h-8 text-theme-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10m0 0V6a2 2 0 00-2-2H9a2 2 0 00-2 2v2m10 0v10a2 2 0 01-2 2H9a2 2 0 01-2-2V8m10 0H7"></path>
+                </svg>
+              </div>
+              <h2 class="text-4xl md:text-5xl font-bold">A Note from Steve and Martin</h2>
+            </div>
+            <p class="text-xl text-gray-200">The creators of the VESPA model share their insights</p>
+          </div>
+          
+          <!-- Enhanced Quote Card -->
+          <div class="bg-white/10 backdrop-blur-lg rounded-3xl p-10 md:p-12 shadow-2xl border border-white/20 fade-in-up" style="animation-delay: 0.2s;">
+            <div class="grid md:grid-cols-2 gap-8 items-center mb-8">
+              <!-- Photos -->
+              <div class="flex justify-center gap-6">
+                <div class="text-center">
+                  <img src="/assets/steveoakes.webp" alt="Steve Oakes" class="w-20 h-20 rounded-full mx-auto mb-2 ring-4 ring-white/30">
+                  <p class="text-sm font-semibold text-theme-secondary">Steve Oakes</p>
+                </div>
+                <div class="text-center">
+                  <img src="/assets/martingriffin.jpg" alt="Martin Griffin" class="w-20 h-20 rounded-full mx-auto mb-2 ring-4 ring-white/30">
+                  <p class="text-sm font-semibold text-theme-secondary">Martin Griffin</p>
+                </div>
+              </div>
+              <!-- Quote Icon -->
+              <div class="flex justify-center md:justify-end">
+                <div class="w-16 h-16 bg-theme-secondary/20 rounded-full flex items-center justify-center">
+                  <svg class="w-8 h-8 text-theme-secondary" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-10zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h4v10h-10z"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+            
+            <div class="space-y-6 text-lg md:text-xl leading-relaxed">
+              <p class="italic">
+                "We created the VESPA Questionnaire to support both individual coaching and group development. When used well, it provides the perfect starting point for productive conversations. But it's important to remember a few things."
+              </p>
+              <p>
+                "First, the questionnaire only offers a snapshot in time—a reflection of how students feel about themselves right now. It's not a permanent verdict or fixed state. Second, students are far more likely to answer honestly when they know the questionnaire is being used to support them, not judge them. Make this clear."
+              </p>
+              <p class="font-bold text-theme-accent1 text-2xl border-l-4 border-theme-accent1 pl-6">
+                "Most importantly, the aim of the VESPA questionnaire is not simply to measure—but to motivate growth and spark change."
+              </p>
+            </div>
+          </div>
+          
+          <!-- Enhanced CTA -->
+          <div class="text-center mt-12 fade-in-up" style="animation-delay: 0.4s;">
+            <button onclick="document.getElementById('start-questionnaire').click()" class="px-12 py-4 bg-gradient-to-r from-theme-secondary to-theme-accent1 text-theme-dark font-bold rounded-xl text-lg hover:scale-105 transition-all shadow-xl hover:shadow-2xl">
+              <span class="flex items-center gap-3 justify-center">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                </svg>
+                Try the VESPA Questionnaire
+              </span>
+            </button>
+            <p class="mt-4 text-gray-300 text-sm">Start your journey with VESPA - it takes just 5 minutes</p>
           </div>
         </div>
       </div>
@@ -307,32 +390,7 @@ const pageDescription = "Take the VESPA questionnaire to assess your learning mi
       </div>
     </section>
 
-    <!-- Note from Founders -->
-    <section class="py-20 bg-gradient-to-br from-theme-dark to-theme-primary text-white">
-      <div class="container mx-auto px-6">
-        <div class="max-w-4xl mx-auto text-center">
-          <h2 class="text-4xl font-bold mb-12 fade-in-up">A Note from Steve and Martin</h2>
-          
-          <div class="bg-white/10 backdrop-blur-sm rounded-3xl p-10 fade-in-up" style="animation-delay: 0.2s;">
-            <div class="space-y-6 text-lg leading-relaxed">
-              <p>
-                "We created the VESPA Questionnaire to support both individual coaching and group development. When used well, it provides the perfect starting point for productive conversations. But it's important to remember a few things.
-              </p>
-              <p>
-                First, the questionnaire only offers a snapshot in time—a reflection of how students feel about themselves right now. It's not a permanent verdict or fixed state. Second, students are far more likely to answer honestly when they know the questionnaire is being used to support them, not judge them. Make this clear.
-              </p>
-              <p class="font-semibold text-theme-accent1">
-                Most importantly, the aim of the VESPA questionnaire is not simply to measure—but to motivate growth and spark change."
-              </p>
-            </div>
-          </div>
-          
-          <button onclick="document.getElementById('start-questionnaire').click()" class="mt-10 px-12 py-4 bg-white text-theme-dark font-bold rounded-xl text-lg hover:scale-105 transition-transform shadow-xl fade-in-up" style="animation-delay: 0.4s;">
-            Try the VESPA Questionnaire
-          </button>
-        </div>
-      </div>
-    </section>
+
 
     <!-- Registration Modal -->
     <div id="registration-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden" onclick="if(event.target === this) this.classList.add('hidden')">
@@ -503,6 +561,22 @@ const pageDescription = "Take the VESPA questionnaire to assess your learning mi
         opacity: 1;
         transform: translateY(0);
       }
+    }
+
+    /* VESPA Gradient Text with Individual Colors */
+    .vespa-gradient-text {
+      background: linear-gradient(90deg, 
+        #ff8f00 0% 20%,    /* V - Vision (orange) */
+        #86b4f0 20% 40%,   /* E - Effort (light blue) */
+        #72cb44 40% 60%,   /* S - Systems (green) */
+        #7f31a4 60% 80%,   /* P - Practice (purple) */
+        #f032e6 80% 100%   /* A - Attitude (pink) */
+      );
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: none;
+      font-weight: bold;
     }
     
     /* Include the ReportPrinting.css styles */
