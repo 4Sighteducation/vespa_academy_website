@@ -233,6 +233,16 @@ import ActivityModal from '../components/ActivityModal.astro';
 										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 4v6m0 0v6m0-6h6m-6 0H8"></path>
 									</svg>
 								</button>
+								<button onclick="openPdfModal('vision-pdf')"
+								   class="inline-flex items-center justify-center px-8 py-4 bg-orange-600 hover:bg-orange-700 text-white font-bold rounded-xl transition-all duration-300 transform hover:scale-105 shadow-xl group w-full mt-3">
+									<svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+									</svg>
+									View PDF Worksheet
+									<svg class="w-4 h-4 ml-2 transform transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+									</svg>
+								</button>
 							</div>
 						</div>
 					</div>
@@ -246,13 +256,23 @@ import ActivityModal from '../components/ActivityModal.astro';
 								<h4 class="text-2xl font-bold text-white mb-4">Sample Activity</h4>
 								<p class="text-gray-300 mb-6">The 1-10 Scale</p>
 								<button onclick="openSlidesModal('effort-slides-modal')"
-								   class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-effort to-effort/80 text-white font-bold rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-2xl group">
+								   class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-effort to-effort/80 text-white font-bold rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-2xl group w-full">
 									<svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
 									</svg>
 									Preview Activity Slides
 									<svg class="w-4 h-4 ml-2 transform transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 4v6m0 0v6m0-6h6m-6 0H8"></path>
+									</svg>
+								</button>
+								<button onclick="openPdfModal('effort-pdf')"
+								   class="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-bold rounded-xl transition-all duration-300 transform hover:scale-105 shadow-xl group w-full mt-3">
+									<svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+									</svg>
+									View PDF Worksheet
+									<svg class="w-4 h-4 ml-2 transform transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
 									</svg>
 								</button>
 							</div>
@@ -328,13 +348,23 @@ import ActivityModal from '../components/ActivityModal.astro';
 								<h4 class="text-2xl font-bold text-white mb-4">Sample Activity</h4>
 								<p class="text-gray-300 mb-6">1% Planning</p>
 								<button onclick="openSlidesModal('systems-slides-modal')"
-								   class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-systems to-systems/80 text-white font-bold rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-2xl group">
+								   class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-systems to-systems/80 text-white font-bold rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-2xl group w-full">
 									<svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
 									</svg>
 									Preview Activity Slides
 									<svg class="w-4 h-4 ml-2 transform transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 4v6m0 0v6m0-6h6m-6 0H8"></path>
+									</svg>
+								</button>
+								<button onclick="openPdfModal('systems-pdf')"
+								   class="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-green-600 to-green-700 text-white font-bold rounded-xl transition-all duration-300 transform hover:scale-105 shadow-xl group w-full mt-3">
+									<svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+									</svg>
+									View PDF Worksheet
+									<svg class="w-4 h-4 ml-2 transform transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
 									</svg>
 								</button>
 							</div>
@@ -350,13 +380,23 @@ import ActivityModal from '../components/ActivityModal.astro';
 								<h4 class="text-2xl font-bold text-white mb-4">Sample Activity</h4>
 								<p class="text-gray-300 mb-6">High & Low Utility</p>
 								<button onclick="openSlidesModal('practice-slides-modal')"
-								   class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-practice to-practice/80 text-white font-bold rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-2xl group">
+								   class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-practice to-practice/80 text-white font-bold rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-2xl group w-full">
 									<svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
 									</svg>
 									Preview Activity Slides
 									<svg class="w-4 h-4 ml-2 transform transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 4v6m0 0v6m0-6h6m-6 0H8"></path>
+									</svg>
+								</button>
+								<button onclick="openPdfModal('practice-pdf')"
+								   class="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-purple-600 to-purple-700 text-white font-bold rounded-xl transition-all duration-300 transform hover:scale-105 shadow-xl group w-full mt-3">
+									<svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+									</svg>
+									View PDF Worksheet
+									<svg class="w-4 h-4 ml-2 transform transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
 									</svg>
 								</button>
 							</div>
@@ -432,13 +472,23 @@ import ActivityModal from '../components/ActivityModal.astro';
 								<h4 class="text-2xl font-bold text-white mb-4">Sample Activity</h4>
 								<p class="text-gray-300 mb-6">Worst Case Scenarios</p>
 								<button onclick="openSlidesModal('attitude-slides-modal')"
-								   class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-attitude to-attitude/80 text-theme-dark font-bold rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-2xl group">
+								   class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-attitude to-attitude/80 text-theme-dark font-bold rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-2xl group w-full">
 									<svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
 									</svg>
 									Preview Activity Slides
 									<svg class="w-4 h-4 ml-2 transform transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 4v6m0 0v6m0-6h6m-6 0H8"></path>
+									</svg>
+								</button>
+								<button onclick="openPdfModal('attitude-pdf')"
+								   class="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-pink-600 to-pink-700 text-white font-bold rounded-xl transition-all duration-300 transform hover:scale-105 shadow-xl group w-full mt-3">
+									<svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+									</svg>
+									View PDF Worksheet
+									<svg class="w-4 h-4 ml-2 transform transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
 									</svg>
 								</button>
 							</div>
@@ -768,6 +818,40 @@ import ActivityModal from '../components/ActivityModal.astro';
 				</div>
 			</div>
 		</div>
+		
+		<!-- PDF Modal -->
+		<div id="pdf-modal" class="fixed inset-0 z-50 hidden">
+			<div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="closePdfModal()"></div>
+			<div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-5xl mx-4 h-[90vh]">
+				<div class="relative h-full bg-white rounded-lg overflow-hidden">
+					<div class="absolute top-0 left-0 right-0 bg-gray-100 p-4 flex items-center justify-between z-10">
+						<h3 id="pdf-modal-title" class="text-xl font-bold text-gray-800">PDF Worksheet</h3>
+						<button onclick="closePdfModal()" class="bg-gray-700 hover:bg-gray-900 rounded-full p-2 text-white transition-colors">
+							<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+							</svg>
+						</button>
+					</div>
+					<div class="w-full h-full pt-16 flex flex-col relative">
+						<div id="pdf-loading" class="absolute inset-0 flex items-center justify-center bg-gray-100">
+							<div class="text-center">
+								<div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+								<p class="text-gray-600">Loading PDF...</p>
+							</div>
+						</div>
+						<iframe 
+							id="pdf-iframe"
+							src="" 
+							width="100%" 
+							height="100%" 
+							title="PDF Worksheet"
+							frameborder="0"
+							class="flex-1">
+						</iframe>
+					</div>
+				</div>
+			</div>
+		</div>
 	</main>
 </Layout>
 
@@ -865,7 +949,7 @@ function closeActivityModal(modalId) {
 	}
 }
 
-// Slides modal functions
+// Slides modal functions with dynamic iframe loading
 const slideUrls = {
 	'vision-slides-modal': 'https://vespa-academy.slides.com/vespaslides/gettingdreamsdone/embed?byline=hidden&share=hidden',
 	'effort-slides-modal': 'https://vespa-academy.slides.com/vespaslides/1-10scale/embed?byline=hidden&share=hidden',
@@ -877,25 +961,39 @@ const slideUrls = {
 function openSlidesModal(modalId) {
 	const modal = document.getElementById(modalId);
 	if (modal) {
+		// Get the iframe element
 		const iframeId = modalId.replace('-slides-modal', '-iframe');
 		const iframe = document.getElementById(iframeId);
 		const loadingId = modalId.replace('-slides-modal', '-loading');
 		const loading = document.getElementById(loadingId);
 		
+		// Set the src URL when opening the modal
 		if (iframe && slideUrls[modalId]) {
+			// Use the exact URL format from the original embed codes
 			iframe.src = slideUrls[modalId];
+			console.log('Loading slides:', slideUrls[modalId]);
 			
+			// Force iframe to be visible immediately
+			iframe.style.opacity = '1';
+			iframe.style.visibility = 'visible';
+			
+			// Hide loading indicator when iframe loads
 			iframe.onload = function() {
+				console.log('Iframe loaded successfully');
+				
 				if (loading) {
 					loading.style.display = 'none';
 				}
 				iframe.style.opacity = '1';
+				iframe.style.visibility = 'visible';
 			};
 			
+			// Also hide loading after a timeout as fallback
 			setTimeout(() => {
 				if (loading && loading.style.display !== 'none') {
 					loading.style.display = 'none';
 					iframe.style.opacity = '1';
+					iframe.style.visibility = 'visible';
 				}
 			}, 3000);
 		}
@@ -908,12 +1006,91 @@ function openSlidesModal(modalId) {
 function closeSlidesModal(modalId) {
 	const modal = document.getElementById(modalId);
 	if (modal) {
+		// Clear the iframe src when closing to stop any playing content
 		const iframeId = modalId.replace('-slides-modal', '-iframe');
 		const iframe = document.getElementById(iframeId);
 		if (iframe) {
 			iframe.src = '';
 		}
 		
+		// Show loading indicator for next time
+		const loadingId = modalId.replace('-slides-modal', '-loading');
+		const loading = document.getElementById(loadingId);
+		if (loading) {
+			loading.style.display = 'flex';
+		}
+		
+		modal.classList.add('hidden');
+		document.body.style.overflow = '';
+	}
+}
+
+// PDF modal functions
+const pdfUrls = {
+	'vision-pdf': '/worksheets/vision-getting-dreams-done.pdf',
+	'effort-pdf': '/worksheets/effort-1-10-scale.pdf',
+	'systems-pdf': '/worksheets/systems-1-percent-planning.pdf',
+	'practice-pdf': '/worksheets/practice-high-low-utility.pdf',
+	'attitude-pdf': '/worksheets/attitude-worst-case-scenarios.pdf'
+};
+
+function openPdfModal(pdfId) {
+	const modal = document.getElementById('pdf-modal');
+	const iframe = document.getElementById('pdf-iframe');
+	const loading = document.getElementById('pdf-loading');
+	
+	if (modal && iframe && pdfUrls[pdfId]) {
+		// Show loading indicator
+		loading.style.display = 'flex';
+		iframe.style.opacity = '0';
+		
+		// Set the PDF URL
+		iframe.src = pdfUrls[pdfId];
+		
+		// Update modal title based on which PDF
+		const titleElement = document.getElementById('pdf-modal-title');
+		if (titleElement) {
+			const titles = {
+				'vision-pdf': 'VISION - Getting Dreams Done Worksheet',
+				'effort-pdf': 'EFFORT - 1-10 Scale Worksheet',
+				'systems-pdf': 'SYSTEMS - 1% Planning Worksheet',
+				'practice-pdf': 'PRACTICE - High & Low Utility Worksheet',
+				'attitude-pdf': 'ATTITUDE - Worst Case Scenarios Worksheet'
+			};
+			titleElement.textContent = titles[pdfId] || 'PDF Worksheet';
+		}
+		
+		// Hide loading when PDF loads
+		iframe.onload = function() {
+			loading.style.display = 'none';
+			iframe.style.opacity = '1';
+		};
+		
+		// Fallback to hide loading after timeout
+		setTimeout(() => {
+			if (loading.style.display !== 'none') {
+				loading.style.display = 'none';
+				iframe.style.opacity = '1';
+			}
+		}, 3000);
+		
+		// Show modal
+		modal.classList.remove('hidden');
+		document.body.style.overflow = 'hidden';
+	}
+}
+
+function closePdfModal() {
+	const modal = document.getElementById('pdf-modal');
+	const iframe = document.getElementById('pdf-iframe');
+	
+	if (modal) {
+		// Clear iframe src
+		if (iframe) {
+			iframe.src = '';
+		}
+		
+		// Hide modal
 		modal.classList.add('hidden');
 		document.body.style.overflow = '';
 	}
@@ -924,4 +1101,16 @@ window.openActivityModal = openActivityModal;
 window.closeActivityModal = closeActivityModal;
 window.openSlidesModal = openSlidesModal;
 window.closeSlidesModal = closeSlidesModal;
+window.openPdfModal = openPdfModal;
+window.closePdfModal = closePdfModal;
+
+// Debug: Check if buttons are present after page load
+document.addEventListener('DOMContentLoaded', () => {
+	console.log('Page loaded, checking for slide buttons...');
+	const slideButtons = document.querySelectorAll('button[onclick*="openSlidesModal"]');
+	console.log('Found slide buttons:', slideButtons.length);
+	slideButtons.forEach((btn, index) => {
+		console.log(`Button ${index}:`, btn.textContent.trim(), 'Visible:', btn.offsetParent !== null);
+	});
+});
 </script> 
