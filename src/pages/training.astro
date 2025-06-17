@@ -205,6 +205,76 @@ import Layout from '../layouts/Layout.astro';
       </div>
     </section>
 
+    <!-- Training Pricing Section -->
+    <section class="py-24 bg-gradient-to-b from-gray-50 to-white">
+      <div class="container mx-auto px-6">
+        <div class="max-w-5xl mx-auto">
+          <div class="text-center mb-16 fade-in-up">
+            <h2 class="text-4xl md:text-5xl font-bold text-theme-dark mb-6">
+              Training <span class="text-systems">Investment</span>
+            </h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+              Flexible pricing options to suit your institution's needs and budget
+            </p>
+          </div>
+
+          <div class="pricing-table-container fade-in-up" style="animation-delay: 0.2s;">
+            <div class="overflow-x-auto">
+              <table class="pricing-table w-full">
+                <thead>
+                  <tr>
+                    <th class="text-left">Format</th>
+                    <th class="text-left">Duration</th>
+                    <th class="text-right">Price</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="font-semibold">Webinar</td>
+                    <td>90 minutes</td>
+                    <td class="text-right font-bold text-theme-secondary">From £400</td>
+                  </tr>
+                  <tr>
+                    <td class="font-semibold">Remote Workshop</td>
+                    <td>Half day</td>
+                    <td class="text-right font-bold text-effort">From £800</td>
+                  </tr>
+                  <tr>
+                    <td class="font-semibold">On-site Training</td>
+                    <td>Hourly rate</td>
+                    <td class="text-right font-bold text-practice">£500/hr + travel + VAT</td>
+                  </tr>
+                  <tr>
+                    <td class="font-semibold">Custom Packages</td>
+                    <td>Tailored to your needs</td>
+                    <td class="text-right font-bold text-attitude">Quote on request</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            
+            <div class="mt-8 p-6 bg-gray-100 rounded-xl">
+              <p class="text-sm text-gray-600 text-center">
+                <em>Prices vary by season & group size. Contact us for a bespoke proposal tailored to your institution.</em>
+              </p>
+            </div>
+          </div>
+
+          <div class="mt-12 text-center">
+            <div class="inline-flex items-center justify-center p-6 bg-gradient-to-r from-theme-secondary/10 to-theme-accent1/10 rounded-2xl border-2 border-theme-secondary/30">
+              <svg class="w-8 h-8 text-theme-secondary mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+              <p class="text-lg text-gray-700">
+                <strong>Not sure which training format is right for you?</strong><br>
+                Get in touch for a tailored quote and consultation.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- CTA Section -->
     <section class="py-20 bg-gradient-to-r from-theme-primary to-theme-dark text-white">
       <div class="container mx-auto px-6 text-center">
@@ -467,7 +537,7 @@ import Layout from '../layouts/Layout.astro';
                   Back
                 </button>
                 <button type="submit" class="flex-1 px-6 py-3 bg-gradient-to-r from-theme-secondary to-theme-accent1 text-theme-dark font-bold rounded-lg hover:scale-105 transition-transform">
-                  Submit
+                  Submit Request
                 </button>
               </div>
             </div>
@@ -610,6 +680,31 @@ import Layout from '../layouts/Layout.astro';
       @apply cursor-pointer;
     }
 
+    /* Pricing table styles */
+    .pricing-table {
+      @apply bg-white rounded-xl shadow-lg overflow-hidden;
+    }
+
+    .pricing-table thead {
+      @apply bg-gradient-to-r from-theme-primary to-theme-dark text-white;
+    }
+
+    .pricing-table th {
+      @apply px-6 py-4 font-semibold text-sm uppercase tracking-wider;
+    }
+
+    .pricing-table tbody tr {
+      @apply border-b border-gray-200 transition-colors hover:bg-gray-50;
+    }
+
+    .pricing-table tbody tr:last-child {
+      @apply border-b-0;
+    }
+
+    .pricing-table td {
+      @apply px-6 py-4;
+    }
+
     /* Mobile responsive improvements */
     @media (max-width: 768px) {
       .training-card, .student-session-card {
@@ -646,6 +741,16 @@ import Layout from '../layouts/Layout.astro';
       /* Improve form layout on mobile */
       .grid {
         @apply gap-4;
+      }
+
+      /* Pricing table mobile */
+      .pricing-table {
+        @apply text-sm;
+      }
+
+      .pricing-table th,
+      .pricing-table td {
+        @apply px-3 py-3;
       }
     }
   </style>

@@ -15,46 +15,144 @@ import Layout from '../layouts/Layout.astro';
     <!-- Pricing Tiers -->
     <section class="py-20 bg-theme-primary text-white">
       <div class="container mx-auto px-6">
-        <div class="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
-
-          <!-- Tier 1: Coaching Portal -->
-          <div class="bg-theme-dark p-8 rounded-xl border border-theme-secondary flex flex-col">
-            <h2 class="text-3xl font-bold mb-4">Coaching Portal</h2>
-            <p class="text-gray-300 mb-6 flex-grow">A complete solution for embedding the VESPA framework, with student accounts, tutor dashboards, and a full suite of analytical tools.</p>
-            <div class="mb-6">
-              <span class="text-4xl font-extrabold">Starting at</span><br>
-              <span class="text-5xl font-extrabold text-theme-secondary">£5</span>
-              <span class="text-xl text-gray-400">/ student</span>
+        <div class="max-w-6xl mx-auto">
+          <!-- Coaching Portal Pricing -->
+          <div class="mb-16">
+            <h2 class="text-4xl font-bold text-center mb-12">Our Solutions</h2>
+            
+            <div class="bg-theme-dark p-10 rounded-2xl border border-theme-secondary mb-8">
+              <div class="grid lg:grid-cols-2 gap-10 items-center">
+                <div>
+                  <h3 class="text-3xl font-bold mb-4">Coaching Portal</h3>
+                  <p class="text-gray-300 mb-6">A complete solution for embedding the VESPA framework, with student accounts, tutor dashboards, and a full suite of analytical tools.</p>
+                  <div class="mb-8">
+                    <span class="text-2xl font-semibold">Starting from</span><br>
+                    <span class="text-5xl font-extrabold text-theme-secondary">£5</span>
+                    <span class="text-xl text-gray-400">/ student</span>
+                  </div>
+                  <div class="space-y-3 text-sm text-gray-400 mb-6">
+                    <p>• Minimum order: 25 seats</p>
+                    <p>• Staff seats included: 1 per 50 students</p>
+                    <p>• Additional staff seats available</p>
+                    <p class="text-xs italic">*Setup fees may apply for international schools and orders under 100 students</p>
+                  </div>
+                </div>
+                <div>
+                  <ul class="space-y-3 text-lg">
+                    <li class="flex items-center"><span class="text-theme-secondary mr-3">✓</span> Full Student & Staff Access</li>
+                    <li class="flex items-center"><span class="text-theme-secondary mr-3">✓</span> Psychometric Questionnaire</li>
+                    <li class="flex items-center"><span class="text-theme-secondary mr-3">✓</span> Personalised Coaching Reports</li>
+                    <li class="flex items-center"><span class="text-theme-secondary mr-3">✓</span> Full suite of VESPA Activities</li>
+                    <li class="flex items-center"><span class="text-theme-secondary mr-3">✓</span> Tutor Management Dashboard</li>
+                    <li class="flex items-center"><span class="text-theme-secondary mr-3">✓</span> Analytics & Progress Tracking</li>
+                  </ul>
+                  <a href="/contact" class="inline-flex items-center mt-8 bg-theme-secondary hover:bg-theme-accent1 text-theme-dark font-bold py-4 px-8 rounded-xl text-lg transition-transform transform hover:scale-105">
+                    Get a Custom Quote →
+                  </a>
+                </div>
+              </div>
             </div>
-            <p class="text-sm text-gray-500 mb-6">Minimum order of 100 students. Includes 10% of the student order as complimentary staff accounts.</p>
-            <ul class="space-y-3 mb-8 text-lg flex-grow">
-              <li class="flex items-center"><span class="text-theme-secondary mr-3">&#10003;</span> Full Student & Staff Access</li>
-              <li class="flex items-center"><span class="text-theme-secondary mr-3">&#10003;</span> Psychometric Questionnaire</li>
-              <li class="flex items-center"><span class="text-theme-secondary mr-3">&#10003;</span> Personalised Coaching Reports</li>
-              <li class="flex items-center"><span class="text-theme-secondary mr-3">&#10003;</span> Full suite of VESPA Activities</li>
-              <li class="flex items-center"><span class="text-theme-secondary mr-3">&#10003;</span> Tutor Management Dashboard</li>
-            </ul>
-            <a href="/contact" class="w-full text-center bg-theme-secondary hover:bg-theme-accent1 text-theme-dark font-bold py-3 px-6 rounded-lg text-lg transition-transform transform hover:scale-105 mt-auto">Get a Custom Quote</a>
           </div>
 
-          <!-- Tier 2: Resource Portal -->
-          <div class="bg-theme-dark p-8 rounded-xl flex flex-col">
-            <h2 class="text-3xl font-bold mb-4">Resource Portal</h2>
-            <p class="text-gray-300 mb-6 flex-grow">Provide your staff with access to our extensive library of teaching resources, assemblies, and CPD materials.</p>
-             <div class="mb-6">
-              <span class="text-4xl font-extrabold">Flexible</span><br>
-              <span class="text-5xl font-extrabold text-theme-secondary">Licensing</span>
-               <span class="text-xl text-gray-400">/ options</span>
+          <!-- Resource Portal Pricing -->
+          <div>
+            <div class="bg-theme-dark p-10 rounded-2xl">
+              <h3 class="text-3xl font-bold mb-6 text-center">Resource Portal</h3>
+              <p class="text-gray-300 mb-8 text-center max-w-3xl mx-auto">Access our extensive library of 200+ teaching resources, activities, assemblies, and CPD materials.</p>
+              
+              <!-- Pricing Table -->
+              <div class="overflow-x-auto mb-8">
+                <table class="w-full text-left">
+                  <thead>
+                    <tr class="border-b border-gray-600">
+                      <th class="pb-4 text-gray-400 font-medium">License Type</th>
+                      <th class="pb-4 text-gray-400 font-medium text-center">Price</th>
+                      <th class="pb-4 text-gray-400 font-medium text-center">Per User Cost</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="border-b border-gray-700">
+                      <td class="py-4">
+                        <div>
+                          <p class="font-semibold">Individual License</p>
+                          <p class="text-sm text-gray-400">Perfect for individual teachers</p>
+                        </div>
+                      </td>
+                      <td class="py-4 text-center">
+                        <span class="text-2xl font-bold text-theme-secondary">£120</span>
+                      </td>
+                      <td class="py-4 text-center text-gray-400">£120</td>
+                    </tr>
+                    <tr class="border-b border-gray-700">
+                      <td class="py-4">
+                        <div>
+                          <p class="font-semibold">5-User Bundle</p>
+                          <p class="text-sm text-gray-400">Small department teams</p>
+                        </div>
+                      </td>
+                      <td class="py-4 text-center">
+                        <span class="text-2xl font-bold text-theme-secondary">£495</span>
+                      </td>
+                      <td class="py-4 text-center text-gray-400">£99</td>
+                    </tr>
+                    <tr class="border-b border-gray-700">
+                      <td class="py-4">
+                        <div>
+                          <p class="font-semibold">10-User Bundle</p>
+                          <p class="text-sm text-gray-400">Larger departments</p>
+                        </div>
+                      </td>
+                      <td class="py-4 text-center">
+                        <span class="text-2xl font-bold text-theme-secondary">£795</span>
+                      </td>
+                      <td class="py-4 text-center text-gray-400">£79</td>
+                    </tr>
+                    <tr class="border-b border-gray-700">
+                      <td class="py-4">
+                        <div>
+                          <p class="font-semibold">30-User Bundle</p>
+                          <p class="text-sm text-gray-400">Multiple departments</p>
+                        </div>
+                      </td>
+                      <td class="py-4 text-center">
+                        <span class="text-2xl font-bold text-theme-secondary">£1,495</span>
+                      </td>
+                      <td class="py-4 text-center text-gray-400">£50</td>
+                    </tr>
+                    <tr class="border-b border-gray-700">
+                      <td class="py-4">
+                        <div>
+                          <p class="font-semibold">Unlimited Single-Site</p>
+                          <p class="text-sm text-gray-400">Whole school access</p>
+                        </div>
+                      </td>
+                      <td class="py-4 text-center">
+                        <span class="text-2xl font-bold text-theme-secondary">£2,225</span>
+                      </td>
+                      <td class="py-4 text-center text-gray-400">Unlimited</td>
+                    </tr>
+                    <tr>
+                      <td class="py-4">
+                        <div>
+                          <p class="font-semibold">Multi-Site Trusts</p>
+                          <p class="text-sm text-gray-400">MAT-wide access</p>
+                        </div>
+                      </td>
+                      <td class="py-4 text-center">
+                        <span class="text-xl font-bold text-effort">Quote on request</span>
+                      </td>
+                      <td class="py-4 text-center text-gray-400">Custom</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              
+              <div class="text-center">
+                <a href="/contact" class="inline-flex items-center bg-gray-600 hover:bg-gray-700 text-white font-bold py-4 px-8 rounded-xl text-lg transition-transform transform hover:scale-105">
+                  Contact Sales →
+                </a>
+              </div>
             </div>
-            <p class="text-sm text-gray-500 mb-6">Available for individuals or as whole-school packages. Get in touch for multi-buy discounts.</p>
-            <ul class="space-y-3 mb-8 text-lg flex-grow">
-              <li class="flex items-center"><span class="text-theme-secondary mr-3">&#10003;</span> Individual User Licenses</li>
-              <li class="flex items-center"><span class="text-theme-secondary mr-3">&#10003;</span> Small Group (10 users) Package</li>
-              <li class="flex items-center"><span class="text-theme-secondary mr-3">&#10003;</span> Whole-School & MAT Licensing</li>
-              <li class="flex items-center"><span class="text-theme-secondary mr-3">&#10003;</span> Hundreds of Downloadable Resources</li>
-               <li class="flex items-center"><span class="text-theme-secondary mr-3">&#10003;</span> Includes slide decks, PDFs & more</li>
-            </ul>
-             <a href="/contact" class="w-full text-center bg-gray-600 hover:bg-gray-700 text-white font-bold py-3 px-6 rounded-lg text-lg transition-transform transform hover:scale-105 mt-auto">Contact Sales</a>
           </div>
         </div>
       </div>
