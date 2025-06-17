@@ -1,0 +1,870 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ActivityModal from '../components/ActivityModal.astro';
+---
+
+<Layout title="VESPA Resource Portal | VESPA Academy">
+	<main class="overflow-hidden">
+		<!-- Hero Section -->
+		<section class="relative py-24 bg-gradient-to-br from-theme-dark via-theme-primary to-theme-accent2 text-white">
+			<div class="absolute inset-0 opacity-20">
+				<div class="parallax-bg h-full w-full" data-speed="0.3"
+					style="background-image: url('/images/students-bg.jpg'); background-size: cover; background-position: center;">
+				</div>
+			</div>
+			
+			<div class="container mx-auto px-6 text-center relative z-10">
+				<h1 class="text-5xl md:text-6xl font-extrabold mb-6" data-aos="fade-down">
+					VESPA <span class="gradient-text">Resource Portal</span>
+				</h1>
+				<p class="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto mb-8" data-aos="fade-up" data-aos-delay="200">
+					120+ ready-to-deliver slide decks and PDF worksheets for front-of-class teaching. Perfect for schools wanting to implement VESPA activities independently.
+				</p>
+				
+				<!-- Important Notice -->
+				<div class="bg-white/10 backdrop-blur-sm p-6 rounded-xl border border-white/20 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="300">
+					<p class="text-lg text-gray-300">
+						<span class="text-yellow-400 font-semibold">Please Note:</span> This option does NOT provide student accounts or access to the VESPA Questionnaire. For coaching reports and student assessments, please choose the <a href="/coaching-portal" class="text-theme-secondary hover:text-theme-accent1 underline">Coaching Portal</a>.
+					</p>
+				</div>
+				
+				<!-- Back to Solutions -->
+				<div class="mt-8" data-aos="fade-up" data-aos-delay="400">
+					<a href="/solutions" class="inline-flex items-center text-theme-secondary hover:text-theme-accent1 font-semibold transition-colors">
+						<svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+						</svg>
+						Back to Solutions
+					</a>
+				</div>
+			</div>
+		</section>
+
+		<!-- What's Included Section -->
+		<section class="py-24 bg-gradient-to-b from-theme-dark to-theme-primary">
+			<div class="container mx-auto px-6">
+				<div class="text-center mb-16">
+					<h2 class="text-4xl font-bold text-white mb-6" data-aos="fade-down">
+						What's Included in the <span class="gradient-text">Resource Portal</span>
+					</h2>
+					<p class="text-xl text-gray-300 max-w-3xl mx-auto" data-aos="fade-up">
+						Everything you need to deliver VESPA activities in your classroom
+					</p>
+				</div>
+				
+				<div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto mb-16">
+					<div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+						<div class="feature-icon bg-gradient-to-br from-theme-secondary to-theme-accent1">
+							<svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+							</svg>
+						</div>
+						<h3 class="text-2xl font-bold text-white mb-3">120+ Slide Decks</h3>
+						<p class="text-gray-300">Interactive presentations ready for immediate classroom use, covering all five VESPA dimensions</p>
+					</div>
+					
+					<div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+						<div class="feature-icon bg-gradient-to-br from-effort to-practice">
+							<svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+							</svg>
+						</div>
+						<h3 class="text-2xl font-bold text-white mb-3">PDF Worksheets</h3>
+						<p class="text-gray-300">Printable handouts and activities for students to complete individually or in groups</p>
+					</div>
+					
+					<div class="feature-card" data-aos="fade-up" data-aos-delay="300">
+						<div class="feature-icon bg-gradient-to-br from-systems to-vision">
+							<svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+							</svg>
+						</div>
+						<h3 class="text-2xl font-bold text-white mb-3">Teacher Guides</h3>
+						<p class="text-gray-300">Comprehensive instructions and implementation tips for each activity</p>
+					</div>
+				</div>
+				
+				<!-- Purchase Options -->
+				<div class="bg-white/10 backdrop-blur-sm p-10 rounded-3xl border border-white/20 max-w-4xl mx-auto" data-aos="zoom-in">
+					<h3 class="text-3xl font-bold text-white mb-6 text-center">Purchase Options</h3>
+					<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+						<div class="text-center">
+							<div class="bg-theme-secondary/20 p-8 rounded-2xl">
+								<h4 class="text-2xl font-bold text-theme-secondary mb-4">Standalone Access</h4>
+								<p class="text-gray-300 mb-6">Purchase the Resource Portal independently for classroom-based VESPA delivery</p>
+								<p class="text-3xl font-bold text-white mb-2">£1,495</p>
+								<p class="text-gray-400 mb-6">Per school, annual license</p>
+								<a href="/pricing" class="inline-flex items-center px-6 py-3 bg-theme-secondary hover:bg-theme-accent1 text-theme-dark font-bold rounded-xl transition-all duration-300">
+									View Pricing Details
+								</a>
+							</div>
+						</div>
+						<div class="text-center">
+							<div class="bg-gradient-to-br from-theme-accent1/20 to-theme-accent2/20 p-8 rounded-2xl border-2 border-theme-accent1/50">
+								<div class="bg-theme-accent1 text-theme-dark text-sm font-bold px-3 py-1 rounded-full inline-block mb-4">BEST VALUE</div>
+								<h4 class="text-2xl font-bold text-theme-accent1 mb-4">Included with Coaching Portal</h4>
+								<p class="text-gray-300 mb-6">Get full Resource Portal access PLUS student assessments, reports, and analytics</p>
+								<p class="text-3xl font-bold text-white mb-2">From £2,495</p>
+								<p class="text-gray-400 mb-6">Complete solution</p>
+								<a href="/coaching-portal" class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-theme-accent1 to-theme-accent2 text-theme-dark font-bold rounded-xl transition-all duration-300">
+									Explore Coaching Portal
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Example Activities Section -->
+		<section class="py-24 bg-gradient-to-b from-theme-primary to-theme-dark">
+			<div class="container mx-auto px-6">
+				<div class="text-center mb-16">
+					<h2 class="text-4xl font-bold text-white mb-6" data-aos="fade-down">
+						Explore <span class="gradient-text">Sample Activities</span>
+					</h2>
+					<p class="text-xl text-gray-300 max-w-3xl mx-auto" data-aos="fade-up">
+						Preview our evidence-based activities designed to develop each VESPA dimension
+					</p>
+				</div>
+				
+				<!-- Vision Activity -->
+				<div class="pillar-detail mb-20" data-aos="fade-up">
+					<div class="grid md:grid-cols-2 gap-12 items-center">
+						<div>
+							<div class="flex items-center mb-6">
+								<div class="pillar-icon-large bg-vision">
+									<svg class="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+									</svg>
+								</div>
+								<h3 class="text-4xl font-bold text-vision ml-6">Vision Activities</h3>
+							</div>
+							<p class="text-xl text-gray-300 mb-6">
+								Help students develop clear goals and future-mindedness through structured activities that connect current work to future outcomes.
+							</p>
+							<ul class="space-y-3 mb-6 text-gray-400">
+								<li class="flex items-start">
+									<span class="text-vision mr-2 mt-1">•</span>
+									<span>Getting Dreams Done - Goal setting framework</span>
+								</li>
+								<li class="flex items-start">
+									<span class="text-vision mr-2 mt-1">•</span>
+									<span>Future Self Visualization</span>
+								</li>
+								<li class="flex items-start">
+									<span class="text-vision mr-2 mt-1">•</span>
+									<span>Pathway Planning Workshops</span>
+								</li>
+							</ul>
+							<button onclick="openActivityModal('vision-modal')" class="inline-flex items-center text-vision font-semibold hover:gap-3 transition-all">
+								View all Vision activities <span class="ml-2">→</span>
+							</button>
+						</div>
+						<div class="activity-embed flex items-center justify-center bg-gradient-to-br from-vision/10 to-vision/5 rounded-xl p-8">
+							<div class="text-center">
+								<h4 class="text-2xl font-bold text-white mb-4">Sample Activity</h4>
+								<p class="text-gray-300 mb-6">Getting Dreams Done</p>
+								<button onclick="openSlidesModal('vision-slides-modal')"
+								   class="inline-flex items-center justify-center px-8 py-4 bg-orange-500 hover:bg-orange-600 text-white font-bold rounded-xl transition-all duration-300 transform hover:scale-105 shadow-xl group w-full">
+									<svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+									</svg>
+									Preview Activity Slides
+									<svg class="w-4 h-4 ml-2 transform transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 4v6m0 0v6m0-6h6m-6 0H8"></path>
+									</svg>
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<!-- Effort Activity -->
+				<div class="pillar-detail mb-20" data-aos="fade-up">
+					<div class="grid md:grid-cols-2 gap-12 items-center">
+						<div class="order-2 md:order-1 activity-embed flex items-center justify-center bg-gradient-to-br from-effort/10 to-effort/5 rounded-xl p-8">
+							<div class="text-center">
+								<h4 class="text-2xl font-bold text-white mb-4">Sample Activity</h4>
+								<p class="text-gray-300 mb-6">The 1-10 Scale</p>
+								<button onclick="openSlidesModal('effort-slides-modal')"
+								   class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-effort to-effort/80 text-white font-bold rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-2xl group">
+									<svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+									</svg>
+									Preview Activity Slides
+									<svg class="w-4 h-4 ml-2 transform transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 4v6m0 0v6m0-6h6m-6 0H8"></path>
+									</svg>
+								</button>
+							</div>
+						</div>
+						<div class="order-1 md:order-2">
+							<div class="flex items-center mb-6">
+								<div class="pillar-icon-large bg-effort">
+									<svg class="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+									</svg>
+								</div>
+								<h3 class="text-4xl font-bold text-effort ml-6">Effort Activities</h3>
+							</div>
+							<p class="text-xl text-gray-300 mb-6">
+								Develop efficient effort strategies and dispel the myth of effortless success through practical tools and reflection exercises.
+							</p>
+							<ul class="space-y-3 mb-6 text-gray-400">
+								<li class="flex items-start">
+									<span class="text-effort mr-2 mt-1">•</span>
+									<span>The 1-10 Scale - Self-assessment tool</span>
+								</li>
+								<li class="flex items-start">
+									<span class="text-effort mr-2 mt-1">•</span>
+									<span>Effort vs Outcome Analysis</span>
+								</li>
+								<li class="flex items-start">
+									<span class="text-effort mr-2 mt-1">•</span>
+									<span>Strategic Study Planning</span>
+								</li>
+							</ul>
+							<button onclick="openActivityModal('effort-modal')" class="inline-flex items-center text-effort font-semibold hover:gap-3 transition-all">
+								View all Effort activities <span class="ml-2">→</span>
+							</button>
+						</div>
+					</div>
+				</div>
+				
+				<!-- Systems Activity -->
+				<div class="pillar-detail mb-20" data-aos="fade-up">
+					<div class="grid md:grid-cols-2 gap-12 items-center">
+						<div>
+							<div class="flex items-center mb-6">
+								<div class="pillar-icon-large bg-systems">
+									<svg class="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+									</svg>
+								</div>
+								<h3 class="text-4xl font-bold text-systems ml-6">Systems Activities</h3>
+							</div>
+							<p class="text-xl text-gray-300 mb-6">
+								Build strong organizational habits and time management skills that make learning more effective and less stressful.
+							</p>
+							<ul class="space-y-3 mb-6 text-gray-400">
+								<li class="flex items-start">
+									<span class="text-systems mr-2 mt-1">•</span>
+									<span>1% Planning - Strategic approach</span>
+								</li>
+								<li class="flex items-start">
+									<span class="text-systems mr-2 mt-1">•</span>
+									<span>Cornell Note-Taking System</span>
+								</li>
+								<li class="flex items-start">
+									<span class="text-systems mr-2 mt-1">•</span>
+									<span>Project Management for Students</span>
+								</li>
+							</ul>
+							<button onclick="openActivityModal('systems-modal')" class="inline-flex items-center text-systems font-semibold hover:gap-3 transition-all">
+								View all Systems activities <span class="ml-2">→</span>
+							</button>
+						</div>
+						<div class="activity-embed flex items-center justify-center bg-gradient-to-br from-systems/10 to-systems/5 rounded-xl p-8">
+							<div class="text-center">
+								<h4 class="text-2xl font-bold text-white mb-4">Sample Activity</h4>
+								<p class="text-gray-300 mb-6">1% Planning</p>
+								<button onclick="openSlidesModal('systems-slides-modal')"
+								   class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-systems to-systems/80 text-white font-bold rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-2xl group">
+									<svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+									</svg>
+									Preview Activity Slides
+									<svg class="w-4 h-4 ml-2 transform transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 4v6m0 0v6m0-6h6m-6 0H8"></path>
+									</svg>
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<!-- Practice Activity -->
+				<div class="pillar-detail mb-20" data-aos="fade-up">
+					<div class="grid md:grid-cols-2 gap-12 items-center">
+						<div class="order-2 md:order-1 activity-embed flex items-center justify-center bg-gradient-to-br from-practice/10 to-practice/5 rounded-xl p-8">
+							<div class="text-center">
+								<h4 class="text-2xl font-bold text-white mb-4">Sample Activity</h4>
+								<p class="text-gray-300 mb-6">High & Low Utility</p>
+								<button onclick="openSlidesModal('practice-slides-modal')"
+								   class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-practice to-practice/80 text-white font-bold rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-2xl group">
+									<svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+									</svg>
+									Preview Activity Slides
+									<svg class="w-4 h-4 ml-2 transform transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 4v6m0 0v6m0-6h6m-6 0H8"></path>
+									</svg>
+								</button>
+							</div>
+						</div>
+						<div class="order-1 md:order-2">
+							<div class="flex items-center mb-6">
+								<div class="pillar-icon-large bg-practice">
+									<svg class="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>
+									</svg>
+								</div>
+								<h3 class="text-4xl font-bold text-practice ml-6">Practice Activities</h3>
+							</div>
+							<p class="text-xl text-gray-300 mb-6">
+								Master high-utility learning strategies and develop deliberate practice methods that maximize learning efficiency.
+							</p>
+							<ul class="space-y-3 mb-6 text-gray-400">
+								<li class="flex items-start">
+									<span class="text-practice mr-2 mt-1">•</span>
+									<span>High & Low Utility Techniques</span>
+								</li>
+								<li class="flex items-start">
+									<span class="text-practice mr-2 mt-1">•</span>
+									<span>Spaced Repetition Methods</span>
+								</li>
+								<li class="flex items-start">
+									<span class="text-practice mr-2 mt-1">•</span>
+									<span>Active Retrieval Practice</span>
+								</li>
+							</ul>
+							<button onclick="openActivityModal('practice-modal')" class="inline-flex items-center text-practice font-semibold hover:gap-3 transition-all">
+								View all Practice activities <span class="ml-2">→</span>
+							</button>
+						</div>
+					</div>
+				</div>
+				
+				<!-- Attitude Activity -->
+				<div class="pillar-detail" data-aos="fade-up">
+					<div class="grid md:grid-cols-2 gap-12 items-center">
+						<div>
+							<div class="flex items-center mb-6">
+								<div class="pillar-icon-large bg-attitude">
+									<svg class="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+									</svg>
+								</div>
+								<h3 class="text-4xl font-bold text-attitude ml-6">Attitude Activities</h3>
+							</div>
+							<p class="text-xl text-gray-300 mb-6">
+								Build confidence, develop emotional control, foster resilience, and cultivate a growth mindset for academic success.
+							</p>
+							<ul class="space-y-3 mb-6 text-gray-400">
+								<li class="flex items-start">
+									<span class="text-attitude mr-2 mt-1">•</span>
+									<span>Worst Case Scenarios - Anxiety management</span>
+								</li>
+								<li class="flex items-start">
+									<span class="text-attitude mr-2 mt-1">•</span>
+									<span>Growth Mindset Workshops</span>
+								</li>
+								<li class="flex items-start">
+									<span class="text-attitude mr-2 mt-1">•</span>
+									<span>Confidence Building Exercises</span>
+								</li>
+							</ul>
+							<button onclick="openActivityModal('attitude-modal')" class="inline-flex items-center text-attitude font-semibold hover:gap-3 transition-all">
+								View all Attitude activities <span class="ml-2">→</span>
+							</button>
+						</div>
+						<div class="activity-embed flex items-center justify-center bg-gradient-to-br from-attitude/10 to-attitude/5 rounded-xl p-8">
+							<div class="text-center">
+								<h4 class="text-2xl font-bold text-white mb-4">Sample Activity</h4>
+								<p class="text-gray-300 mb-6">Worst Case Scenarios</p>
+								<button onclick="openSlidesModal('attitude-slides-modal')"
+								   class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-attitude to-attitude/80 text-theme-dark font-bold rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-2xl group">
+									<svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+									</svg>
+									Preview Activity Slides
+									<svg class="w-4 h-4 ml-2 transform transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 4v6m0 0v6m0-6h6m-6 0H8"></path>
+									</svg>
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Implementation Support Section -->
+		<section class="py-24 bg-theme-dark">
+			<div class="container mx-auto px-6">
+				<div class="text-center mb-16">
+					<h2 class="text-4xl font-bold text-white mb-6" data-aos="fade-down">
+						Implementation <span class="gradient-text">Support</span>
+					</h2>
+					<p class="text-xl text-gray-300 max-w-3xl mx-auto" data-aos="fade-up">
+						Everything you need to successfully deliver VESPA in your school
+					</p>
+				</div>
+				
+				<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+					<div class="support-card" data-aos="flip-up" data-aos-delay="100">
+						<div class="support-icon">
+							<svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+							</svg>
+						</div>
+						<h3 class="text-xl font-bold text-white mb-3">Flexible Delivery</h3>
+						<p class="text-gray-400">Use in tutorials, PSHE lessons, assemblies, or standalone workshops</p>
+					</div>
+					
+					<div class="support-card" data-aos="flip-up" data-aos-delay="200">
+						<div class="support-icon">
+							<svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+							</svg>
+						</div>
+						<h3 class="text-xl font-bold text-white mb-3">Ready to Use</h3>
+						<p class="text-gray-400">No preparation needed - open and deliver straight away</p>
+					</div>
+					
+					<div class="support-card" data-aos="flip-up" data-aos-delay="300">
+						<div class="support-icon">
+							<svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+							</svg>
+						</div>
+						<h3 class="text-xl font-bold text-white mb-3">Time-Efficient</h3>
+						<p class="text-gray-400">Activities designed to fit standard lesson times</p>
+					</div>
+					
+					<div class="support-card" data-aos="flip-up" data-aos-delay="400">
+						<div class="support-icon">
+							<svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+							</svg>
+						</div>
+						<h3 class="text-xl font-bold text-white mb-3">Regular Updates</h3>
+						<p class="text-gray-400">New activities added throughout the year</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- CTA Section -->
+		<section class="py-24 bg-gradient-to-r from-theme-accent2 to-theme-secondary relative overflow-hidden">
+			<div class="moving-gradient"></div>
+			<div class="container mx-auto text-center px-6 relative z-10">
+				<h2 class="text-4xl font-bold mb-6 text-white" data-aos="zoom-in">
+					Ready to Transform Your Classroom?
+				</h2>
+				<p class="text-xl mb-10 text-white/90 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="200">
+					Get instant access to 120+ evidence-based activities that develop the non-cognitive skills your students need to succeed.
+				</p>
+				<div class="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-6" data-aos="fade-up" data-aos-delay="400">
+					<a href="/contact" class="btn-cta-large group">
+						<span class="relative z-10">Request Access</span>
+						<div class="btn-cta-glow"></div>
+					</a>
+					<a href="/coaching-portal" class="btn-secondary-large">
+						Explore Full Portal →
+					</a>
+				</div>
+			</div>
+		</section>
+
+		<!-- Activity Modals (imported component) -->
+		<ActivityModal id="vision-modal" title="Vision Activities" color="vision">
+			<div class="space-y-4">
+				<div class="activity-item">
+					<h4 class="font-bold text-lg mb-2">Getting Dreams Done</h4>
+					<p class="text-gray-300 mb-2">A structured approach to turning dreams into achievable goals through backwards planning and milestone setting.</p>
+				</div>
+				<div class="activity-item">
+					<h4 class="font-bold text-lg mb-2">Future Self Visualization</h4>
+					<p class="text-gray-300 mb-2">Guided visualization exercises to help students connect with their future aspirations and create actionable pathways.</p>
+				</div>
+				<div class="activity-item">
+					<h4 class="font-bold text-lg mb-2">The Why Behind the Work</h4>
+					<p class="text-gray-300 mb-2">Activities that help students understand the purpose and relevance of their current studies to future success.</p>
+				</div>
+			</div>
+		</ActivityModal>
+
+		<ActivityModal id="effort-modal" title="Effort Activities" color="effort">
+			<div class="space-y-4">
+				<div class="activity-item">
+					<h4 class="font-bold text-lg mb-2">The 1-10 Scale</h4>
+					<p class="text-gray-300 mb-2">A self-assessment tool that helps students honestly evaluate and improve their effort levels across different subjects.</p>
+				</div>
+				<div class="activity-item">
+					<h4 class="font-bold text-lg mb-2">Effort vs Intelligence</h4>
+					<p class="text-gray-300 mb-2">Dispelling myths about natural talent and building understanding of how effort drives achievement.</p>
+				</div>
+				<div class="activity-item">
+					<h4 class="font-bold text-lg mb-2">Strategic Study Planning</h4>
+					<p class="text-gray-300 mb-2">Tools for maximizing the return on study time through efficient effort allocation.</p>
+				</div>
+			</div>
+		</ActivityModal>
+
+		<ActivityModal id="systems-modal" title="Systems Activities" color="systems">
+			<div class="space-y-4">
+				<div class="activity-item">
+					<h4 class="font-bold text-lg mb-2">1% Planning</h4>
+					<p class="text-gray-300 mb-2">A time management approach that dedicates just 1% of available time to planning, yielding significant productivity gains.</p>
+				</div>
+				<div class="activity-item">
+					<h4 class="font-bold text-lg mb-2">Cornell Note-Taking System</h4>
+					<p class="text-gray-300 mb-2">Teaching the most effective note-taking method for retention and revision.</p>
+				</div>
+				<div class="activity-item">
+					<h4 class="font-bold text-lg mb-2">The Weekly Review</h4>
+					<p class="text-gray-300 mb-2">Establishing routines for regular review and consolidation of learning.</p>
+				</div>
+			</div>
+		</ActivityModal>
+
+		<ActivityModal id="practice-modal" title="Practice Activities" color="practice">
+			<div class="space-y-4">
+				<div class="activity-item">
+					<h4 class="font-bold text-lg mb-2">High & Low Utility Techniques</h4>
+					<p class="text-gray-300 mb-2">Understanding which study methods actually work based on cognitive science research.</p>
+				</div>
+				<div class="activity-item">
+					<h4 class="font-bold text-lg mb-2">Spaced Repetition</h4>
+					<p class="text-gray-300 mb-2">Implementing scientifically-proven spacing techniques for long-term retention.</p>
+				</div>
+				<div class="activity-item">
+					<h4 class="font-bold text-lg mb-2">Active Retrieval Practice</h4>
+					<p class="text-gray-300 mb-2">Moving from passive reading to active testing for deeper learning.</p>
+				</div>
+			</div>
+		</ActivityModal>
+
+		<ActivityModal id="attitude-modal" title="Attitude Activities" color="attitude">
+			<div class="space-y-4">
+				<div class="activity-item">
+					<h4 class="font-bold text-lg mb-2">Worst Case Scenarios</h4>
+					<p class="text-gray-300 mb-2">A cognitive technique for managing exam anxiety by rationally exploring fears.</p>
+				</div>
+				<div class="activity-item">
+					<h4 class="font-bold text-lg mb-2">Growth Mindset Development</h4>
+					<p class="text-gray-300 mb-2">Activities that build belief in the ability to improve through effort and strategy.</p>
+				</div>
+				<div class="activity-item">
+					<h4 class="font-bold text-lg mb-2">Confidence Calibration</h4>
+					<p class="text-gray-300 mb-2">Building accurate self-assessment and appropriate confidence levels.</p>
+				</div>
+			</div>
+		</ActivityModal>
+
+		<!-- Slide Modals -->
+		<div id="vision-slides-modal" class="fixed inset-0 z-50 hidden">
+			<div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="closeSlidesModal('vision-slides-modal')"></div>
+			<div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-5xl mx-4 h-[80vh]">
+				<div class="relative h-full bg-white rounded-lg overflow-hidden">
+					<button onclick="closeSlidesModal('vision-slides-modal')" class="absolute top-4 right-4 z-10 bg-black/50 hover:bg-black/70 rounded-full p-2 text-white transition-colors">
+						<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+						</svg>
+					</button>
+					<div class="w-full h-full p-4 flex flex-col relative">
+						<div id="vision-loading" class="absolute inset-0 flex items-center justify-center bg-gray-100 rounded">
+							<div class="text-center">
+								<div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+								<p class="text-gray-600">Loading slides...</p>
+							</div>
+						</div>
+						<iframe 
+							id="vision-iframe"
+							src="" 
+							width="100%" 
+							height="100%" 
+							title="VISION - Getting Dreams Done"
+							scrolling="no"
+							frameborder="0" 
+							webkitallowfullscreen
+							mozallowfullscreen
+							allowfullscreen
+							allow="fullscreen; autoplay;"
+							class="rounded flex-1">
+						</iframe>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- Other slide modals (effort, systems, practice, attitude) follow the same pattern... -->
+		<div id="effort-slides-modal" class="fixed inset-0 z-50 hidden">
+			<div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="closeSlidesModal('effort-slides-modal')"></div>
+			<div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-5xl mx-4 h-[80vh]">
+				<div class="relative h-full bg-white rounded-lg overflow-hidden">
+					<button onclick="closeSlidesModal('effort-slides-modal')" class="absolute top-4 right-4 z-10 bg-black/50 hover:bg-black/70 rounded-full p-2 text-white transition-colors">
+						<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+						</svg>
+					</button>
+					<div class="w-full h-full p-4 flex flex-col relative">
+						<div id="effort-loading" class="absolute inset-0 flex items-center justify-center bg-gray-100 rounded">
+							<div class="text-center">
+								<div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+								<p class="text-gray-600">Loading slides...</p>
+							</div>
+						</div>
+						<iframe 
+							id="effort-iframe"
+							src="" 
+							width="100%" 
+							height="100%" 
+							frameborder="0" 
+							allowfullscreen="true"
+							class="rounded flex-1">
+						</iframe>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div id="systems-slides-modal" class="fixed inset-0 z-50 hidden">
+			<div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="closeSlidesModal('systems-slides-modal')"></div>
+			<div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-5xl mx-4 h-[80vh]">
+				<div class="relative h-full bg-white rounded-lg overflow-hidden">
+					<button onclick="closeSlidesModal('systems-slides-modal')" class="absolute top-4 right-4 z-10 bg-black/50 hover:bg-black/70 rounded-full p-2 text-white transition-colors">
+						<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+						</svg>
+					</button>
+					<div class="w-full h-full p-4 flex flex-col relative">
+						<div id="systems-loading" class="absolute inset-0 flex items-center justify-center bg-gray-100 rounded">
+							<div class="text-center">
+								<div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+								<p class="text-gray-600">Loading slides...</p>
+							</div>
+						</div>
+						<iframe 
+							id="systems-iframe"
+							src="" 
+							width="100%" 
+							height="100%" 
+							frameborder="0" 
+							allowfullscreen="true"
+							class="rounded flex-1">
+						</iframe>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div id="practice-slides-modal" class="fixed inset-0 z-50 hidden">
+			<div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="closeSlidesModal('practice-slides-modal')"></div>
+			<div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-5xl mx-4 h-[80vh]">
+				<div class="relative h-full bg-white rounded-lg overflow-hidden">
+					<button onclick="closeSlidesModal('practice-slides-modal')" class="absolute top-4 right-4 z-10 bg-black/50 hover:bg-black/70 rounded-full p-2 text-white transition-colors">
+						<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+						</svg>
+					</button>
+					<div class="w-full h-full p-4 flex flex-col relative">
+						<div id="practice-loading" class="absolute inset-0 flex items-center justify-center bg-gray-100 rounded">
+							<div class="text-center">
+								<div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+								<p class="text-gray-600">Loading slides...</p>
+							</div>
+						</div>
+						<iframe 
+							id="practice-iframe"
+							src="" 
+							width="100%" 
+							height="100%" 
+							frameborder="0" 
+							allowfullscreen="true"
+							class="rounded flex-1">
+						</iframe>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div id="attitude-slides-modal" class="fixed inset-0 z-50 hidden">
+			<div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="closeSlidesModal('attitude-slides-modal')"></div>
+			<div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-5xl mx-4 h-[80vh]">
+				<div class="relative h-full bg-white rounded-lg overflow-hidden">
+					<button onclick="closeSlidesModal('attitude-slides-modal')" class="absolute top-4 right-4 z-10 bg-black/50 hover:bg-black/70 rounded-full p-2 text-white transition-colors">
+						<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+						</svg>
+					</button>
+					<div class="w-full h-full p-4 flex flex-col relative">
+						<div id="attitude-loading" class="absolute inset-0 flex items-center justify-center bg-gray-100 rounded">
+							<div class="text-center">
+								<div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+								<p class="text-gray-600">Loading slides...</p>
+							</div>
+						</div>
+						<iframe 
+							id="attitude-iframe"
+							src="" 
+							width="100%" 
+							height="100%" 
+							frameborder="0" 
+							allowfullscreen="true"
+							class="rounded flex-1">
+						</iframe>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+</Layout>
+
+<style>
+/* Feature Cards */
+.feature-card {
+	@apply bg-white/10 backdrop-blur-sm p-8 rounded-xl text-center transition-all duration-300;
+}
+
+.feature-card:hover {
+	@apply bg-white/15;
+	transform: translateY(-5px);
+	box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+.feature-icon {
+	@apply w-20 h-20 rounded-2xl flex items-center justify-center mb-6 mx-auto shadow-xl;
+}
+
+/* Support Cards */
+.support-card {
+	@apply bg-white/10 backdrop-blur-sm p-6 rounded-xl text-center transition-all duration-300;
+}
+
+.support-card:hover {
+	@apply bg-white/15;
+	transform: translateY(-5px) rotateX(5deg);
+	box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+.support-icon {
+	@apply w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-theme-secondary to-theme-accent1 flex items-center justify-center text-white;
+}
+
+/* Pillar detail styles */
+.pillar-detail {
+	@apply relative;
+}
+
+.pillar-icon-large {
+	@apply w-24 h-24 rounded-2xl flex items-center justify-center shadow-xl text-white;
+}
+
+.activity-embed {
+	@apply relative rounded-xl shadow-2xl;
+	min-height: 300px;
+}
+
+/* Enhanced buttons */
+.btn-cta-large {
+	@apply relative inline-flex items-center px-12 py-6 bg-white text-theme-dark font-bold text-xl rounded-2xl overflow-hidden transition-all duration-300 transform hover:scale-105;
+}
+
+.btn-cta-glow {
+	@apply absolute inset-0 bg-white opacity-0 blur-2xl transition-opacity duration-300;
+}
+
+.btn-cta-large:hover .btn-cta-glow {
+	opacity: 0.3;
+}
+
+.btn-secondary-large {
+	@apply inline-flex items-center px-12 py-6 border-2 border-white text-white font-bold text-xl rounded-2xl transition-all duration-300 hover:bg-white/10;
+}
+
+/* Moving gradient background */
+.moving-gradient {
+	@apply absolute inset-0;
+	background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
+	background-size: 200% 200%;
+	animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+	0% { background-position: -100% -100%; }
+	100% { background-position: 100% 100%; }
+}
+</style>
+
+<script is:inline>
+// Activity modal functions
+function openActivityModal(modalId) {
+	const modal = document.getElementById(modalId);
+	if (modal) {
+		modal.classList.remove('hidden');
+		document.body.style.overflow = 'hidden';
+	}
+}
+
+function closeActivityModal(modalId) {
+	const modal = document.getElementById(modalId);
+	if (modal) {
+		modal.classList.add('hidden');
+		document.body.style.overflow = '';
+	}
+}
+
+// Slides modal functions
+const slideUrls = {
+	'vision-slides-modal': 'https://vespa-academy.slides.com/vespaslides/gettingdreamsdone/embed?byline=hidden&share=hidden',
+	'effort-slides-modal': 'https://vespa-academy.slides.com/vespaslides/1-10scale/embed?byline=hidden&share=hidden',
+	'systems-slides-modal': 'https://vespa-academy.slides.com/vespaslides/1planning/embed?byline=hidden&share=hidden',
+	'practice-slides-modal': 'https://vespa-academy.slides.com/vespaslides/high-low-utility/embed?byline=hidden&share=hidden',
+	'attitude-slides-modal': 'https://vespa-academy.slides.com/vespaslides/worst-case-scenarios/embed?byline=hidden&share=hidden'
+};
+
+function openSlidesModal(modalId) {
+	const modal = document.getElementById(modalId);
+	if (modal) {
+		const iframeId = modalId.replace('-slides-modal', '-iframe');
+		const iframe = document.getElementById(iframeId);
+		const loadingId = modalId.replace('-slides-modal', '-loading');
+		const loading = document.getElementById(loadingId);
+		
+		if (iframe && slideUrls[modalId]) {
+			iframe.src = slideUrls[modalId];
+			
+			iframe.onload = function() {
+				if (loading) {
+					loading.style.display = 'none';
+				}
+				iframe.style.opacity = '1';
+			};
+			
+			setTimeout(() => {
+				if (loading && loading.style.display !== 'none') {
+					loading.style.display = 'none';
+					iframe.style.opacity = '1';
+				}
+			}, 3000);
+		}
+		
+		modal.classList.remove('hidden');
+		document.body.style.overflow = 'hidden';
+	}
+}
+
+function closeSlidesModal(modalId) {
+	const modal = document.getElementById(modalId);
+	if (modal) {
+		const iframeId = modalId.replace('-slides-modal', '-iframe');
+		const iframe = document.getElementById(iframeId);
+		if (iframe) {
+			iframe.src = '';
+		}
+		
+		modal.classList.add('hidden');
+		document.body.style.overflow = '';
+	}
+}
+
+// Make functions global
+window.openActivityModal = openActivityModal;
+window.closeActivityModal = closeActivityModal;
+window.openSlidesModal = openSlidesModal;
+window.closeSlidesModal = closeSlidesModal;
+</script> 
