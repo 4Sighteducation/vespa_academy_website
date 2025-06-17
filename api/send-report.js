@@ -541,11 +541,7 @@ export default async function handler(req, res) {
       }
     }
 
-    // Read the HTML template
-    const templatePath = path.join(process.cwd(), 'assets', 'sendgridreporttempalte.html');
-    let htmlContent = fs.readFileSync(templatePath, 'utf8');
-
-    // Prepare template data including the reportHTML
+    // Prepare template data for SendGrid
     const templateData = {
       user_name: emailData.user_name,
       user_email: emailData.user_email,
@@ -561,27 +557,17 @@ export default async function handler(req, res) {
       practice_avg: emailData.practice_avg,
       attitude_score: emailData.attitude_score,
       attitude_avg: emailData.attitude_avg,
-      overall_score: emailData.overall_score,
-      reportHTML: emailData.reportHTML || ''
+      overall_score: emailData.overall_score
     };
 
-    console.log('Template data keys:', Object.keys(templateData));
-    console.log('reportHTML length:', templateData.reportHTML.length);
+    console.log('Template data prepared:', Object.keys(templateData));
 
-    // Replace all placeholders in the HTML
-    Object.keys(templateData).forEach(key => {
-      const regex = new RegExp(`{{${key}}}`, 'g');
-      htmlContent = htmlContent.replace(regex, templateData[key]);
-    });
-
-    console.log('Template replacement completed');
-
-    // Prepare email message
+    // Prepare email message using SendGrid template
     const msg = {
       to: emailData.user_email,
       from: process.env.SENDGRID_FROM_EMAIL,
-      subject: 'Your VESPA Assessment Report',
-      html: htmlContent
+      templateId: process.env.SENDGRID_REPORT_TEMPLATE_ID,
+      dynamicTemplateData: templateData
     };
 
     // Add PDF attachment if available
