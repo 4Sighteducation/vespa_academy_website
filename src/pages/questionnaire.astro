@@ -1408,7 +1408,7 @@ const pageDescription = "Take the VESPA questionnaire to assess your learning mi
     // Import report text data for generating comprehensive report
     async function loadReportData() {
       try {
-        const response = await fetch('/assets/reporttext_restructured_complete.json');
+        const response = await fetch('/reporttext_restructured_complete.json');
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -1490,24 +1490,36 @@ const pageDescription = "Take the VESPA questionnaire to assess your learning mi
         level: userData.level || 'Level 3' // Use the selected level from the form
       };
       
-      // Function to determine performance rating
+      // Function to determine performance rating based on user requirements
       function getPerformanceRating(score) {
-        if (score < 4) return 'Very Low';
-        if (score < 6) return 'Low';
-        if (score < 8) return 'Medium';
-        return 'High';
+        if (score < 4) return 'Very Low';  // <4 vlow
+        if (score < 6) return 'Low';       // <6 low  
+        if (score < 9) return 'Medium';    // <9 medium
+        return 'High';                     // ≥9 high
       }
       
-      // Function to get report content for a category
+      // Function to get report content for a category using correct JSON structure
       function getReportContent(category, score, level) {
         const categoryKey = category.charAt(0).toUpperCase() + category.slice(1);
         const rating = getPerformanceRating(score);
         
-        const content = reportData.report_data[level]?.[categoryKey]?.[rating]?.english || {
-          description: '',
-          questions: '',
-          activities: '',
-          coaching_questions: ''
+        // Map to correct JSON category names (Systems -> System in JSON)
+        const jsonCategoryMap = {
+          'Vision': 'Vision',
+          'Effort': 'Effort', 
+          'Systems': 'System',  // JSON uses "System" not "Systems"
+          'Practice': 'Practice',
+          'Attitude': 'Attitude'
+        };
+        
+        const jsonCategory = jsonCategoryMap[categoryKey] || categoryKey;
+        
+        // The JSON structure is: category -> rating -> english
+        const content = reportData[jsonCategory]?.[rating]?.english || {
+          description: `You scored ${score} in ${categoryKey}. This indicates your current level in this area.`,
+          questions: 'What are your main learning goals?',
+          activities: 'Goal setting activities',
+          coaching_questions: 'How can you improve in this area?'
         };
         
         return content;
@@ -1523,20 +1535,7 @@ const pageDescription = "Take the VESPA questionnaire to assess your learning mi
               <div class="cycle-info"><strong>CYCLE:</strong> <span class="cycle-number">1</span></div>
               <div class="level-info"><strong>LEVEL:</strong> ${studentData.level}</div>
             </div>
-            <div class="intro-questions">
-              <h4>INTRODUCTORY QUESTIONS</h4>
-              <p><em>First, some general questions about your report:</em></p>
-              <ul>
-                <li>To what extent is the report an accurate description of your current characteristics?</li>
-                <li>Does your highest score represent a personal strength? Your lowest an area for development?</li>
-                <li>If you had to change a score out of the five, which would it be, and why?</li>
-                <li>Think back over the last few weeks. What are you currently finding hard about study at this level?</li>
-                <li>Before we look at the rest of the report, remember by answering the questions below honestly, you will soon be in a good position to make manageable and meaningful changes to the way you work, lowering your stress and increasing feelings of confidence and control.</li>
-              </ul>
-            </div>
-            <div class="vespa-chart-placeholder">
-              Your VESPA /10<br>Score Chart
-            </div>
+
           </div>
           
           <div class="vespa-main-content">
@@ -1569,10 +1568,9 @@ const pageDescription = "Take the VESPA questionnaire to assess your learning mi
                 <div class="vespa-row" style="border-left: 4px solid ${categoryColors[category]}">
                   <div class="vespa-element">
                     <div class="element-header" style="background-color: ${categoryColors[category]}">
-                      <div class="element-letter">${category.charAt(0)}</div>
+                      <div class="element-letter">${category}</div>
                       <div class="element-score">
                         <div class="score-number">${score}</div>
-                        <div class="score-max">/10</div>
                       </div>
                     </div>
                     <div class="element-name">${category}</div>
@@ -1581,7 +1579,7 @@ const pageDescription = "Take the VESPA questionnaire to assess your learning mi
                   
                   <div class="vespa-description">
                     <div class="description-text">${content.description || 'Description not available for this score level.'}</div>
-                    <div class="average-score">Average score: ${averages[category] || '0.00'}/10</div>
+                    <div class="average-score">Average score: ${averages[category] || '0.00'}</div>
                     
                     <div class="reflection-questions">
                       <strong>Reflection Questions:</strong><br>
