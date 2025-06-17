@@ -3,201 +3,310 @@ import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout title="VESPA Coaching Reports | VESPA Academy">
-  <main>
-    <!-- Hero Section -->
-    <section class="text-center py-24 bg-theme-dark text-white">
-      <div class="container mx-auto px-6">
-        <h1 class="text-5xl md:text-6xl font-extrabold leading-tight mb-4">VESPA Coaching Reports</h1>
-        <p class="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto">Personalized coaching reports that transform student self-awareness and enable powerful coaching conversations between students and tutors.</p>
-        <div class="mt-8">
-          <a href="/questionnaire" class="bg-theme-secondary hover:bg-theme-accent1 text-theme-dark font-bold py-4 px-8 rounded-xl text-lg transition-all transform hover:scale-105 shadow-lg">
-            Try the Questionnaire
-          </a>
+  <main class="overflow-hidden">
+    <!-- Hero Section with Dark Theme -->
+    <section class="relative py-24 bg-gradient-to-br from-theme-dark via-theme-primary to-theme-accent2 text-white">
+      <div class="absolute inset-0 opacity-20">
+        <div class="parallax-bg h-full w-full" data-speed="0.3"
+          style="background-image: url('/images/students-bg.jpg'); background-size: cover; background-position: center;">
         </div>
       </div>
-    </section>
-
-    <!-- Back Navigation -->
-    <section class="py-6 bg-gray-100">
-      <div class="container mx-auto px-6">
-        <a href="/solutions" class="inline-flex items-center text-theme-primary hover:text-theme-secondary font-semibold transition-colors">
-          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-          </svg>
-          Back to Solutions
-        </a>
-      </div>
-    </section>
-
-    <!-- Student Reports Section -->
-    <section class="py-20 bg-white">
-      <div class="container mx-auto px-6">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div class="fade-in-up">
-            <div class="bg-gradient-to-r from-orange-500 to-orange-600 text-white p-2 rounded-lg inline-block mb-6">
-              <h2 class="text-3xl font-bold">For Students: Self-Awareness & Goal Setting</h2>
-            </div>
-            <p class="text-lg text-gray-700 mb-6 leading-relaxed">
-              Students receive personalized reports immediately after completing the VESPA Questionnaire. These reports provide explicit awareness of their learning behaviors and metacognitive processes, empowering them to take ownership of their educational journey.
-            </p>
-            <div class="bg-blue-50 p-6 rounded-lg">
-              <h4 class="text-lg font-semibold text-theme-dark mb-3">What Students Get:</h4>
-              <ul class="space-y-2 text-gray-700">
-                <li class="flex items-center">
-                  <svg class="w-5 h-5 text-blue-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                  </svg>
-                  Immediate personalized report with VESPA scores
-                </li>
-                <li class="flex items-center">
-                  <svg class="w-5 h-5 text-blue-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                  </svg>
-                  Reflective questions for self-assessment
-                </li>
-                <li class="flex items-center">
-                  <svg class="w-5 h-5 text-blue-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                  </svg>
-                  Targeted activities based on individual scores
-                </li>
-                <li class="flex items-center">
-                  <svg class="w-5 h-5 text-blue-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                  </svg>
-                  Goal-setting frameworks for academic development
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div class="fade-in-up" style="animation-delay: 0.2s;">
-            <img src="/assets/REport Main.png" alt="VESPA Student Report" class="rounded-xl shadow-2xl w-full mb-6">
-            <img src="/assets/reportbody.png" alt="VESPA Report Body Detail" class="rounded-xl shadow-2xl w-full">
+      
+      <div class="container mx-auto px-6 relative z-10">
+        <div class="text-center">
+          <h1 class="text-5xl md:text-6xl font-extrabold mb-6" data-aos="fade-down">
+            VESPA <span class="gradient-text">Coaching Reports</span>
+          </h1>
+          <p class="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto mb-10" data-aos="fade-up" data-aos-delay="200">
+            Personalized coaching reports that transform student self-awareness and enable powerful coaching conversations between students and tutors.
+          </p>
+          
+          <div class="flex flex-col md:flex-row justify-center items-center gap-4" data-aos="fade-up" data-aos-delay="300">
+            <a href="/questionnaire" class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-theme-secondary to-theme-accent1 text-theme-dark font-bold rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-2xl">
+              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+              </svg>
+              Try the Questionnaire
+            </a>
+            <a href="/solutions" class="inline-flex items-center text-theme-secondary hover:text-theme-accent1 font-semibold transition-colors">
+              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+              </svg>
+              Back to Solutions
+            </a>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- AI Coach Section -->
-    <section class="py-20 bg-gray-50">
-      <div class="container mx-auto px-6">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div class="fade-in-up order-2 lg:order-1">
-            <img src="/assets/StudentAICoach.png" alt="Student AI Coach Interface" class="rounded-xl shadow-2xl w-full mb-6">
-            <img src="/assets/AIstudentcoach2.png" alt="AI Student Coach Conversation" class="rounded-xl shadow-2xl w-full">
-          </div>
-          <div class="fade-in-up order-1 lg:order-2" style="animation-delay: 0.2s;">
-            <div class="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-2 rounded-lg inline-block mb-6">
-              <h2 class="text-3xl font-bold">24/7 AI Coaching Assistant</h2>
-            </div>
-            <p class="text-lg text-gray-700 mb-6 leading-relaxed">
-              Our AI Coach provides personalized support to students based on their unique VESPA profile. Students can engage with the AI coach to better understand their results and receive tailored advice for improvement.
-            </p>
-            <div class="bg-blue-50 p-6 rounded-lg">
-              <h4 class="text-lg font-semibold text-theme-dark mb-3">AI Coach Features:</h4>
-              <ul class="space-y-2 text-gray-700">
-                <li class="flex items-center">
-                  <svg class="w-5 h-5 text-blue-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                  </svg>
-                  Profile-specific coaching conversations
-                </li>
-                <li class="flex items-center">
-                  <svg class="w-5 h-5 text-blue-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                  </svg>
-                  Activity suggestions and study strategies
-                </li>
-                <li class="flex items-center">
-                  <svg class="w-5 h-5 text-blue-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                  </svg>
-                  Available 24/7 for immediate support
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Staff Access & Coaching Section -->
-    <section class="py-20 bg-white">
+    <!-- Student Benefits Section -->
+    <section class="py-24 bg-gradient-to-b from-theme-primary to-theme-dark">
       <div class="container mx-auto px-6">
         <div class="text-center mb-16">
-          <h2 class="text-4xl font-bold text-theme-dark mb-6">Staff Access & Coaching Framework</h2>
-          <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-            Teaching staff gain powerful insights and proven coaching strategies to support effective conversations with students.
+          <div class="inline-block bg-gradient-to-r from-orange-500 to-orange-600 text-white px-6 py-3 rounded-lg mb-6" data-aos="zoom-in">
+            <h2 class="text-3xl font-bold">For Students</h2>
+          </div>
+          <p class="text-xl text-gray-300 max-w-3xl mx-auto" data-aos="fade-up">
+            Immediate self-awareness and actionable insights for academic growth
           </p>
         </div>
-        
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
-          <div class="fade-in-up">
-            <div class="bg-gradient-to-r from-green-500 to-green-600 text-white p-2 rounded-lg inline-block mb-6">
-              <h3 class="text-2xl font-bold">Staff Dashboard & Oversight</h3>
-            </div>
-            <p class="text-lg text-gray-700 mb-6 leading-relaxed">
-              From their dashboard, staff can view all student responses at a glance, then click on individual students to access detailed reports and score-based coaching guidance.
-            </p>
-            <div class="space-y-4">
-              <div class="flex items-start">
-                <div class="bg-green-100 rounded-full p-2 mr-4 mt-1">
-                  <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                  </svg>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center max-w-7xl mx-auto">
+          <div data-aos="fade-right">
+            <div class="bg-white/10 backdrop-blur-sm p-8 rounded-2xl border border-white/20">
+              <h3 class="text-2xl font-bold text-white mb-6">What Students Receive</h3>
+              <div class="space-y-4 mb-8">
+                <div class="flex items-start">
+                  <div class="bg-orange-500/20 rounded-full p-2 mr-4 mt-1">
+                    <svg class="w-5 h-5 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h4 class="font-semibold text-white">Instant Personalized Report</h4>
+                    <p class="text-gray-400">Comprehensive VESPA scores with visual breakdowns</p>
+                  </div>
                 </div>
-                <div>
-                  <h4 class="font-semibold text-theme-dark">Complete Student Overview</h4>
-                  <p class="text-gray-600">View all student scores and progress in one place</p>
+                <div class="flex items-start">
+                  <div class="bg-orange-500/20 rounded-full p-2 mr-4 mt-1">
+                    <svg class="w-5 h-5 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h4 class="font-semibold text-white">Self-Reflection Questions</h4>
+                    <p class="text-gray-400">Guided questions to deepen understanding of results</p>
+                  </div>
+                </div>
+                <div class="flex items-start">
+                  <div class="bg-orange-500/20 rounded-full p-2 mr-4 mt-1">
+                    <svg class="w-5 h-5 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h4 class="font-semibold text-white">Targeted Activities</h4>
+                    <p class="text-gray-400">Personalized development activities based on scores</p>
+                  </div>
+                </div>
+                <div class="flex items-start">
+                  <div class="bg-orange-500/20 rounded-full p-2 mr-4 mt-1">
+                    <svg class="w-5 h-5 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h4 class="font-semibold text-white">Goal-Setting Framework</h4>
+                    <p class="text-gray-400">Structured approach to academic improvement</p>
+                  </div>
                 </div>
               </div>
-              <div class="flex items-start">
-                <div class="bg-green-100 rounded-full p-2 mr-4 mt-1">
-                  <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                  </svg>
+              <div class="bg-blue-500/20 p-6 rounded-xl border border-blue-500/30">
+                <h4 class="text-lg font-semibold text-blue-300 mb-2">24/7 AI Coach Access</h4>
+                <p class="text-gray-300">Students can engage with our AI coach anytime for personalized support based on their unique VESPA profile.</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="grid grid-cols-1 gap-6" data-aos="fade-left">
+            <div class="report-preview-card">
+              <img src="/assets/REport Main.png" alt="VESPA Student Report" class="rounded-xl shadow-2xl w-full">
+              <div class="report-preview-overlay">
+                <p class="text-white font-semibold">Main Report Overview</p>
+              </div>
+            </div>
+            <div class="grid grid-cols-2 gap-6">
+              <div class="report-preview-card">
+                <img src="/assets/reportbody.png" alt="VESPA Report Body Detail" class="rounded-xl shadow-2xl w-full">
+                <div class="report-preview-overlay">
+                  <p class="text-white font-semibold">Detailed Analysis</p>
                 </div>
-                <div>
-                  <h4 class="font-semibold text-theme-dark">Individual Student Deep Dive</h4>
-                  <p class="text-gray-600">Click on any student for detailed profile and coaching tools</p>
+              </div>
+              <div class="report-preview-card">
+                <img src="/assets/StudentAICoach.png" alt="Student AI Coach Interface" class="rounded-xl shadow-2xl w-full">
+                <div class="report-preview-overlay">
+                  <p class="text-white font-semibold">AI Coach Interface</p>
                 </div>
               </div>
             </div>
           </div>
-          <div class="fade-in-up" style="animation-delay: 0.2s;">
-            <img src="/assets/academicprofile.png" alt="Academic Profile Dashboard" class="rounded-xl shadow-2xl w-full">
+        </div>
+      </div>
+    </section>
+
+    <!-- Staff Dashboard Section -->
+    <section class="py-24 bg-gradient-to-b from-theme-dark to-theme-primary">
+      <div class="container mx-auto px-6">
+        <div class="text-center mb-16">
+          <div class="inline-block bg-gradient-to-r from-green-500 to-green-600 text-white px-6 py-3 rounded-lg mb-6" data-aos="zoom-in">
+            <h2 class="text-3xl font-bold">For Teaching Staff</h2>
+          </div>
+          <p class="text-xl text-gray-300 max-w-3xl mx-auto" data-aos="fade-up">
+            Powerful insights and proven coaching strategies for effective student support
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-7xl mx-auto mb-16">
+          <!-- Dashboard Features -->
+          <div class="feature-card" data-aos="flip-left" data-aos-delay="100">
+            <div class="feature-icon bg-gradient-to-br from-green-500 to-green-600">
+              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-3">Complete Overview</h3>
+            <p class="text-gray-400">View all student scores and progress at a glance with intuitive dashboards</p>
+          </div>
+
+          <div class="feature-card" data-aos="flip-left" data-aos-delay="200">
+            <div class="feature-icon bg-gradient-to-br from-purple-500 to-purple-600">
+              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2" />
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-3">Score-Based Coaching</h3>
+            <p class="text-gray-400">Access targeted coaching questions prescribed for each student's score range</p>
+          </div>
+
+          <div class="feature-card" data-aos="flip-left" data-aos-delay="300">
+            <div class="feature-icon bg-gradient-to-br from-blue-500 to-blue-600">
+              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-3">Bulk Management</h3>
+            <p class="text-gray-400">Efficiently manage reports for entire year groups with filtering and batch printing</p>
           </div>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div class="fade-in-up order-2 lg:order-1">
-            <img src="/assets/AIStaffcoachingassistant.png" alt="AI Staff Coaching Assistant" class="rounded-xl shadow-2xl w-full">
+        <!-- Score-Based Framework Visual -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center max-w-7xl mx-auto">
+          <div data-aos="fade-right">
+            <img src="/assets/academicprofile.png" alt="Academic Profile Dashboard" class="rounded-xl shadow-2xl w-full">
           </div>
-          <div class="fade-in-up order-1 lg:order-2" style="animation-delay: 0.2s;">
-            <div class="bg-gradient-to-r from-purple-500 to-purple-600 text-white p-2 rounded-lg inline-block mb-6">
-              <h3 class="text-2xl font-bold">Score-Based Coaching Questions</h3>
+          
+          <div data-aos="fade-left">
+            <div class="bg-white/10 backdrop-blur-sm p-8 rounded-2xl border border-white/20">
+              <h3 class="text-2xl font-bold text-white mb-6">Score-Based Coaching Framework</h3>
+              <p class="text-gray-300 mb-6">
+                Each set of coaching questions is <strong class="text-white">prescribed according to the student's specific score</strong> in each VESPA element. Developed over many years and proven highly effective.
+              </p>
+              
+              <div class="space-y-4">
+                <div class="score-range-card bg-red-500/20 border-red-500/50">
+                  <div class="flex items-center">
+                    <span class="w-4 h-4 bg-red-500 rounded-full mr-3"></span>
+                    <div class="flex-1">
+                      <span class="font-bold text-red-300">Very Low (Scores &lt;4)</span>
+                      <p class="text-gray-400 text-sm">Intensive support & fundamental skill building</p>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="score-range-card bg-orange-500/20 border-orange-500/50">
+                  <div class="flex items-center">
+                    <span class="w-4 h-4 bg-orange-500 rounded-full mr-3"></span>
+                    <div class="flex-1">
+                      <span class="font-bold text-orange-300">Low (Scores &lt;6)</span>
+                      <p class="text-gray-400 text-sm">Development-focused questions & targeted interventions</p>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="score-range-card bg-yellow-500/20 border-yellow-500/50">
+                  <div class="flex items-center">
+                    <span class="w-4 h-4 bg-yellow-500 rounded-full mr-3"></span>
+                    <div class="flex-1">
+                      <span class="font-bold text-yellow-300">Medium (Scores &lt;9)</span>
+                      <p class="text-gray-400 text-sm">Consolidation & strategy refinement</p>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="score-range-card bg-green-500/20 border-green-500/50">
+                  <div class="flex items-center">
+                    <span class="w-4 h-4 bg-green-500 rounded-full mr-3"></span>
+                    <div class="flex-1">
+                      <span class="font-bold text-green-300">High (Scores ≥9)</span>
+                      <p class="text-gray-400 text-sm">Peer support & leadership development</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <p class="text-lg text-gray-700 mb-6 leading-relaxed">
-              Each set of coaching questions is <strong>prescribed according to the student's specific score</strong> in each VESPA element. These questions have been developed over many years and proven highly effective in prompting students to create their own solutions.
-            </p>
-            <div class="bg-purple-50 p-6 rounded-lg">
-              <h4 class="text-lg font-semibold text-theme-dark mb-3">Score-Based Framework:</h4>
-              <ul class="space-y-2 text-gray-700">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- AI Coaching Assistant Section -->
+    <section class="py-24 bg-gradient-to-b from-theme-primary to-theme-dark">
+      <div class="container mx-auto px-6">
+        <div class="text-center mb-16">
+          <div class="inline-block bg-gradient-to-r from-blue-500 to-blue-600 text-white px-6 py-3 rounded-lg mb-6" data-aos="zoom-in">
+            <h2 class="text-3xl font-bold">AI-Powered Support</h2>
+          </div>
+          <p class="text-xl text-gray-300 max-w-3xl mx-auto" data-aos="fade-up">
+            Intelligent coaching assistance available 24/7 for both students and staff
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-7xl mx-auto">
+          <!-- Student AI Coach -->
+          <div class="ai-feature-card" data-aos="zoom-in-right">
+            <div class="ai-feature-header bg-gradient-to-r from-blue-500 to-blue-600">
+              <h3 class="text-2xl font-bold text-white">Student AI Coach</h3>
+            </div>
+            <div class="p-8">
+              <img src="/assets/AIstudentcoach2.png" alt="AI Student Coach Conversation" class="rounded-lg shadow-xl w-full mb-6">
+              <ul class="space-y-3">
                 <li class="flex items-center">
-                  <span class="w-3 h-3 bg-red-500 rounded-full mr-3"></span>
-                  <span><strong>Scores &lt;4:</strong> Very Low - Intensive support questions</span>
+                  <svg class="w-5 h-5 text-blue-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  </svg>
+                  <span class="text-gray-300">Profile-specific coaching conversations</span>
                 </li>
                 <li class="flex items-center">
-                  <span class="w-3 h-3 bg-orange-500 rounded-full mr-3"></span>
-                  <span><strong>Scores &lt;6:</strong> Low - Development-focused questions</span>
+                  <svg class="w-5 h-5 text-blue-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  </svg>
+                  <span class="text-gray-300">Activity suggestions & study strategies</span>
                 </li>
                 <li class="flex items-center">
-                  <span class="w-3 h-3 bg-yellow-500 rounded-full mr-3"></span>
-                  <span><strong>Scores &lt;9:</strong> Medium - Consolidation questions</span>
+                  <svg class="w-5 h-5 text-blue-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  </svg>
+                  <span class="text-gray-300">Available 24/7 for immediate support</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Staff AI Assistant -->
+          <div class="ai-feature-card" data-aos="zoom-in-left">
+            <div class="ai-feature-header bg-gradient-to-r from-purple-500 to-purple-600">
+              <h3 class="text-2xl font-bold text-white">Staff Coaching Assistant</h3>
+            </div>
+            <div class="p-8">
+              <img src="/assets/AIStaffcoachingassistant.png" alt="AI Staff Coaching Assistant" class="rounded-lg shadow-xl w-full mb-6">
+              <ul class="space-y-3">
+                <li class="flex items-center">
+                  <svg class="w-5 h-5 text-purple-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                  </svg>
+                  <span class="text-gray-300">Smart coaching question suggestions</span>
                 </li>
                 <li class="flex items-center">
-                  <span class="w-3 h-3 bg-green-500 rounded-full mr-3"></span>
-                  <span><strong>Scores ≥9:</strong> High - Peer support & leadership questions</span>
+                  <svg class="w-5 h-5 text-purple-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                  </svg>
+                  <span class="text-gray-300">Intervention strategies based on scores</span>
+                </li>
+                <li class="flex items-center">
+                  <svg class="w-5 h-5 text-purple-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                  </svg>
+                  <span class="text-gray-300">Best practice guidance & resources</span>
                 </li>
               </ul>
             </div>
@@ -207,118 +316,211 @@ import Layout from '../layouts/Layout.astro';
     </section>
 
     <!-- Report Management Section -->
-    <section class="py-20 bg-gray-50">
+    <section class="py-24 bg-gradient-to-b from-theme-dark to-theme-accent2">
       <div class="container mx-auto px-6">
-        <div class="text-center mb-16">
-          <h2 class="text-4xl font-bold text-theme-dark mb-6">Report Management & Distribution</h2>
-          <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-            Efficiently manage and distribute coaching reports across your entire institution with bulk printing and management tools.
-          </p>
-        </div>
-
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div class="fade-in-up">
-            <div class="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-2 rounded-lg inline-block mb-6">
-              <h3 class="text-2xl font-bold">Bulk Printing & Management</h3>
-            </div>
-            <p class="text-lg text-gray-700 mb-6 leading-relaxed">
-              Generate reports for entire year groups, filter by specific criteria, and print customized batches for distribution. Track completion and manage the entire process efficiently.
+        <div class="max-w-6xl mx-auto">
+          <div class="text-center mb-16">
+            <h2 class="text-4xl font-bold text-white mb-6" data-aos="fade-down">
+              Efficient Report <span class="gradient-text">Management</span>
+            </h2>
+            <p class="text-xl text-gray-300 max-w-3xl mx-auto" data-aos="fade-up">
+              Streamlined tools for managing reports across your entire institution
             </p>
-            <div class="space-y-4">
-              <div class="flex items-center">
-                <div class="bg-blue-100 rounded-full p-2 mr-4">
-                  <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div class="space-y-8" data-aos="fade-right">
+              <div class="management-feature">
+                <div class="management-icon bg-blue-500/20">
+                  <svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
                   </svg>
                 </div>
-                <span class="text-gray-700">Filter by cycle, year group, or tutor group</span>
+                <div>
+                  <h4 class="text-xl font-bold text-white mb-2">Advanced Filtering</h4>
+                  <p class="text-gray-400">Filter by cycle, year group, tutor group, or custom criteria</p>
+                </div>
               </div>
-              <div class="flex items-center">
-                <div class="bg-blue-100 rounded-full p-2 mr-4">
-                  <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+
+              <div class="management-feature">
+                <div class="management-icon bg-green-500/20">
+                  <svg class="w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
                   </svg>
                 </div>
-                <span class="text-gray-700">Batch printing for hundreds of students</span>
+                <div>
+                  <h4 class="text-xl font-bold text-white mb-2">Batch Operations</h4>
+                  <p class="text-gray-400">Print hundreds of reports at once with customizable batches</p>
+                </div>
               </div>
-              <div class="flex items-center">
-                <div class="bg-blue-100 rounded-full p-2 mr-4">
-                  <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+
+              <div class="management-feature">
+                <div class="management-icon bg-purple-500/20">
+                  <svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                   </svg>
                 </div>
-                <span class="text-gray-700">Preview reports before printing</span>
+                <div>
+                  <h4 class="text-xl font-bold text-white mb-2">Preview & Validation</h4>
+                  <p class="text-gray-400">Preview reports before printing and validate completion status</p>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="fade-in-up" style="animation-delay: 0.2s;">
-            <img src="/assets/bulkreportprinting.png" alt="Bulk Report Printing Interface" class="rounded-xl shadow-2xl w-full">
+
+            <div data-aos="fade-left">
+              <img src="/assets/bulkreportprinting.png" alt="Bulk Report Printing Interface" class="rounded-xl shadow-2xl w-full">
+            </div>
           </div>
         </div>
       </div>
     </section>
 
     <!-- CTA Section -->
-    <section class="py-20 bg-theme-secondary text-theme-dark">
-      <div class="container mx-auto px-6 text-center">
-        <h3 class="text-4xl font-bold mb-6">Ready to Transform Your Coaching Approach?</h3>
-        <p class="text-xl mb-8 max-w-3xl mx-auto">Experience the power of VESPA coaching reports firsthand. See how our personalized reports can empower your students and enhance your coaching conversations.</p>
-        <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <a href="/questionnaire" class="bg-theme-primary hover:bg-theme-dark text-white font-bold py-4 px-8 rounded-xl text-lg transition-all transform hover:scale-105 shadow-lg">
+    <section class="py-24 bg-gradient-to-r from-theme-accent2 to-theme-secondary relative overflow-hidden">
+      <div class="moving-gradient"></div>
+      <div class="container mx-auto px-6 text-center relative z-10">
+        <h3 class="text-4xl font-bold mb-6 text-white" data-aos="zoom-in">
+          Ready to Transform Your Coaching Approach?
+        </h3>
+        <p class="text-xl mb-10 text-white/90 max-w-3xl mx-auto" data-aos="fade-up" data-aos-delay="200">
+          Experience the power of VESPA coaching reports firsthand. See how our personalized reports can empower your students and enhance your coaching conversations.
+        </p>
+        
+        <div class="flex flex-col sm:flex-row gap-4 justify-center" data-aos="fade-up" data-aos-delay="400">
+          <a href="/questionnaire" class="inline-flex items-center justify-center px-8 py-4 bg-white text-theme-dark font-bold rounded-xl text-lg transition-all transform hover:scale-105 shadow-lg">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+            </svg>
             Try the Questionnaire
           </a>
-          <a href="/contact" class="bg-white hover:bg-gray-100 text-theme-primary font-bold py-4 px-8 rounded-xl text-lg transition-all transform hover:scale-105 shadow-lg">
+          <a href="/contact" class="inline-flex items-center justify-center px-8 py-4 bg-theme-dark/90 hover:bg-theme-dark text-white font-bold rounded-xl text-lg transition-all transform hover:scale-105 shadow-lg">
             Contact Us Today
           </a>
-          <a href="https://calendly.com/vespaacademy/15minmeeting" target="_blank" class="bg-theme-dark hover:bg-gray-800 text-white font-bold py-4 px-8 rounded-xl text-lg transition-all transform hover:scale-105 shadow-lg">
+          <a href="https://calendly.com/vespaacademy/15minmeeting" target="_blank" class="inline-flex items-center justify-center px-8 py-4 border-2 border-white text-white hover:bg-white/10 font-bold rounded-xl text-lg transition-all transform hover:scale-105 shadow-lg">
             Book a Demo
           </a>
         </div>
       </div>
     </section>
-
   </main>
 
   <style>
-    .fade-in-up {
-      opacity: 0;
-      transform: translateY(30px);
-      animation: fadeInUp 0.8s ease-out forwards;
+    /* Report Preview Cards */
+    .report-preview-card {
+      @apply relative overflow-hidden rounded-xl shadow-2xl transition-all duration-300;
     }
 
-    @keyframes fadeInUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    .report-preview-card:hover {
+      @apply transform scale-105;
     }
 
-    /* Ensure images are responsive */
-    img {
-      max-width: 100%;
-      height: auto;
+    .report-preview-overlay {
+      @apply absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4 opacity-0 transition-opacity duration-300;
+    }
+
+    .report-preview-card:hover .report-preview-overlay {
+      @apply opacity-100;
+    }
+
+    /* Feature Cards */
+    .feature-card {
+      @apply bg-white/10 backdrop-blur-sm p-8 rounded-2xl border border-white/20 transition-all duration-300;
+    }
+
+    .feature-card:hover {
+      @apply bg-white/15 transform translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .feature-icon {
+      @apply w-16 h-16 rounded-xl flex items-center justify-center mb-4 shadow-lg;
+    }
+
+    /* Score Range Cards */
+    .score-range-card {
+      @apply p-4 rounded-xl border transition-all duration-300;
+    }
+
+    .score-range-card:hover {
+      @apply transform scale-105;
+    }
+
+    /* AI Feature Cards */
+    .ai-feature-card {
+      @apply bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20 overflow-hidden transition-all duration-300;
+    }
+
+    .ai-feature-card:hover {
+      @apply transform translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .ai-feature-header {
+      @apply p-6 text-center;
+    }
+
+    /* Management Features */
+    .management-feature {
+      @apply flex items-start space-x-4;
+    }
+
+    .management-icon {
+      @apply w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0;
+    }
+
+    /* Moving gradient background */
+    .moving-gradient {
+      @apply absolute inset-0;
+      background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
+      background-size: 200% 200%;
+      animation: shimmer 3s infinite;
+    }
+
+    @keyframes shimmer {
+      0% { background-position: -100% -100%; }
+      100% { background-position: 100% 100%; }
+    }
+
+    /* Gradient text */
+    .gradient-text {
+      @apply bg-gradient-to-r from-theme-secondary to-theme-accent1 bg-clip-text text-transparent;
+    }
+
+    /* Parallax effect */
+    .parallax-bg {
+      will-change: transform;
+    }
+
+    /* Animation classes */
+    [data-aos] {
+      transition-property: transform, opacity;
     }
   </style>
 
   <script>
-    // Add scroll animations
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
-    };
+    // Initialize AOS animations
+    import AOS from 'aos';
+    import 'aos/dist/aos.css';
+    
+    AOS.init({
+      duration: 800,
+      easing: 'ease-out-cubic',
+      once: true,
+      offset: 50
+    });
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.style.animationPlayState = 'running';
-        }
+    // Parallax effect
+    const parallaxElements = document.querySelectorAll('.parallax-bg');
+    
+    window.addEventListener('scroll', () => {
+      const scrolled = window.pageYOffset;
+      
+      parallaxElements.forEach(element => {
+        const speed = element.dataset.speed || 0.5;
+        const yPos = -(scrolled * speed);
+        element.style.transform = `translateY(${yPos}px)`;
       });
-    }, observerOptions);
-
-    // Observe all fade-in elements
-    document.querySelectorAll('.fade-in-up').forEach(el => {
-      el.style.animationPlayState = 'paused';
-      observer.observe(el);
     });
   </script>
 </Layout> 
