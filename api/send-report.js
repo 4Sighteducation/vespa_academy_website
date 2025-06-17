@@ -557,8 +557,8 @@ export default async function handler(req, res) {
       practice_avg: emailData.practice_avg,
       attitude_score: emailData.attitude_score,
       attitude_avg: emailData.attitude_avg,
-      overall_score: emailData.overall_score,
-      download_link: 'https://www.vespa.academy' // Since PDF is attached, link to main site
+      overall_score: emailData.overall_score
+      // Note: download_link removed since PDF is attached to email
     };
 
     console.log('Template data prepared:', Object.keys(templateData));
