@@ -113,16 +113,16 @@ const generateProfessionalReportHTML = async (data) => {
         }
         
         .report-header { 
-          margin-bottom: 8mm;
-          padding-bottom: 5mm;
+          margin-bottom: 4mm;
+          padding-bottom: 3mm;
           border-bottom: 2px solid #000;
         }
         
         .header-top {
           display: grid;
           grid-template-columns: 1fr 2fr 1fr;
-          gap: 10mm;
-          margin-bottom: 3mm;
+          gap: 8mm;
+          margin-bottom: 2mm;
         }
         
         .student-info {
@@ -162,33 +162,33 @@ const generateProfessionalReportHTML = async (data) => {
         }
 
         .intro-questions {
-          font-size: 7pt;
-          margin-top: 3mm;
-          padding: 2mm;
+          font-size: 6pt;
+          margin-top: 2mm;
+          padding: 1.5mm;
           background: #f9f9f9;
           border: 1px solid #e0e0e0;
-          border-radius: 3px;
+          border-radius: 2px;
         }
         
         .intro-questions h4 {
-          margin: 0 0 2mm 0;
-          font-size: 8pt;
+          margin: 0 0 1mm 0;
+          font-size: 7pt;
           font-weight: bold;
         }
         
         .intro-questions ul {
           margin: 0;
-          padding-left: 10px;
+          padding-left: 8px;
           list-style: disc;
         }
         
         .intro-questions li {
-          margin-bottom: 1mm;
-          line-height: 1.2;
+          margin-bottom: 0.5mm;
+          line-height: 1.1;
         }
 
         .vespa-main-content {
-          margin-top: 8mm;
+          margin-top: 3mm;
         }
         
         .vespa-report-header {
@@ -196,20 +196,20 @@ const generateProfessionalReportHTML = async (data) => {
           grid-template-columns: 1fr 1fr;
           background: #e74c3c;
           color: white;
-          padding: 3mm;
+          padding: 2mm;
           font-weight: bold;
-          font-size: 11pt;
-          margin-bottom: 2mm;
+          font-size: 10pt;
+          margin-bottom: 1mm;
         }
         
         .vespa-row {
           display: grid;
-          grid-template-columns: 35mm 1.8fr 1fr;
+          grid-template-columns: 30mm 2fr 1.2fr;
           border: 1px solid #ddd;
-          margin-bottom: 1mm;
+          margin-bottom: 0.5mm;
           background: white;
           page-break-inside: avoid;
-          min-height: 45mm;
+          min-height: 35mm;
         }
         
         .vespa-element {
@@ -217,110 +217,85 @@ const generateProfessionalReportHTML = async (data) => {
           flex-direction: column;
           align-items: center;
           justify-content: center;
-          padding: 3mm;
-          background: #f8f9fa;
+          padding: 2mm;
           text-align: center;
+          color: white;
+          font-weight: bold;
         }
         
         .element-name {
-          font-size: 11pt;
+          font-size: 9pt;
           font-weight: bold;
-          margin-bottom: 4mm;
-          color: #333;
-        }
-        
-        .element-score-container {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          padding: 4mm;
-          border-radius: 4px;
-          color: white;
-          font-weight: bold;
-          width: 100%;
+          margin-bottom: 2mm;
+          text-transform: uppercase;
         }
         
         .score-number {
-          font-size: 36pt;
+          font-size: 32pt;
           font-weight: bold;
-          line-height: 1;
+          line-height: 0.9;
         }
         
         .vespa-description {
-          padding: 4mm;
-          font-size: 8pt;
-          line-height: 1.4;
+          padding: 2mm;
+          font-size: 7.5pt;
+          line-height: 1.3;
         }
         
         .description-text {
-          margin-bottom: 3mm;
+          margin-bottom: 0;
           font-weight: normal;
-          line-height: 1.5;
-        }
-        
-        .average-score {
-          font-size: 7pt;
-          color: #666;
-          margin-bottom: 3mm;
-          font-style: italic;
+          line-height: 1.4;
         }
         
         .suggested-activities {
-          margin-top: 3mm;
+          margin-top: 0;
           font-style: italic;
-          font-size: 8pt;
+          font-size: 7pt;
         }
         
         .suggested-activities strong {
-          font-size: 8pt;
+          font-size: 7pt;
           font-weight: bold;
           display: block;
-          margin-bottom: 1mm;
+          margin-bottom: 0.5mm;
           font-style: normal;
         }
         
         .coaching-questions {
-          padding: 4mm;
+          padding: 2mm;
           border-left: 1px solid #eee;
           background: #fafbfc;
-          font-size: 8pt;
-          line-height: 1.4;
+          font-size: 7.5pt;
+          line-height: 1.3;
         }
         
         .coaching-content {
-          margin-bottom: 3mm;
+          margin-bottom: 2mm;
+        }
+        
+        .activities-divider {
+          border-top: 1px solid #ddd;
+          margin: 2mm 0;
         }
 
         .personal-reflection {
-          margin-top: 8mm;
+          margin-top: 4mm;
           border-top: 1px solid #ccc;
-          padding-top: 4mm;
+          padding-top: 2mm;
         }
         
         .personal-reflection h3 {
-          font-size: 12pt;
+          font-size: 10pt;
           font-weight: bold;
-          margin: 0 0 3mm 0;
+          margin: 0 0 2mm 0;
         }
         
         .write-area {
           border: 1px solid #ddd;
-          min-height: 15mm;
+          min-height: 8mm;
           background: #fdfdfd;
-          padding: 2mm;
-        }
-
-        .action-plan {
-          margin-top: 8mm;
-          border-top: 1px solid #ccc;
-          padding-top: 4mm;
-        }
-        
-        .action-plan h3 {
-          font-size: 12pt;
-          font-weight: bold;
-          margin: 0 0 3mm 0;
+          padding: 1mm;
         }
       </style>
     </head>
@@ -363,23 +338,21 @@ const generateProfessionalReportHTML = async (data) => {
             
                           return `
                 <div class="vespa-row">
-                  <div class="vespa-element">
+                  <div class="vespa-element" style="background-color: ${vespaColors[category]};">
                     <div class="element-name">${category}</div>
-                    <div class="element-score-container" style="background-color: ${vespaColors[category]};">
-                      <div class="score-number">${score}</div>
-                    </div>
-                    <div style="text-align: center; font-size: 8pt; margin-top: 2mm;">Score</div>
+                    <div class="score-number">${score}</div>
                   </div>
                   
                   <div class="vespa-description">
                     <div class="description-text">${content.description}</div>
-                    <div class="average-score">Average score: ${avgScore}</div>
                   </div>
                   
                   <div class="coaching-questions">
                     <div class="coaching-content">
                       ${content.coaching_questions.replace(/<br\s*\/?>/gi, '<br>')}
                     </div>
+                    
+                    <div class="activities-divider"></div>
                     
                     <div class="suggested-activities">
                       <strong>Suggested Activities:</strong> ${content.activities}
