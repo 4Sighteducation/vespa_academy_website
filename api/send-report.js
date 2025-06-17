@@ -207,7 +207,7 @@ const generateProfessionalReportHTML = async (data) => {
         .vespa-report-header {
           display: grid;
           grid-template-columns: 28mm 1.8fr 1.4fr;
-          background: #00e5db;
+          background: #06206e;
           color: white;
           padding: 1.5mm;
           font-weight: bold;
@@ -324,7 +324,7 @@ const generateProfessionalReportHTML = async (data) => {
             </div>
             <div class="header-title">VESPA COACHING REPORT</div>
             <div class="logo-container">
-              <img src="/vespa-logo.png" alt="VESPA Academy" style="max-height: 25px; width: auto;" />
+              <img src="https://vespawebsite-b6f6u9omx-tony-dennis-projects.vercel.app/_astro/vespalogo.BGrK1ARl.png" alt="VESPA Academy" style="max-height: 25px; width: auto;" />
             </div>
           </div>
           <div class="intro-questions">
@@ -542,7 +542,7 @@ export default async function handler(req, res) {
     }
 
     // Read the HTML template
-    const templatePath = path.join(process.cwd(), 'REPORT_TEMPLATE.html');
+    const templatePath = path.join(process.cwd(), 'assets', 'sendgridreporttempalte.html');
     let htmlContent = fs.readFileSync(templatePath, 'utf8');
 
     // Prepare template data including the reportHTML
@@ -562,8 +562,7 @@ export default async function handler(req, res) {
       attitude_score: emailData.attitude_score,
       attitude_avg: emailData.attitude_avg,
       overall_score: emailData.overall_score,
-      reportHTML: emailData.reportHTML || '',
-      download_link: `https://www.vespa.academy/download-report?email=${encodeURIComponent(emailData.user_email)}`
+      reportHTML: emailData.reportHTML || ''
     };
 
     console.log('Template data keys:', Object.keys(templateData));
