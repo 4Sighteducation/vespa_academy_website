@@ -113,12 +113,16 @@ const generateProfessionalReportHTML = async (data) => {
         }
         
         .report-header { 
-          display: grid;
-          grid-template-columns: 1fr 2fr 1fr;
-          gap: 10mm;
           margin-bottom: 8mm;
           padding-bottom: 5mm;
           border-bottom: 2px solid #000;
+        }
+        
+        .header-top {
+          display: grid;
+          grid-template-columns: 1fr 2fr 1fr;
+          gap: 10mm;
+          margin-bottom: 3mm;
         }
         
         .student-info {
@@ -158,23 +162,29 @@ const generateProfessionalReportHTML = async (data) => {
         }
 
         .intro-questions {
-          font-size: 8pt;
+          font-size: 7pt;
+          margin-top: 3mm;
+          padding: 2mm;
+          background: #f9f9f9;
+          border: 1px solid #e0e0e0;
+          border-radius: 3px;
         }
         
         .intro-questions h4 {
-          margin: 0 0 3mm 0;
-          font-size: 10pt;
+          margin: 0 0 2mm 0;
+          font-size: 8pt;
           font-weight: bold;
         }
         
         .intro-questions ul {
           margin: 0;
-          padding-left: 12px;
+          padding-left: 10px;
           list-style: disc;
         }
         
         .intro-questions li {
-          margin-bottom: 2mm;
+          margin-bottom: 1mm;
+          line-height: 1.2;
         }
 
         .vespa-main-content {
@@ -194,44 +204,45 @@ const generateProfessionalReportHTML = async (data) => {
         
         .vespa-row {
           display: grid;
-          grid-template-columns: 40mm 1fr 1.2fr;
+          grid-template-columns: 35mm 1.8fr 1fr;
           border: 1px solid #ddd;
           margin-bottom: 1mm;
           background: white;
           page-break-inside: avoid;
+          min-height: 45mm;
         }
         
         .vespa-element {
           display: flex;
           flex-direction: column;
           align-items: center;
-          padding: 4mm;
+          justify-content: center;
+          padding: 3mm;
           background: #f8f9fa;
-        }
-        
-        .element-header {
-          width: 100%;
-          padding: 2mm;
-          border-radius: 4px;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          color: white;
-          font-weight: bold;
-          margin-bottom: 3mm;
-        }
-        
-        .element-letter {
-          font-size: 18pt;
-          font-weight: bold;
-        }
-        
-        .element-score {
           text-align: center;
         }
         
+        .element-name {
+          font-size: 11pt;
+          font-weight: bold;
+          margin-bottom: 4mm;
+          color: #333;
+        }
+        
+        .element-score-container {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          padding: 4mm;
+          border-radius: 4px;
+          color: white;
+          font-weight: bold;
+          width: 100%;
+        }
+        
         .score-number {
-          font-size: 24pt;
+          font-size: 36pt;
           font-weight: bold;
           line-height: 1;
         }
@@ -255,15 +266,18 @@ const generateProfessionalReportHTML = async (data) => {
           font-style: italic;
         }
         
-        .reflection-questions {
-          margin-bottom: 3mm;
+        .suggested-activities {
+          margin-top: 3mm;
+          font-style: italic;
+          font-size: 8pt;
         }
         
-        .reflection-questions strong {
+        .suggested-activities strong {
           font-size: 8pt;
           font-weight: bold;
           display: block;
           margin-bottom: 1mm;
+          font-style: normal;
         }
         
         .coaching-questions {
@@ -312,22 +326,23 @@ const generateProfessionalReportHTML = async (data) => {
     </head>
     <body>
       <div class="vespa-report">
-        <!-- Header Section - EXACT match to reference image -->
+        <!-- Header Section - Updated layout -->
         <div class="report-header">
-          <div class="student-info">
-            <div>STUDENT: ${data.user_name}</div>
-            <div>DATE: ${new Date().toLocaleDateString('en-GB')}</div>
-            <div class="cycle-info">CYCLE: <span class="cycle-number">1</span></div>
+          <div class="header-top">
+            <div class="student-info">
+              <div>STUDENT: ${data.user_name}</div>
+              <div>DATE: ${new Date().toLocaleDateString('en-GB')}</div>
+              <div class="cycle-info">CYCLE: <span class="cycle-number">1</span></div>
+            </div>
+            <div class="header-title">VESPA COACHING REPORT</div>
+            <div style="width: 80px;"></div> <!-- Spacer -->
           </div>
-          <div class="header-title">VESPA COACHING REPORT</div>
           <div class="intro-questions">
             <h4>INTRODUCTORY QUESTIONS</h4>
             <ul>
               <li>To what extent is the report an accurate description of your current characteristics?</li>
               <li>Does your highest score represent a personal strength? Your lowest an area for development?</li>
               <li>If you had to change just one thing, which would it be, and why?</li>
-              <li>Think back over the last few weeks. What are you currently finding hard about study at this level?</li>
-              <li>Before we look at the rest of the report, remember by answering the questions below honestly, you will soon be in a good position to make manageable and meaningful changes to the way you work, lowering your stress and increasing feelings of confidence and control.</li>
             </ul>
           </div>
         </div>
@@ -346,40 +361,32 @@ const generateProfessionalReportHTML = async (data) => {
             const avgScore = data[avgKey] || '0.00';
             const content = getCoachingContent(category, score);
             
-            return `
-              <div class="vespa-row">
-                <div class="vespa-element">
-                  <div class="element-header" style="background-color: ${vespaColors[category]};">
-                    <div class="element-letter">${category.charAt(0)}</div>
-                    <div class="element-score">
+                          return `
+                <div class="vespa-row">
+                  <div class="vespa-element">
+                    <div class="element-name">${category}</div>
+                    <div class="element-score-container" style="background-color: ${vespaColors[category]};">
                       <div class="score-number">${score}</div>
                     </div>
-                  </div>
-                  <div class="element-name">${category}</div>
-                  <div style="text-align: center; font-size: 8pt;">Score</div>
-                </div>
-                
-                <div class="vespa-description">
-                  <div class="description-text">${content.description}</div>
-                  <div class="average-score">Average score: ${avgScore}</div>
-                  
-                  <div class="reflection-questions">
-                    <strong>Reflection Questions:</strong><br>
-                    ${content.questions.replace(/<br\s*\/?>/gi, '<br>')}
+                    <div style="text-align: center; font-size: 8pt; margin-top: 2mm;">Score</div>
                   </div>
                   
-                  <div class="suggested-activities">
-                    <strong>Suggested Activities:</strong> <em>${content.activities}</em>
+                  <div class="vespa-description">
+                    <div class="description-text">${content.description}</div>
+                    <div class="average-score">Average score: ${avgScore}</div>
+                  </div>
+                  
+                  <div class="coaching-questions">
+                    <div class="coaching-content">
+                      ${content.coaching_questions.replace(/<br\s*\/?>/gi, '<br>')}
+                    </div>
+                    
+                    <div class="suggested-activities">
+                      <strong>Suggested Activities:</strong> ${content.activities}
+                    </div>
                   </div>
                 </div>
-                
-                <div class="coaching-questions">
-                  <div class="coaching-content">
-                    ${content.coaching_questions.replace(/<br\s*\/?>/gi, '<br>')}
-                  </div>
-                </div>
-              </div>
-            `;
+              `;
           }).join('')}
         </div>
 
