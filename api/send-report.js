@@ -153,12 +153,25 @@ const generateProfessionalReportHTML = async (data) => {
         }
 
         .header-title {
-          font-size: 24pt;
+          font-size: 20pt;
           color: #23356f;
           margin: 0;
           text-align: center;
           font-weight: bold;
           align-self: center;
+          white-space: nowrap;
+        }
+        
+        .logo-container {
+          text-align: right;
+          display: flex;
+          align-items: center;
+          justify-content: flex-end;
+        }
+        
+        .logo-container img {
+          max-height: 25px;
+          width: auto;
         }
 
         .intro-questions {
@@ -193,23 +206,23 @@ const generateProfessionalReportHTML = async (data) => {
         
         .vespa-report-header {
           display: grid;
-          grid-template-columns: 1fr 1fr;
-          background: #e74c3c;
+          grid-template-columns: 28mm 1.8fr 1.4fr;
+          background: #00e5db;
           color: white;
-          padding: 2mm;
+          padding: 1.5mm;
           font-weight: bold;
-          font-size: 10pt;
-          margin-bottom: 1mm;
+          font-size: 9pt;
+          margin-bottom: 0.5mm;
         }
         
         .vespa-row {
           display: grid;
-          grid-template-columns: 30mm 2fr 1.2fr;
+          grid-template-columns: 28mm 1.8fr 1.4fr;
           border: 1px solid #ddd;
           margin-bottom: 0.5mm;
           background: white;
           page-break-inside: avoid;
-          min-height: 35mm;
+          min-height: 28mm;
         }
         
         .vespa-element {
@@ -237,9 +250,9 @@ const generateProfessionalReportHTML = async (data) => {
         }
         
         .vespa-description {
-          padding: 2mm;
-          font-size: 7.5pt;
-          line-height: 1.3;
+          padding: 1.5mm;
+          font-size: 7pt;
+          line-height: 1.2;
         }
         
         .description-text {
@@ -263,11 +276,11 @@ const generateProfessionalReportHTML = async (data) => {
         }
         
         .coaching-questions {
-          padding: 2mm;
+          padding: 1.5mm;
           border-left: 1px solid #eee;
           background: #fafbfc;
-          font-size: 7.5pt;
-          line-height: 1.3;
+          font-size: 7pt;
+          line-height: 1.2;
         }
         
         .coaching-content {
@@ -280,9 +293,9 @@ const generateProfessionalReportHTML = async (data) => {
         }
 
         .personal-reflection {
-          margin-top: 4mm;
+          margin-top: 2mm;
           border-top: 1px solid #ccc;
-          padding-top: 2mm;
+          padding-top: 1mm;
         }
         
         .personal-reflection h3 {
@@ -293,7 +306,7 @@ const generateProfessionalReportHTML = async (data) => {
         
         .write-area {
           border: 1px solid #ddd;
-          min-height: 8mm;
+          min-height: 6mm;
           background: #fdfdfd;
           padding: 1mm;
         }
@@ -310,14 +323,15 @@ const generateProfessionalReportHTML = async (data) => {
               <div class="cycle-info">CYCLE: <span class="cycle-number">1</span></div>
             </div>
             <div class="header-title">VESPA COACHING REPORT</div>
-            <div style="width: 80px;"></div> <!-- Spacer -->
+            <div class="logo-container">
+              <img src="/vespa-logo.png" alt="VESPA Academy" style="max-height: 25px; width: auto;" />
+            </div>
           </div>
           <div class="intro-questions">
             <h4>INTRODUCTORY QUESTIONS</h4>
             <ul>
-              <li>To what extent is the report an accurate description of your current characteristics?</li>
-              <li>Does your highest score represent a personal strength? Your lowest an area for development?</li>
-              <li>If you had to change just one thing, which would it be, and why?</li>
+              <li>To what extent is the report accurate?</li>
+              <li>Does your highest score represent a strength? Your lowest an area for development?</li>
             </ul>
           </div>
         </div>
@@ -325,7 +339,8 @@ const generateProfessionalReportHTML = async (data) => {
         <!-- VESPA Main Content -->
         <div class="vespa-main-content">
           <div class="vespa-report-header">
-            <div>VESPA REPORT</div>
+            <div>SCORE</div>
+            <div>COMMENT</div>
             <div>COACHING QUESTIONS</div>
           </div>
           
