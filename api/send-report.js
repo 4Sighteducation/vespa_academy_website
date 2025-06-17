@@ -8,14 +8,29 @@ import path from 'path';
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 // Load the JSON data for descriptions and coaching questions
-const fs = require('fs');
-const path = require('path');
-const reportData = JSON.parse(fs.readFileSync(path.join(__dirname, '../assets/reporttext_restructured_complete.json'), 'utf8'));
+let reportData = null;
+
+async function loadReportData() {
+  if (!reportData) {
+    try {
+      const jsonPath = path.join(process.cwd(), 'public', 'reporttext_restructured_complete.json');
+      const jsonContent = fs.readFileSync(jsonPath, 'utf8');
+      reportData = JSON.parse(jsonContent);
+    } catch (error) {
+      console.error('Error loading report data:', error);
+      reportData = {}; // fallback
+    }
+  }
+  return reportData;
+}
 
 // Professional HTML template for PDF generation - EXACT MATCH to reference image structure
-const generateProfessionalReportHTML = (data) => {
+const generateProfessionalReportHTML = async (data) => {
   
-  // VESPA color mapping
+  // Load report data
+  const reportJsonData = await loadReportData();
+  
+  // VESPA color mapping - exact colors from reference image
   const vespaColors = {
     'VISION': '#ffab40',    // Orange
     'EFFORT': '#a9c8f5',   // Light Blue  
@@ -24,58 +39,52 @@ const generateProfessionalReportHTML = (data) => {
     'ATTITUDE': '#f567ea'  // Pink
   };
 
-  // Function to get performance level based on score ranges
+  // Function to get performance level based on score ranges - EXACT user requirements
   const getPerformanceLevel = (score) => {
-    if (score < 4) return 'Very Low';
-    if (score < 6) return 'Low';
-    if (score < 9) return 'Medium';
-    return 'High';
+    if (score < 4) return 'Very Low';    // 0-3
+    if (score < 6) return 'Low';         // 4-5  
+    if (score < 9) return 'Medium';      // 6-8
+    return 'High';                       // 9-10
   };
 
-  // Function to get coaching questions from JSON structure
-  const getCoachingQuestions = (category, score) => {
+  // Function to get coaching content from JSON structure
+  const getCoachingContent = (category, score) => {
     const level = getPerformanceLevel(score);
+    const userLevel = data.user_level || 'Level 3';
     
-    // Map VESPA category names to JSON keys
+    // Map VESPA category names to JSON keys (Systems -> System)
     const categoryMap = {
       'VISION': 'Vision',
       'EFFORT': 'Effort', 
-      'SYSTEMS': 'System',
+      'SYSTEMS': 'System',  // JSON uses "System" not "Systems"
       'PRACTICE': 'Practice',
       'ATTITUDE': 'Attitude'
     };
     
     const jsonCategory = categoryMap[category];
     
-    // Get coaching questions from JSON data
-    if (reportData && reportData[jsonCategory] && reportData[jsonCategory][level] && reportData[jsonCategory][level].english) {
-      return reportData[jsonCategory][level].english.coaching_questions || 'No coaching questions available.';
+    // Get content from JSON data
+    try {
+      const content = reportJsonData?.report_data?.[userLevel]?.[jsonCategory]?.[level]?.english;
+      if (content) {
+        return {
+          description: content.description || 'Description not available.',
+          questions: content.questions || 'No reflection questions available.',
+          activities: content.activities || 'No activities listed.',
+          coaching_questions: content.coaching_questions || 'No coaching questions available.'
+        };
+      }
+    } catch (error) {
+      console.error(`Error getting content for ${category} ${level}:`, error);
     }
     
-    return 'No coaching questions available for this score level.';
-  };
-
-  // Function to get description from JSON structure  
-  const getDescription = (category, score) => {
-    const level = getPerformanceLevel(score);
-    
-    // Map VESPA category names to JSON keys
-    const categoryMap = {
-      'VISION': 'Vision',
-      'EFFORT': 'Effort', 
-      'SYSTEMS': 'System',
-      'PRACTICE': 'Practice',
-      'ATTITUDE': 'Attitude'
+    // Fallback content
+    return {
+      description: `You scored ${score} in ${category}. This indicates your current level in this area.`,
+      questions: 'What are your main learning goals?',
+      activities: 'Goal setting activities',
+      coaching_questions: 'How can you improve in this area?'
     };
-    
-    const jsonCategory = categoryMap[category];
-    
-    // Get description from JSON data
-    if (reportData && reportData[jsonCategory] && reportData[jsonCategory][level] && reportData[jsonCategory][level].english) {
-      return reportData[jsonCategory][level].english.description;
-    }
-    
-    return 'No description available for this score level.';
   };
 
   return `
@@ -88,228 +97,309 @@ const generateProfessionalReportHTML = (data) => {
         body {
           margin: 0;
           padding: 0;
-          font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+          font-family: Arial, sans-serif;
           background: white;
           color: #333;
           font-size: 9pt;
+          line-height: 1.3;
         }
         
         .vespa-report { 
           width: 210mm; 
           min-height: 297mm;
-          padding: 6mm !important; 
-          box-sizing: border-box; 
-          font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; 
-          font-size: 9pt;
-          color: #333;
+          padding: 6mm;
+          box-sizing: border-box;
           page-break-after: always;
         }
         
         .report-header { 
-          display: flex; 
-          align-items: flex-start; 
-          justify-content: space-between; 
-          border-bottom: 2px solid #333; 
+          display: grid;
+          grid-template-columns: 1fr 2fr 1fr;
+          gap: 10mm;
+          margin-bottom: 8mm;
           padding-bottom: 5mm;
-          margin-bottom: 5mm;
+          border-bottom: 2px solid #000;
         }
         
-        .report-header .header-title { 
-          font-size: 18pt !important; 
-          font-weight: bold; 
-          color: #444;
-          flex: 1; 
-          text-align: center; 
+        .student-info {
+          font-size: 10pt;
+          line-height: 1.6;
+        }
+        
+        .student-info div {
+          margin-bottom: 2mm;
+          font-weight: bold;
+        }
+        
+        .cycle-info {
+          text-align: center;
+        }
+
+        .cycle-number {
+          display: inline-block;
+          background: #23356f;
+          color: white;
+          width: 20px;
+          height: 20px;
+          text-align: center;
+          border-radius: 50%;
+          font-weight: bold;
+          line-height: 20px;
+          margin-left: 5px;
+        }
+
+        .header-title {
+          font-size: 24pt;
+          color: #23356f;
+          margin: 0;
+          text-align: center;
+          font-weight: bold;
           align-self: center;
         }
-        
-        .report-header .header-info {
-          text-align: left;
-          font-size: 10pt;
-          line-height: 1.3;
+
+        .intro-questions {
+          font-size: 8pt;
         }
         
-        .report-header .header-info div {
+        .intro-questions h4 {
+          margin: 0 0 3mm 0;
+          font-size: 10pt;
           font-weight: bold;
+        }
+        
+        .intro-questions ul {
+          margin: 0;
+          padding-left: 12px;
+          list-style: disc;
+        }
+        
+        .intro-questions li {
           margin-bottom: 2mm;
         }
 
-        .vespa-grid-title {
+        .vespa-main-content {
+          margin-top: 8mm;
+        }
+        
+        .vespa-report-header {
           display: grid;
-          grid-template-columns: 40mm 1fr 1fr !important;
-          grid-gap: 8mm;
-          margin-bottom: 4mm !important;
+          grid-template-columns: 1fr 1fr;
+          background: #e74c3c;
+          color: white;
+          padding: 3mm;
           font-weight: bold;
-          color: #555;
-          font-size: 10pt !important;
-          padding: 8px 0;
-          border-bottom: 2px solid #333 !important;
-        }
-        .vespa-grid-title div {
-          text-align: center;
-        }
-
-        .vespa-grid { 
-          display: grid; 
-          grid-template-columns: 1fr;
-          grid-gap: 3mm; 
+          font-size: 11pt;
+          margin-bottom: 2mm;
         }
         
-        .vespa-block {
-          border: 1px solid #d6d6d6 !important;
-          border-left-width: 6px !important;
-          border-radius: 4px !important;
-          background: #ffffff !important;
-          box-shadow: 0 1px 3px rgba(0,0,0,0.07) !important;
-          padding: 3mm !important;
-          display: grid !important;
-          grid-template-columns: 40mm 1fr 1.2fr !important;
-          grid-gap: 6mm !important;
-          align-items: stretch !important;
-          min-height: 40mm !important;
+        .vespa-row {
+          display: grid;
+          grid-template-columns: 40mm 1fr 1.2fr;
+          border: 1px solid #ddd;
+          margin-bottom: 1mm;
+          background: white;
+          page-break-inside: avoid;
         }
         
-        .block-score {
+        .vespa-element {
           display: flex;
           flex-direction: column;
           align-items: center;
-          justify-content: center;
-          text-align: center;
+          padding: 4mm;
+          background: #f8f9fa;
+        }
+        
+        .element-header {
+          width: 100%;
+          padding: 2mm;
           border-radius: 4px;
-          padding: 8px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
           color: white;
           font-weight: bold;
+          margin-bottom: 3mm;
         }
         
-        .block-score .score-label {
-          font-size: 12pt;
-          font-weight: bold;
-          margin-bottom: 4px;
-        }
-        
-        .block-score .score-val {
-          font-size: 28pt !important;
+        .element-letter {
+          font-size: 18pt;
           font-weight: bold;
         }
         
-        .block-body {
-          padding: 0;
+        .element-score {
+          text-align: center;
+        }
+        
+        .score-number {
+          font-size: 24pt;
+          font-weight: bold;
+          line-height: 1;
+        }
+        
+        .vespa-description {
+          padding: 4mm;
+          font-size: 8pt;
           line-height: 1.4;
-          font-size: 8.5pt;
         }
         
-        .block-body .average-score {
+        .description-text {
+          margin-bottom: 3mm;
+          font-weight: normal;
+          line-height: 1.5;
+        }
+        
+        .average-score {
+          font-size: 7pt;
+          color: #666;
+          margin-bottom: 3mm;
+          font-style: italic;
+        }
+        
+        .reflection-questions {
+          margin-bottom: 3mm;
+        }
+        
+        .reflection-questions strong {
+          font-size: 8pt;
           font-weight: bold;
-          margin: 4px 0;
+          display: block;
+          margin-bottom: 1mm;
         }
         
-        .block-questions {
-          padding: 0;
-          line-height: 1.4;
-          font-size: 8.5pt;
+        .coaching-questions {
+          padding: 4mm;
           border-left: 1px solid #eee;
-          padding-left: 5mm;
+          background: #fafbfc;
+          font-size: 8pt;
+          line-height: 1.4;
         }
         
-        .block-questions h5 {
-          margin: 0 0 2mm 0;
-          font-weight: bold;
-          color: #333;
-        }
-        
-        .block-questions .coaching-content {
+        .coaching-content {
           margin-bottom: 3mm;
         }
 
-        .bottom-section { 
-          margin-top: 6mm; 
-          font-size: 9pt;
+        .personal-reflection {
+          margin-top: 8mm;
           border-top: 1px solid #ccc;
           padding-top: 4mm;
         }
         
-        .bottom-section h4 {
-          font-size: 11pt;
+        .personal-reflection h3 {
+          font-size: 12pt;
+          font-weight: bold;
           margin: 0 0 3mm 0;
         }
         
-        .comment-box {
+        .write-area {
           border: 1px solid #ddd;
-          padding: 3mm;
-          margin-bottom: 3mm;
+          min-height: 15mm;
           background: #fdfdfd;
-          min-height: 20mm;
+          padding: 2mm;
+        }
+
+        .action-plan {
+          margin-top: 8mm;
+          border-top: 1px solid #ccc;
+          padding-top: 4mm;
         }
         
-        .bottom-row {
-          display: flex !important;
-          flex-direction: column !important;
-          gap: 6mm !important;
-        }
-        .bottom-row .comment-box {
-          width: 100% !important;
+        .action-plan h3 {
+          font-size: 12pt;
+          font-weight: bold;
+          margin: 0 0 3mm 0;
         }
       </style>
     </head>
     <body>
       <div class="vespa-report">
-        <!-- Header Section -->
+        <!-- Header Section - EXACT match to reference image -->
         <div class="report-header">
-          <div class="header-info">
-            <div>Student: ${data.user_name}</div>
-            <div>School: VESPA Academy</div>
-            <div>Date: ${new Date().toLocaleDateString('en-GB')}</div>
-            <div>Overall Score: ${Math.round((data.vision_score + data.effort_score + data.systems_score + data.practice_score + data.attitude_score) / 5)}</div>
+          <div class="student-info">
+            <div>STUDENT: ${data.user_name}</div>
+            <div>DATE: ${new Date().toLocaleDateString('en-GB')}</div>
+            <div class="cycle-info">CYCLE: <span class="cycle-number">1</span></div>
           </div>
-          <div class="header-title">VESPA Assessment Report</div>
-          <div style="width: 80px;"></div> <!-- Spacer for layout balance -->
+          <div class="header-title">VESPA COACHING REPORT</div>
+          <div class="intro-questions">
+            <h4>INTRODUCTORY QUESTIONS</h4>
+            <ul>
+              <li>To what extent is the report an accurate description of your current characteristics?</li>
+              <li>Does your highest score represent a personal strength? Your lowest an area for development?</li>
+              <li>If you had to change just one thing, which would it be, and why?</li>
+              <li>Think back over the last few weeks. What are you currently finding hard about study at this level?</li>
+              <li>Before we look at the rest of the report, remember by answering the questions below honestly, you will soon be in a good position to make manageable and meaningful changes to the way you work, lowering your stress and increasing feelings of confidence and control.</li>
+            </ul>
+          </div>
         </div>
 
-        <!-- VESPA Grid Header -->
-        <div class="vespa-grid-title">
-          <div>VESPA REPORT</div>
-          <div>COACHING QUESTIONS</div>
-        </div>
-
-        <!-- VESPA Categories -->
-        <div class="vespa-grid">
+        <!-- VESPA Main Content -->
+        <div class="vespa-main-content">
+          <div class="vespa-report-header">
+            <div>VESPA REPORT</div>
+            <div>COACHING QUESTIONS</div>
+          </div>
+          
           ${['VISION', 'EFFORT', 'SYSTEMS', 'PRACTICE', 'ATTITUDE'].map(category => {
             const scoreKey = category.toLowerCase() + '_score';
+            const avgKey = category.toLowerCase() + '_avg';
             const score = data[scoreKey] || 0;
-            const description = getDescription(category, score);
-            const coachingQuestions = getCoachingQuestions(category, score);
-            const avgScore = (score / 10 * 100).toFixed(0) + '%';
+            const avgScore = data[avgKey] || '0.00';
+            const content = getCoachingContent(category, score);
             
             return `
-              <div class="vespa-block" style="border-left-color: ${vespaColors[category]};">
-                <div class="block-score" style="background-color: ${vespaColors[category]};">
-                  <div class="score-label">${category.charAt(0)}</div>
-                  <div class="score-val">${score}</div>
+              <div class="vespa-row">
+                <div class="vespa-element">
+                  <div class="element-header" style="background-color: ${vespaColors[category]};">
+                    <div class="element-letter">${category.charAt(0)}</div>
+                    <div class="element-score">
+                      <div class="score-number">${score}</div>
+                    </div>
+                  </div>
+                  <div class="element-name">${category}</div>
+                  <div style="text-align: center; font-size: 8pt;">Score</div>
                 </div>
-                <div class="block-body">
-                  <strong>${category}</strong>
+                
+                <div class="vespa-description">
+                  <div class="description-text">${content.description}</div>
                   <div class="average-score">Average score: ${avgScore}</div>
-                  <p>${description}</p>
+                  
+                  <div class="reflection-questions">
+                    <strong>Reflection Questions:</strong><br>
+                    ${content.questions.replace(/<br\s*\/?>/gi, '<br>')}
+                  </div>
+                  
+                  <div class="suggested-activities">
+                    <strong>Suggested Activities:</strong> <em>${content.activities}</em>
+                  </div>
                 </div>
-                <div class="block-questions">
-                  <h5>Coaching Questions:</h5>
-                  <div class="coaching-content">${coachingQuestions}</div>
+                
+                <div class="coaching-questions">
+                  <div class="coaching-content">
+                    ${content.coaching_questions.replace(/<br\s*\/?>/gi, '<br>')}
+                  </div>
                 </div>
               </div>
             `;
           }).join('')}
         </div>
 
-        <!-- Bottom Section -->
-        <div class="bottom-section">
-          <div class="bottom-row">
-            <div class="comment-box">
-              <h4>Personal Reflection</h4>
-              <p>Use this space to reflect on your VESPA results and consider what they mean for your learning journey.</p>
-            </div>
-            <div class="comment-box">
-              <h4>Action Plan</h4>
-              <p>Based on your results, what specific actions will you take to improve your learning mindset?</p>
+        <!-- Personal Reflection Section -->
+        <div class="personal-reflection">
+          <h3>COMMENTS / STUDY GOAL</h3>
+          <div style="font-size: 9pt; margin-bottom: 3mm;">
+            <strong>STUDENT RESPONSE</strong>
+          </div>
+          <div class="write-area"></div>
+          
+          <div style="margin-top: 5mm;">
+            <strong>STUDY GOAL/ACTION PLAN</strong>
+          </div>
+          <div class="write-area"></div>
+          
+          <div style="margin-top: 5mm; display: flex; justify-content: space-between;">
+            <div>
+              <strong>Goal Set:</strong> ${new Date().toLocaleDateString('en-GB')} &nbsp;&nbsp;&nbsp;
+              <strong>Goal Finish:</strong> _______________
             </div>
           </div>
         </div>
@@ -352,7 +442,7 @@ export default async function handler(req, res) {
       averages = req.body.averages || {};
       reportHTML = req.body.reportHTML;
       level = req.body.level || userData.level || 'Level 3';
-          } else {
+    } else {
       // OLD structure (fallback)
       userData = {
         email: req.body.user_email,
@@ -394,7 +484,7 @@ export default async function handler(req, res) {
     const overall_score = scoreValues.length > 0 ? 
       Math.round(scoreValues.reduce((sum, score) => sum + score, 0) / scoreValues.length) : 0;
 
-        // Map to the format expected by the email template with proper decimal formatting
+    // Map to the format expected by the email template with proper decimal formatting
     const emailData = {
       user_email: userData.email,
       user_name: userData.name,
@@ -412,7 +502,7 @@ export default async function handler(req, res) {
       attitude_avg: Number(averages.ATTITUDE || 0).toFixed(2),
       overall_score: overall_score,
       reportHTML: reportHTML || '',
-      send_pdf: true // Re-enabled with attachment
+      send_pdf: true
     };
 
     console.log('Email data prepared:', emailData);
@@ -425,7 +515,7 @@ export default async function handler(req, res) {
         console.log('Starting PDF generation...');
         
         // Generate HTML
-        const html = generateProfessionalReportHTML(emailData);
+        const html = await generateProfessionalReportHTML(emailData);
         console.log('HTML generated for PDF, length:', html.length);
 
         // Launch Puppeteer with Chromium
@@ -525,8 +615,6 @@ export default async function handler(req, res) {
 
     // Send email
     await sgMail.send(msg);
-
-    // Lead email removed - should be sent from registration form instead
 
     res.status(200).json({ 
       success: true, 

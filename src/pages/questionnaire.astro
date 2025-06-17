@@ -1782,12 +1782,8 @@ const pageDescription = "Take the VESPA questionnaire to assess your learning mi
           throw new Error('Report data is missing');
         }
         
-        // Get the report HTML
-        const reportHTML = document.getElementById('pdf-report-container').innerHTML;
-        
-        if (!reportHTML) {
-          throw new Error('Report HTML is missing');
-        }
+        // Get the report HTML (no longer needed for the new template approach)
+        const reportHTML = '';
         
         // Add interests to userData if not already present
         if (!userData.interests) {
@@ -1796,7 +1792,7 @@ const pageDescription = "Take the VESPA questionnaire to assess your learning mi
         
         console.log('Sending API request...');
         
-        // Prepare the data to send
+        // Prepare the data to send - simplified for the new backend approach
         const requestData = {
           userData: userData,
           reportHTML: reportHTML,
@@ -1814,8 +1810,6 @@ const pageDescription = "Take the VESPA questionnaire to assess your learning mi
         console.log('currentScales keys:', currentScales ? Object.keys(currentScales) : 'undefined');
         console.log('currentAverages:', currentAverages);  
         console.log('currentAverages keys:', currentAverages ? Object.keys(currentAverages) : 'undefined');
-        console.log('reportHTML length:', reportHTML ? reportHTML.length : 'undefined');
-        console.log('reportHTML preview:', reportHTML ? reportHTML.substring(0, 200) + '...' : 'undefined');
         console.log('=== END DEBUG ===');
         
         // Send the report via API
@@ -1832,7 +1826,7 @@ const pageDescription = "Take the VESPA questionnaire to assess your learning mi
         if (!response.ok) {
           const errorText = await response.text();
           console.error('API error response:', errorText);
-          throw new Error(`HTTP error! status: ${response.status}`);
+          throw new Error(`HTTP error! status: ${response.status}, response: ${errorText}`);
         }
         
         const result = await response.json();
@@ -1882,11 +1876,11 @@ const pageDescription = "Take the VESPA questionnaire to assess your learning mi
         // Reset button state
         const button = event.currentTarget || event.target || document.querySelector('button[onclick*="emailAndGetAccess"]');
         if (button) {
-          button.innerHTML = '<svg class="inline-block w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>Send Me My Report';
+          button.innerHTML = originalText;
           button.disabled = false;
         }
         
-        alert(`Sorry, there was an error sending your report: ${error.message}. Please try downloading the PDF instead or contact support.`);
+        alert(`Sorry, there was an error sending your report: ${error.message}. Please contact support if the issue persists.`);
       }
     };
   </script>
