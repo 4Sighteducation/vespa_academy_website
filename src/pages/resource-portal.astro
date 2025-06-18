@@ -833,21 +833,15 @@ import ActivityModal from '../components/ActivityModal.astro';
 						</button>
 					</div>
 					<div class="w-full h-full pt-16 flex flex-col relative">
-						<div id="pdf-loading" class="absolute inset-0 flex items-center justify-center bg-gray-100">
+						<div id="pdf-loading" class="absolute inset-0 flex items-center justify-center bg-gray-100 z-10">
 							<div class="text-center">
 								<div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
 								<p class="text-gray-600">Loading PDF...</p>
 							</div>
 						</div>
-						<iframe 
-							id="pdf-iframe"
-							src="" 
-							width="100%" 
-							height="100%" 
-							title="PDF Worksheet"
-							frameborder="0"
-							class="flex-1">
-						</iframe>
+						<div id="pdf-container" class="w-full h-full flex-1 relative bg-gray-50">
+							<!-- PDF will be embedded here -->
+						</div>
 					</div>
 				</div>
 			</div>
@@ -1097,8 +1091,8 @@ function closeSlidesModal(modalId) {
 
 // PDF modal functions
 const pdfUrls = {
-	'vision-pdf': 'https://www.vespa.academy/assets/MVIMAGES/ALEVELMindsetPdfs/V2 - Getting Dreams Done.pdf',
-	'effort-pdf': 'https://www.vespa.academy/assets/MVIMAGES/ALEVELMindsetPdfs/E1-1-10 Scale.pdf',
+	'vision-pdf': 'https://www.vespa.academy/assets/MVIMAGES/ALEVELMindsetPdfs/V2%20-%20Getting%20Dreams%20Done.pdf',
+	'effort-pdf': 'https://www.vespa.academy/assets/MVIMAGES/ALEVELMindsetPdfs/E1-1-10%20Scale.pdf',
 	'systems-pdf': 'https://www.vespa.academy/assets/MVIMAGES/VESPAHandbookPdfs/SYSTEMS/SYSTEMS%20-%201%25%20Planning%28editable%29.pdf',
 	'practice-pdf': 'https://www.vespa.academy/assets/MVIMAGES/VESPAHandbookPdfs/PRACTICE/PRACTICE%20-%20High%20and%20Low%20Utility%28editable%29.pdf',
 	'attitude-pdf': 'https://www.vespa.academy/assets/MVIMAGES/VESPAHandbookPdfs/ATTITUDE/ATTITUDE%20-%20Worst%20Case%20Scenarios%28editable%29.pdf'
@@ -1106,7 +1100,7 @@ const pdfUrls = {
 
 function openPdfModal(pdfId) {
 	const modal = document.getElementById('pdf-modal');
-	const iframe = document.getElementById('pdf-iframe');
+	const container = document.getElementById('pdf-container');
 	const titleMap = {
 		'vision-pdf': 'Vision - Getting Dreams Done',
 		'effort-pdf': 'Effort - The 1-10 Scale',
@@ -1115,7 +1109,7 @@ function openPdfModal(pdfId) {
 		'attitude-pdf': 'Attitude - Worst Case Scenarios'
 	};
 	
-	if (modal && iframe && pdfUrls[pdfId]) {
+	if (modal && container && pdfUrls[pdfId]) {
 		// Update title
 		const titleEl = document.getElementById('pdf-modal-title');
 		if (titleEl) {
@@ -1125,15 +1119,12 @@ function openPdfModal(pdfId) {
 		const pdfUrl = pdfUrls[pdfId];
 		console.log('Attempting to load PDF:', pdfUrl);
 		
-		// Set iframe source
-		iframe.src = pdfUrl;
-		
-		// Add download link to modal header
+		// Always add download button first (before trying to load PDF)
 		const modalHeader = modal.querySelector('.bg-gray-100');
-		if (modalHeader && !modalHeader.querySelector('.pdf-download-link')) {
-			const downloadLink = document.createElement('a');
-			downloadLink.href = pdfUrl;
-			downloadLink.download = true;
+		let downloadLink = modalHeader.querySelector('.pdf-download-link');
+		
+		if (!downloadLink) {
+			downloadLink = document.createElement('a');
 			downloadLink.className = 'pdf-download-link inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm mr-4';
 			downloadLink.innerHTML = `
 				<svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1145,59 +1136,116 @@ function openPdfModal(pdfId) {
 			modalHeader.insertBefore(downloadLink, closeButton);
 		}
 		
-		// Update download link href
-		const existingDownloadLink = modal.querySelector('.pdf-download-link');
-		if (existingDownloadLink) {
-			existingDownloadLink.href = pdfUrl;
-		}
+		// Update download link href and target
+		downloadLink.href = pdfUrl;
+		downloadLink.target = '_blank';
+		downloadLink.rel = 'noopener noreferrer';
 		
-		// Hide loading indicator
+		// Clear container
+		container.innerHTML = '';
+		
+		// Show loading indicator
 		const loading = document.getElementById('pdf-loading');
 		if (loading) {
-			loading.style.display = 'none';
+			loading.style.display = 'flex';
 		}
 		
-		// Remove any previous error messages
-		const prevError = iframe.parentElement.querySelector('.text-center.p-8');
-		if (prevError) {
-			prevError.remove();
-		}
+		// Try multiple embedding methods
+		let embedSuccess = false;
 		
-		// Ensure iframe is visible
-		iframe.style.display = 'block';
-		iframe.style.opacity = '1';
+		// Method 1: Try using object element first (better browser support)
+		const objectEl = document.createElement('object');
+		objectEl.data = pdfUrl;
+		objectEl.type = 'application/pdf';
+		objectEl.width = '100%';
+		objectEl.height = '100%';
+		objectEl.style.minHeight = '600px';
+		objectEl.style.display = 'block';
 		
-		// Add error handling
-		iframe.onerror = function() {
-			console.error('Failed to load PDF:', pdfUrl);
-			iframe.style.display = 'none';
-			
-			// Show error message with download link
-			const errorMsg = document.createElement('div');
-			errorMsg.className = 'text-center p-8';
-			errorMsg.innerHTML = `
-				<p class="text-red-500 mb-4">Unable to display PDF in browser.</p>
-				<a href="${pdfUrl}" download class="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
-					<svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-					</svg>
-					Download PDF
-				</a>
-			`;
-			iframe.parentElement.appendChild(errorMsg);
-		};
+		// Fallback content for object
+		const embedEl = document.createElement('embed');
+		embedEl.src = pdfUrl;
+		embedEl.type = 'application/pdf';
+		embedEl.width = '100%';
+		embedEl.height = '100%';
+		embedEl.style.minHeight = '600px';
 		
-		// Test if PDF loads successfully
-		iframe.onload = function() {
-			console.log('PDF loaded successfully:', pdfUrl);
-			// Check if iframe actually has content
-			try {
-				const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-				console.log('PDF iframe document:', iframeDoc);
-			} catch (e) {
-				console.log('Cannot access iframe content (cross-origin)');
+		objectEl.appendChild(embedEl);
+		
+		// Add fallback message inside object
+		const fallbackMsg = document.createElement('p');
+		fallbackMsg.className = 'text-center p-4';
+		fallbackMsg.innerHTML = `PDF cannot be displayed. <a href="${pdfUrl}" target="_blank" class="text-blue-600 underline">Open in new tab</a>`;
+		objectEl.appendChild(fallbackMsg);
+		
+		container.appendChild(objectEl);
+		
+		// Check if PDF loads after a short delay
+		setTimeout(() => {
+			// Hide loading
+			if (loading) {
+				loading.style.display = 'none';
 			}
-		};
+			
+			// Check if object loaded successfully
+			try {
+				// If object has no height or is very small, it probably didn't load
+				if (objectEl.offsetHeight < 100) {
+					throw new Error('PDF object too small');
+				}
+				console.log('PDF loaded via object element');
+				embedSuccess = true;
+			} catch (e) {
+				console.log('Object embed failed, trying Google Docs Viewer');
+				
+				// Method 2: Try Google Docs Viewer
+				container.innerHTML = '';
+				const googleViewerUrl = `https://docs.google.com/viewer?url=${encodeURIComponent(pdfUrl)}&embedded=true`;
+				const iframe = document.createElement('iframe');
+				iframe.src = googleViewerUrl;
+				iframe.width = '100%';
+				iframe.height = '100%';
+				iframe.style.minHeight = '600px';
+				iframe.style.border = 'none';
+				iframe.style.backgroundColor = '#f5f5f5';
+				container.appendChild(iframe);
+				
+				// Give Google Viewer time to load
+				setTimeout(() => {
+					// If still no success, show nice fallback
+					if (!embedSuccess) {
+						container.innerHTML = '';
+						const fallbackContent = document.createElement('div');
+						fallbackContent.className = 'pdf-fallback-content flex items-center justify-center h-full p-8';
+						fallbackContent.innerHTML = `
+							<div class="bg-white rounded-lg p-8 max-w-lg mx-auto text-center shadow-lg">
+								<svg class="w-20 h-20 mx-auto mb-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+								</svg>
+								<h3 class="text-2xl font-bold text-gray-800 mb-4">PDF Preview</h3>
+								<p class="text-gray-600 mb-6">This PDF is best viewed in a dedicated PDF viewer for the full experience.</p>
+								<div class="space-y-3">
+									<a href="${pdfUrl}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center w-full px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors">
+										<svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+										</svg>
+										Open PDF in New Tab
+									</a>
+									<a href="${pdfUrl}" download class="inline-flex items-center justify-center w-full px-6 py-3 bg-gray-200 text-gray-800 font-semibold rounded-lg hover:bg-gray-300 transition-colors">
+										<svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+										</svg>
+										Download PDF
+									</a>
+								</div>
+								<p class="text-sm text-gray-500 mt-6">Having trouble? Make sure you have a PDF viewer installed.</p>
+							</div>
+						`;
+						container.appendChild(fallbackContent);
+					}
+				}, 3000);
+			}
+		}, 2000);
 		
 		// Show modal
 		modal.classList.remove('hidden');
@@ -1207,26 +1255,18 @@ function openPdfModal(pdfId) {
 
 function closePdfModal() {
 	const modal = document.getElementById('pdf-modal');
-	const iframe = document.getElementById('pdf-iframe');
+	const container = document.getElementById('pdf-container');
 	
 	if (modal) {
-		// Clear iframe src
-		if (iframe) {
-			iframe.src = '';
-			iframe.style.display = 'block';
-			iframe.style.opacity = '1';
+		// Clear container
+		if (container) {
+			container.innerHTML = '';
 		}
 		
 		// Remove download link from header
 		const downloadLink = modal.querySelector('.pdf-download-link');
 		if (downloadLink) {
 			downloadLink.remove();
-		}
-		
-		// Remove any error messages
-		const errorMsg = modal.querySelector('.text-center.p-8');
-		if (errorMsg) {
-			errorMsg.remove();
 		}
 		
 		// Show loading indicator for next time

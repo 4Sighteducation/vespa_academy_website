@@ -795,6 +795,28 @@ import Layout from '../layouts/Layout.astro';
   </style>
 
   <script>
+    // Close success modal function - defined globally first
+    function closeSuccessModal() {
+      console.log('Closing success modal...');
+      const successModal = document.getElementById('success-modal');
+      const successModalContent = document.getElementById('success-modal-content');
+      
+      if (successModal && successModalContent) {
+        successModalContent.classList.add('scale-95', 'opacity-0');
+        successModalContent.classList.remove('scale-100', 'opacity-100');
+        
+        setTimeout(() => {
+          successModal.classList.add('hidden');
+          document.body.style.overflow = '';
+        }, 300);
+      } else {
+        console.error('Success modal elements not found');
+      }
+    }
+    
+    // Make function globally available immediately
+    window.closeSuccessModal = closeSuccessModal;
+
     // Training contact form functionality
     document.addEventListener('DOMContentLoaded', function() {
       const trainingModal = document.getElementById('training-modal');
@@ -898,12 +920,16 @@ import Layout from '../layouts/Layout.astro';
             const successModalContent = document.getElementById('success-modal-content');
             
             successModal.classList.remove('hidden');
+            
+            // Ensure modal is in front of everything
+            successModal.style.zIndex = '99999';
+            
             setTimeout(() => {
               successModalContent.classList.remove('scale-95', 'opacity-0');
               successModalContent.classList.add('scale-100', 'opacity-100');
             }, 10);
             
-            // Reset form and close modal
+            // Reset form and close training modal
             trainingModal.classList.add('hidden');
             trainingForm.reset();
             staffSection.classList.add('hidden');
@@ -970,28 +996,6 @@ import Layout from '../layouts/Layout.astro';
         }
       }
     });
-
-    // Close success modal function
-    function closeSuccessModal() {
-      console.log('Closing success modal...');
-      const successModal = document.getElementById('success-modal');
-      const successModalContent = document.getElementById('success-modal-content');
-      
-      if (successModal && successModalContent) {
-        successModalContent.classList.add('scale-95', 'opacity-0');
-        successModalContent.classList.remove('scale-100', 'opacity-100');
-        
-        setTimeout(() => {
-          successModal.classList.add('hidden');
-          document.body.style.overflow = '';
-        }, 300);
-      } else {
-        console.error('Success modal elements not found');
-      }
-    }
-    
-    // Make function globally available
-    window.closeSuccessModal = closeSuccessModal;
     
     // Allow escape key to close success modal
     document.addEventListener('keydown', function(e) {
@@ -1002,5 +1006,8 @@ import Layout from '../layouts/Layout.astro';
         }
       }
     });
+
+    // Debug: Check if closeSuccessModal is available globally
+    console.log('closeSuccessModal function available globally:', typeof window.closeSuccessModal === 'function');
   </script>
 </Layout> 
