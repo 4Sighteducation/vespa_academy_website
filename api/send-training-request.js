@@ -111,9 +111,9 @@ Additional Information: ${studentAdditionalInfo || 'None provided'}
 Please follow up with the contact details provided above.`;
 
     // Email configuration
-    const emailAddresses = ['info@vespa.academy', 'admin@vespa.academy'];
+    const emailAddresses = ['info@vespa.academy', 'admin@vespa.academy', 'martin@vespa.academy'];
     
-    // Send emails to both addresses
+    // Send emails to all addresses
     const sendPromises = emailAddresses.map(async (toEmail) => {
       const msg = {
         to: toEmail,
@@ -130,7 +130,7 @@ Please follow up with the contact details provided above.`;
     // Wait for all emails to send
     await Promise.all(sendPromises);
 
-    console.log('Training request emails sent successfully to both addresses');
+    console.log('Training request emails sent successfully to all addresses');
 
     res.status(200).json({ 
       success: true, 

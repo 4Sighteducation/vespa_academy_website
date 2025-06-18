@@ -293,266 +293,236 @@ import Layout from '../layouts/Layout.astro';
 
     <!-- Training Contact Modal -->
     <div id="training-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4" onclick="if(event.target === this) this.classList.add('hidden')">
-      <div class="bg-gradient-to-br from-white to-gray-50 rounded-3xl shadow-2xl max-w-2xl w-full max-h-[90vh] flex flex-col relative border border-gray-200">
+      <div class="bg-gradient-to-br from-white to-gray-50 rounded-3xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden relative border border-gray-200">
         <!-- Close button -->
-        <button onclick="document.getElementById('training-modal').classList.add('hidden')" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 z-10 bg-white/80 backdrop-blur-sm rounded-full p-2 transition-all hover:scale-110">
+        <button onclick="document.getElementById('training-modal').classList.add('hidden')" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 z-20 bg-white/80 backdrop-blur-sm rounded-full p-2 transition-all hover:scale-110">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
           </svg>
         </button>
         
-        <!-- Header Section (Fixed) -->
-        <div class="p-8 pb-4 border-b border-gray-200">
+        <!-- Fixed Header -->
+        <div class="bg-white p-8 pb-4 border-b border-gray-200">
           <div class="text-center">
             <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-theme-secondary to-theme-accent1 rounded-full mb-4">
               <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
               </svg>
             </div>
-            <h2 class="text-3xl font-bold text-theme-dark mb-4">Training Request</h2>
-            <p class="text-gray-600">Please submit the form below to make a request about VESPA training</p>
+            <h2 class="text-3xl font-bold text-theme-dark mb-2">Training Request</h2>
+            <p class="text-gray-600 text-sm">Complete the form below to request VESPA training</p>
           </div>
         </div>
         
         <!-- Scrollable Form Content -->
-        <div class="flex-1 overflow-y-auto px-8 py-6">
-          <form id="training-form" class="space-y-6">
-            <!-- Page 1 Fields -->
-            <div id="page-1" class="space-y-6">
+        <div class="overflow-y-auto max-h-[calc(90vh-200px)]">
+          <form id="training-form" class="p-8 space-y-6">
+            <!-- Basic Information -->
+            <div class="space-y-4">
+              <h3 class="text-lg font-semibold text-gray-800 flex items-center">
+                <span class="bg-theme-secondary text-white rounded-full w-6 h-6 flex items-center justify-center text-sm mr-2">1</span>
+                Contact Information
+              </h3>
+              
               <div class="grid md:grid-cols-2 gap-4">
                 <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-2">First Name</label>
-                  <input type="text" name="firstName" required class="w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-theme-secondary focus:border-transparent">
+                  <label class="block text-sm font-medium text-gray-700 mb-2">First Name *</label>
+                  <input type="text" name="firstName" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-theme-secondary focus:border-transparent">
                 </div>
                 <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-2">Last Name</label>
-                  <input type="text" name="lastName" required class="w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-theme-secondary focus:border-transparent">
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Last Name *</label>
+                  <input type="text" name="lastName" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-theme-secondary focus:border-transparent">
                 </div>
               </div>
               
               <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Organisation</label>
-                <input type="text" name="organisation" required class="w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-theme-secondary focus:border-transparent">
+                <label class="block text-sm font-medium text-gray-700 mb-2">Organisation *</label>
+                <input type="text" name="organisation" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-theme-secondary focus:border-transparent">
               </div>
               
               <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Email: eg. john@example.com</label>
-                <input type="email" name="email" required class="w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-theme-secondary focus:border-transparent">
+                <label class="block text-sm font-medium text-gray-700 mb-2">Email *</label>
+                <input type="email" name="email" required placeholder="john@example.com" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-theme-secondary focus:border-transparent">
               </div>
               
               <div class="grid md:grid-cols-2 gap-4">
                 <div>
                   <label class="block text-sm font-medium text-gray-700 mb-2">Area Code</label>
-                  <input type="text" name="areaCode" class="w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-theme-secondary focus:border-transparent">
+                  <input type="text" name="areaCode" placeholder="+44" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-theme-secondary focus:border-transparent">
                 </div>
                 <div>
                   <label class="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
-                  <input type="tel" name="phoneNumber" class="w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-theme-secondary focus:border-transparent">
+                  <input type="tel" name="phoneNumber" placeholder="1234567890" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-theme-secondary focus:border-transparent">
+                </div>
+              </div>
+            </div>
+
+            <!-- Training Type Selection -->
+            <div class="space-y-4 border-t pt-6">
+              <h3 class="text-lg font-semibold text-gray-800 flex items-center">
+                <span class="bg-theme-secondary text-white rounded-full w-6 h-6 flex items-center justify-center text-sm mr-2">2</span>
+                Training Type
+              </h3>
+              
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">What type of training are you interested in? *</label>
+                <select name="trainingType" id="training-type-select" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-theme-secondary focus:border-transparent">
+                  <option value="">Please select...</option>
+                  <option value="staff-training">Staff Training Only</option>
+                  <option value="student-training">Student Training Only</option>
+                  <option value="both">Both Staff and Student Training</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Staff Training Details (Hidden by default) -->
+            <div id="staff-training-section" class="space-y-4 border-t pt-6 hidden">
+              <h3 class="text-lg font-semibold text-gray-800 flex items-center">
+                <span class="bg-effort text-white rounded-full w-6 h-6 flex items-center justify-center text-sm mr-2">3</span>
+                Staff Training Details
+              </h3>
+              
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Session Type</label>
+                <select name="staffSession" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-theme-secondary focus:border-transparent">
+                  <option value="">Please select...</option>
+                  <option value="session1">SESSION 1 - Introduction to VESPA Model</option>
+                  <option value="session2">SESSION 2 - Coaching Model / Follow Up</option>
+                  <option value="session3">SESSION 3 - Implementation Models</option>
+                  <option value="bespoke">Other / Bespoke</option>
+                </select>
+              </div>
+              
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Bespoke Session Ideas (if applicable)</label>
+                <input type="text" name="bespokeIdeas" placeholder="Describe your custom training needs..." class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-theme-secondary focus:border-transparent">
+              </div>
+              
+              <div class="grid md:grid-cols-3 gap-4">
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Staff Numbers</label>
+                  <input type="number" name="staffNumbers" min="1" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-theme-secondary focus:border-transparent">
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Planned Date</label>
+                  <input type="date" name="plannedDate" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-theme-secondary focus:border-transparent">
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Location</label>
+                  <select name="locationPreference" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-theme-secondary focus:border-transparent">
+                    <option value="">Please select...</option>
+                    <option value="on-site">On-site</option>
+                    <option value="virtual">Virtual</option>
+                    <option value="hybrid">Hybrid</option>
+                  </select>
                 </div>
               </div>
               
               <div>
-                <label class="block text-sm font-medium text-gray-700 mb-4">Which type of training are you interested in?</label>
-                <div class="space-y-3">
-                  <label class="flex items-center p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer">
-                    <input type="checkbox" name="trainingType" value="staff-training" class="mr-3 text-theme-secondary focus:ring-theme-secondary">
-                    <span class="text-gray-700">Staff Training</span>
-                  </label>
-                  <label class="flex items-center p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer">
-                    <input type="checkbox" name="trainingType" value="student-training" class="mr-3 text-theme-secondary focus:ring-theme-secondary">
-                    <span class="text-gray-700">Student Training</span>
-                  </label>
-                  <label class="flex items-center p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer">
-                    <input type="checkbox" name="trainingType" value="both" class="mr-3 text-theme-secondary focus:ring-theme-secondary">
-                    <span class="text-gray-700">Both</span>
-                  </label>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Preferred Time</label>
+                <div class="grid grid-cols-4 gap-2">
+                  <select name="startHour" class="px-2 py-2 border border-gray-300 rounded">
+                    <option value="">Start Hour</option>
+                    <option value="09">09</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="13">13</option>
+                    <option value="14">14</option>
+                  </select>
+                  <select name="startMinute" class="px-2 py-2 border border-gray-300 rounded">
+                    <option value="">Min</option>
+                    <option value="00">00</option>
+                    <option value="15">15</option>
+                    <option value="30">30</option>
+                    <option value="45">45</option>
+                  </select>
+                  <select name="endHour" class="px-2 py-2 border border-gray-300 rounded">
+                    <option value="">End Hour</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                    <option value="15">15</option>
+                    <option value="16">16</option>
+                  </select>
+                  <select name="endMinute" class="px-2 py-2 border border-gray-300 rounded">
+                    <option value="">Min</option>
+                    <option value="00">00</option>
+                    <option value="15">15</option>
+                    <option value="30">30</option>
+                    <option value="45">45</option>
+                  </select>
                 </div>
               </div>
               
-              <div class="text-center">
-                <button type="button" id="next-btn" class="px-8 py-3 bg-gradient-to-r from-theme-secondary to-theme-accent1 text-theme-dark font-bold rounded-lg hover:scale-105 transition-transform">
-                  Next
-                </button>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Additional Information</label>
+                <textarea name="additionalInfo" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-theme-secondary focus:border-transparent"></textarea>
               </div>
             </div>
-            
-            <!-- Page 2 Fields -->
-            <div id="page-2" class="space-y-6 hidden">
-              <!-- Staff Training Details -->
-              <div id="staff-training-section" class="hidden">
-                <h3 class="text-xl font-bold text-theme-dark mb-4">Staff Training</h3>
-                <p class="text-sm text-gray-600 mb-4">Please select one of the following options:</p>
-                
-                <div class="space-y-3 mb-6">
-                  <label class="flex items-center p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer">
-                    <input type="radio" name="staffSession" value="session1" class="mr-3 text-theme-secondary focus:ring-theme-secondary">
-                    <span class="text-gray-700">SESSION 1 - Introduction to VESPA Model</span>
-                  </label>
-                  <label class="flex items-center p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer">
-                    <input type="radio" name="staffSession" value="session2" class="mr-3 text-theme-secondary focus:ring-theme-secondary">
-                    <span class="text-gray-700">SESSION 2 - Coaching Model / Follow Up</span>
-                  </label>
-                  <label class="flex items-center p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer">
-                    <input type="radio" name="staffSession" value="session3" class="mr-3 text-theme-secondary focus:ring-theme-secondary">
-                    <span class="text-gray-700">SESSION 3 - Implementation Models</span>
-                  </label>
-                  <label class="flex items-center p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer">
-                    <input type="radio" name="staffSession" value="bespoke" class="mr-3 text-theme-secondary focus:ring-theme-secondary">
-                    <span class="text-gray-700">Other / Bespoke - Please specify your ideas below</span>
-                  </label>
+
+            <!-- Student Training Details (Hidden by default) -->
+            <div id="student-training-section" class="space-y-4 border-t pt-6 hidden">
+              <h3 class="text-lg font-semibold text-gray-800 flex items-center">
+                <span class="bg-practice text-white rounded-full w-6 h-6 flex items-center justify-center text-sm mr-2">4</span>
+                Student Training Details
+              </h3>
+              
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Session Type</label>
+                <select name="studentSession" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-theme-secondary focus:border-transparent">
+                  <option value="">Please select...</option>
+                  <option value="developing-mindset">1 - Developing a VESPA Mindset</option>
+                  <option value="revision-workshop">2 - Revision Workshop</option>
+                  <option value="university-prep">3 - Preparing for University Study</option>
+                  <option value="bespoke">Bespoke Session</option>
+                </select>
+              </div>
+              
+              <div class="grid md:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Student Age Group</label>
+                  <select name="studentAge" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-theme-secondary focus:border-transparent">
+                    <option value="">Please select...</option>
+                    <option value="ks3">Key Stage 3</option>
+                    <option value="ks4">Key Stage 4</option>
+                    <option value="ks5">Key Stage 5</option>
+                  </select>
                 </div>
-                
-                <div class="mb-6">
-                  <label class="block text-sm font-medium text-gray-700 mb-2">Other / Bespoke Session Ideas</label>
-                  <input type="text" name="bespokeIdeas" placeholder="Please describe your custom training needs..." class="w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-theme-secondary focus:border-transparent">
-                </div>
-                
-                <div class="grid md:grid-cols-3 gap-4 mb-6">
-                  <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Staff Numbers</label>
-                    <input type="number" name="staffNumbers" class="w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-theme-secondary focus:border-transparent">
-                  </div>
-                  <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Planned Date</label>
-                    <input type="date" name="plannedDate" class="w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-theme-secondary focus:border-transparent">
-                  </div>
-                  <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Location Preference</label>
-                    <select name="locationPreference" class="w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-theme-secondary focus:border-transparent">
-                      <option value="">Please select...</option>
-                      <option value="on-site">On-site</option>
-                      <option value="virtual">Virtual</option>
-                      <option value="hybrid">Hybrid</option>
-                    </select>
-                  </div>
-                </div>
-                
-                <div class="grid md:grid-cols-5 gap-2 mb-6">
-                  <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Start Time</label>
-                    <select name="startHour" class="w-full px-2 py-2 text-sm border border-gray-300 rounded">
-                      <option value="">Hour</option>
-                      <option value="09">09</option>
-                      <option value="10">10</option>
-                      <option value="11">11</option>
-                      <option value="13">13</option>
-                      <option value="14">14</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Minutes</label>
-                    <select name="startMinute" class="w-full px-2 py-2 text-sm border border-gray-300 rounded">
-                      <option value="">Min</option>
-                      <option value="00">00</option>
-                      <option value="15">15</option>
-                      <option value="30">30</option>
-                      <option value="45">45</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Until Hour</label>
-                    <select name="endHour" class="w-full px-2 py-2 text-sm border border-gray-300 rounded">
-                      <option value="">Hour</option>
-                      <option value="10">10</option>
-                      <option value="11">11</option>
-                      <option value="12">12</option>
-                      <option value="15">15</option>
-                      <option value="16">16</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Until Minutes</label>
-                    <select name="endMinute" class="w-full px-2 py-2 text-sm border border-gray-300 rounded">
-                      <option value="">Min</option>
-                      <option value="00">00</option>
-                      <option value="15">15</option>
-                      <option value="30">30</option>
-                      <option value="45">45</option>
-                    </select>
-                  </div>
-                </div>
-                
-                <div class="mb-6">
-                  <label class="block text-sm font-medium text-gray-700 mb-2">Any Further Information</label>
-                  <textarea name="additionalInfo" rows="4" class="w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-theme-secondary focus:border-transparent"></textarea>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Student Numbers</label>
+                  <input type="number" name="studentNumbers" min="1" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-theme-secondary focus:border-transparent">
                 </div>
               </div>
               
-              <!-- Student Training Details -->
-              <div id="student-training-section" class="hidden">
-                <h3 class="text-xl font-bold text-theme-dark mb-4">Student Session</h3>
-                <p class="text-sm text-gray-600 mb-4">Please select one of the following options:</p>
-                
-                <div class="space-y-3 mb-6">
-                  <label class="flex items-center p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer">
-                    <input type="radio" name="studentSession" value="developing-mindset" class="mr-3 text-theme-secondary focus:ring-theme-secondary">
-                    <span class="text-gray-700">1 - Developing a VESPA Mindset</span>
-                  </label>
-                  <label class="flex items-center p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer">
-                    <input type="radio" name="studentSession" value="revision-workshop" class="mr-3 text-theme-secondary focus:ring-theme-secondary">
-                    <span class="text-gray-700">2 - Revision Workshop</span>
-                  </label>
-                  <label class="flex items-center p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer">
-                    <input type="radio" name="studentSession" value="university-prep" class="mr-3 text-theme-secondary focus:ring-theme-secondary">
-                    <span class="text-gray-700">3 - Preparing for University Study</span>
-                  </label>
-                  <label class="flex items-center p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer">
-                    <input type="radio" name="studentSession" value="bespoke" class="mr-3 text-theme-secondary focus:ring-theme-secondary">
-                    <span class="text-gray-700">Bespoke - Please add your ideas below</span>
-                  </label>
+              <div class="grid md:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Location</label>
+                  <select name="studentLocationPreference" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-theme-secondary focus:border-transparent">
+                    <option value="">Please select...</option>
+                    <option value="on-site">On-site</option>
+                    <option value="virtual">Virtual</option>
+                  </select>
                 </div>
-                
-                <div class="grid md:grid-cols-2 gap-4 mb-6">
-                  <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Student Age</label>
-                    <select name="studentAge" class="w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-theme-secondary focus:border-transparent">
-                      <option value="">Please select...</option>
-                      <option value="ks3">Key Stage 3</option>
-                      <option value="ks4">Key Stage 4</option>
-                      <option value="ks5">Key Stage 5</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Student Numbers</label>
-                    <input type="number" name="studentNumbers" class="w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-theme-secondary focus:border-transparent">
-                  </div>
-                </div>
-                
-                <div class="grid md:grid-cols-2 gap-4 mb-6">
-                  <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Location Preference</label>
-                    <select name="studentLocationPreference" class="w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-theme-secondary focus:border-transparent">
-                      <option value="">Please select...</option>
-                      <option value="on-site">On-site</option>
-                      <option value="virtual">Virtual</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Planned Date</label>
-                    <input type="date" name="studentPlannedDate" class="w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-theme-secondary focus:border-transparent">
-                  </div>
-                </div>
-                
-                <div class="mb-6">
-                  <label class="block text-sm font-medium text-gray-700 mb-2">Please add any additional information, ideas for Bespoke Sessions</label>
-                  <textarea name="studentAdditionalInfo" rows="4" class="w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-theme-secondary focus:border-transparent"></textarea>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Planned Date</label>
+                  <input type="date" name="studentPlannedDate" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-theme-secondary focus:border-transparent">
                 </div>
               </div>
+              
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Additional Information / Bespoke Ideas</label>
+                <textarea name="studentAdditionalInfo" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-theme-secondary focus:border-transparent"></textarea>
+              </div>
+            </div>
+
+            <!-- Submit Button - Always Visible -->
+            <div class="border-t pt-6">
+              <button type="submit" class="w-full px-8 py-4 bg-gradient-to-r from-theme-secondary to-theme-accent1 text-theme-dark font-bold rounded-lg hover:scale-[1.02] transition-transform shadow-lg text-lg">
+                Submit Training Request
+              </button>
+              <p class="text-xs text-gray-500 text-center mt-3">* Required fields</p>
             </div>
           </form>
-        </div>
-        
-        <!-- Fixed Footer with Buttons -->
-        <div id="form-buttons" class="p-6 border-t border-gray-200 bg-white rounded-b-3xl">
-          <!-- Page 2 buttons (initially hidden) -->
-          <div id="page-2-buttons" class="flex gap-4 hidden">
-            <button type="button" id="back-btn" class="flex-1 px-6 py-3 bg-gray-200 text-gray-700 font-semibold rounded-lg hover:bg-gray-300 transition-colors">
-              Back
-            </button>
-            <button type="submit" form="training-form" class="flex-1 px-6 py-3 bg-gradient-to-r from-theme-secondary to-theme-accent1 text-theme-dark font-bold rounded-lg hover:scale-105 transition-transform">
-              Submit Request
-            </button>
-          </div>
         </div>
       </div>
     </div>
@@ -771,10 +741,7 @@ import Layout from '../layouts/Layout.astro';
     document.addEventListener('DOMContentLoaded', function() {
       const trainingModal = document.getElementById('training-modal');
       const trainingForm = document.getElementById('training-form');
-      const page1 = document.getElementById('page-1');
-      const page2 = document.getElementById('page-2');
-      const nextBtn = document.getElementById('next-btn');
-      const backBtn = document.getElementById('back-btn');
+      const trainingTypeSelect = document.getElementById('training-type-select');
       const staffSection = document.getElementById('staff-training-section');
       const studentSection = document.getElementById('student-training-section');
 
@@ -787,70 +754,53 @@ import Layout from '../layouts/Layout.astro';
         trainingModal.classList.remove('hidden');
       });
 
-      // Get button container
-      const page2Buttons = document.getElementById('page-2-buttons');
-
-      // Next button functionality
-      nextBtn.addEventListener('click', function() {
-        const trainingTypes = document.querySelectorAll('input[name="trainingType"]:checked');
+      // Handle training type selection
+      trainingTypeSelect.addEventListener('change', function() {
+        const selectedValue = this.value;
         
-        if (trainingTypes.length === 0) {
-          alert('Please select at least one training type.');
-          return;
-        }
-
-        // Show page 2
-        page1.classList.add('hidden');
-        page2.classList.remove('hidden');
-        
-        // Show page 2 buttons
-        page2Buttons.classList.remove('hidden');
-
-        // Show relevant sections based on selection
-        const selectedValues = Array.from(trainingTypes).map(cb => cb.value);
-        
-        if (selectedValues.includes('staff-training') || selectedValues.includes('both')) {
-          staffSection.classList.remove('hidden');
-        }
-        
-        if (selectedValues.includes('student-training') || selectedValues.includes('both')) {
-          studentSection.classList.remove('hidden');
-        }
-      });
-
-      // Back button functionality
-      backBtn.addEventListener('click', function() {
-        page2.classList.add('hidden');
-        page1.classList.remove('hidden');
+        // Hide all sections first
         staffSection.classList.add('hidden');
         studentSection.classList.add('hidden');
         
-        // Hide page 2 buttons
-        page2Buttons.classList.add('hidden');
+        // Show relevant sections based on selection
+        if (selectedValue === 'staff-training' || selectedValue === 'both') {
+          staffSection.classList.remove('hidden');
+        }
+        
+        if (selectedValue === 'student-training' || selectedValue === 'both') {
+          studentSection.classList.remove('hidden');
+        }
       });
 
       // Form submission
       trainingForm.addEventListener('submit', async function(e) {
         e.preventDefault();
         
+        // Validate that training type is selected
+        if (!trainingTypeSelect.value) {
+          alert('Please select a training type.');
+          trainingTypeSelect.focus();
+          return;
+        }
+        
         const formData = new FormData(trainingForm);
         const data = {};
         
         // Convert FormData to object
         for (let [key, value] of formData.entries()) {
-          if (data[key]) {
-            if (Array.isArray(data[key])) {
-              data[key].push(value);
-            } else {
-              data[key] = [data[key], value];
-            }
-          } else {
+          if (value && value.trim() !== '') {  // Only include non-empty values
             data[key] = value;
           }
         }
 
         try {
           console.log('Submitting training request data:', data);
+          
+          // Show loading state on submit button
+          const submitBtn = e.target.querySelector('button[type="submit"]');
+          const originalText = submitBtn.textContent;
+          submitBtn.disabled = true;
+          submitBtn.textContent = 'Submitting...';
           
           const response = await fetch('/api/send-training-request', {
             method: 'POST',
@@ -873,11 +823,9 @@ import Layout from '../layouts/Layout.astro';
               successModalContent.classList.add('scale-100', 'opacity-100');
             }, 10);
             
-            // Reset form
+            // Reset form and close modal
             trainingModal.classList.add('hidden');
             trainingForm.reset();
-            page2.classList.add('hidden');
-            page1.classList.remove('hidden');
             staffSection.classList.add('hidden');
             studentSection.classList.add('hidden');
           } else {
@@ -885,7 +833,21 @@ import Layout from '../layouts/Layout.astro';
           }
         } catch (error) {
           console.error('Error submitting training request:', error);
-          alert('There was an error submitting your request. Please try again or contact us directly.');
+          alert('There was an error submitting your request. Please try again or contact us directly at info@vespa.academy');
+        } finally {
+          // Reset submit button
+          const submitBtn = e.target.querySelector('button[type="submit"]');
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Submit Training Request';
+          }
+        }
+      });
+
+      // Close modal when clicking outside
+      trainingModal.addEventListener('click', function(e) {
+        if (e.target === this) {
+          this.classList.add('hidden');
         }
       });
     });
