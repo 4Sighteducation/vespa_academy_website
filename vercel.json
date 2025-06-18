@@ -7,6 +7,19 @@
       "maxDuration": 30
     }
   },
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.vespa.academy"
+        }
+      ],
+      "destination": "https://vespa.academy/$1",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     {
       "source": "/(.*)",

@@ -31,21 +31,7 @@
   </url>
   
   <url>
-    <loc>https://vespa.academy/coaching-portal</loc>
-    <lastmod>2024-01-20</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  
-  <url>
-    <loc>https://vespa.academy/resource-portal</loc>
-    <lastmod>2024-01-20</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  
-  <url>
-    <loc>https://vespa.academy/resources</loc>
+    <loc>https://vespa.academy/pricing</loc>
     <lastmod>2024-01-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -55,39 +41,47 @@
     <loc>https://vespa.academy/training</loc>
     <lastmod>2024-01-20</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
   
   <url>
-    <loc>https://vespa.academy/pricing</loc>
+    <loc>https://vespa.academy/resources</loc>
     <lastmod>2024-01-20</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
   
   <url>
     <loc>https://vespa.academy/impact</loc>
     <lastmod>2024-01-20</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   
   <url>
     <loc>https://vespa.academy/contact</loc>
     <lastmod>2024-01-20</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.6</priority>
   </url>
   
+  <!-- Portal Pages -->
   <url>
-    <loc>https://vespa.academy/questionnaire</loc>
+    <loc>https://vespa.academy/coaching-portal</loc>
     <lastmod>2024-01-20</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>https://vespa.academy/explore-reports</loc>
+    <loc>https://vespa.academy/resource-portal</loc>
+    <lastmod>2024-01-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://vespa.academy/student-portal</loc>
     <lastmod>2024-01-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -97,6 +91,21 @@
     <loc>https://vespa.academy/dashboard</loc>
     <lastmod>2024-01-20</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
+    <priority>0.7</priority>
+  </url>
+  
+  <!-- Legal Pages -->
+  <url>
+    <loc>https://vespa.academy/terms</loc>
+    <lastmod>2024-01-20</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  
+  <url>
+    <loc>https://vespa.academy/privacy</loc>
+    <lastmod>2024-01-20</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
   </url>
 </urlset> 
