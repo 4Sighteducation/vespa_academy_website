@@ -528,8 +528,15 @@ import Layout from '../layouts/Layout.astro';
     </div>
 
     <!-- Success Modal -->
-    <div id="success-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-      <div class="bg-white rounded-3xl shadow-2xl max-w-md w-full p-8 text-center transform transition-all duration-300 scale-95 opacity-0" id="success-modal-content">
+    <div id="success-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4" onclick="if(event.target === this) closeSuccessModal()">
+      <div class="bg-white rounded-3xl shadow-2xl max-w-md w-full p-8 text-center transform transition-all duration-300 scale-95 opacity-0 relative" id="success-modal-content">
+        <!-- Close button -->
+        <button onclick="closeSuccessModal()" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 transition-colors">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+        
         <div class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-green-400 to-green-600 rounded-full mb-6">
           <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
@@ -966,15 +973,34 @@ import Layout from '../layouts/Layout.astro';
 
     // Close success modal function
     function closeSuccessModal() {
+      console.log('Closing success modal...');
       const successModal = document.getElementById('success-modal');
       const successModalContent = document.getElementById('success-modal-content');
       
-      successModalContent.classList.add('scale-95', 'opacity-0');
-      successModalContent.classList.remove('scale-100', 'opacity-100');
-      
-      setTimeout(() => {
-        successModal.classList.add('hidden');
-      }, 300);
+      if (successModal && successModalContent) {
+        successModalContent.classList.add('scale-95', 'opacity-0');
+        successModalContent.classList.remove('scale-100', 'opacity-100');
+        
+        setTimeout(() => {
+          successModal.classList.add('hidden');
+          document.body.style.overflow = '';
+        }, 300);
+      } else {
+        console.error('Success modal elements not found');
+      }
     }
+    
+    // Make function globally available
+    window.closeSuccessModal = closeSuccessModal;
+    
+    // Allow escape key to close success modal
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        const successModal = document.getElementById('success-modal');
+        if (successModal && !successModal.classList.contains('hidden')) {
+          closeSuccessModal();
+        }
+      }
+    });
   </script>
 </Layout> 
