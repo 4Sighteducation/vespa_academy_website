@@ -515,13 +515,13 @@ import Layout from '../layouts/Layout.astro';
               </div>
             </div>
 
-            <!-- Submit Button - Always Visible -->
-            <div class="border-t pt-6">
-              <button type="submit" class="w-full px-8 py-4 bg-gradient-to-r from-theme-secondary to-theme-accent1 text-theme-dark font-bold rounded-lg hover:scale-[1.02] transition-transform shadow-lg text-lg">
-                Submit Training Request
-              </button>
-              <p class="text-xs text-gray-500 text-center mt-3">* Required fields</p>
-            </div>
+            					<!-- Submit Button - Always Visible -->
+					<div class="border-t pt-6" style="display: block !important; visibility: visible !important; opacity: 1 !important;">
+						<button type="submit" style="display: inline-flex !important; visibility: visible !important; opacity: 1 !important; width: 100% !important; justify-content: center !important; align-items: center !important;" class="w-full px-8 py-4 bg-gradient-to-r from-theme-secondary to-theme-accent1 text-theme-dark font-bold rounded-lg hover:scale-[1.02] transition-transform shadow-lg text-lg">
+							Submit Training Request
+						</button>
+						<p class="text-xs text-gray-500 text-center mt-3">* Required fields</p>
+					</div>
           </form>
         </div>
       </div>
@@ -734,6 +734,57 @@ import Layout from '../layouts/Layout.astro';
         @apply px-3 py-3;
       }
     }
+
+    /* Force all buttons in modal to be visible */
+    #training-modal button {
+      opacity: 1 !important;
+      visibility: visible !important;
+    }
+
+    /* Ensure modal content is visible */
+    #training-modal .overflow-y-auto {
+      display: block !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+    }
+
+    /* Ultra-aggressive submit button visibility */
+    button[type="submit"] {
+      display: inline-flex !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+      position: relative !important;
+      z-index: 9999 !important;
+      width: 100% !important;
+      background: linear-gradient(to right, #FDB913, #FFD700) !important;
+      color: #1a2269 !important;
+      font-weight: bold !important;
+      font-size: 1.125rem !important;
+      padding: 1rem 2rem !important;
+      border-radius: 0.5rem !important;
+      cursor: pointer !important;
+      transition: transform 0.2s !important;
+    }
+
+    button[type="submit"]:hover {
+      transform: scale(1.02) !important;
+    }
+
+    /* Force parent container to show */
+    .border-t.pt-6,
+    #training-form > div:last-child,
+    #training-form > div:has(button[type="submit"]) {
+      display: block !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+      position: relative !important;
+    }
+
+    /* Remove any conflicting styles */
+    #training-form * {
+      max-height: none !important;
+      overflow: visible !important;
+    }
   </style>
 
   <script>
@@ -747,11 +798,33 @@ import Layout from '../layouts/Layout.astro';
 
       // Open modal buttons
       document.getElementById('training-contact-btn').addEventListener('click', () => {
+        console.log('Opening training modal...');
         trainingModal.classList.remove('hidden');
+        
+        // Debug: Check if submit button is visible after modal opens
+        setTimeout(() => {
+          const submitBtn = document.querySelector('#training-form button[type="submit"]');
+          console.log('Submit button after modal open:', {
+            exists: !!submitBtn,
+            visible: submitBtn ? submitBtn.offsetParent !== null : false,
+            text: submitBtn ? submitBtn.textContent.trim() : 'N/A'
+          });
+        }, 100);
       });
       
       document.getElementById('training-contact-btn-2').addEventListener('click', () => {
+        console.log('Opening training modal (button 2)...');
         trainingModal.classList.remove('hidden');
+        
+        // Debug: Check if submit button is visible after modal opens
+        setTimeout(() => {
+          const submitBtn = document.querySelector('#training-form button[type="submit"]');
+          console.log('Submit button after modal open:', {
+            exists: !!submitBtn,
+            visible: submitBtn ? submitBtn.offsetParent !== null : false,
+            text: submitBtn ? submitBtn.textContent.trim() : 'N/A'
+          });
+        }, 100);
       });
 
       // Handle training type selection
@@ -850,6 +923,45 @@ import Layout from '../layouts/Layout.astro';
           this.classList.add('hidden');
         }
       });
+
+      // Debug: Check submit button visibility
+      console.log('Training Page: Checking for submit button...');
+      const submitButton = document.querySelector('#training-form button[type="submit"]');
+      if (submitButton) {
+        console.log('Submit button found:', {
+          text: submitButton.textContent.trim(),
+          visible: submitButton.offsetParent !== null,
+          display: window.getComputedStyle(submitButton).display,
+          visibility: window.getComputedStyle(submitButton).visibility,
+          opacity: window.getComputedStyle(submitButton).opacity,
+          parent: submitButton.parentElement,
+          parentDisplay: submitButton.parentElement ? window.getComputedStyle(submitButton.parentElement).display : 'N/A'
+        });
+        
+        // Force the submit button to be visible
+        submitButton.style.display = 'inline-flex !important';
+        submitButton.style.visibility = 'visible !important';
+        submitButton.style.opacity = '1 !important';
+        submitButton.style.position = 'relative !important';
+        submitButton.style.zIndex = '9999 !important';
+        
+        // Also force parent to be visible
+        if (submitButton.parentElement) {
+          submitButton.parentElement.style.display = 'block !important';
+          submitButton.parentElement.style.visibility = 'visible !important';
+          submitButton.parentElement.style.opacity = '1 !important';
+        }
+      } else {
+        console.error('Submit button NOT FOUND!');
+        
+        // Check if the form exists
+        const form = document.getElementById('training-form');
+        console.log('Form exists:', !!form);
+        if (form) {
+          console.log('Form children:', form.children.length);
+          console.log('Last child of form:', form.lastElementChild);
+        }
+      }
     });
 
     // Close success modal function

@@ -929,6 +929,76 @@ import ActivityModal from '../components/ActivityModal.astro';
 	0% { background-position: -100% -100%; }
 	100% { background-position: 100% 100%; }
 }
+
+/* Force activity embeds to be visible */
+.activity-embed {
+	display: flex !important;
+	visibility: visible !important;
+	opacity: 1 !important;
+	position: relative !important;
+}
+
+.activity-embed * {
+	visibility: visible !important;
+	opacity: 1 !important;
+}
+
+.activity-embed button {
+	display: inline-flex !important;
+	visibility: visible !important;
+	opacity: 1 !important;
+	z-index: 999 !important;
+}
+
+/* Force modal iframes to be visible */
+#vision-iframe,
+#effort-iframe,
+#systems-iframe,
+#practice-iframe,
+#attitude-iframe {
+	opacity: 1 !important;
+	visibility: visible !important;
+	display: block !important;
+	position: relative !important;
+	z-index: 10 !important;
+	min-height: 600px !important;
+	background-color: #f0f0f0 !important;
+}
+
+/* Ensure loading indicators can be hidden */
+#vision-loading,
+#effort-loading,
+#systems-loading,
+#practice-loading,
+#attitude-loading {
+	z-index: 20;
+}
+
+/* Force modal content containers to show */
+.modal .w-full.h-full {
+	min-height: 700px !important;
+}
+
+/* Remove any opacity from parent containers */
+.modal .bg-white\/10,
+.modal .backdrop-blur-sm {
+	opacity: 1 !important;
+	backdrop-filter: none !important;
+}
+
+/* Ensure all buttons are visible */
+button {
+	opacity: 1 !important;
+	visibility: visible !important;
+}
+
+/* Override any hidden classes */
+.hidden button,
+button.hidden {
+	display: inline-flex !important;
+	visibility: visible !important;
+	opacity: 1 !important;
+}
 </style>
 
 <script is:inline>
@@ -1104,13 +1174,42 @@ window.closeSlidesModal = closeSlidesModal;
 window.openPdfModal = openPdfModal;
 window.closePdfModal = closePdfModal;
 
-// Debug: Check if buttons are present after page load
+// Debug: Check if buttons are present
 document.addEventListener('DOMContentLoaded', () => {
-	console.log('Page loaded, checking for slide buttons...');
+	console.log('Resource Portal: Page loaded, checking for buttons...');
+	
+	// Check for slide buttons
 	const slideButtons = document.querySelectorAll('button[onclick*="openSlidesModal"]');
 	console.log('Found slide buttons:', slideButtons.length);
 	slideButtons.forEach((btn, index) => {
-		console.log(`Button ${index}:`, btn.textContent.trim(), 'Visible:', btn.offsetParent !== null);
+		console.log(`Slide Button ${index}:`, {
+			text: btn.textContent.trim(),
+			visible: btn.offsetParent !== null,
+			display: window.getComputedStyle(btn).display,
+			visibility: window.getComputedStyle(btn).visibility,
+			opacity: window.getComputedStyle(btn).opacity
+		});
+	});
+	
+	// Check for PDF buttons
+	const pdfButtons = document.querySelectorAll('button[onclick*="openPdfModal"]');
+	console.log('Found PDF buttons:', pdfButtons.length);
+	pdfButtons.forEach((btn, index) => {
+		console.log(`PDF Button ${index}:`, {
+			text: btn.textContent.trim(),
+			visible: btn.offsetParent !== null,
+			display: window.getComputedStyle(btn).display,
+			visibility: window.getComputedStyle(btn).visibility,
+			opacity: window.getComputedStyle(btn).opacity
+		});
+	});
+	
+	// Force all buttons to be visible
+	document.querySelectorAll('button').forEach(btn => {
+		btn.style.display = 'inline-flex';
+		btn.style.visibility = 'visible';
+		btn.style.opacity = '1';
+		btn.style.zIndex = '999';
 	});
 });
 </script> 
