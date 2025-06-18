@@ -822,24 +822,24 @@ import ActivityModal from '../components/ActivityModal.astro';
 		<!-- PDF Modal -->
 		<div id="pdf-modal" class="fixed inset-0 z-50 hidden">
 			<div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="closePdfModal()"></div>
-			<div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-5xl mx-4 h-[90vh]">
+			<div class="pdf-modal-container absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-5xl mx-4 h-[90vh] md:h-[90vh]">
 				<div class="relative h-full bg-white rounded-lg overflow-hidden">
-					<div class="absolute top-0 left-0 right-0 bg-gray-100 p-4 flex items-center justify-between z-10">
-						<h3 id="pdf-modal-title" class="text-xl font-bold text-gray-800">PDF Worksheet</h3>
-						<button onclick="closePdfModal()" class="bg-gray-700 hover:bg-gray-900 rounded-full p-2 text-white transition-colors">
-							<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+					<div class="pdf-modal-header absolute top-0 left-0 right-0 bg-gray-100 p-3 md:p-4 flex items-center justify-between z-10">
+						<h3 id="pdf-modal-title" class="text-base md:text-xl font-bold text-gray-800 pr-2">PDF Worksheet</h3>
+						<button onclick="closePdfModal()" class="bg-gray-700 hover:bg-gray-900 rounded-full p-2 text-white transition-colors flex-shrink-0">
+							<svg class="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
 							</svg>
 						</button>
 					</div>
-					<div class="w-full h-full pt-16 flex flex-col relative">
+					<div class="w-full h-full pt-14 md:pt-16 flex flex-col relative">
 						<div id="pdf-loading" class="absolute inset-0 flex items-center justify-center bg-gray-100 z-10">
 							<div class="text-center">
-								<div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-								<p class="text-gray-600">Loading PDF...</p>
+								<div class="animate-spin rounded-full h-10 w-10 md:h-12 md:w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+								<p class="text-gray-600 text-sm md:text-base">Loading PDF...</p>
 							</div>
 						</div>
-						<div id="pdf-container" class="w-full h-full flex-1 relative bg-gray-50">
+						<div id="pdf-container" class="w-full h-full flex-1 relative bg-gray-50 overflow-auto">
 							<!-- PDF will be embedded here -->
 						</div>
 					</div>
@@ -993,6 +993,57 @@ button.hidden {
 	visibility: visible !important;
 	opacity: 1 !important;
 }
+
+/* PDF Modal Mobile Optimizations */
+@media (max-width: 768px) {
+	.pdf-modal-container {
+		@apply mx-2;
+		height: calc(100vh - 2rem) !important;
+		max-height: calc(100vh - 2rem) !important;
+		width: calc(100vw - 1rem) !important;
+		max-width: calc(100vw - 1rem) !important;
+	}
+	
+	.pdf-modal-header {
+		@apply flex-wrap;
+	}
+	
+	.pdf-download-link {
+		@apply text-xs px-3 py-1.5;
+	}
+	
+	.pdf-download-link svg {
+		@apply w-3 h-3;
+	}
+	
+	#pdf-container {
+		-webkit-overflow-scrolling: touch;
+		overflow-y: auto;
+		overflow-x: hidden;
+	}
+	
+	#pdf-container iframe {
+		min-height: calc(100vh - 100px) !important;
+		width: 100% !important;
+		display: block !important;
+	}
+}
+
+/* iOS Specific Fixes */
+@supports (-webkit-touch-callout: none) {
+	#pdf-container {
+		-webkit-overflow-scrolling: touch;
+		position: relative;
+	}
+	
+	#pdf-container iframe {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+	}
+}
 </style>
 
 <script is:inline>
@@ -1119,6 +1170,10 @@ function openPdfModal(pdfId) {
 		const pdfUrl = pdfUrls[pdfId];
 		console.log('Attempting to load PDF:', pdfUrl);
 		
+		// Detect if mobile device
+		const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth <= 768;
+		console.log('Is mobile device:', isMobile);
+		
 		// Always add download button first (before trying to load PDF)
 		const modalHeader = modal.querySelector('.bg-gray-100');
 		let downloadLink = modalHeader.querySelector('.pdf-download-link');
@@ -1150,102 +1205,137 @@ function openPdfModal(pdfId) {
 			loading.style.display = 'flex';
 		}
 		
-		// Try multiple embedding methods
-		let embedSuccess = false;
-		
-		// Method 1: Try using object element first (better browser support)
-		const objectEl = document.createElement('object');
-		objectEl.data = pdfUrl;
-		objectEl.type = 'application/pdf';
-		objectEl.width = '100%';
-		objectEl.height = '100%';
-		objectEl.style.minHeight = '600px';
-		objectEl.style.display = 'block';
-		
-		// Fallback content for object
-		const embedEl = document.createElement('embed');
-		embedEl.src = pdfUrl;
-		embedEl.type = 'application/pdf';
-		embedEl.width = '100%';
-		embedEl.height = '100%';
-		embedEl.style.minHeight = '600px';
-		
-		objectEl.appendChild(embedEl);
-		
-		// Add fallback message inside object
-		const fallbackMsg = document.createElement('p');
-		fallbackMsg.className = 'text-center p-4';
-		fallbackMsg.innerHTML = `PDF cannot be displayed. <a href="${pdfUrl}" target="_blank" class="text-blue-600 underline">Open in new tab</a>`;
-		objectEl.appendChild(fallbackMsg);
-		
-		container.appendChild(objectEl);
-		
-		// Check if PDF loads after a short delay
-		setTimeout(() => {
-			// Hide loading
-			if (loading) {
-				loading.style.display = 'none';
+		// For mobile devices OR as primary method, use Google Docs Viewer
+		if (isMobile || true) { // Using Google Docs as primary method for all devices
+			console.log('Using Google Docs Viewer for PDF');
+			
+			// Create iframe with Google Docs Viewer
+			const googleViewerUrl = `https://docs.google.com/viewer?url=${encodeURIComponent(pdfUrl)}&embedded=true`;
+			const iframe = document.createElement('iframe');
+			iframe.src = googleViewerUrl;
+			iframe.width = '100%';
+			iframe.height = '100%';
+			iframe.style.border = 'none';
+			iframe.style.backgroundColor = '#f5f5f5';
+			iframe.style.display = 'block';
+			iframe.setAttribute('allowfullscreen', 'true');
+			iframe.setAttribute('webkitallowfullscreen', 'true');
+			iframe.setAttribute('mozallowfullscreen', 'true');
+			
+			// For mobile, ensure proper viewport handling
+			if (isMobile) {
+				iframe.style.minHeight = '500px';
+				iframe.style.height = 'calc(100vh - 150px)';
+				iframe.setAttribute('scrolling', 'yes');
+				
+				// Add mobile-specific viewport meta adjustment
+				const viewportMeta = document.querySelector('meta[name="viewport"]');
+				if (viewportMeta) {
+					viewportMeta.setAttribute('content', 'width=device-width, initial-scale=1, maximum-scale=5');
+				}
+			} else {
+				iframe.style.minHeight = '600px';
 			}
 			
-			// Check if object loaded successfully
-			try {
-				// If object has no height or is very small, it probably didn't load
-				if (objectEl.offsetHeight < 100) {
-					throw new Error('PDF object too small');
+			container.appendChild(iframe);
+			
+			// Handle loading completion
+			let loadTimeout;
+			
+			iframe.onload = function() {
+				console.log('Google Docs Viewer iframe loaded');
+				clearTimeout(loadTimeout);
+				if (loading) {
+					loading.style.display = 'none';
 				}
-				console.log('PDF loaded via object element');
-				embedSuccess = true;
-			} catch (e) {
-				console.log('Object embed failed, trying Google Docs Viewer');
+			};
+			
+			// Fallback timeout
+			loadTimeout = setTimeout(() => {
+				if (loading) {
+					loading.style.display = 'none';
+				}
 				
-				// Method 2: Try Google Docs Viewer
-				container.innerHTML = '';
-				const googleViewerUrl = `https://docs.google.com/viewer?url=${encodeURIComponent(pdfUrl)}&embedded=true`;
-				const iframe = document.createElement('iframe');
-				iframe.src = googleViewerUrl;
-				iframe.width = '100%';
-				iframe.height = '100%';
-				iframe.style.minHeight = '600px';
-				iframe.style.border = 'none';
-				iframe.style.backgroundColor = '#f5f5f5';
-				container.appendChild(iframe);
-				
-				// Give Google Viewer time to load
-				setTimeout(() => {
-					// If still no success, show nice fallback
-					if (!embedSuccess) {
-						container.innerHTML = '';
-						const fallbackContent = document.createElement('div');
-						fallbackContent.className = 'pdf-fallback-content flex items-center justify-center h-full p-8';
-						fallbackContent.innerHTML = `
-							<div class="bg-white rounded-lg p-8 max-w-lg mx-auto text-center shadow-lg">
-								<svg class="w-20 h-20 mx-auto mb-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-								</svg>
-								<h3 class="text-2xl font-bold text-gray-800 mb-4">PDF Preview</h3>
-								<p class="text-gray-600 mb-6">This PDF is best viewed in a dedicated PDF viewer for the full experience.</p>
-								<div class="space-y-3">
-									<a href="${pdfUrl}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center w-full px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors">
-										<svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
-										</svg>
-										Open PDF in New Tab
-									</a>
-									<a href="${pdfUrl}" download class="inline-flex items-center justify-center w-full px-6 py-3 bg-gray-200 text-gray-800 font-semibold rounded-lg hover:bg-gray-300 transition-colors">
-										<svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-										</svg>
-										Download PDF
-									</a>
-								</div>
-								<p class="text-sm text-gray-500 mt-6">Having trouble? Make sure you have a PDF viewer installed.</p>
-							</div>
-						`;
-						container.appendChild(fallbackContent);
+				// Check if iframe loaded properly
+				try {
+					// If iframe is accessible and has content, assume success
+					if (iframe.contentWindow) {
+						console.log('PDF appears to have loaded');
+						return;
 					}
-				}, 3000);
-			}
-		}, 2000);
+				} catch (e) {
+					// Cross-origin, but that's expected with Google Docs
+					console.log('Cross-origin iframe (expected with Google Docs)');
+				}
+				
+				// Only show fallback if we detect a real problem
+				// For now, we'll assume Google Docs Viewer is working
+			}, 3000);
+			
+			// Add error handler for network issues
+			iframe.onerror = function() {
+				console.error('Failed to load Google Docs Viewer');
+				if (loading) {
+					loading.style.display = 'none';
+				}
+				
+				// Show fallback
+				container.innerHTML = '';
+				const fallbackContent = document.createElement('div');
+				fallbackContent.className = 'pdf-fallback-content flex items-center justify-center h-full p-8';
+				fallbackContent.innerHTML = `
+					<div class="bg-white rounded-lg p-6 md:p-8 max-w-lg mx-auto text-center shadow-lg">
+						<svg class="w-16 md:w-20 h-16 md:h-20 mx-auto mb-4 md:mb-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+						</svg>
+						<h3 class="text-xl md:text-2xl font-bold text-gray-800 mb-3 md:mb-4">PDF Preview Unavailable</h3>
+						<p class="text-gray-600 mb-4 md:mb-6 text-sm md:text-base">The PDF viewer couldn't load. You can still view or download the file directly.</p>
+						<div class="space-y-3">
+							<a href="${pdfUrl}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center w-full px-4 md:px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors text-sm md:text-base">
+								<svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+								</svg>
+								Open PDF
+							</a>
+							<a href="${pdfUrl}" download class="inline-flex items-center justify-center w-full px-4 md:px-6 py-3 bg-gray-200 text-gray-800 font-semibold rounded-lg hover:bg-gray-300 transition-colors text-sm md:text-base">
+								<svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+								</svg>
+								Download PDF
+							</a>
+						</div>
+					</div>
+				`;
+				container.appendChild(fallbackContent);
+			};
+			
+		} else {
+			// Desktop fallback - try native PDF rendering first
+			const objectEl = document.createElement('object');
+			objectEl.data = pdfUrl;
+			objectEl.type = 'application/pdf';
+			objectEl.width = '100%';
+			objectEl.height = '100%';
+			objectEl.style.minHeight = '600px';
+			objectEl.style.display = 'block';
+			
+			// Fallback to Google Docs Viewer
+			const fallbackIframe = document.createElement('iframe');
+			fallbackIframe.src = `https://docs.google.com/viewer?url=${encodeURIComponent(pdfUrl)}&embedded=true`;
+			fallbackIframe.width = '100%';
+			fallbackIframe.height = '100%';
+			fallbackIframe.style.minHeight = '600px';
+			fallbackIframe.style.border = 'none';
+			
+			objectEl.appendChild(fallbackIframe);
+			container.appendChild(objectEl);
+			
+			setTimeout(() => {
+				if (loading) {
+					loading.style.display = 'none';
+				}
+			}, 2000);
+		}
 		
 		// Show modal
 		modal.classList.remove('hidden');
@@ -1273,6 +1363,12 @@ function closePdfModal() {
 		const loading = document.getElementById('pdf-loading');
 		if (loading) {
 			loading.style.display = 'flex';
+		}
+		
+		// Restore viewport meta tag
+		const viewportMeta = document.querySelector('meta[name="viewport"]');
+		if (viewportMeta) {
+			viewportMeta.setAttribute('content', 'width=device-width, initial-scale=1');
 		}
 		
 		// Hide modal
