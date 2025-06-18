@@ -178,7 +178,7 @@ const { title } = Astro.props;
 	}
 	
 	/* Remove any potential video or audio elements */
-	video, audio, iframe:not([src*="muse.ai"]) {
+	video, audio, iframe:not([src*="muse.ai"]):not([src*="google.com/maps"]) {
 		display: none !important;
 	}
 	

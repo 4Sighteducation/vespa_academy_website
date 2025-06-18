@@ -4,117 +4,44 @@ import Layout from '../layouts/Layout.astro';
 
 <Layout title="Our Impact | VESPA Academy">
   <main>
-    <!-- Hero Section -->
-    <section class="text-center py-24 bg-theme-dark text-white">
-      <div class="container mx-auto px-6">
-        <h1 class="text-5xl md:text-6xl font-extrabold leading-tight mb-4">Evidence-Based, Results-Driven</h1>
-        <p class="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto">Discover the measurable impact of the VESPA mindset on students, staff, and entire institutions across the globe.</p>
-      </div>
-    </section>
-
-    <!-- Awards Section -->
-    <section class="py-20 bg-gradient-to-br from-theme-primary to-theme-dark">
-      <div class="container mx-auto px-6">
-        <h2 class="text-4xl font-bold text-center text-white mb-12" data-aos="fade-down">
-          Awards & <span class="gradient-text">Recognition</span>
-        </h2>
-        
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-          <!-- BESA Award -->
-          <div class="award-card" data-aos="fade-up" data-aos-delay="100">
-            <div class="award-image-container">
-              <img src="/assets/evidence-and-impact-1.png" alt="BESA Awards 2025 - Evidence and Impact" class="award-image cursor-pointer" onclick="openAwardModal('besa')">
-              <div class="award-overlay">
-                <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-                </svg>
-              </div>
-            </div>
-            <h3 class="text-xl font-bold text-white mt-4">BESA Awards 2025</h3>
-            <p class="text-gray-300 mt-2">Shortlisted for Evidence and Impact Award</p>
-          </div>
-
-          <!-- Teach Secondary Award -->
-          <div class="award-card" data-aos="fade-up" data-aos-delay="200">
-            <div class="award-image-container">
-              <img src="/assets/teach-secondary-awards.jpg" alt="Teach Secondary Awards Winner" class="award-image cursor-pointer" onclick="openAwardModal('teach')">
-              <div class="award-overlay">
-                <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-                </svg>
-              </div>
-            </div>
-            <h3 class="text-xl font-bold text-white mt-4">Teach Secondary Awards</h3>
-            <p class="text-gray-300 mt-2">Winner - CPD Category</p>
-          </div>
+    <!-- Hero Section with Animated Background -->
+    <section class="relative h-screen flex flex-col justify-between text-center overflow-hidden">
+      <!-- Animated Background -->
+      <div class="absolute inset-0 z-0">
+        <div class="absolute inset-0 bg-gradient-to-br from-theme-dark via-theme-primary to-theme-accent2 opacity-90"></div>
+        <div class="parallax-bg absolute inset-0 opacity-20" data-speed="0.5" 
+          style="background-image: url('/images/students-success.jpg'); background-size: cover; background-position: center;">
+        </div>
+        <!-- Floating shapes -->
+        <div class="floating-shapes">
+          <div class="shape shape-1"></div>
+          <div class="shape shape-2"></div>
+          <div class="shape shape-3"></div>
+          <div class="shape shape-4"></div>
         </div>
       </div>
-    </section>
-
-    <!-- Video Section -->
-    <section class="py-20 bg-theme-primary">
-      <div class="container mx-auto px-6 max-w-6xl">
-        <h2 class="text-4xl font-bold text-center text-white mb-12">BESA Awards - Evidence & Impact Submission</h2>
-        <div class="relative w-full" style="padding-bottom: 56.25%;">
-          <iframe 
-            src="https://muse.ai/embed/Y9ydBfY?links=0&style=minimal" 
-            frameborder="0" 
-            allowfullscreen 
-            class="absolute top-0 left-0 w-full h-full rounded-lg shadow-2xl"
-            style="background-color: #000;">
-          </iframe>
-        </div>
-        <div class="text-center mt-6">
-          <button onclick="openVideoFullscreen()" class="inline-flex items-center px-6 py-3 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-xl transition-all duration-300">
-            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path>
-            </svg>
-            View Fullscreen
-          </button>
+      
+      <div class="flex-1 flex items-center justify-center">
+        <div class="container mx-auto px-6 relative z-10 pt-20">
+          <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold leading-tight mb-4 text-white" 
+            data-aos="fade-up" 
+            data-aos-duration="1200">
+            Evidence-Based,
+            <span class="block gradient-text text-5xl md:text-7xl lg:text-8xl mt-2">Results-Driven</span>
+          </h1>
+          <p class="text-lg md:text-xl lg:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto" 
+            data-aos="fade-up" 
+            data-aos-delay="200">
+            Discover the measurable impact of the VESPA mindset on students, staff, and entire institutions across the globe.
+          </p>
         </div>
       </div>
-    </section>
-
-    <!-- Key Statistics -->
-    <section class="py-20 bg-theme-dark">
-      <div class="container mx-auto px-6">
-        <h2 class="text-4xl font-bold text-center text-white mb-16">The Proof is in the Data</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto text-center">
-          
-          <!-- Stat 1 -->
-          <div class="bg-theme-primary p-8 rounded-xl">
-            <p class="text-6xl font-extrabold text-theme-secondary">7.5%</p>
-            <p class="text-xl text-white mt-2">Increase in A*-A Grades</p>
-            <p class="text-gray-400 mt-1">(Central South Consortium, Wales)</p>
-          </div>
-
-          <!-- Stat 2 -->
-          <div class="bg-theme-primary p-8 rounded-xl">
-            <p class="text-6xl font-extrabold text-theme-secondary">600+</p>
-            <p class="text-xl text-white mt-2">Schools & Colleges</p>
-            <p class="text-gray-400 mt-1">Implementing VESPA Globally</p>
-          </div>
-
-          <!-- Stat 3 -->
-          <div class="bg-theme-primary p-8 rounded-xl">
-            <p class="text-6xl font-extrabold text-theme-secondary">4.45/5</p>
-            <p class="text-xl text-white mt-2">Student Satisfaction</p>
-            <p class="text-gray-400 mt-1">(University of Pretoria)</p>
-          </div>
-
-        </div>
-
-        <!-- Schools Map Link -->
-        <div class="text-center mt-12">
-          <a href="#schools-map" class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-theme-secondary to-theme-accent1 text-white font-bold rounded-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
-            <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-            </svg>
-            View VESPA Schools Map
-          </a>
-        </div>
+      
+      <!-- Scroll Indicator -->
+      <div class="relative z-10 pb-8 animate-bounce">
+        <svg class="w-12 h-12 text-white mx-auto drop-shadow-lg" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+        </svg>
       </div>
     </section>
 
@@ -218,18 +145,17 @@ import Layout from '../layouts/Layout.astro';
           Join over 600 schools and colleges already implementing the VESPA mindset
         </p>
         
-        <div class="max-w-6xl mx-auto" data-aos="zoom-in">
+        <div class="max-w-6xl mx-auto">
           <div class="bg-theme-primary rounded-xl p-4 shadow-2xl">
-            <div class="relative w-full" style="height: 600px;">
-              <iframe 
-                src="https://www.google.com/maps/d/embed?mid=1R5W_gdFtpiXEYkSQljma6pV_B8UfqOs&ehbc=2E312F" 
-                width="100%" 
-                height="100%" 
-                frameborder="0"
-                class="rounded-lg"
-                allowfullscreen>
-              </iframe>
-            </div>
+            <iframe 
+              src="https://www.google.com/maps/d/embed?mid=1R5W_gdFtpiXEYkSQljma6pV_B8UfqOs" 
+              width="100%" 
+              height="800" 
+              frameborder="0"
+              class="rounded-lg"
+              style="min-height: 400px; display: block; background: #f0f0f0;"
+              allowfullscreen>
+            </iframe>
           </div>
           <div class="text-center mt-6">
             <a href="https://www.google.com/maps/d/u/0/viewer?mid=1R5W_gdFtpiXEYkSQljma6pV_B8UfqOs&femb=1&ll=53.69743852797347%2C-2.707862139420323&z=7" 
@@ -261,6 +187,114 @@ import Layout from '../layouts/Layout.astro';
         </div>
       </div>
     </section>
+
+    <!-- Awards Section -->
+    <section class="py-20 bg-gradient-to-br from-theme-primary to-theme-dark">
+      <div class="container mx-auto px-6">
+        <h2 class="text-4xl font-bold text-center text-white mb-12" data-aos="fade-down">
+          Awards & <span class="gradient-text">Recognition</span>
+        </h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          <!-- BESA Award -->
+          <div class="award-card" data-aos="fade-up" data-aos-delay="100">
+            <div class="award-image-container">
+              <img src="/assets/evidence-and-impact-1.png" alt="BESA Awards 2025 - Evidence and Impact" class="award-image cursor-pointer">
+              <div class="award-overlay">
+                <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                </svg>
+              </div>
+            </div>
+            <h3 class="text-xl font-bold text-white mt-4">BESA Awards 2025</h3>
+            <p class="text-gray-300 mt-2">Shortlisted for Evidence and Impact Award</p>
+          </div>
+
+          <!-- Teach Secondary Award -->
+          <div class="award-card" data-aos="fade-up" data-aos-delay="200">
+            <div class="award-image-container">
+              <img src="/assets/teach-secondary-awards.jpg" alt="Teach Secondary Awards Winner" class="award-image cursor-pointer">
+              <div class="award-overlay">
+                <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                </svg>
+              </div>
+            </div>
+            <h3 class="text-xl font-bold text-white mt-4">Teach Secondary Awards</h3>
+            <p class="text-gray-300 mt-2">Winner - CPD Category</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Video Section -->
+    <section class="py-20 bg-theme-primary">
+      <div class="container mx-auto px-6 max-w-6xl">
+        <h2 class="text-4xl font-bold text-center text-white mb-12">BESA Awards - Evidence & Impact Submission</h2>
+        <div class="relative w-full" style="padding-bottom: 56.25%;">
+          <iframe 
+            src="https://muse.ai/embed/Y9ydBfY?links=0&style=minimal" 
+            frameborder="0" 
+            allowfullscreen 
+            class="absolute top-0 left-0 w-full h-full rounded-lg shadow-2xl"
+            style="background-color: #000;">
+          </iframe>
+        </div>
+        <div class="text-center mt-6">
+          <button onclick="openVideoFullscreen()" class="inline-flex items-center px-6 py-3 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-xl transition-all duration-300">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path>
+            </svg>
+            View Fullscreen
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Key Statistics -->
+    <section class="py-20 bg-theme-dark">
+      <div class="container mx-auto px-6">
+        <h2 class="text-4xl font-bold text-center text-white mb-16">The Proof is in the Data</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto text-center">
+          
+          <!-- Stat 1 -->
+          <div class="bg-theme-primary p-8 rounded-xl">
+            <p class="text-6xl font-extrabold text-theme-secondary">7.5%</p>
+            <p class="text-xl text-white mt-2">Increase in A*-A Grades</p>
+            <p class="text-gray-400 mt-1">(Central South Consortium, Wales)</p>
+          </div>
+
+          <!-- Stat 2 -->
+          <div class="bg-theme-primary p-8 rounded-xl">
+            <p class="text-6xl font-extrabold text-theme-secondary">600+</p>
+            <p class="text-xl text-white mt-2">Schools & Colleges</p>
+            <p class="text-gray-400 mt-1">Implementing VESPA Globally</p>
+          </div>
+
+          <!-- Stat 3 -->
+          <div class="bg-theme-primary p-8 rounded-xl">
+            <p class="text-6xl font-extrabold text-theme-secondary">4.45/5</p>
+            <p class="text-xl text-white mt-2">Student Satisfaction</p>
+            <p class="text-gray-400 mt-1">(University of Pretoria)</p>
+          </div>
+
+        </div>
+
+        <!-- Schools Map Link -->
+        <div class="text-center mt-12">
+          <a href="#schools-map" class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-theme-secondary to-theme-accent1 text-white font-bold rounded-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
+            <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            View VESPA Schools Map
+          </a>
+        </div>
+      </div>
+    </section>
+
+
 
   </main>
 
@@ -361,8 +395,11 @@ import Layout from '../layouts/Layout.astro';
 }
 
 .award-image {
-  @apply w-full transition-transform duration-300 object-contain;
+  @apply w-full transition-transform duration-300 object-contain cursor-pointer;
   height: 200px;
+  position: relative;
+  z-index: 10;
+  pointer-events: auto;
 }
 
 /* Mobile responsive image sizing */
@@ -378,6 +415,7 @@ import Layout from '../layouts/Layout.astro';
 
 .award-overlay {
   @apply absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 transition-opacity duration-300;
+  pointer-events: none;
 }
 
 .award-image-container:hover .award-overlay {
@@ -387,6 +425,71 @@ import Layout from '../layouts/Layout.astro';
 /* Gradient text effect */
 .gradient-text {
   @apply bg-gradient-to-r from-theme-secondary to-theme-accent1 bg-clip-text text-transparent;
+}
+
+/* Floating shapes animation */
+.floating-shapes {
+  @apply absolute inset-0 overflow-hidden;
+}
+
+.shape {
+  @apply absolute rounded-full opacity-10;
+  animation: float 20s infinite ease-in-out;
+}
+
+.shape-1 {
+  @apply w-64 h-64 bg-theme-secondary -top-32 -left-32;
+  animation-delay: 0s;
+}
+
+.shape-2 {
+  @apply w-96 h-96 bg-theme-accent1 -bottom-48 -right-48;
+  animation-delay: 5s;
+}
+
+.shape-3 {
+  @apply w-80 h-80 bg-effort top-1/2 -left-40;
+  animation-delay: 10s;
+}
+
+.shape-4 {
+  @apply w-72 h-72 bg-vision -top-36 right-1/4;
+  animation-delay: 15s;
+}
+
+@keyframes float {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  25% { transform: translate(100px, 100px) rotate(90deg); }
+  50% { transform: translate(-50px, 200px) rotate(180deg); }
+  75% { transform: translate(200px, -100px) rotate(270deg); }
+}
+
+/* Scroll indicator animation */
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-20px);
+  }
+  60% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-bounce {
+  animation: bounce 2s infinite;
+}
+
+/* Google Maps responsive */
+#schools-map iframe {
+  min-height: 400px;
+}
+
+@media (max-width: 768px) {
+  #schools-map iframe {
+    height: 500px !important;
+  }
 }
 
 /* Award popup animation */
@@ -458,11 +561,28 @@ function closeAwardPopup() {
   }
 }
 
+// Test function to show award popup
+function testShowAwardPopup() {
+  console.log('Test button clicked - clearing session and showing popup');
+  sessionStorage.removeItem('awardPopupShown');
+  const popup = document.getElementById('award-popup');
+  if (popup) {
+    popup.classList.remove('hidden');
+    popup.style.animation = 'slide-in 0.5s ease-out forwards';
+    
+    // Auto-hide after 10 seconds
+    setTimeout(() => {
+      closeAwardPopup();
+    }, 10000);
+  }
+}
+
 // Make functions globally available
 window.openVideoFullscreen = openVideoFullscreen;
 window.openAwardModal = openAwardModal;
 window.closeAwardModal = closeAwardModal;
 window.closeAwardPopup = closeAwardPopup;
+window.testShowAwardPopup = testShowAwardPopup;
 
 // Show award popup after 3 seconds
 document.addEventListener('DOMContentLoaded', () => {
@@ -471,6 +591,36 @@ document.addEventListener('DOMContentLoaded', () => {
   // Debug: Check if elements exist
   const popup = document.getElementById('award-popup');
   console.log('Award popup element:', popup);
+  
+  // Debug: Check if modal elements exist
+  const besaModal = document.getElementById('besa-modal');
+  const teachModal = document.getElementById('teach-modal');
+  console.log('BESA modal element:', besaModal);
+  console.log('Teach modal element:', teachModal);
+  
+  // Debug: Check if award images are clickable
+  const awardImages = document.querySelectorAll('.award-image');
+  console.log('Award images found:', awardImages.length);
+  
+  // Add click event listeners to award images
+  awardImages.forEach((img, index) => {
+    console.log(`Setting up click handler for image ${index}`);
+    img.style.cursor = 'pointer';
+    
+    if (index === 0) {
+      // First image is BESA
+      img.addEventListener('click', function() {
+        console.log('BESA image clicked');
+        openAwardModal('besa');
+      });
+    } else if (index === 1) {
+      // Second image is Teach Secondary
+      img.addEventListener('click', function() {
+        console.log('Teach Secondary image clicked');
+        openAwardModal('teach');
+      });
+    }
+  });
   
   setTimeout(() => {
     if (popup && !sessionStorage.getItem('awardPopupShown')) {

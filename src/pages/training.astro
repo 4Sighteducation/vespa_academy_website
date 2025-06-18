@@ -32,13 +32,13 @@ import Layout from '../layouts/Layout.astro';
           <p class="text-lg md:text-xl lg:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto" 
             data-aos="fade-up" 
             data-aos-delay="200">
-            Bespoke training solutions led by Steve Oakes and Martin Griffin, designed to empower your staff and inspire your students.
+            Bespoke training solutions led by Martin Griffin and Tony Dennis, designed to empower your staff and inspire your students.
           </p>
           <div class="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-6"
             data-aos="fade-up"
             data-aos-delay="400">
             <button id="training-contact-btn" class="btn-primary group">
-              <span class="relative z-10">Request Training Information</span>
+              <span class="relative z-10">Request Training</span>
               <div class="btn-glow"></div>
             </button>
             <a href="#staff-training" class="btn-secondary group">
@@ -1023,7 +1023,9 @@ import Layout from '../layouts/Layout.astro';
     .workshop-header::before {
       content: '';
       @apply absolute inset-0 opacity-10;
-      background: url('/images/pattern.svg') repeat;
+      background: linear-gradient(45deg, rgba(255,255,255,0.05) 25%, transparent 25%, transparent 75%, rgba(255,255,255,0.05) 75%, rgba(255,255,255,0.05)),
+                  linear-gradient(-45deg, rgba(255,255,255,0.05) 25%, transparent 25%, transparent 75%, rgba(255,255,255,0.05) 75%, rgba(255,255,255,0.05));
+      background-size: 60px 60px;
     }
 
     .workshop-icon {

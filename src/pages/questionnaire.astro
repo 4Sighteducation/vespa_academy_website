@@ -54,32 +54,37 @@ const pageDescription = "Take the VESPA questionnaire to assess your learning mi
   <Header />
   
   <main class="pt-24">
-    <!-- Hero Section with Background Image -->
-    <section class="relative py-24 overflow-hidden bg-gradient-to-br from-theme-dark via-theme-primary to-theme-dark">
-      <!-- Background Image -->
-      <div class="absolute inset-0 opacity-30">
-        <div class="parallax-bg h-full w-full" data-speed="0.3"
-          style="background-image: url('/assets/pexels-stanley-morales-1454360-2000x1333.jpg'); background-size: cover; background-position: center;">
+    <!-- Hero Section with Animated Background -->
+    <section class="relative h-screen flex flex-col justify-between text-center overflow-hidden">
+      <!-- Animated Background -->
+      <div class="absolute inset-0 z-0">
+        <div class="absolute inset-0 bg-gradient-to-br from-theme-dark via-theme-primary to-theme-dark opacity-90"></div>
+        <!-- Floating shapes -->
+        <div class="floating-shapes">
+          <div class="shape shape-1"></div>
+          <div class="shape shape-2"></div>
+          <div class="shape shape-3"></div>
+          <div class="shape shape-4"></div>
+          <div class="shape shape-5"></div>
         </div>
       </div>
       
-      <!-- Animated background elements -->
-      <div class="absolute inset-0">
-        <div class="absolute top-0 left-0 w-96 h-96 bg-theme-secondary/20 rounded-full blur-3xl animate-pulse"></div>
-        <div class="absolute bottom-0 right-0 w-96 h-96 bg-theme-accent1/20 rounded-full blur-3xl animate-pulse" style="animation-delay: 1s;"></div>
-      </div>
-      
-      <div class="container mx-auto px-6 relative z-10">
-        <div class="max-w-4xl mx-auto text-center">
-          <h1 class="text-5xl md:text-6xl font-bold text-white mb-8 fade-in-up pb-4">
-            Discover Your <span class="vespa-gradient-text">VESPA Profile</span>
+      <div class="flex-1 flex items-center justify-center">
+        <div class="container mx-auto px-6 relative z-10 pt-20">
+          <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold leading-tight mb-4 text-white" 
+            data-aos="fade-up" 
+            data-aos-duration="1200">
+            Discover Your
+            <span class="block vespa-gradient-text text-5xl md:text-7xl lg:text-8xl mt-2">VESPA Profile</span>
           </h1>
-          <p class="text-xl text-gray-300 mb-8 fade-in-up" style="animation-delay: 0.2s;">
+          <p class="text-lg md:text-xl lg:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto" 
+            data-aos="fade-up" 
+            data-aos-delay="200">
             Take our validated VESPA questionnaire to understand your strengths and areas for development across five key dimensions of academic success.
           </p>
           
           <!-- VESPA Categories Display -->
-          <div class="flex flex-wrap justify-center gap-3 mb-10 fade-in-up" style="animation-delay: 0.4s;">
+          <div class="flex flex-wrap justify-center gap-3 mb-10" data-aos="fade-up" data-aos-delay="400">
             {Object.entries(categories).map(([key, cat]) => (
               <div class={`flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full border ${cat.borderColor} hover:bg-white/20 transition-all`}>
                 <div class={`w-8 h-8 rounded-full ${cat.color} flex items-center justify-center`}>
@@ -91,16 +96,31 @@ const pageDescription = "Take the VESPA questionnaire to assess your learning mi
           </div>
           
           <!-- CTA Button -->
-          <button id="start-questionnaire" class="px-12 py-4 bg-gradient-to-r from-theme-secondary to-theme-accent1 text-theme-dark font-bold rounded-xl text-lg hover:scale-105 transition-transform shadow-xl fade-in-up" style="animation-delay: 0.6s;">
-            Try the VESPA Questionnaire
+          <button id="start-questionnaire" class="btn-primary group" data-aos="fade-up" data-aos-delay="600">
+            <span class="relative z-10">Try the VESPA Questionnaire</span>
+            <div class="btn-glow"></div>
           </button>
         </div>
       </div>
+      
+      <!-- Scroll Indicator -->
+      <div class="relative z-10 pb-8 animate-bounce">
+        <svg class="w-12 h-12 text-white mx-auto drop-shadow-lg" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+        </svg>
+      </div>
     </section>
 
-    <!-- What is the VESPA Questionnaire Section -->
-    <section class="py-20 bg-white">
-      <div class="container mx-auto px-6">
+    <!-- What is the VESPA Questionnaire Section with Background Image -->
+    <section class="py-20 bg-white relative overflow-hidden">
+      <!-- Background Image with Overlay -->
+      <div class="absolute inset-0 z-0">
+        <div class="parallax-bg h-full w-full opacity-10" data-speed="0.2"
+          style="background-image: url('/assets/pexels-stanley-morales-1454360-2000x1333.jpg'); background-size: cover; background-position: center;">
+        </div>
+      </div>
+      
+      <div class="container mx-auto px-6 relative z-10">
         <div class="max-w-6xl mx-auto">
           <h2 class="text-4xl font-bold text-center mb-16 text-theme-dark fade-in-up">
             What is the VESPA Questionnaire?
@@ -561,6 +581,61 @@ const pageDescription = "Take the VESPA questionnaire to assess your learning mi
         opacity: 1;
         transform: translateY(0);
       }
+    }
+
+    /* Button styles */
+    .btn-primary {
+      @apply relative inline-flex items-center px-8 py-4 bg-gradient-to-r from-theme-secondary to-theme-accent1 text-theme-dark font-bold rounded-xl text-lg overflow-hidden transition-all duration-300 transform hover:scale-105 shadow-xl;
+    }
+
+    .btn-glow {
+      @apply absolute inset-0 bg-gradient-to-r from-theme-secondary to-theme-accent1 opacity-0 blur-3xl transition-opacity duration-300;
+    }
+
+    .btn-primary:hover .btn-glow {
+      opacity: 0.4;
+    }
+
+    /* Floating shapes animation */
+    .floating-shapes {
+      @apply absolute inset-0 overflow-hidden;
+    }
+
+    .shape {
+      @apply absolute rounded-full opacity-10;
+      animation: float 20s infinite ease-in-out;
+    }
+
+    .shape-1 {
+      @apply w-64 h-64 bg-theme-secondary -top-32 -left-32;
+      animation-delay: 0s;
+    }
+
+    .shape-2 {
+      @apply w-96 h-96 bg-theme-accent1 -bottom-48 -right-48;
+      animation-delay: 5s;
+    }
+
+    .shape-3 {
+      @apply w-80 h-80 bg-effort top-1/2 -left-40;
+      animation-delay: 10s;
+    }
+
+    .shape-4 {
+      @apply w-72 h-72 bg-vision -top-36 right-1/4;
+      animation-delay: 15s;
+    }
+
+    .shape-5 {
+      @apply w-56 h-56 bg-practice bottom-1/4 right-1/3;
+      animation-delay: 7.5s;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0) rotate(0deg); }
+      25% { transform: translate(100px, 100px) rotate(90deg); }
+      50% { transform: translate(-50px, 200px) rotate(180deg); }
+      75% { transform: translate(200px, -100px) rotate(270deg); }
     }
 
     /* VESPA Gradient Text with Individual Colors */
