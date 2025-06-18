@@ -222,7 +222,7 @@ import Layout from '../layouts/Layout.astro';
           <div class="bg-theme-primary rounded-xl p-4 shadow-2xl">
             <div class="relative w-full" style="height: 600px;">
               <iframe 
-                src="https://www.google.com/maps/d/embed?mid=1R5W_gdFtpiXEYkSQljma6pV_B8UfqOs&ll=53.69743852797347%2C-2.707862139420323&z=7" 
+                src="https://www.google.com/maps/d/embed?mid=1R5W_gdFtpiXEYkSQljma6pV_B8UfqOs&ehbc=2E312F" 
                 width="100%" 
                 height="100%" 
                 frameborder="0"
@@ -361,7 +361,15 @@ import Layout from '../layouts/Layout.astro';
 }
 
 .award-image {
-  @apply w-full h-64 object-cover transition-transform duration-300;
+  @apply w-full transition-transform duration-300 object-contain;
+  height: 200px;
+}
+
+/* Mobile responsive image sizing */
+@media (max-width: 640px) {
+  .award-image {
+    height: 150px;
+  }
 }
 
 .award-image-container:hover .award-image {
@@ -409,21 +417,24 @@ import Layout from '../layouts/Layout.astro';
 // Video fullscreen function
 function openVideoFullscreen() {
   const iframe = document.querySelector('iframe[src*="muse.ai"]');
-  if (iframe.requestFullscreen) {
+  if (iframe && iframe.requestFullscreen) {
     iframe.requestFullscreen();
-  } else if (iframe.webkitRequestFullscreen) {
+  } else if (iframe && iframe.webkitRequestFullscreen) {
     iframe.webkitRequestFullscreen();
-  } else if (iframe.msRequestFullscreen) {
+  } else if (iframe && iframe.msRequestFullscreen) {
     iframe.msRequestFullscreen();
   }
 }
 
 // Award modal functions
 function openAwardModal(modalId) {
+  console.log('Opening modal:', modalId);
   const modal = document.getElementById(modalId + '-modal');
   if (modal) {
     modal.classList.remove('hidden');
     document.body.style.overflow = 'hidden';
+  } else {
+    console.error('Modal not found:', modalId + '-modal');
   }
 }
 
@@ -442,6 +453,7 @@ function closeAwardPopup() {
     popup.style.animation = 'slide-out 0.5s ease-in forwards';
     setTimeout(() => {
       popup.classList.add('hidden');
+      popup.style.animation = '';
     }, 500);
   }
 }
@@ -454,9 +466,15 @@ window.closeAwardPopup = closeAwardPopup;
 
 // Show award popup after 3 seconds
 document.addEventListener('DOMContentLoaded', () => {
+  console.log('DOM loaded, checking for popup...');
+  
+  // Debug: Check if elements exist
+  const popup = document.getElementById('award-popup');
+  console.log('Award popup element:', popup);
+  
   setTimeout(() => {
-    const popup = document.getElementById('award-popup');
     if (popup && !sessionStorage.getItem('awardPopupShown')) {
+      console.log('Showing award popup...');
       popup.classList.remove('hidden');
       popup.style.animation = 'slide-in 0.5s ease-out forwards';
       sessionStorage.setItem('awardPopupShown', 'true');
@@ -465,6 +483,8 @@ document.addEventListener('DOMContentLoaded', () => {
       setTimeout(() => {
         closeAwardPopup();
       }, 10000);
+    } else {
+      console.log('Popup not shown - already shown or element not found');
     }
   }, 3000);
 });
