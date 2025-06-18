@@ -12,5 +12,24 @@
       "source": "/(.*)",
       "destination": "/$1"
     }
+  ],
+  "headers": [
+    {
+      "source": "/worksheets/(.*).pdf",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/pdf"
+        },
+        {
+          "key": "Content-Disposition",
+          "value": "inline"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        }
+      ]
+    }
   ]
 } 

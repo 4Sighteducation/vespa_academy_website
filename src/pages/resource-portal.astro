@@ -1107,42 +1107,97 @@ const pdfUrls = {
 function openPdfModal(pdfId) {
 	const modal = document.getElementById('pdf-modal');
 	const iframe = document.getElementById('pdf-iframe');
-	const loading = document.getElementById('pdf-loading');
+	const titleMap = {
+		'vision-pdf': 'Vision - Getting Dreams Done',
+		'effort-pdf': 'Effort - The 1-10 Scale',
+		'systems-pdf': 'Systems - 1% Planning',
+		'practice-pdf': 'Practice - High & Low Utility',
+		'attitude-pdf': 'Attitude - Worst Case Scenarios'
+	};
 	
 	if (modal && iframe && pdfUrls[pdfId]) {
-		// Show loading indicator
-		loading.style.display = 'flex';
-		iframe.style.opacity = '0';
-		
-		// Set the PDF URL
-		iframe.src = pdfUrls[pdfId];
-		
-		// Update modal title based on which PDF
-		const titleElement = document.getElementById('pdf-modal-title');
-		if (titleElement) {
-			const titles = {
-				'vision-pdf': 'VISION - Getting Dreams Done Worksheet',
-				'effort-pdf': 'EFFORT - 1-10 Scale Worksheet',
-				'systems-pdf': 'SYSTEMS - 1% Planning Worksheet',
-				'practice-pdf': 'PRACTICE - High & Low Utility Worksheet',
-				'attitude-pdf': 'ATTITUDE - Worst Case Scenarios Worksheet'
-			};
-			titleElement.textContent = titles[pdfId] || 'PDF Worksheet';
+		// Update title
+		const titleEl = document.getElementById('pdf-modal-title');
+		if (titleEl) {
+			titleEl.textContent = titleMap[pdfId] || 'PDF Worksheet';
 		}
 		
-		// Hide loading when PDF loads
-		iframe.onload = function() {
+		const pdfUrl = pdfUrls[pdfId];
+		console.log('Attempting to load PDF:', pdfUrl);
+		
+		// Set iframe source
+		iframe.src = pdfUrl;
+		
+		// Add download link to modal header
+		const modalHeader = modal.querySelector('.bg-gray-100');
+		if (modalHeader && !modalHeader.querySelector('.pdf-download-link')) {
+			const downloadLink = document.createElement('a');
+			downloadLink.href = pdfUrl;
+			downloadLink.download = true;
+			downloadLink.className = 'pdf-download-link inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm mr-4';
+			downloadLink.innerHTML = `
+				<svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+				</svg>
+				Download PDF
+			`;
+			const closeButton = modalHeader.querySelector('button');
+			modalHeader.insertBefore(downloadLink, closeButton);
+		}
+		
+		// Update download link href
+		const existingDownloadLink = modal.querySelector('.pdf-download-link');
+		if (existingDownloadLink) {
+			existingDownloadLink.href = pdfUrl;
+		}
+		
+		// Hide loading indicator
+		const loading = document.getElementById('pdf-loading');
+		if (loading) {
 			loading.style.display = 'none';
-			iframe.style.opacity = '1';
+		}
+		
+		// Remove any previous error messages
+		const prevError = iframe.parentElement.querySelector('.text-center.p-8');
+		if (prevError) {
+			prevError.remove();
+		}
+		
+		// Ensure iframe is visible
+		iframe.style.display = 'block';
+		iframe.style.opacity = '1';
+		
+		// Add error handling
+		iframe.onerror = function() {
+			console.error('Failed to load PDF:', pdfUrl);
+			iframe.style.display = 'none';
+			
+			// Show error message with download link
+			const errorMsg = document.createElement('div');
+			errorMsg.className = 'text-center p-8';
+			errorMsg.innerHTML = `
+				<p class="text-red-500 mb-4">Unable to display PDF in browser.</p>
+				<a href="${pdfUrl}" download class="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+					<svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+					</svg>
+					Download PDF
+				</a>
+			`;
+			iframe.parentElement.appendChild(errorMsg);
 		};
 		
-		// Fallback to hide loading after timeout
-		setTimeout(() => {
-			if (loading.style.display !== 'none') {
-				loading.style.display = 'none';
-				iframe.style.opacity = '1';
+		// Test if PDF loads successfully
+		iframe.onload = function() {
+			console.log('PDF loaded successfully:', pdfUrl);
+			// Check if iframe actually has content
+			try {
+				const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+				console.log('PDF iframe document:', iframeDoc);
+			} catch (e) {
+				console.log('Cannot access iframe content (cross-origin)');
 			}
-		}, 3000);
+		};
 		
 		// Show modal
 		modal.classList.remove('hidden');
@@ -1158,6 +1213,26 @@ function closePdfModal() {
 		// Clear iframe src
 		if (iframe) {
 			iframe.src = '';
+			iframe.style.display = 'block';
+			iframe.style.opacity = '1';
+		}
+		
+		// Remove download link from header
+		const downloadLink = modal.querySelector('.pdf-download-link');
+		if (downloadLink) {
+			downloadLink.remove();
+		}
+		
+		// Remove any error messages
+		const errorMsg = modal.querySelector('.text-center.p-8');
+		if (errorMsg) {
+			errorMsg.remove();
+		}
+		
+		// Show loading indicator for next time
+		const loading = document.getElementById('pdf-loading');
+		if (loading) {
+			loading.style.display = 'flex';
 		}
 		
 		// Hide modal
