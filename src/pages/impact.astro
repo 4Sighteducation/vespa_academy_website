@@ -265,50 +265,54 @@ import Layout from '../layouts/Layout.astro';
   </main>
 
   <!-- Award Modals -->
-  <div id="besa-modal" class="award-modal hidden">
-    <div class="award-modal-backdrop" onclick="closeAwardModal('besa')"></div>
-    <div class="award-modal-content">
-      <button onclick="closeAwardModal('besa')" class="award-modal-close">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-        </svg>
-      </button>
-      <img src="/assets/evidence-and-impact-2.png" alt="BESA Awards 2025 - Evidence and Impact" class="w-full">
-      <div class="p-6">
-        <h3 class="text-2xl font-bold text-white mb-3">BESA Awards 2025</h3>
-        <p class="text-gray-300 mb-4">We're thrilled to be shortlisted for the Evidence and Impact award at the prestigious BESA Awards 2025.</p>
-        <p class="text-gray-400">This nomination recognizes our commitment to research-driven approaches and measurable outcomes in education.</p>
+  <div id="besa-modal" class="fixed inset-0 z-50 hidden">
+    <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" onclick="closeAwardModal('besa')"></div>
+    <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-2xl mx-4">
+      <div class="bg-gradient-to-br from-theme-primary to-theme-dark p-8 rounded-2xl shadow-2xl border border-white/20 relative">
+        <button onclick="closeAwardModal('besa')" class="absolute top-4 right-4 text-white/60 hover:text-white transition-colors">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+        <img src="/assets/evidence-and-impact-2.png" alt="BESA Awards 2025 - Evidence and Impact" class="w-full rounded-lg mb-6">
+        <div>
+          <h3 class="text-2xl font-bold text-white mb-3">BESA Awards 2025</h3>
+          <p class="text-gray-300 mb-4">We're thrilled to be shortlisted for the Evidence and Impact award at the prestigious BESA Awards 2025.</p>
+          <p class="text-gray-400">This nomination recognizes our commitment to research-driven approaches and measurable outcomes in education.</p>
+        </div>
       </div>
     </div>
   </div>
 
-  <div id="teach-modal" class="award-modal hidden">
-    <div class="award-modal-backdrop" onclick="closeAwardModal('teach')"></div>
-    <div class="award-modal-content">
-      <button onclick="closeAwardModal('teach')" class="award-modal-close">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-        </svg>
-      </button>
-      <img src="/assets/teach-secondary-awards.jpg" alt="Teach Secondary Awards Winner" class="w-full">
-      <div class="p-6">
-        <h3 class="text-2xl font-bold text-white mb-3">Teach Secondary Awards - CPD Winner</h3>
-        <p class="text-gray-300 mb-4">The VESPA Handbook won the CPD category at the Teach Secondary Awards 2024.</p>
-        <p class="text-gray-400">This award celebrates our innovative approach to teacher professional development and student mindset training.</p>
+  <div id="teach-modal" class="fixed inset-0 z-50 hidden">
+    <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" onclick="closeAwardModal('teach')"></div>
+    <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-2xl mx-4">
+      <div class="bg-gradient-to-br from-theme-primary to-theme-dark p-8 rounded-2xl shadow-2xl border border-white/20 relative">
+        <button onclick="closeAwardModal('teach')" class="absolute top-4 right-4 text-white/60 hover:text-white transition-colors">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+        <img src="/assets/teach-secondary-awards.jpg" alt="Teach Secondary Awards Winner" class="w-full rounded-lg mb-6">
+        <div>
+          <h3 class="text-2xl font-bold text-white mb-3">Teach Secondary Awards - CPD Winner</h3>
+          <p class="text-gray-300 mb-4">The VESPA Handbook won the CPD category at the Teach Secondary Awards 2024.</p>
+          <p class="text-gray-400">This award celebrates our innovative approach to teacher professional development and student mindset training.</p>
+        </div>
       </div>
     </div>
   </div>
 
   <!-- Award Popup (appears on page load) -->
-  <div id="award-popup" class="award-popup">
-    <div class="award-popup-content">
-      <button onclick="closeAwardPopup()" class="award-popup-close">
+  <div id="award-popup" class="fixed bottom-6 right-6 z-50 hidden">
+    <div class="bg-gradient-to-r from-theme-primary to-theme-dark p-4 rounded-xl shadow-2xl border border-white/20 relative min-w-[320px]">
+      <button onclick="closeAwardPopup()" class="absolute top-2 right-2 text-gray-400 hover:text-white transition-colors">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
         </svg>
       </button>
       <div class="flex items-center space-x-4">
-        <div class="award-popup-icon">
+        <div class="bg-white/10 rounded-full p-3">
           <svg class="w-8 h-8 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
             <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
           </svg>
@@ -372,41 +376,12 @@ import Layout from '../layouts/Layout.astro';
   @apply opacity-100;
 }
 
-/* Award Modals */
-.award-modal {
-  @apply fixed inset-0 z-50 flex items-center justify-center p-4;
+/* Gradient text effect */
+.gradient-text {
+  @apply bg-gradient-to-r from-theme-secondary to-theme-accent1 bg-clip-text text-transparent;
 }
 
-.award-modal-backdrop {
-  @apply absolute inset-0 bg-black/80 backdrop-blur-sm;
-}
-
-.award-modal-content {
-  @apply relative bg-theme-dark rounded-xl overflow-hidden max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl;
-}
-
-.award-modal-close {
-  @apply absolute top-4 right-4 bg-black/50 hover:bg-black/70 rounded-full p-2 text-white transition-colors z-10;
-}
-
-/* Award Popup */
-.award-popup {
-  @apply fixed bottom-6 right-6 z-50 animate-slide-in;
-}
-
-.award-popup-content {
-  @apply bg-gradient-to-r from-theme-primary to-theme-dark p-4 rounded-xl shadow-2xl border border-white/20 relative;
-  min-width: 320px;
-}
-
-.award-popup-close {
-  @apply absolute top-2 right-2 text-gray-400 hover:text-white transition-colors;
-}
-
-.award-popup-icon {
-  @apply bg-white/10 rounded-full p-3;
-}
-
+/* Award popup animation */
 @keyframes slide-in {
   from {
     transform: translateX(400px);
@@ -418,13 +393,15 @@ import Layout from '../layouts/Layout.astro';
   }
 }
 
-.animate-slide-in {
-  animation: slide-in 0.5s ease-out forwards;
-}
-
-/* Gradient text effect */
-.gradient-text {
-  @apply bg-gradient-to-r from-theme-secondary to-theme-accent1 bg-clip-text text-transparent;
+@keyframes slide-out {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(400px);
+    opacity: 0;
+  }
 }
 </style>
 
@@ -464,38 +441,31 @@ function closeAwardPopup() {
   if (popup) {
     popup.style.animation = 'slide-out 0.5s ease-in forwards';
     setTimeout(() => {
-      popup.style.display = 'none';
+      popup.classList.add('hidden');
     }, 500);
   }
 }
 
-// Show award popup after 3 seconds
-setTimeout(() => {
-  const popup = document.getElementById('award-popup');
-  if (popup && !sessionStorage.getItem('awardPopupShown')) {
-    popup.style.display = 'block';
-    sessionStorage.setItem('awardPopupShown', 'true');
-    
-    // Auto-hide after 10 seconds
-    setTimeout(() => {
-      closeAwardPopup();
-    }, 10000);
-  }
-}, 3000);
+// Make functions globally available
+window.openVideoFullscreen = openVideoFullscreen;
+window.openAwardModal = openAwardModal;
+window.closeAwardModal = closeAwardModal;
+window.closeAwardPopup = closeAwardPopup;
 
-// Add slide-out animation
-const style = document.createElement('style');
-style.textContent = `
-  @keyframes slide-out {
-    from {
-      transform: translateX(0);
-      opacity: 1;
+// Show award popup after 3 seconds
+document.addEventListener('DOMContentLoaded', () => {
+  setTimeout(() => {
+    const popup = document.getElementById('award-popup');
+    if (popup && !sessionStorage.getItem('awardPopupShown')) {
+      popup.classList.remove('hidden');
+      popup.style.animation = 'slide-in 0.5s ease-out forwards';
+      sessionStorage.setItem('awardPopupShown', 'true');
+      
+      // Auto-hide after 10 seconds
+      setTimeout(() => {
+        closeAwardPopup();
+      }, 10000);
     }
-    to {
-      transform: translateX(400px);
-      opacity: 0;
-    }
-  }
-`;
-document.head.appendChild(style);
+  }, 3000);
+});
 </script> 
