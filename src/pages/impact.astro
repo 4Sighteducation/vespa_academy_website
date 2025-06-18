@@ -12,6 +12,47 @@ import Layout from '../layouts/Layout.astro';
       </div>
     </section>
 
+    <!-- Awards Section -->
+    <section class="py-20 bg-gradient-to-br from-theme-primary to-theme-dark">
+      <div class="container mx-auto px-6">
+        <h2 class="text-4xl font-bold text-center text-white mb-12" data-aos="fade-down">
+          Awards & <span class="gradient-text">Recognition</span>
+        </h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          <!-- BESA Award -->
+          <div class="award-card" data-aos="fade-up" data-aos-delay="100">
+            <div class="award-image-container">
+              <img src="/assets/evidence-and-impact-1.png" alt="BESA Awards 2025 - Evidence and Impact" class="award-image cursor-pointer" onclick="openAwardModal('besa')">
+              <div class="award-overlay">
+                <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                </svg>
+              </div>
+            </div>
+            <h3 class="text-xl font-bold text-white mt-4">BESA Awards 2025</h3>
+            <p class="text-gray-300 mt-2">Shortlisted for Evidence and Impact Award</p>
+          </div>
+
+          <!-- Teach Secondary Award -->
+          <div class="award-card" data-aos="fade-up" data-aos-delay="200">
+            <div class="award-image-container">
+              <img src="/assets/teach-secondary-awards.jpg" alt="Teach Secondary Awards Winner" class="award-image cursor-pointer" onclick="openAwardModal('teach')">
+              <div class="award-overlay">
+                <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                </svg>
+              </div>
+            </div>
+            <h3 class="text-xl font-bold text-white mt-4">Teach Secondary Awards</h3>
+            <p class="text-gray-300 mt-2">Winner - CPD Category</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Video Section -->
     <section class="py-20 bg-theme-primary">
       <div class="container mx-auto px-6 max-w-6xl">
@@ -64,6 +105,143 @@ import Layout from '../layouts/Layout.astro';
           </div>
 
         </div>
+
+        <!-- Schools Map Link -->
+        <div class="text-center mt-12">
+          <a href="#schools-map" class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-theme-secondary to-theme-accent1 text-white font-bold rounded-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
+            <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            View VESPA Schools Map
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Case Studies Section -->
+    <section class="py-20 bg-gradient-to-b from-theme-primary to-theme-dark">
+      <div class="container mx-auto px-6">
+        <h2 class="text-4xl font-bold text-center text-white mb-4" data-aos="fade-down">
+          Case Studies & <span class="gradient-text">Research</span>
+        </h2>
+        <p class="text-xl text-gray-300 text-center max-w-3xl mx-auto mb-16" data-aos="fade-up">
+          VESPA is a research-driven model. We continue to undertake key research projects across the UK and internationally.
+        </p>
+
+        <div class="space-y-16 max-w-6xl mx-auto">
+          <!-- Central South Consortium -->
+          <div class="case-study-card" data-aos="fade-up">
+            <div class="grid md:grid-cols-2 gap-8 items-center">
+              <div class="case-study-image">
+                <img src="/assets/csc-logo-rgb.jpg" alt="Central South Consortium" class="w-full rounded-lg">
+              </div>
+              <div>
+                <h3 class="text-2xl font-bold text-white mb-3">Central South Consortium - Wales</h3>
+                <p class="text-gray-300 mb-4">Since 2019, we've worked closely with the Post 16 Education Team at Central South Consortium in South Wales.</p>
+                <blockquote class="italic text-gray-400 mb-4 pl-4 border-l-4 border-theme-secondary">
+                  "The VESPA Academy platform assigns bespoke activities based on psychometric questionnaire outcomes, and generates immediate feedback to post-16 leaders and pastoral teams."
+                </blockquote>
+                <p class="text-sm text-gray-400">- Emma Lloyd, Area Lead for Post-16 Education</p>
+                <div class="mt-4">
+                  <span class="text-theme-secondary font-bold">Key Result:</span>
+                  <span class="text-white"> 7.5% increase in A* grades (2019-2023)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- University of Pretoria -->
+          <div class="case-study-card" data-aos="fade-up">
+            <div class="grid md:grid-cols-2 gap-8 items-center">
+              <div class="order-2 md:order-1">
+                <h3 class="text-2xl font-bold text-white mb-3">University of Pretoria</h3>
+                <p class="text-gray-300 mb-4">Using VESPA measures to identify areas of student support and better target undergraduates via an academic support programme.</p>
+                <blockquote class="italic text-gray-400 mb-4 pl-4 border-l-4 border-theme-secondary">
+                  "It's helped us tailor group intervention sessions... students have reported the questionnaires and activities have helped them identify and make real changes to their current approach."
+                </blockquote>
+                <p class="text-sm text-gray-400">- Fanie Walters and team</p>
+                <div class="mt-4">
+                  <span class="text-theme-secondary font-bold">Student Feedback:</span>
+                  <span class="text-white"> 4.45/5 for identifying needed changes</span>
+                </div>
+              </div>
+              <div class="case-study-image order-1 md:order-2">
+                <img src="/assets/university-pretoria.png" alt="University of Pretoria" class="w-full rounded-lg">
+              </div>
+            </div>
+          </div>
+
+          <!-- Hartpury University -->
+          <div class="case-study-card" data-aos="fade-up">
+            <div class="grid md:grid-cols-2 gap-8 items-center">
+              <div class="case-study-image">
+                <img src="/assets/hartpury-logo.jpg" alt="Hartpury University" class="w-full rounded-lg">
+              </div>
+              <div>
+                <h3 class="text-2xl font-bold text-white mb-3">Hartpury University</h3>
+                <p class="text-gray-300 mb-4">Using the VESPA Questionnaire to provide key indicators of student baseline mindset and development of "softer skills".</p>
+                <blockquote class="italic text-gray-400 mb-4 pl-4 border-l-4 border-theme-secondary">
+                  "The VESPA resources have been instrumental developing our students' academic and independent learning skills... We see real impact on students' academic performance."
+                </blockquote>
+                <p class="text-sm text-gray-400">- Michael Tambling</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dubai College -->
+          <div class="case-study-card" data-aos="fade-up">
+            <div class="grid md:grid-cols-2 gap-8 items-center">
+              <div class="order-2 md:order-1">
+                <h3 class="text-2xl font-bold text-white mb-3">Dubai College</h3>
+                <p class="text-gray-300 mb-4">Using VESPA to identify study strengths and weaknesses and develop effective academic behaviours.</p>
+                <blockquote class="italic text-gray-400 mb-4 pl-4 border-l-4 border-theme-secondary">
+                  "The VESPA platform has allowed our students to gain a more granular knowledge of their strengths and weaknesses... The fundamental principle of VESPA holds true: it is not intelligence or prior performance that leads to success at A Level, but rather effective academic behaviours and habits."
+                </blockquote>
+                <p class="text-sm text-gray-400">- Bobby Trivic, Head of 6th Form</p>
+              </div>
+              <div class="case-study-image order-1 md:order-2">
+                <img src="/assets/dubai-college-logo.png" alt="Dubai College" class="w-full rounded-lg">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Schools Map Section -->
+    <section id="schools-map" class="py-20 bg-theme-dark">
+      <div class="container mx-auto px-6">
+        <h2 class="text-4xl font-bold text-center text-white mb-4" data-aos="fade-down">
+          VESPA Schools <span class="gradient-text">Worldwide</span>
+        </h2>
+        <p class="text-xl text-gray-300 text-center max-w-3xl mx-auto mb-12" data-aos="fade-up">
+          Join over 600 schools and colleges already implementing the VESPA mindset
+        </p>
+        
+        <div class="max-w-6xl mx-auto" data-aos="zoom-in">
+          <div class="bg-theme-primary rounded-xl p-4 shadow-2xl">
+            <div class="relative w-full" style="height: 600px;">
+              <iframe 
+                src="https://www.google.com/maps/d/embed?mid=1R5W_gdFtpiXEYkSQljma6pV_B8UfqOs&ll=53.69743852797347%2C-2.707862139420323&z=7" 
+                width="100%" 
+                height="100%" 
+                frameborder="0"
+                class="rounded-lg"
+                allowfullscreen>
+              </iframe>
+            </div>
+          </div>
+          <div class="text-center mt-6">
+            <a href="https://www.google.com/maps/d/u/0/viewer?mid=1R5W_gdFtpiXEYkSQljma6pV_B8UfqOs&femb=1&ll=53.69743852797347%2C-2.707862139420323&z=7" 
+               target="_blank"
+               class="inline-flex items-center px-6 py-3 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-xl transition-all duration-300">
+              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+              </svg>
+              View Full Map
+            </a>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -85,9 +263,173 @@ import Layout from '../layouts/Layout.astro';
     </section>
 
   </main>
+
+  <!-- Award Modals -->
+  <div id="besa-modal" class="award-modal hidden">
+    <div class="award-modal-backdrop" onclick="closeAwardModal('besa')"></div>
+    <div class="award-modal-content">
+      <button onclick="closeAwardModal('besa')" class="award-modal-close">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+      <img src="/assets/evidence-and-impact-2.png" alt="BESA Awards 2025 - Evidence and Impact" class="w-full">
+      <div class="p-6">
+        <h3 class="text-2xl font-bold text-white mb-3">BESA Awards 2025</h3>
+        <p class="text-gray-300 mb-4">We're thrilled to be shortlisted for the Evidence and Impact award at the prestigious BESA Awards 2025.</p>
+        <p class="text-gray-400">This nomination recognizes our commitment to research-driven approaches and measurable outcomes in education.</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="teach-modal" class="award-modal hidden">
+    <div class="award-modal-backdrop" onclick="closeAwardModal('teach')"></div>
+    <div class="award-modal-content">
+      <button onclick="closeAwardModal('teach')" class="award-modal-close">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+      <img src="/assets/teach-secondary-awards.jpg" alt="Teach Secondary Awards Winner" class="w-full">
+      <div class="p-6">
+        <h3 class="text-2xl font-bold text-white mb-3">Teach Secondary Awards - CPD Winner</h3>
+        <p class="text-gray-300 mb-4">The VESPA Handbook won the CPD category at the Teach Secondary Awards 2024.</p>
+        <p class="text-gray-400">This award celebrates our innovative approach to teacher professional development and student mindset training.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Award Popup (appears on page load) -->
+  <div id="award-popup" class="award-popup">
+    <div class="award-popup-content">
+      <button onclick="closeAwardPopup()" class="award-popup-close">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+      <div class="flex items-center space-x-4">
+        <div class="award-popup-icon">
+          <svg class="w-8 h-8 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+          </svg>
+        </div>
+        <div>
+          <h4 class="text-lg font-bold text-white">Award Alert!</h4>
+          <p class="text-gray-300 text-sm">VESPA shortlisted for BESA Awards 2025</p>
+        </div>
+      </div>
+    </div>
+  </div>
 </Layout>
 
+<style>
+/* Case Study Cards */
+.case-study-card {
+  @apply bg-white/10 backdrop-blur-sm p-8 rounded-2xl transition-all duration-300;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.case-study-card:hover {
+  @apply bg-white/15;
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+}
+
+.case-study-image img {
+  @apply shadow-xl;
+  max-height: 300px;
+  width: auto;
+  margin: 0 auto;
+}
+
+/* Award Cards */
+.award-card {
+  @apply bg-white/10 backdrop-blur-sm p-6 rounded-xl text-center transition-all duration-300;
+}
+
+.award-card:hover {
+  @apply bg-white/15;
+  transform: translateY(-5px);
+}
+
+.award-image-container {
+  @apply relative overflow-hidden rounded-lg;
+}
+
+.award-image {
+  @apply w-full h-64 object-cover transition-transform duration-300;
+}
+
+.award-image-container:hover .award-image {
+  @apply scale-110;
+}
+
+.award-overlay {
+  @apply absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 transition-opacity duration-300;
+}
+
+.award-image-container:hover .award-overlay {
+  @apply opacity-100;
+}
+
+/* Award Modals */
+.award-modal {
+  @apply fixed inset-0 z-50 flex items-center justify-center p-4;
+}
+
+.award-modal-backdrop {
+  @apply absolute inset-0 bg-black/80 backdrop-blur-sm;
+}
+
+.award-modal-content {
+  @apply relative bg-theme-dark rounded-xl overflow-hidden max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl;
+}
+
+.award-modal-close {
+  @apply absolute top-4 right-4 bg-black/50 hover:bg-black/70 rounded-full p-2 text-white transition-colors z-10;
+}
+
+/* Award Popup */
+.award-popup {
+  @apply fixed bottom-6 right-6 z-50 animate-slide-in;
+}
+
+.award-popup-content {
+  @apply bg-gradient-to-r from-theme-primary to-theme-dark p-4 rounded-xl shadow-2xl border border-white/20 relative;
+  min-width: 320px;
+}
+
+.award-popup-close {
+  @apply absolute top-2 right-2 text-gray-400 hover:text-white transition-colors;
+}
+
+.award-popup-icon {
+  @apply bg-white/10 rounded-full p-3;
+}
+
+@keyframes slide-in {
+  from {
+    transform: translateX(400px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.animate-slide-in {
+  animation: slide-in 0.5s ease-out forwards;
+}
+
+/* Gradient text effect */
+.gradient-text {
+  @apply bg-gradient-to-r from-theme-secondary to-theme-accent1 bg-clip-text text-transparent;
+}
+</style>
+
 <script is:inline>
+// Video fullscreen function
 function openVideoFullscreen() {
   const iframe = document.querySelector('iframe[src*="muse.ai"]');
   if (iframe.requestFullscreen) {
@@ -98,4 +440,62 @@ function openVideoFullscreen() {
     iframe.msRequestFullscreen();
   }
 }
+
+// Award modal functions
+function openAwardModal(modalId) {
+  const modal = document.getElementById(modalId + '-modal');
+  if (modal) {
+    modal.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+  }
+}
+
+function closeAwardModal(modalId) {
+  const modal = document.getElementById(modalId + '-modal');
+  if (modal) {
+    modal.classList.add('hidden');
+    document.body.style.overflow = '';
+  }
+}
+
+// Award popup functions
+function closeAwardPopup() {
+  const popup = document.getElementById('award-popup');
+  if (popup) {
+    popup.style.animation = 'slide-out 0.5s ease-in forwards';
+    setTimeout(() => {
+      popup.style.display = 'none';
+    }, 500);
+  }
+}
+
+// Show award popup after 3 seconds
+setTimeout(() => {
+  const popup = document.getElementById('award-popup');
+  if (popup && !sessionStorage.getItem('awardPopupShown')) {
+    popup.style.display = 'block';
+    sessionStorage.setItem('awardPopupShown', 'true');
+    
+    // Auto-hide after 10 seconds
+    setTimeout(() => {
+      closeAwardPopup();
+    }, 10000);
+  }
+}, 3000);
+
+// Add slide-out animation
+const style = document.createElement('style');
+style.textContent = `
+  @keyframes slide-out {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(400px);
+      opacity: 0;
+    }
+  }
+`;
+document.head.appendChild(style);
 </script> 
