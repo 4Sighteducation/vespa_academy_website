@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VESPA Button Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f0f0f0;
+        }
+        .test-section {
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        button {
+            background: #3B82F6;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #2563EB;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+        }
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow: auto;
+        }
+        .close {
+            float: right;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        iframe {
+            width: 100%;
+            height: 400px;
+            border: 1px solid #ddd;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>VESPA Functionality Test Page</h1>
+    
+    <div class="test-section">
+        <h2>1. Resources Page Buttons Test</h2>
+        <p>These buttons should open modals with slides and PDFs:</p>
+        
+        <h3>Vision Activity</h3>
+        <button onclick="testSlideModal()">View Activity Slides</button>
+        <button onclick="testPdfModal()">View PDF Worksheet</button>
+        
+        <div id="status"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>2. Training Form Submit Button Test</h2>
+        <form onsubmit="testFormSubmit(event)">
+            <label>Training Type:
+                <select>
+                    <option>Staff Training</option>
+                    <option>Student Training</option>
+                </select>
+            </label>
+            <br><br>
+            <button type="submit" style="background: #10B981;">Submit Training Request</button>
+        </form>
+    </div>
+    
+    <div class="test-section">
+        <h2>3. Browser Console Output</h2>
+        <p>Open Developer Tools (F12) to see console messages</p>
+    </div>
+    
+    <!-- Test Modal -->
+    <div id="test-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2 id="modal-title">Test Modal</h2>
+            <iframe id="test-iframe" src=""></iframe>
+        </div>
+    </div>
+    
+    <script>
+        console.log('Test page loaded successfully');
+        
+        function testSlideModal() {
+            console.log('Slide button clicked');
+            document.getElementById('status').innerHTML = '✅ Slide button click registered';
+            
+            const modal = document.getElementById('test-modal');
+            const iframe = document.getElementById('test-iframe');
+            const title = document.getElementById('modal-title');
+            
+            title.textContent = 'Activity Slides Test';
+            iframe.src = 'https://vespa-academy.slides.com/vespaslides/gettingdreamsdone/embed?byline=hidden&share=hidden';
+            modal.style.display = 'block';
+            
+            console.log('Modal opened with slides URL');
+        }
+        
+        function testPdfModal() {
+            console.log('PDF button clicked');
+            document.getElementById('status').innerHTML = '✅ PDF button click registered';
+            
+            const modal = document.getElementById('test-modal');
+            const iframe = document.getElementById('test-iframe');
+            const title = document.getElementById('modal-title');
+            
+            title.textContent = 'PDF Worksheet Test';
+            iframe.src = '/worksheets/vision-getting-dreams-done.pdf';
+            modal.style.display = 'block';
+            
+            console.log('Modal opened with PDF URL');
+        }
+        
+        function closeModal() {
+            console.log('Closing modal');
+            const modal = document.getElementById('test-modal');
+            const iframe = document.getElementById('test-iframe');
+            
+            modal.style.display = 'none';
+            iframe.src = '';
+        }
+        
+        function testFormSubmit(event) {
+            event.preventDefault();
+            console.log('Form submitted!');
+            alert('✅ Form submit button is working!');
+            return false;
+        }
+        
+        // Test if JavaScript is working
+        console.log('JavaScript is running correctly');
+        console.log('Current time:', new Date().toLocaleString());
+    </script>
+</body>
+</html> 
