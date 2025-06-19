@@ -1266,6 +1266,19 @@ const pageDescription = "Take the VESPA questionnaire to assess your learning mi
         isSuspicious: isSuspicious
       };
     }
+
+    function isFreeEmail(email) {
+      const domain = email.split('@')[1]?.toLowerCase();
+      if (!domain) return false;
+
+      const freeDomains = [
+        'gmail.com', 'hotmail.com', 'yahoo.com', 'outlook.com', 'aol.com',
+        'icloud.com', 'mail.com', 'zoho.com', 'yandex.com', 'protonmail.com',
+        'hotmail.co.uk', 'live.com', 'msn.com'
+      ];
+
+      return freeDomains.includes(domain);
+    }
     
     // Initialize
     document.addEventListener('DOMContentLoaded', function() {
@@ -1335,6 +1348,25 @@ const pageDescription = "Take the VESPA questionnaire to assess your learning mi
         };
         
         // Validate email
+        const emailInput = registrationForm.querySelector('input[name="email"]');
+        const email = emailInput.value;
+        
+        // Remove existing error message
+        let errorEl = emailInput.parentElement.querySelector('.email-error');
+        if (errorEl) {
+          errorEl.remove();
+        }
+        
+        if (isFreeEmail(email)) {
+          emailInput.focus();
+          // Create and display error message
+          errorEl = document.createElement('p');
+          errorEl.textContent = 'Please use an official school or business email. Free email addresses are not supported.';
+          errorEl.className = 'text-red-600 text-xs mt-1 email-error';
+          emailInput.parentElement.appendChild(errorEl);
+          return; // Stop form submission
+        }
+        
         const emailValidation = validateEmailDomain(userData.email);
         
         if (emailValidation.isSuspicious) {

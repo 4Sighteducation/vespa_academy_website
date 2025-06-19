@@ -45,6 +45,72 @@ import Layout from '../layouts/Layout.astro';
       </div>
     </section>
 
+    <!-- Awards Section -->
+    <section class="py-20 bg-gradient-to-br from-theme-primary to-theme-dark">
+      <div class="container mx-auto px-6">
+        <h2 class="text-4xl font-bold text-center text-white mb-12" data-aos="fade-down">
+          Awards & <span class="gradient-text">Recognition</span>
+        </h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          <!-- BESA Award -->
+          <div class="award-card" data-aos="fade-up" data-aos-delay="100">
+            <div class="award-image-container">
+              <img src="/assets/evidence-and-impact-1.png" alt="BESA Awards 2025 - Evidence and Impact" class="award-image cursor-pointer">
+              <div class="award-overlay">
+                <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                </svg>
+              </div>
+            </div>
+            <h3 class="text-xl font-bold text-white mt-4">BESA Awards 2025</h3>
+            <p class="text-gray-300 mt-2">Shortlisted for Evidence and Impact Award</p>
+          </div>
+
+          <!-- Teach Secondary Award -->
+          <div class="award-card" data-aos="fade-up" data-aos-delay="200">
+            <div class="award-image-container">
+              <img src="/assets/teach-secondary-awards.jpg" alt="Teach Secondary Awards Winner" class="award-image cursor-pointer">
+              <div class="award-overlay">
+                <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                </svg>
+              </div>
+            </div>
+            <h3 class="text-xl font-bold text-white mt-4">Teach Secondary Awards</h3>
+            <p class="text-gray-300 mt-2">Winner - CPD Category</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Video Section -->
+    <section class="py-20 bg-theme-primary">
+      <div class="container mx-auto px-6 max-w-6xl">
+        <h2 class="text-4xl font-bold text-center text-white mb-12">BESA Awards - Evidence & Impact Submission</h2>
+        <div class="relative w-full" style="padding-bottom: 56.25%;">
+          <iframe 
+            src="https://muse.ai/embed/Y9ydBfY?links=0&style=minimal" 
+            frameborder="0" 
+            allowfullscreen 
+            class="absolute top-0 left-0 w-full h-full rounded-lg shadow-2xl"
+            style="background-color: #000;">
+          </iframe>
+        </div>
+        <div class="text-center mt-6">
+          <button onclick="openVideoFullscreen()" class="inline-flex items-center px-6 py-3 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-xl transition-all duration-300">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path>
+            </svg>
+            View Fullscreen
+          </button>
+        </div>
+      </div>
+    </section>
+
+
     <!-- Case Studies Section -->
     <section class="py-20 bg-gradient-to-b from-theme-primary to-theme-dark">
       <div class="container mx-auto px-6">
@@ -188,70 +254,6 @@ import Layout from '../layouts/Layout.astro';
       </div>
     </section>
 
-    <!-- Awards Section -->
-    <section class="py-20 bg-gradient-to-br from-theme-primary to-theme-dark">
-      <div class="container mx-auto px-6">
-        <h2 class="text-4xl font-bold text-center text-white mb-12" data-aos="fade-down">
-          Awards & <span class="gradient-text">Recognition</span>
-        </h2>
-        
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-          <!-- BESA Award -->
-          <div class="award-card" data-aos="fade-up" data-aos-delay="100">
-            <div class="award-image-container">
-              <img src="/assets/evidence-and-impact-1.png" alt="BESA Awards 2025 - Evidence and Impact" class="award-image cursor-pointer">
-              <div class="award-overlay">
-                <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-                </svg>
-              </div>
-            </div>
-            <h3 class="text-xl font-bold text-white mt-4">BESA Awards 2025</h3>
-            <p class="text-gray-300 mt-2">Shortlisted for Evidence and Impact Award</p>
-          </div>
-
-          <!-- Teach Secondary Award -->
-          <div class="award-card" data-aos="fade-up" data-aos-delay="200">
-            <div class="award-image-container">
-              <img src="/assets/teach-secondary-awards.jpg" alt="Teach Secondary Awards Winner" class="award-image cursor-pointer">
-              <div class="award-overlay">
-                <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-                </svg>
-              </div>
-            </div>
-            <h3 class="text-xl font-bold text-white mt-4">Teach Secondary Awards</h3>
-            <p class="text-gray-300 mt-2">Winner - CPD Category</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Video Section -->
-    <section class="py-20 bg-theme-primary">
-      <div class="container mx-auto px-6 max-w-6xl">
-        <h2 class="text-4xl font-bold text-center text-white mb-12">BESA Awards - Evidence & Impact Submission</h2>
-        <div class="relative w-full" style="padding-bottom: 56.25%;">
-          <iframe 
-            src="https://muse.ai/embed/Y9ydBfY?links=0&style=minimal" 
-            frameborder="0" 
-            allowfullscreen 
-            class="absolute top-0 left-0 w-full h-full rounded-lg shadow-2xl"
-            style="background-color: #000;">
-          </iframe>
-        </div>
-        <div class="text-center mt-6">
-          <button onclick="openVideoFullscreen()" class="inline-flex items-center px-6 py-3 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-xl transition-all duration-300">
-            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path>
-            </svg>
-            View Fullscreen
-          </button>
-        </div>
-      </div>
-    </section>
 
     <!-- Key Statistics -->
     <section class="py-20 bg-theme-dark">

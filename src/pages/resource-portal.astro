@@ -822,7 +822,7 @@ import ActivityModal from '../components/ActivityModal.astro';
 		<!-- PDF Modal -->
 		<div id="pdf-modal" class="fixed inset-0 z-50 hidden">
 			<div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="closePdfModal()"></div>
-			<div class="pdf-modal-container absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-5xl mx-4 h-[90vh] md:h-[90vh]">
+			<div class="pdf-modal-container absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-7xl mx-4 h-[95vh] md:h-[95vh]">
 				<div class="relative h-full bg-white rounded-lg overflow-hidden">
 					<div class="pdf-modal-header absolute top-0 left-0 right-0 bg-gray-100 p-3 md:p-4 flex items-center justify-between z-10">
 						<h3 id="pdf-modal-title" class="text-base md:text-xl font-bold text-gray-800 pr-2">PDF Worksheet</h3>
@@ -1142,11 +1142,11 @@ function closeSlidesModal(modalId) {
 
 // PDF modal functions
 const pdfUrls = {
-	'vision-pdf': 'https://www.vespa.academy/assets/MVIMAGES/ALEVELMindsetPdfs/V2%20-%20Getting%20Dreams%20Done.pdf',
-	'effort-pdf': 'https://www.vespa.academy/assets/MVIMAGES/ALEVELMindsetPdfs/E1-1-10%20Scale.pdf',
-	'systems-pdf': 'https://www.vespa.academy/assets/MVIMAGES/VESPAHandbookPdfs/SYSTEMS/SYSTEMS%20-%201%25%20Planning%28editable%29.pdf',
-	'practice-pdf': 'https://www.vespa.academy/assets/MVIMAGES/VESPAHandbookPdfs/PRACTICE/PRACTICE%20-%20High%20and%20Low%20Utility%28editable%29.pdf',
-	'attitude-pdf': 'https://www.vespa.academy/assets/MVIMAGES/VESPAHandbookPdfs/ATTITUDE/ATTITUDE%20-%20Worst%20Case%20Scenarios%28editable%29.pdf'
+	'vision-pdf': '/worksheets/vision-getting-dreams-done.pdf',
+	'effort-pdf': '/worksheets/effort-1-10-scale.pdf',
+	'systems-pdf': '/worksheets/systems-1-percent-planning.pdf',
+	'practice-pdf': '/worksheets/practice-high-low-utility.pdf',
+	'attitude-pdf': '/worksheets/attitude-worst-case-scenarios.pdf'
 };
 
 function openPdfModal(pdfId) {
@@ -1171,7 +1171,7 @@ function openPdfModal(pdfId) {
 		console.log('Attempting to load PDF:', pdfUrl);
 		
 		// Detect if mobile device
-		const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth <= 768;
+		const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 		console.log('Is mobile device:', isMobile);
 		
 		// Always add download button first (before trying to load PDF)
@@ -1206,7 +1206,7 @@ function openPdfModal(pdfId) {
 		}
 		
 		// For mobile devices OR as primary method, use Google Docs Viewer
-		if (isMobile || true) { // Using Google Docs as primary method for all devices
+		if (isMobile) { 
 			console.log('Using Google Docs Viewer for PDF');
 			
 			// Create iframe with Google Docs Viewer
@@ -1321,7 +1321,7 @@ function openPdfModal(pdfId) {
 			
 			// Fallback to Google Docs Viewer
 			const fallbackIframe = document.createElement('iframe');
-			fallbackIframe.src = `https://docs.google.com/viewer?url=${encodeURIComponent(pdfUrl)}&embedded=true`;
+			fallbackIframe.src = `https://docs.google.com/viewer?url=${encodeURIComponent(window.location.origin + pdfUrl)}&embedded=true`;
 			fallbackIframe.width = '100%';
 			fallbackIframe.height = '100%';
 			fallbackIframe.style.minHeight = '600px';
