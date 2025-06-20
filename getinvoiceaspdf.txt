@@ -1,0 +1,12 @@
+Returns
+This resource returns the specified object in the response body as an Adobe Portable Document Format (PDF) file. The resulting PDF file is formatted according to custom form styles in the company settings.
+
+Request URL
+GET /v3/company/<realmID>/invoice/<invoiceId>/pdf
+
+Content type:application/pdf
+Production Base URL:https://quickbooks.api.intuit.com
+Sandbox Base URL:https://sandbox-quickbooks.api.intuit.com
+
+returns
+"%PDF-1.4\r\n...\r\n%%EOF"

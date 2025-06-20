@@ -1,0 +1,116 @@
+Request URL
+POST /v3/company/<realmID>/invoice
+
+Content type:application/json
+Production Base URL:https://quickbooks.api.intuit.com
+Sandbox Base URL:https://sandbox-quickbooks.api.intuit.com
+
+
+
+;
+Request Body
+{
+  "Line": [
+    {
+      "DetailType": "SalesItemLineDetail", 
+      "Amount": 100.0, 
+      "SalesItemLineDetail": {
+        "ItemRef": {
+          "name": "Services", 
+          "value": "1"
+        }
+      }
+    }
+  ], 
+  "CustomerRef": {
+    "value": "1"
+  }
+}
+
+
+
+Try it
+Returns
+{
+  "Invoice": {
+    "TxnDate": "2015-07-24", 
+    "domain": "QBO", 
+    "PrintStatus": "NeedToPrint", 
+    "TotalAmt": 100.0, 
+    "Line": [
+      {
+        "LineNum": 1, 
+        "Amount": 100.0, 
+        "SalesItemLineDetail": {
+          "TaxCodeRef": {
+            "value": "NON"
+          }, 
+          "ItemRef": {
+            "name": "Services", 
+            "value": "1"
+          }
+        }, 
+        "Id": "1", 
+        "DetailType": "SalesItemLineDetail"
+      }, 
+      {
+        "DetailType": "SubTotalLineDetail", 
+        "Amount": 100.0, 
+        "SubTotalLineDetail": {}
+      }
+    ], 
+    "DueDate": "2015-08-23", 
+    "ApplyTaxAfterDiscount": false, 
+    "DocNumber": "1069", 
+    "sparse": false, 
+    "ProjectRef": {
+      "value": "39298034"
+    }, 
+    "Deposit": 0, 
+    "Balance": 100.0, 
+    "CustomerRef": {
+      "name": "Amy's Bird Sanctuary", 
+      "value": "1"
+    }, 
+    "TxnTaxDetail": {
+      "TotalTax": 0
+    }, 
+    "SyncToken": "0", 
+    "LinkedTxn": [], 
+    "ShipAddr": {
+      "City": "Bayshore", 
+      "Line1": "4581 Finch St.", 
+      "PostalCode": "94326", 
+      "Lat": "INVALID", 
+      "Long": "INVALID", 
+      "CountrySubDivisionCode": "CA", 
+      "Id": "109"
+    }, 
+    "EmailStatus": "NotSet", 
+    "BillAddr": {
+      "City": "Bayshore", 
+      "Line1": "4581 Finch St.", 
+      "PostalCode": "94326", 
+      "Lat": "INVALID", 
+      "Long": "INVALID", 
+      "CountrySubDivisionCode": "CA", 
+      "Id": "2"
+    }, 
+    "MetaData": {
+      "CreateTime": "2015-07-24T10:33:39-07:00", 
+      "LastUpdatedTime": "2015-07-24T10:33:39-07:00"
+    }, 
+    "CustomField": [
+      {
+        "DefinitionId": "1", 
+        "Type": "StringType", 
+        "Name": "Crew #"
+      }
+    ], 
+    "Id": "238"
+  }, 
+  "time": "2015-07-24T10:33:39.11-07:00"
+}
+
+
+

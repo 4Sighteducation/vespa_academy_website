@@ -1,0 +1,178 @@
+Request URL
+POST /v3/company/<realmID>/estimate
+
+Content type:application/json
+Production Base URL:https://quickbooks.api.intuit.com
+Sandbox Base URL:https://sandbox-quickbooks.api.intuit.com
+
+Request Body
+{
+  "TotalAmt": 31.5, 
+  "BillEmail": {
+    "Address": "Cool_Cars@intuit.com"
+  }, 
+  "CustomerMemo": {
+    "value": "Thank you for your business and have a great day!"
+  }, 
+  "ShipAddr": {
+    "City": "Half Moon Bay", 
+    "Line1": "65 Ocean Dr.", 
+    "PostalCode": "94213", 
+    "Lat": "37.4300318", 
+    "Long": "-122.4336537", 
+    "CountrySubDivisionCode": "CA", 
+    "Id": "4"
+  }, 
+  "PrintStatus": "NeedToPrint", 
+  "EmailStatus": "NotSet", 
+  "BillAddr": {
+    "City": "Half Moon Bay", 
+    "Line1": "65 Ocean Dr.", 
+    "PostalCode": "94213", 
+    "Lat": "37.4300318", 
+    "Long": "-122.4336537", 
+    "CountrySubDivisionCode": "CA", 
+    "Id": "4"
+  }, 
+  "Line": [
+    {
+      "Description": "Pest Control Services", 
+      "DetailType": "SalesItemLineDetail", 
+      "SalesItemLineDetail": {
+        "TaxCodeRef": {
+          "value": "NON"
+        }, 
+        "Qty": 1, 
+        "UnitPrice": 35, 
+        "ItemRef": {
+          "name": "Pest Control", 
+          "value": "10"
+        }
+      }, 
+      "LineNum": 1, 
+      "Amount": 35.0, 
+      "Id": "1"
+    }, 
+    {
+      "DetailType": "SubTotalLineDetail", 
+      "Amount": 35.0, 
+      "SubTotalLineDetail": {}
+    }, 
+    {
+      "DetailType": "DiscountLineDetail", 
+      "Amount": 3.5, 
+      "DiscountLineDetail": {
+        "DiscountAccountRef": {
+          "name": "Discounts given", 
+          "value": "86"
+        }, 
+        "PercentBased": true, 
+        "DiscountPercent": 10
+      }
+    }
+  ], 
+  "CustomerRef": {
+    "name": "Cool Cars", 
+    "value": "3"
+  }, 
+  "TxnTaxDetail": {
+    "TotalTax": 0
+  }, 
+  "ApplyTaxAfterDiscount": false
+}
+
+Returns 
+{
+  "Estimate": {
+    "DocNumber": "1001", 
+    "SyncToken": "0", 
+    "domain": "QBO", 
+    "TxnStatus": "Pending", 
+    "BillEmail": {
+      "Address": "Cool_Cars@intuit.com"
+    }, 
+    "TxnDate": "2015-03-26", 
+    "TotalAmt": 31.5, 
+    "CustomerRef": {
+      "name": "Cool Cars", 
+      "value": "3"
+    }, 
+    "CustomerMemo": {
+      "value": "Thank you for your business and have a great day!"
+    }, 
+    "ShipAddr": {
+      "CountrySubDivisionCode": "CA", 
+      "City": "Half Moon Bay", 
+      "PostalCode": "94213", 
+      "Id": "104", 
+      "Line1": "65 Ocean Dr."
+    }, 
+    "ProjectRef": {
+      "value": "39298034"
+    }, 
+    "PrintStatus": "NeedToPrint", 
+    "BillAddr": {
+      "CountrySubDivisionCode": "CA", 
+      "City": "Half Moon Bay", 
+      "PostalCode": "94213", 
+      "Id": "103", 
+      "Line1": "65 Ocean Dr."
+    }, 
+    "sparse": false, 
+    "EmailStatus": "NotSet", 
+    "Line": [
+      {
+        "Description": "Pest Control Services", 
+        "DetailType": "SalesItemLineDetail", 
+        "SalesItemLineDetail": {
+          "TaxCodeRef": {
+            "value": "NON"
+          }, 
+          "Qty": 1, 
+          "UnitPrice": 35, 
+          "ItemRef": {
+            "name": "Pest Control", 
+            "value": "10"
+          }
+        }, 
+        "LineNum": 1, 
+        "Amount": 35.0, 
+        "Id": "1"
+      }, 
+      {
+        "DetailType": "SubTotalLineDetail", 
+        "Amount": 35.0, 
+        "SubTotalLineDetail": {}
+      }, 
+      {
+        "DetailType": "DiscountLineDetail", 
+        "Amount": 3.5, 
+        "DiscountLineDetail": {
+          "DiscountAccountRef": {
+            "name": "Discounts given", 
+            "value": "86"
+          }, 
+          "PercentBased": true, 
+          "DiscountPercent": 10
+        }
+      }
+    ], 
+    "ApplyTaxAfterDiscount": false, 
+    "CustomField": [
+      {
+        "DefinitionId": "1", 
+        "Type": "StringType", 
+        "Name": "Crew #"
+      }
+    ], 
+    "Id": "177", 
+    "TxnTaxDetail": {
+      "TotalTax": 0
+    }, 
+    "MetaData": {
+      "CreateTime": "2015-03-26T13:25:05-07:00", 
+      "LastUpdatedTime": "2015-03-26T13:25:05-07:00"
+    }
+  }, 
+  "time": "2015-03-26T13:25:05.473-07:00"
+}

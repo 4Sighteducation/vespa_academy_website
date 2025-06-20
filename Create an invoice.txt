@@ -1,0 +1,44 @@
+Create an invoice
+Have at least one Line a sales item or inline subtotal.
+Have a populated CustomerRef element.
+Request Body
+The minimum elements to create an Invoice are listed here.
+
+ATTRIBUTES
+CustomerRef
+* Required
+ReferenceType , filterable
+Reference to a customer or job. Query the Customer name list resource to determine the appropriate Customer object for this reference. Use Customer.Id and Customer.DisplayName from that object for CustomerRef.value and CustomerRef.name, respectively.
+Show child attributes 
+Line [0..n]
+* Required
+Invoice line object
+The minimum line item required for the request is one of the following. SalesItemLine, GroupLine and Inline subtotal using DescriptionOnlyLine
+SalesItemLine
+Show child attributes 
+GroupLine
+Show child attributes 
+DescriptionOnlyLine
+Show child attributes 
+ProjectRef
+* Conditionally required
+minorVersion: 69
+ReferenceType , filterable
+Reference to the Project ID associated with this transaction. Available with Minor Version 69 and above
+Show child attributes 
+CurrencyRef
+* Conditionally required
+CurrencyRefType
+Reference to the currency in which all amounts on the associated transaction are expressed. This must be defined if multicurrency is enabled for the company.
+Multicurrency is enabled for the company if Preferences.MultiCurrencyEnabled is set to true. Read more about multicurrency support here. Required if multicurrency is enabled for the company.
+Hide child attributes 
+value
+* Required
+String
+A three letter string representing the ISO 4217 code for the currency. For example, USD, AUD, EUR, and so on.
+name
+Optional
+String
+The full name of the currency.
+Returns
+The invoice response body.

@@ -1,0 +1,42 @@
+An Estimate must have at least one line that describes an item.
+An Estimate must have a reference to a customer.
+If shipping address and billing address are not provided, the address from the referenced Customer object is used.
+Request Body
+The minimum elements to create an estimate are listed here.
+
+ATTRIBUTES
+Line
+* Required
+Estimate line object
+The minimum line item required for the request is one of the following. Sales item line type Group item line type
+SalesItemLine
+Show child attributes 
+GroupLine
+Show child attributes 
+CustomerRef
+* Required
+ReferenceType , filterable
+Reference to a customer or job. Query the Customer name list resource to determine the appropriate Customer object for this reference. Use Customer.Id and Customer.DisplayName from that object for CustomerRef.value and CustomerRef.name, respectively.
+Show child attributes 
+ProjectRef
+* Conditionally required
+minorVersion: 69
+ReferenceType , filterable
+Reference to the Project ID associated with this transaction. Available with Minor Version 69 and above
+Show child attributes 
+CurrencyRef
+* Conditionally required
+CurrencyRefType
+Reference to the currency in which all amounts on the associated transaction are expressed. This must be defined if multicurrency is enabled for the company.
+Multicurrency is enabled for the company if Preferences.MultiCurrencyEnabled is set to true. Read more about multicurrency support here. Required if multicurrency is enabled for the company
+Hide child attributes 
+value
+* Required
+String
+A three letter string representing the ISO 4217 code for the currency. For example, USD, AUD, EUR, and so on.
+name
+Optional
+String
+The full name of the currency.
+Returns
+The estimate response body.
