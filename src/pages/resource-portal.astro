@@ -1086,7 +1086,7 @@ function openSlidesModal(modalId) {
 		if (iframe && slideUrls[modalId]) {
 			// Use the exact URL format from the original embed codes
 			iframe.src = slideUrls[modalId];
-			console.log('Loading slides:', slideUrls[modalId]);
+			
 			
 			// Force iframe to be visible immediately
 			iframe.style.opacity = '1';
@@ -1094,7 +1094,7 @@ function openSlidesModal(modalId) {
 			
 			// Hide loading indicator when iframe loads
 			iframe.onload = function() {
-				console.log('Iframe loaded successfully');
+
 				
 				if (loading) {
 					loading.style.display = 'none';
@@ -1168,11 +1168,9 @@ function openPdfModal(pdfId) {
 		}
 		
 		const pdfUrl = pdfUrls[pdfId];
-		console.log('Attempting to load PDF:', pdfUrl);
 		
 		// Detect if mobile device
 		const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-		console.log('Is mobile device:', isMobile);
 		
 		// Always add download button first (before trying to load PDF)
 		const modalHeader = modal.querySelector('.bg-gray-100');
@@ -1207,7 +1205,7 @@ function openPdfModal(pdfId) {
 		
 		// For mobile devices OR as primary method, use Google Docs Viewer
 		if (isMobile) { 
-			console.log('Using Google Docs Viewer for PDF');
+
 			
 			// Create iframe with Google Docs Viewer
 			const googleViewerUrl = `https://docs.google.com/viewer?url=${encodeURIComponent(pdfUrl)}&embedded=true`;
@@ -1243,7 +1241,7 @@ function openPdfModal(pdfId) {
 			let loadTimeout;
 			
 			iframe.onload = function() {
-				console.log('Google Docs Viewer iframe loaded');
+
 				clearTimeout(loadTimeout);
 				if (loading) {
 					loading.style.display = 'none';
@@ -1260,12 +1258,10 @@ function openPdfModal(pdfId) {
 				try {
 					// If iframe is accessible and has content, assume success
 					if (iframe.contentWindow) {
-						console.log('PDF appears to have loaded');
 						return;
 					}
 				} catch (e) {
 					// Cross-origin, but that's expected with Google Docs
-					console.log('Cross-origin iframe (expected with Google Docs)');
 				}
 				
 				// Only show fallback if we detect a real problem
@@ -1274,7 +1270,6 @@ function openPdfModal(pdfId) {
 			
 			// Add error handler for network issues
 			iframe.onerror = function() {
-				console.error('Failed to load Google Docs Viewer');
 				if (loading) {
 					loading.style.display = 'none';
 				}
@@ -1385,37 +1380,8 @@ window.closeSlidesModal = closeSlidesModal;
 window.openPdfModal = openPdfModal;
 window.closePdfModal = closePdfModal;
 
-// Debug: Check if buttons are present
+// Force all buttons to be visible on page load
 document.addEventListener('DOMContentLoaded', () => {
-	console.log('Resource Portal: Page loaded, checking for buttons...');
-	
-	// Check for slide buttons
-	const slideButtons = document.querySelectorAll('button[onclick*="openSlidesModal"]');
-	console.log('Found slide buttons:', slideButtons.length);
-	slideButtons.forEach((btn, index) => {
-		console.log(`Slide Button ${index}:`, {
-			text: btn.textContent.trim(),
-			visible: btn.offsetParent !== null,
-			display: window.getComputedStyle(btn).display,
-			visibility: window.getComputedStyle(btn).visibility,
-			opacity: window.getComputedStyle(btn).opacity
-		});
-	});
-	
-	// Check for PDF buttons
-	const pdfButtons = document.querySelectorAll('button[onclick*="openPdfModal"]');
-	console.log('Found PDF buttons:', pdfButtons.length);
-	pdfButtons.forEach((btn, index) => {
-		console.log(`PDF Button ${index}:`, {
-			text: btn.textContent.trim(),
-			visible: btn.offsetParent !== null,
-			display: window.getComputedStyle(btn).display,
-			visibility: window.getComputedStyle(btn).visibility,
-			opacity: window.getComputedStyle(btn).opacity
-		});
-	});
-	
-	// Force all buttons to be visible
 	document.querySelectorAll('button').forEach(btn => {
 		btn.style.display = 'inline-flex';
 		btn.style.visibility = 'visible';

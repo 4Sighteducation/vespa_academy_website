@@ -533,13 +533,10 @@ function openVideoFullscreen() {
 
 // Award modal functions
 function openAwardModal(modalId) {
-  console.log('Opening modal:', modalId);
   const modal = document.getElementById(modalId + '-modal');
   if (modal) {
     modal.classList.remove('hidden');
     document.body.style.overflow = 'hidden';
-  } else {
-    console.error('Modal not found:', modalId + '-modal');
   }
 }
 
@@ -565,7 +562,6 @@ function closeAwardPopup() {
 
 // Test function to show award popup
 function testShowAwardPopup() {
-  console.log('Test button clicked - clearing session and showing popup');
   sessionStorage.removeItem('awardPopupShown');
   const popup = document.getElementById('award-popup');
   if (popup) {
@@ -588,37 +584,22 @@ window.testShowAwardPopup = testShowAwardPopup;
 
 // Show award popup after 3 seconds
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('DOM loaded, checking for popup...');
-  
-  // Debug: Check if elements exist
   const popup = document.getElementById('award-popup');
-  console.log('Award popup element:', popup);
-  
-  // Debug: Check if modal elements exist
-  const besaModal = document.getElementById('besa-modal');
-  const teachModal = document.getElementById('teach-modal');
-  console.log('BESA modal element:', besaModal);
-  console.log('Teach modal element:', teachModal);
-  
-  // Debug: Check if award images are clickable
-  const awardImages = document.querySelectorAll('.award-image');
-  console.log('Award images found:', awardImages.length);
   
   // Add click event listeners to award images
+  const awardImages = document.querySelectorAll('.award-image');
+  
   awardImages.forEach((img, index) => {
-    console.log(`Setting up click handler for image ${index}`);
     img.style.cursor = 'pointer';
     
     if (index === 0) {
       // First image is BESA
       img.addEventListener('click', function() {
-        console.log('BESA image clicked');
         openAwardModal('besa');
       });
     } else if (index === 1) {
       // Second image is Teach Secondary
       img.addEventListener('click', function() {
-        console.log('Teach Secondary image clicked');
         openAwardModal('teach');
       });
     }
@@ -626,7 +607,6 @@ document.addEventListener('DOMContentLoaded', () => {
   
   setTimeout(() => {
     if (popup && !sessionStorage.getItem('awardPopupShown')) {
-      console.log('Showing award popup...');
       popup.classList.remove('hidden');
       popup.style.animation = 'slide-in 0.5s ease-out forwards';
       sessionStorage.setItem('awardPopupShown', 'true');
@@ -635,8 +615,6 @@ document.addEventListener('DOMContentLoaded', () => {
       setTimeout(() => {
         closeAwardPopup();
       }, 10000);
-    } else {
-      console.log('Popup not shown - already shown or element not found');
     }
   }, 3000);
 });

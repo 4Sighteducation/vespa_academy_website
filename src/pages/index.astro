@@ -1512,15 +1512,10 @@ import ActivityModal from '../components/ActivityModal.astro';
 </style>
 
 <script is:inline>
-// Debug: Check if buttons are present
-document.addEventListener('DOMContentLoaded', () => {
-	console.log('Page loaded, checking for slide buttons...');
-	const slideButtons = document.querySelectorAll('button[onclick*="openSlidesModal"]');
-	console.log('Found slide buttons:', slideButtons.length);
-	slideButtons.forEach((btn, index) => {
-		console.log(`Button ${index}:`, btn.textContent.trim(), 'Visible:', btn.offsetParent !== null);
-	});
-});
+    // Ensure buttons are visible on page load
+    document.addEventListener('DOMContentLoaded', () => {
+      const slideButtons = document.querySelectorAll('button[onclick*="openSlidesModal"]');
+    });
 
 // Counter animation
 document.addEventListener('DOMContentLoaded', () => {
@@ -1758,60 +1753,13 @@ function openSlidesModal(modalId) {
 		if (iframe && slideUrls[modalId]) {
 			// Use the exact URL format from the original embed codes
 			iframe.src = slideUrls[modalId];
-			console.log('Loading slides:', slideUrls[modalId]);
 			
 			// Force iframe to be visible immediately
 			iframe.style.opacity = '1';
 			iframe.style.visibility = 'visible';
 			
-			// Debug: Check iframe properties
-			console.log('Iframe properties:', {
-				id: iframe.id,
-				src: iframe.src,
-				width: iframe.width,
-				height: iframe.height,
-				offsetWidth: iframe.offsetWidth,
-				offsetHeight: iframe.offsetHeight,
-				style: {
-					opacity: iframe.style.opacity,
-					visibility: iframe.style.visibility,
-					display: window.getComputedStyle(iframe).display
-				}
-			});
-			
 			// Hide loading indicator when iframe loads
 			iframe.onload = function() {
-				console.log('Iframe loaded successfully');
-				
-				// Debug: Check iframe content
-				try {
-					console.log('Iframe contentWindow:', iframe.contentWindow);
-					console.log('Iframe document readyState:', iframe.contentDocument?.readyState);
-				} catch (e) {
-					console.log('Cannot access iframe content (cross-origin):', e.message);
-				}
-				
-				// Debug: Check computed styles
-				const computedStyle = window.getComputedStyle(iframe);
-				console.log('Iframe computed styles:', {
-					display: computedStyle.display,
-					visibility: computedStyle.visibility,
-					opacity: computedStyle.opacity,
-					width: computedStyle.width,
-					height: computedStyle.height,
-					position: computedStyle.position,
-					zIndex: computedStyle.zIndex
-				});
-				
-				// Check parent container
-				const parentDiv = iframe.parentElement;
-				const parentStyle = window.getComputedStyle(parentDiv);
-				console.log('Parent container styles:', {
-					display: parentStyle.display,
-					width: parentStyle.width,
-					height: parentStyle.height,
-					overflow: parentStyle.overflow
-				});
 				
 				if (loading) {
 					loading.style.display = 'none';
@@ -1875,7 +1823,6 @@ openSlidesModal = function(modalId) {
 		
 		// If loading indicator is still visible after 5 seconds, show alternative
 		if (loading && loading.style.display !== 'none') {
-			console.log('Iframe may have failed to load, showing alternative...');
 			// You can automatically open in new window or show a message
 		}
 	}, 5000);

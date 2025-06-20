@@ -1377,7 +1377,6 @@ const pageDescription = "Take the VESPA questionnaire to assess your learning mi
         
         // Send lead notification immediately on registration
         try {
-          console.log('Sending lead notification...');
           const leadResponse = await fetch('/api/send-lead', {
             method: 'POST',
             headers: {
@@ -1386,13 +1385,10 @@ const pageDescription = "Take the VESPA questionnaire to assess your learning mi
             body: JSON.stringify(userData)
           });
           
-          if (leadResponse.ok) {
-            console.log('Lead notification sent successfully');
-          } else {
-            console.error('Lead notification failed:', await leadResponse.text());
+          if (!leadResponse.ok) {
+            // Silently fail - don't interrupt the user experience
           }
         } catch (error) {
-          console.error('Error sending lead notification:', error);
           // Don't block the user flow if lead email fails
         }
         
@@ -1595,7 +1591,6 @@ const pageDescription = "Take the VESPA questionnaire to assess your learning mi
         }
         return await response.json();
       } catch (error) {
-        console.error('Error loading report data:', error);
         // Return a fallback structure
         return {
           report_data: {
@@ -1807,7 +1802,6 @@ const pageDescription = "Take the VESPA questionnaire to assess your learning mi
       reportContainer.innerHTML = reportHTML;
       
       // Show results modal with download option
-      console.log('Generating modal content...');
       resultsContent.innerHTML = `
         <div class="text-center mb-8">
           <h2 class="text-4xl font-bold text-gray-800 mb-4">Your VESPA Learning Profile</h2>
@@ -1860,22 +1854,7 @@ const pageDescription = "Take the VESPA questionnaire to assess your learning mi
         </div>
       `;
       
-      console.log('Modal content set, showing modal...');
       resultsModal.classList.remove('hidden');
-      
-      // Enhanced debugging
-      console.log('Results content HTML:', resultsContent.innerHTML);
-      console.log('Buttons should be visible now');
-      
-      // Ensure buttons are properly rendered
-      setTimeout(() => {
-        const emailButton = document.querySelector('button[onclick*="emailAndGetAccess"]');
-        console.log('Email button found:', emailButton);
-        
-        if (!emailButton) {
-          console.error('EMAIL BUTTON NOT FOUND! This is the issue.');
-        }
-      }, 500);
       
       // Add event listener for the close button within the results content
       setTimeout(() => {
@@ -1925,11 +1904,9 @@ const pageDescription = "Take the VESPA questionnaire to assess your learning mi
                 }
               }
             });
-          } else {
-            console.error('Chart.js not loaded');
           }
         } catch (error) {
-          console.error('Error initializing chart:', error);
+          // Chart initialization failed
         }
       }, 200);
     }
@@ -1946,7 +1923,6 @@ const pageDescription = "Take the VESPA questionnaire to assess your learning mi
     // Email report and get access function
     window.emailAndGetAccess = async function(event) {
       try {
-        console.log('Starting email process...');
         
         // Show loading state
         const button = event.currentTarget || event.target;
@@ -1971,8 +1947,6 @@ const pageDescription = "Take the VESPA questionnaire to assess your learning mi
           userData.interests = [];
         }
         
-        console.log('Sending API request...');
-        
         // Prepare the data to send - simplified for the new backend approach
         const requestData = {
           userData: userData,
@@ -1981,17 +1955,6 @@ const pageDescription = "Take the VESPA questionnaire to assess your learning mi
           averages: currentAverages,
           level: userData.level || 'Level 3'
         };
-        
-        // Add detailed logging
-        console.log('=== API REQUEST DATA DEBUG ===');
-        console.log('Full request data:', JSON.stringify(requestData, null, 2));
-        console.log('userData:', userData);
-        console.log('userData keys:', userData ? Object.keys(userData) : 'undefined');
-        console.log('currentScales:', currentScales);
-        console.log('currentScales keys:', currentScales ? Object.keys(currentScales) : 'undefined');
-        console.log('currentAverages:', currentAverages);  
-        console.log('currentAverages keys:', currentAverages ? Object.keys(currentAverages) : 'undefined');
-        console.log('=== END DEBUG ===');
         
         // Send the report via API
         const response = await fetch('/api/send-report', {
@@ -2002,16 +1965,12 @@ const pageDescription = "Take the VESPA questionnaire to assess your learning mi
           body: JSON.stringify(requestData)
         });
         
-        console.log('API response status:', response.status);
-        
         if (!response.ok) {
           const errorText = await response.text();
-          console.error('API error response:', errorText);
           throw new Error(`HTTP error! status: ${response.status}, response: ${errorText}`);
         }
         
         const result = await response.json();
-        console.log('API result:', result);
         
         if (result.success) {
           // Show success message
@@ -2052,8 +2011,6 @@ const pageDescription = "Take the VESPA questionnaire to assess your learning mi
           throw new Error(result.error || 'Unknown error occurred');
         }
       } catch (error) {
-        console.error('Error sending report:', error);
-        
         // Reset button state
         const button = event.currentTarget || event.target || document.querySelector('button[onclick*="emailAndGetAccess"]');
         if (button) {

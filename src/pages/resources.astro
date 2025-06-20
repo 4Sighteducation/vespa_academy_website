@@ -880,7 +880,6 @@ const slideUrls = {
 };
 
 function openSlidesModal(modalId) {
-	console.log('Opening modal:', modalId);
 	const modal = document.getElementById(modalId);
 	if (modal) {
 		// Get the iframe element
@@ -892,7 +891,6 @@ function openSlidesModal(modalId) {
 		// Set the src URL when opening the modal
 		if (iframe && slideUrls[modalId]) {
 			iframe.src = slideUrls[modalId];
-			console.log('Loading slides:', slideUrls[modalId]);
 			
 			// Force iframe to be visible immediately
 			iframe.style.opacity = '1';
@@ -900,7 +898,6 @@ function openSlidesModal(modalId) {
 			
 			// Hide loading indicator when iframe loads
 			iframe.onload = function() {
-				console.log('Iframe loaded successfully');
 				if (loading) {
 					loading.style.display = 'none';
 				}
@@ -955,7 +952,6 @@ const pdfUrls = {
 };
 
 function openPdfModal(pdfId) {
-	console.log('Opening PDF modal:', pdfId);
 	const modal = document.getElementById('pdf-modal');
 	const iframe = document.getElementById('pdf-iframe');
 	const loading = document.getElementById('pdf-loading');
@@ -1025,14 +1021,7 @@ window.closePdfModal = closePdfModal;
 
 // Debug: Check if buttons are present after page load
 document.addEventListener('DOMContentLoaded', () => {
-	console.log('Page loaded, checking for slide buttons...');
 	const slideButtons = document.querySelectorAll('button[onclick*="openSlidesModal"]');
-	console.log('Found slide buttons:', slideButtons.length);
-	slideButtons.forEach((btn, index) => {
-		console.log(`Button ${index}:`, btn.textContent.trim(), 'Visible:', btn.offsetParent !== null);
-	});
-	
 	const pdfButtons = document.querySelectorAll('button[onclick*="openPdfModal"]');
-	console.log('Found PDF buttons:', pdfButtons.length);
 });
 </script>
