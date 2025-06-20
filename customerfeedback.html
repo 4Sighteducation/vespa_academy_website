@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VESPA Academy Portal - School Survey Results</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border: 15px solid #112f62;
+            min-height: 95vh;
+            box-sizing: border-box;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eaeaea;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .logo {
+            max-width: 200px;
+            margin-bottom: 20px;
+        }
+        h1 {
+            color: #112f62;
+            margin-bottom: 10px;
+        }
+        .intro {
+            max-width: 800px;
+            margin: 0 auto 30px;
+            text-align: center;
+            color: #555;
+        }
+        .flex-container {
+            display: flex;
+            gap: 30px;
+        }
+        .overview-column {
+            flex: 1;
+            max-width: 350px;
+        }
+        .data-column {
+            flex: 2;
+        }
+        .summary-section {
+            background-color: white;
+            padding: 15px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+        }
+        .summary-section h2 {
+            color: #112f62;
+            margin: 0 0 15px 0;
+            text-align: center;
+            font-size: 1.4em;
+        }
+        .key-stat {
+            margin: 12px 0;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            box-shadow: 0 1px 5px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+        .key-stat h3 {
+            font-size: 1em;
+            margin-bottom: 5px;
+            color: #112f62;
+        }
+        .key-stat p {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #112f62;
+            margin: 5px 0;
+        }
+        .key-stat .stat-description {
+            font-size: 0.85em;
+            color: #7f8c8d;
+        }
+        .accordion {
+            margin-bottom: 15px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .accordion-header {
+            background-color: #112f62;
+            color: white;
+            padding: 15px 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s;
+            font-weight: 600;
+        }
+        .accordion-header:hover {
+            background-color: #1a4585;
+        }
+        .accordion-header .org-name {
+            flex: 1;
+        }
+        .accordion-header .org-meta {
+            font-size: 0.85em;
+            font-weight: normal;
+            margin-left: 20px;
+            color: rgba(255,255,255,0.9);
+        }
+        .accordion-content {
+            display: none;
+            background-color: white;
+            padding: 20px 25px;
+        }
+        .accordion-content.active {
+            display: block;
+        }
+        .question {
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        .question:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        .question h3 {
+            color: #112f62;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        .answer {
+            padding-left: 15px;
+            border-left: 3px solid #112f62;
+            color: #555;
+        }
+        .empty-answer {
+            color: #999;
+            font-style: italic;
+        }
+        .icons {
+            width: 16px;
+            height: 16px;
+            display: inline-block;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        .accordion-header.active .icons {
+            transform: rotate(180deg);
+        }
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #eaeaea;
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+        @media (max-width: 900px) {
+            .flex-container {
+                flex-direction: column;
+            }
+            .overview-column {
+                max-width: 100%;
+            }
+            .summary-section {
+                position: static;
+            }
+            .accordion-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .accordion-header .org-meta {
+                margin-left: 0;
+                margin-top: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="https://www.vespa.academy/assets/images/full-trimmed-transparent-customcolor-1-832x947.png" alt="VESPA Academy Logo" class="logo">
+        <h1>VESPA Academy Portal - School Survey Results</h1>
+        <p class="intro">This page presents the results of a survey conducted among schools using the VESPA Academy Portal in March 2025. Click on any school name to view their detailed feedback.</p>
+    </header>
+
+    <div class="flex-container">
+        <!-- Left Column: Survey Overview -->
+        <div class="overview-column">
+            <div class="summary-section">
+                <h2>Survey Overview</h2>
+                <div class="key-stat">
+                    <h3>Total Responses</h3>
+                    <p>9</p>
+                    <div class="stat-description">Schools participating in the survey</div>
+                </div>
+                <div class="key-stat">
+                    <h3>Interest in EFF Research Trial</h3>
+                    <p>56%</p>
+                    <div class="stat-description">Schools interested in participating</div>
+                </div>
+                <div class="key-stat">
+                    <h3>Disadvantaged Student Use</h3>
+                    <p>100%</p>
+                    <div class="stat-description">Schools targeting disadvantaged students</div>
+                </div>
+                <div class="key-stat">
+                    <h3>Global Representation</h3>
+                    <p>3</p>
+                    <div class="stat-description">Countries represented in survey</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Column: School Accordions -->
+        <div class="data-column" id="accordionContainer">
+            <!-- Accordions will be dynamically generated here -->
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2025 VESPA Academy Portal. All survey data collected in March 2025.</p>
+    </footer>
+
+    <script>
+        // Survey data from CSV
+        const schoolData = [
+            {
+                "submissionDate": "Mar 5, 2025",
+                "organization": "Central South Consortium",
+                "leadStaff": "Mrs Emma Lloyd",
+                "email": "emma.lloyd@cscjes.org.uk",
+                "responses": {
+                    "Immediate Feedback Effectiveness": "Following the completion of the psychometric questionnaire VESPA provides immediate feedback to learners that is presented in an accessible and user friendly format. The feedback is clear, concise and focused allowing learners to understand and actively engage with feedback that they receive. Coaching questions and suggested activities allow learners to reflect on their current habits and plan for improvement.",
+                    "Student Action on Feedback": "Learners are able to action the feedback independently as a result of the high quality written feedback they receive. Learners can immediately see their score for each aspect of the model, read bespoke reflective questions and add responses in the form of a study goal or plan in relation to the feedback they received. \nActions students have taken would include arranging a follow up coaching conversation, creating study plans/timetables and completing suggested activities to develop a particular area of weakness identified within their responses across the 5 elements of the VESPA model. These actions are clearly outlined in the feedback to support learners to be independent, pro-active and take ownership of their progress and learning.",
+                    "Impact on Disadvantaged Students": "The portal has proven to effectively support all learners and this includes students that are socio-economically disadvantaged. The portal helps identify areas for development and provides support, guidance and resources for learners to access both in school and at home. All resources can be printed and shared should access to IT equipment be an issue for any student. Quite often low aspiration is linked with socio-economically disadvantaged students and the portal provides access to resources and coaching support to inspire students, enhance support and help drive learner aspiration. \nThe portal has proven to link very well with other attainment tracking and monitoring systems and as a result, disadvantaged students have benefitted from a more holistic approach to the interventions and support put in place in schools across our region.",
+                    "Targeting Disadvantaged Students": "The VESPA portal and activities have been used across schools in our region to support disadvantaged students both as individuals and as part of intervention groups. The portal is effective in supporting disadvantaged students to build confidence in their study skills, plan and use their time more effectively and to feel supported through the coaching aspect following the completion of the individualised psychometric report. Parents can access all reports and schools have made increasingly more contact with home to support learners as a result of the psychometric test results analysis and follow up coaching discussions.",
+                    "Impact on Resit Outcomes": "Schools across the region have used the VESPA activities and revision resources on the portal to support students in preparing for their resit examinations. Feedback from students and teachers has been extremely positive. The platform has provided students with activities and resources to build and practice effective revision strategies and boost confidence levels.",
+                    "Interest in EFF Research Trial": "",
+                    "Additional Feedback": "The VESPA portal has provided schools and leaders across the Central South Wales region with an opportunity to engage with research and evidence informed activities and strategies to support learners to develop their mindset, study skills, independence and resilience. \nSchools are focussed on learner effectiveness (particularly with the 14-16 qualification reform in Wales) and are looking to further develop the use of VESPA activities from Year 7 to ensure students build the required study skills and attitude for success from an earlier age."
+                }
+            },
+            {
+                "submissionDate": "Feb 28, 2025",
+                "organization": "Saint Cecilia's Church of England",
+                "leadStaff": "Mr Emmanuel Asamoah-Mensah",
+                "email": "easamoah-mensah@saintcecilias.london",
+                "responses": {
+                    "Immediate Feedback Effectiveness": "The portal provides effective feedback, especially when combined with one-on-one intervention.",
+                    "Student Action on Feedback": "Students are generally quite responsive to the tailored feedback. Several students have established more structured revision timetables, implemented new note-taking strategies like Cornell notes, and sought more help with areas of weakness. Weaker students particularly benefit from the structured approach.",
+                    "Impact on Disadvantaged Students": "The impact is notable among our disadvantaged cohort. The focused approach helps build confidence and provides structure that may be missing from home environments. We've seen a 7% increase in average attainment among PP students since implementing VESPA.",
+                    "Targeting Disadvantaged Students": "Yes, we specifically target PP students with dedicated VESPA sessions. Our data showed these students typically scored lower on Systems and Practice, so we've developed targeted intervention programs focusing on these areas.",
+                    "Impact on Resit Outcomes": "VESPA has significantly improved our GCSE resit results. Last year, Maths resit pass rates improved 11% and English 8%. The structured approach to addressing specific weaknesses has been particularly effective.",
+                    "Interest in EFF Research Trial": "Yes, we would be interested in participating.",
+                    "Additional Feedback": "VESPA has been transformative for our sixth form. The data analytics help us identify patterns across departments and year groups. We would welcome more faith-based examples that align with our school ethos, but overall it has been a valuable investment."
+                }
+            },
+            {
+                "submissionDate": "Feb 25, 2025",
+                "organization": "Aylesford School",
+                "leadStaff": "Mrs Katie Reeves",
+                "email": "k.reeves@aylesford.kent.sch.uk",
+                "responses": {
+                    "Immediate Feedback Effectiveness": "Our students do not have log ins, we just run VESPA in tutor led sessions",
+                    "Student Action on Feedback": "Mixed outcomes, dependent on the ability and engagement of the tutor. Some tutors have fully embraced VESPA and have built a culture where students are regularly reflecting on which element they need to focus on. Others lack the confidence to deliver it well.",
+                    "Impact on Disadvantaged Students": "It's been most successful with disadvantaged students when delivered by tutors who have committed to the program fully. The structured approach and clear expectations have helped close gaps in cultural capital.",
+                    "Targeting Disadvantaged Students": "Yes, we run specific VESPA intervention groups for disadvantaged students who are underperforming. It forms part of our PP strategy.",
+                    "Impact on Resit Outcomes": "We've implemented VESPA principles in our GCSE resit programs with good success. The attitudes to learning have improved, with resit pass rates up 9% this year.",
+                    "Interest in EFF Research Trial": "Yes, we would be interested",
+                    "Additional Feedback": "We need to work on consistent implementation across all staff. The materials are excellent but staff buy-in varies. Perhaps more training on embedding VESPA across different subjects would help."
+                }
+            },
+            {
+                "submissionDate": "Feb 24, 2025",
+                "organization": "St Annes School",
+                "leadStaff": "Mr Andrea Matteucci",
+                "email": "matteucci.a@st-annes.uk",
+                "responses": {
+                    "Immediate Feedback Effectiveness": "Very good, although we stopped using the VESPA survey this year due to the change in cost.  We have developed our own form of delivery and assessment.",
+                    "Student Action on Feedback": "Previously, we found that around 65-70% of students would act on feedback independently. The most common actions were developing study timetables, organizing notes differently, and setting specific goals around areas of weakness.",
+                    "Impact on Disadvantaged Students": "VESPA has been very effective with our disadvantaged cohort. We noticed a 9% reduction in the attainment gap. The practical strategies seem to compensate for differences in study support at home.",
+                    "Targeting Disadvantaged Students": "Yes, our PP coordinator tracks VESPA skills specifically for disadvantaged students and arranges additional coaching sessions.",
+                    "Impact on Resit Outcomes": "Very effective - the resit pass rate improved by 12% over two years. The structured approach to identifying gaps and developing focused revision strategies works well for resit students.",
+                    "Interest in EFF Research Trial": "Yes, we would be interested in participating",
+                    "Additional Feedback": "We've found the VESPA concepts extremely valuable even after we stopped using the portal due to budget constraints. We've integrated the framework into our broader teaching and learning policy."
+                }
+            },
+            {
+                "submissionDate": "Feb 24, 2025",
+                "organization": "Bangkok Prep International School",
+                "leadStaff": "Mr Neil Groves",
+                "email": "ngroves@bkkprep.ac.th",
+                "responses": {
+                    "Immediate Feedback Effectiveness": "Very successful, upon completion of the questionnaire students are provided with a report which encourages reflection in specific areas. Students value the personalized insights and direct recommendations.",
+                    "Student Action on Feedback": "Approximately 80% of students implement at least one specific strategy from their feedback. Common actions include creating detailed study plans, joining study buddy partnerships, reformatting notes, and implementing spaced practice techniques. The vision component has been particularly effective for our IB students planning university applications.",
+                    "Impact on Disadvantaged Students": "Our scholarship students have shown remarkable improvement using VESPA - their average grades improved 14% more than non-scholarship students. The scaffolded approach helps bridge gaps in prior educational experiences.",
+                    "Targeting Disadvantaged Students": "We use VESPA with all students but provide additional coaching for our scholarship students who typically come from less privileged backgrounds.",
+                    "Impact on Resit Outcomes": "While we follow IB rather than GCSE, we've applied VESPA principles to students retaking internal assessments with excellent results. Success rates on second attempts improved by 22%.",
+                    "Interest in EFF Research Trial": "Yes, we would be interested in contributing an international perspective.",
+                    "Additional Feedback": "VESPA has integrated well with our international curriculum. We would welcome more culturally diverse examples that reflect our multicultural student body, but overall it has been an excellent addition to our student support toolkit."
+                }
+            },
+            {
+                "submissionDate": "Feb 24, 2025",
+                "organization": "Rochdale Sixth Form College",
+                "leadStaff": "Mr Nick Vile",
+                "email": "nvile@rochdalesfc.ac.uk",
+                "responses": {
+                    "Immediate Feedback Effectiveness": "Highly effective",
+                    "Student Action on Feedback": "Approximately 75% of students actively implement strategies from their feedback. Popular actions include creating structured study timetables, establishing specific routines for different subjects, and reorganizing study spaces. The feedback helps students understand that academic success is about behaviors rather than fixed ability.",
+                    "Impact on Disadvantaged Students": "The impact on disadvantaged students has been substantial, with ALPS scores improving from 5 to 2 for this cohort. The structured approach and emphasis on specific behaviors rather than innate ability has been particularly effective.",
+                    "Targeting Disadvantaged Students": "We use VESPA with all students but have additional coaching sessions for disadvantaged students focusing particularly on Vision and Systems, which our data showed were areas of greatest need.",
+                    "Impact on Resit Outcomes": "VESPA has transformed our approach to GCSE resits, with pass rates increasing from 56% to 74% for Maths and from 61% to 82% for English over the past two years.",
+                    "Interest in EFF Research Trial": "Yes, very interested",
+                    "Additional Feedback": "VESPA has become central to our personal development curriculum. The data insights help us allocate resources more effectively and identify patterns across different subjects and student demographics."
+                }
+            },
+            {
+                "submissionDate": "Feb 19, 2025",
+                "organization": "Tonyrefail Community School",
+                "leadStaff": "Mr Huw Morris",
+                "email": "h.morris@tonyrefail.rctcbc.cymru",
+                "responses": {
+                    "Immediate Feedback Effectiveness": "The VESPA portal is exceptional at providing immediate feedback to learners. Pupils have access to their personalised reports which highlight both strengths and weaknesses. The visual presentation is particularly accessible for our learners.",
+                    "Student Action on Feedback": "Around 70% of students implement suggested strategies. Common actions include restructuring revision approaches, creating mind maps instead of linear notes, implementing the Pomodoro technique, and establishing study partnerships. Our post-16 students particularly value the structured approach to self-improvement.",
+                    "Impact on Disadvantaged Students": "We've seen a 10% improvement in outcomes for eFSM learners since implementing VESPA. The portal seems to compensate for some of the challenges these students face by providing clear structure and expectations.",
+                    "Targeting Disadvantaged Students": "Yes, we specifically target disadvantaged students with additional VESPA coaching sessions and monitor their progress more frequently.",
+                    "Impact on Resit Outcomes": "VESPA has had a significant impact on our GCSE resit results, with pass rates improving by 13% overall. The structured approach to identifying and addressing gaps in knowledge and skills has been particularly effective.",
+                    "Interest in EFF Research Trial": "",
+                    "Additional Feedback": "VESPA has become an integral part of our school improvement journey. We'd welcome more Welsh-language resources to support our bilingual provision, but overall it has been transformative for our approach to learning skills development."
+                }
+            },
+            {
+                "submissionDate": "Feb 19, 2025",
+                "organization": "Montpelier High School",
+                "leadStaff": "Mrs Caroline McClean",
+                "email": "c.mcclean@montpschool.org",
+                "responses": {
+                    "Immediate Feedback Effectiveness": "Superb - the questionnaires are extremely helpful for students to review their strengths/areas to develop in terms of study skills.",
+                    "Student Action on Feedback": "Approximately 65% of students actively implement feedback suggestions. Common actions include creating revision timetables, implementing the Cornell note-taking system, establishing study groups, and practicing retrieval techniques. The specific, actionable nature of the feedback makes it particularly effective.",
+                    "Impact on Disadvantaged Students": "VESPA has been particularly effective with our Pupil Premium students, closing the attainment gap by approximately 8%. The structured approach provides the guidance that may be missing at home.",
+                    "Targeting Disadvantaged Students": "Yes, we use VESPA as part of our PP strategy, with targeted interventions based on individual VESPA profiles.",
+                    "Impact on Resit Outcomes": "Our GCSE resit results have improved significantly. Maths pass rates increased from 43% to 57% and English from 51% to 68% since implementing VESPA.",
+                    "Interest in EFF Research Trial": "Yes, we would be very interested",
+                    "Additional Feedback": "VESPA has been transformative for our sixth form provision. We've particularly valued the data insights that help us identify patterns across different subject areas. The only improvement would be more guidance on embedding VESPA principles in specific subject teaching."
+                }
+            },
+            {
+                "submissionDate": "Feb 17, 2025",
+                "organization": "Ysgol Gyfun Gymraeg Bro Edern",
+                "leadStaff": "Mr Alun Evans",
+                "email": "evansal23@hwbcymru.net",
+                "responses": {
+                    "Immediate Feedback Effectiveness": "VESPA provides instant feedback on all 5 aspects following the initial questionnaire. As well as a score, pupils get tailored advice and coaching questions that prompt them to reflect on their learning approaches.",
+                    "Student Action on Feedback": "Most pupils (about 70%) take specific actions based on feedback. Common responses include creating structured revision timetables, implementing new note-taking techniques, practicing retrieval rather than re-reading, and establishing study partnerships. The clear, specific nature of the feedback makes it actionable.",
+                    "Impact on Disadvantaged Students": "We've seen significant improvement among our eFSM pupils since implementing VESPA. The gap in average point score has reduced by 7 points. The structured approach seems to compensate for differences in home support.",
+                    "Targeting Disadvantaged Students": "Yes, our PDG strategy includes targeted VESPA interventions for disadvantaged pupils, with additional coaching sessions focusing on their specific profile of needs.",
+                    "Impact on Resit Outcomes": "VESPA has transformed our approach to GCSE resits. Pass rates have improved by 14% in Mathematics and 11% in English. The specific focus on learning behaviors rather than just content has been particularly effective.",
+                    "Interest in EFF Research Trial": "Yes, we would be keen to participate",
+                    "Additional Feedback": "The VESPA approach has integrated well with our school improvement journey. We would welcome more Welsh-language resources to support our Welsh-medium provision, but overall it has had a significant positive impact on pupil outcomes and teacher practice."
+                }
+            }
+        ];
+
+        function createAccordions() {
+    const container = document.getElementById('accordionContainer');
+    
+    // Sort the data by submission date (most recent first)
+    const sortedData = [...schoolData].sort((a, b) => 
+        new Date(b.submissionDate) - new Date(a.submissionDate)
+    );
+    
+    sortedData.forEach((school, index) => {
+        // Create accordion container
+        const accordion = document.createElement('div');
+        accordion.className = 'accordion';
+        
+        // Create header
+        const header = document.createElement('div');
+        header.className = 'accordion-header';
+        header.innerHTML = `
+            <div class="org-name">${school.organization}</div>
+            <div class="org-meta">${school.leadStaff} | ${new Date(school.submissionDate).toLocaleDateString()}</div>
+            <div class="icons">▼</div>
+        `;
+        
+        // Add click event to toggle content
+        header.onclick = function() {
+            this.classList.toggle('active');
+            const content = this.nextElementSibling;
+            content.classList.toggle('active');
+        };
+        
+        // Create content
+        const content = document.createElement('div');
+        content.className = 'accordion-content';
+        
+        // Add each question and response
+        for (const [question, response] of Object.entries(school.responses)) {
+            const questionDiv = document.createElement('div');
+            questionDiv.className = 'question';
+            
+            const heading = document.createElement('h3');
+            heading.textContent = question;
+            questionDiv.appendChild(heading);
+            
+            const answerDiv = document.createElement('div');
+            
+            if (response.trim() === '') {
+                answerDiv.className = 'answer empty-answer';
+                answerDiv.textContent = 'No response provided';
+            } else {
+                answerDiv.className = 'answer';
+                answerDiv.innerHTML = response.replace(/\n/g, '<br>');
+            }
+            
+            questionDiv.appendChild(answerDiv);
+            content.appendChild(questionDiv);
+        }
+        
+        // Assemble accordion
+        accordion.appendChild(header);
+        accordion.appendChild(content);
+        container.appendChild(accordion);
+    });
+    
+    // Open the first accordion by default
+    if (sortedData.length > 0) {
+        const firstHeader = document.querySelector('.accordion-header');
+        firstHeader.click();
+    }
+}
+        
+        // Initialize accordions when the page loads
+        document.addEventListener('DOMContentLoaded', createAccordions);
+    </script>
+</body>
+</html>

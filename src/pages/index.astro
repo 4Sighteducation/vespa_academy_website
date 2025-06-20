@@ -671,7 +671,7 @@ import ActivityModal from '../components/ActivityModal.astro';
 						<div class="testimonial-slider relative" data-aos="fade-up" data-aos-delay="200">
 							<div class="testimonial-container flex overflow-x-hidden">
 								<!-- Testimonial 1 -->
-								<div class="testimonial-slide w-full flex-shrink-0 px-4">
+								<div class="testimonial-slide">
 									<div class="bg-white/10 backdrop-blur-sm p-8 rounded-2xl border border-white/20">
 										<p class="text-lg text-gray-300 mb-6 italic">
 											"We use VESPA with all students but have additional coaching sessions for disadvantaged students focusing particularly on Vision and Systems, which our data showed were areas of greatest need. VESPA has transformed our approach to GCSE resits, with pass rates increasing from 56% to 74% for Maths and from 61% to 82% for English over the past two years."
@@ -686,7 +686,7 @@ import ActivityModal from '../components/ActivityModal.astro';
 								</div>
 								
 								<!-- Testimonial 2 -->
-								<div class="testimonial-slide w-full flex-shrink-0 px-4">
+								<div class="testimonial-slide">
 									<div class="bg-white/10 backdrop-blur-sm p-8 rounded-2xl border border-white/20">
 										<p class="text-lg text-gray-300 mb-6 italic">
 											"Approximately 65% of students actively implement feedback suggestions. Common actions include creating revision timetables, implementing the Cornell note-taking system, establishing study groups, and practicing retrieval techniques. The specific, actionable nature of the feedback makes it particularly effective."
@@ -701,7 +701,7 @@ import ActivityModal from '../components/ActivityModal.astro';
 								</div>
 								
 								<!-- Testimonial 3 -->
-								<div class="testimonial-slide w-full flex-shrink-0 px-4">
+								<div class="testimonial-slide">
 									<div class="bg-white/10 backdrop-blur-sm p-8 rounded-2xl border border-white/20">
 										<p class="text-lg text-gray-300 mb-6 italic">
 											"Our scholarship students have shown remarkable improvement using VESPA - their average grades improved 14% more than non-scholarship students. The scaffolded approach helps bridge gaps in prior educational experiences."
@@ -716,7 +716,7 @@ import ActivityModal from '../components/ActivityModal.astro';
 								</div>
 								
 								<!-- Testimonial 4 -->
-								<div class="testimonial-slide w-full flex-shrink-0 px-4">
+								<div class="testimonial-slide">
 									<div class="bg-white/10 backdrop-blur-sm p-8 rounded-2xl border border-white/20">
 										<p class="text-lg text-gray-300 mb-6 italic">
 											"VESPA has significantly improved our GCSE resit results. Last year, Maths resit pass rates improved 11% and English 8%. The structured approach to addressing specific weaknesses has been particularly effective."
@@ -731,7 +731,7 @@ import ActivityModal from '../components/ActivityModal.astro';
 								</div>
 								
 								<!-- Testimonial 5 -->
-								<div class="testimonial-slide w-full flex-shrink-0 px-4">
+								<div class="testimonial-slide">
 									<div class="bg-white/10 backdrop-blur-sm p-8 rounded-2xl border border-white/20">
 										<p class="text-lg text-gray-300 mb-6 italic">
 											"Schools across the region have used the VESPA activities and revision resources on the portal to support students in preparing for their resit examinations. Feedback from students and teachers has been extremely positive."
@@ -740,6 +740,51 @@ import ActivityModal from '../components/ActivityModal.astro';
 											<div>
 												<p class="text-white font-semibold">Emma Lloyd</p>
 												<p class="text-gray-400 text-sm">Central South Consortium</p>
+											</div>
+										</div>
+									</div>
+								</div>
+								
+								<!-- Testimonial 6 - New from survey -->
+								<div class="testimonial-slide">
+									<div class="bg-white/10 backdrop-blur-sm p-8 rounded-2xl border border-white/20">
+										<p class="text-lg text-gray-300 mb-6 italic">
+											"Around 70% of students implement suggested strategies. Common actions include restructuring revision approaches, creating mind maps instead of linear notes, implementing the Pomodoro technique, and establishing study partnerships. Our post-16 students particularly value the structured approach to self-improvement."
+										</p>
+										<div class="flex items-center">
+											<div>
+												<p class="text-white font-semibold">Huw Morris</p>
+												<p class="text-gray-400 text-sm">Tonyrefail Community School</p>
+											</div>
+										</div>
+									</div>
+								</div>
+								
+								<!-- Testimonial 7 - New from survey -->
+								<div class="testimonial-slide">
+									<div class="bg-white/10 backdrop-blur-sm p-8 rounded-2xl border border-white/20">
+										<p class="text-lg text-gray-300 mb-6 italic">
+											"We've seen significant improvement among our eFSM pupils since implementing VESPA. The gap in average point score has reduced by 7 points. The structured approach seems to compensate for differences in home support."
+										</p>
+										<div class="flex items-center">
+											<div>
+												<p class="text-white font-semibold">Alun Evans</p>
+												<p class="text-gray-400 text-sm">Ysgol Gyfun Gymraeg Bro Edern</p>
+											</div>
+										</div>
+									</div>
+								</div>
+								
+								<!-- Testimonial 8 - New from survey -->
+								<div class="testimonial-slide">
+									<div class="bg-white/10 backdrop-blur-sm p-8 rounded-2xl border border-white/20">
+										<p class="text-lg text-gray-300 mb-6 italic">
+											"The impact on disadvantaged students has been substantial, with ALPS scores improving from 5 to 2 for this cohort. The structured approach and emphasis on specific behaviors rather than innate ability has been particularly effective."
+										</p>
+										<div class="flex items-center">
+											<div>
+												<p class="text-white font-semibold">Nick Vile</p>
+												<p class="text-gray-400 text-sm">Rochdale Sixth Form College</p>
 											</div>
 										</div>
 									</div>
@@ -753,6 +798,9 @@ import ActivityModal from '../components/ActivityModal.astro';
 								<button class="testimonial-dot w-3 h-3 rounded-full bg-white/30 transition-all duration-300" onclick="goToTestimonial(2)"></button>
 								<button class="testimonial-dot w-3 h-3 rounded-full bg-white/30 transition-all duration-300" onclick="goToTestimonial(3)"></button>
 								<button class="testimonial-dot w-3 h-3 rounded-full bg-white/30 transition-all duration-300" onclick="goToTestimonial(4)"></button>
+								<button class="testimonial-dot w-3 h-3 rounded-full bg-white/30 transition-all duration-300" onclick="goToTestimonial(5)"></button>
+								<button class="testimonial-dot w-3 h-3 rounded-full bg-white/30 transition-all duration-300" onclick="goToTestimonial(6)"></button>
+								<button class="testimonial-dot w-3 h-3 rounded-full bg-white/30 transition-all duration-300" onclick="goToTestimonial(7)"></button>
 							</div>
 						</div>
 					</div>
@@ -1431,16 +1479,21 @@ import ActivityModal from '../components/ActivityModal.astro';
 /* Testimonial slider styles */
 .testimonial-slider {
 	overflow: hidden;
+	position: relative;
+	width: 100%;
 }
 
 .testimonial-container {
 	display: flex;
 	transition: transform 0.5s ease-in-out;
+	width: 100%;
 }
 
 .testimonial-slide {
 	flex: 0 0 100%;
 	width: 100%;
+	min-width: 100%;
+	padding: 0 1rem;
 }
 
 .testimonial-dot {
@@ -1450,6 +1503,10 @@ import ActivityModal from '../components/ActivityModal.astro';
 
 .testimonial-dot:hover {
 	@apply bg-white/50;
+}
+
+.testimonial-dot.active {
+	@apply bg-white w-8;
 }
 
 /* Debug: Force activity embeds to be visible */
@@ -1588,7 +1645,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		goToTestimonial(0);
 		
 		setInterval(() => {
-			currentTestimonial = (currentTestimonial + 1) % 5;
+			currentTestimonial = (currentTestimonial + 1) % 8;
 			goToTestimonial(currentTestimonial);
 		}, 5000);
 	}
@@ -1639,6 +1696,31 @@ const testimonials = [
 		quote: "Schools across the region have used the VESPA activities and revision resources on the portal to support students in preparing for their resit examinations. Feedback from students and teachers has been extremely positive.",
 		author: "Emma Lloyd",
 		school: "Central South Consortium"
+	},
+	{
+		quote: "Around 70% of students implement suggested strategies. Common actions include restructuring revision approaches, creating mind maps instead of linear notes, implementing the Pomodoro technique, and establishing study partnerships. Our post-16 students particularly value the structured approach to self-improvement.",
+		author: "Huw Morris",
+		school: "Tonyrefail Community School"
+	},
+	{
+		quote: "We've seen significant improvement among our eFSM pupils since implementing VESPA. The gap in average point score has reduced by 7 points. The structured approach seems to compensate for differences in home support.",
+		author: "Alun Evans",
+		school: "Ysgol Gyfun Gymraeg Bro Edern"
+	},
+	{
+		quote: "The impact on disadvantaged students has been substantial, with ALPS scores improving from 5 to 2 for this cohort. The structured approach and emphasis on specific behaviors rather than innate ability has been particularly effective.",
+		author: "Nick Vile",
+		school: "Rochdale Sixth Form College"
+	},
+	{
+		quote: "The portal has proven to effectively support all learners and this includes students that are socio-economically disadvantaged. The portal helps identify areas for development and provides support, guidance and resources for learners to access both in school and at home.",
+		author: "Emma Lloyd",
+		school: "Central South Consortium"
+	},
+	{
+		quote: "Approximately 80% of students implement at least one specific strategy from their feedback. Common actions include creating detailed study plans, joining study buddy partnerships, reformatting notes, and implementing spaced practice techniques.",
+		author: "Neil Groves",
+		school: "Bangkok Prep International School"
 	}
 ];
 
