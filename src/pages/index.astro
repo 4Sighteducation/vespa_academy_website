@@ -669,7 +669,7 @@ import ActivityModal from '../components/ActivityModal.astro';
 							What Educators Are Saying
 						</h3>
 						<div class="testimonial-slider relative" data-aos="fade-up" data-aos-delay="200">
-							<div class="testimonial-container flex overflow-x-hidden">
+							<div class="testimonial-container flex overflow-x-hidden" style="width: 800%;">
 								<!-- Testimonial 1 -->
 								<div class="testimonial-slide">
 									<div class="bg-white/10 backdrop-blur-sm p-8 rounded-2xl border border-white/20">
@@ -1490,10 +1490,11 @@ import ActivityModal from '../components/ActivityModal.astro';
 }
 
 .testimonial-slide {
-	flex: 0 0 100%;
-	width: 100%;
-	min-width: 100%;
+	flex: 0 0 12.5%; /* 100% / 8 slides */
+	width: 12.5%;
+	min-width: 12.5%;
 	padding: 0 1rem;
+	box-sizing: border-box;
 }
 
 .testimonial-dot {
@@ -1626,7 +1627,8 @@ document.addEventListener('DOMContentLoaded', () => {
 	window.goToTestimonial = function(index) {
 		currentTestimonial = index;
 		if (testimonialContainer) {
-			testimonialContainer.style.transform = `translateX(-${index * 100}%)`;
+			// Each slide is 12.5% of the container width, so we multiply by 12.5
+			testimonialContainer.style.transform = `translateX(-${index * 12.5}%)`;
 			testimonialDots.forEach((dot, i) => {
 				if (i === index) {
 					dot.classList.add('bg-white', 'w-8');
