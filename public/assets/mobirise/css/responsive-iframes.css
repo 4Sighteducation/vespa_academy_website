@@ -1,0 +1,125 @@
+/* Responsive Iframe Styles for VESPA Website */
+
+/* General responsive iframe wrapper */
+.responsive-iframe-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  max-height: 80vh; /* Limit height to 80% of viewport */
+}
+
+/* 16:9 Aspect Ratio (for slides, videos) */
+.responsive-iframe-16-9 {
+  padding-bottom: 56.25%;
+  height: 0;
+  max-height: 80vh;
+}
+
+/* Alternative: Use aspect-ratio with viewport constraints */
+.responsive-iframe-viewport {
+  width: 100%;
+  max-width: 100%;
+  aspect-ratio: 16 / 9;
+  max-height: 80vh;
+  height: auto;
+  position: relative;
+}
+
+.responsive-iframe-viewport iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* 4:3 Aspect Ratio */
+.responsive-iframe-4-3 {
+  padding-bottom: 75%;
+  height: 0;
+  max-height: 80vh;
+}
+
+/* 1:1 Aspect Ratio (square) */
+.responsive-iframe-1-1 {
+  padding-bottom: 100%;
+  height: 0;
+  max-height: 90vh;
+}
+
+/* Custom height for forms and calendars */
+.responsive-iframe-tall {
+  padding-bottom: 120%;
+  height: 0;
+  max-height: 90vh;
+}
+
+/* The iframe itself */
+.responsive-iframe-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* For very narrow screens, switch to fixed height */
+@media (max-aspect-ratio: 3/4) {
+  .responsive-iframe-16-9,
+  .responsive-iframe-4-3 {
+    padding-bottom: 0;
+    height: 70vh;
+    max-height: 70vh;
+  }
+  
+  .responsive-iframe-container {
+    height: 70vh;
+    max-height: 70vh;
+  }
+}
+
+/* Mobile-specific adjustments */
+@media (max-width: 768px) {
+  .responsive-iframe-tall {
+    padding-bottom: 150%; /* Taller on mobile for better form visibility */
+  }
+  
+  /* Allow scroll on mobile for long forms */
+  .responsive-iframe-scrollable iframe {
+    position: static;
+    width: 100%;
+    min-height: 600px;
+    height: auto;
+  }
+  
+  .responsive-iframe-scrollable {
+    padding-bottom: 0;
+    height: auto;
+  }
+}
+
+/* Tablet adjustments */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .responsive-iframe-tall {
+    padding-bottom: 100%;
+  }
+}
+
+/* Optional: Add loading animation */
+.responsive-iframe-container::before {
+  content: "Loading...";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #666;
+  font-family: sans-serif;
+  z-index: -1;
+}
+
+/* Remove loading text when iframe loads */
+.responsive-iframe-container iframe:not([src=""]) ~ ::before {
+  display: none;
+} 
