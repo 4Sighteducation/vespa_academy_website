@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VESPA Timeline Manager</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1 class="title">
+                    <i class="fas fa-chart-line"></i>
+                    Project Timeline
+                </h1>
+                <div class="header-actions">
+                    <button class="btn btn-primary" id="addMilestone">
+                        <i class="fas fa-plus"></i> Add Milestone
+                    </button>
+                    <button class="btn btn-secondary" id="exportPDF">
+                        <i class="fas fa-file-pdf"></i> Export PDF
+                    </button>
+                    <button class="btn btn-secondary" id="exportCSV">
+                        <i class="fas fa-file-csv"></i> Export CSV
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Client Info Bar -->
+            <div class="client-info">
+                <div class="client-details">
+                    <h2 id="clientName">Select or Create Client</h2>
+                    <p id="projectDates">Project Timeline</p>
+                </div>
+                <div class="progress-overview">
+                    <div class="progress-stat">
+                        <span class="stat-label">Completed</span>
+                        <span class="stat-value" id="completedCount">0</span>
+                    </div>
+                    <div class="progress-stat">
+                        <span class="stat-label">In Progress</span>
+                        <span class="stat-value" id="inProgressCount">0</span>
+                    </div>
+                    <div class="progress-stat">
+                        <span class="stat-label">Upcoming</span>
+                        <span class="stat-value" id="upcomingCount">0</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- School Bar (Hidden by default, shown for multi-entity clients) -->
+            <div class="school-bar" id="schoolBar" style="display: none;">
+                <div class="school-filter-container">
+                    <select id="schoolFilter" class="school-filter">
+                        <option value="all">All Schools</option>
+                    </select>
+                    <button class="btn btn-sm" id="manageSchools" style="margin-left: 10px;">
+                        <i class="fas fa-cog"></i> Manage
+                    </button>
+                </div>
+                <div class="school-list" id="schoolList">
+                    <!-- School items will be populated by JavaScript -->
+                </div>
+            </div>
+        </header>
+
+        <!-- Timeline Container -->
+        <div class="timeline-container">
+            <div class="timeline-header">
+                <div class="timeline-controls">
+                    <button class="zoom-btn" id="zoomIn"><i class="fas fa-search-plus"></i></button>
+                    <button class="zoom-btn" id="zoomOut"><i class="fas fa-search-minus"></i></button>
+                    <button class="zoom-btn" id="zoomReset"><i class="fas fa-compress"></i></button>
+                </div>
+                <div class="view-toggle">
+                    <button class="view-btn active" data-view="timeline">Timeline View</button>
+                    <button class="view-btn" data-view="gantt">Gantt View</button>
+                    <button class="view-btn" data-view="list">List View</button>
+                    <button class="view-btn" data-view="matrix" id="matrixViewBtn" style="display: none;">School Matrix</button>
+                </div>
+            </div>
+
+            <!-- Timeline View -->
+            <div class="timeline-view active" id="timelineView">
+                <div class="timeline-months" id="monthsHeader">
+                    <!-- Months will be generated dynamically -->
+                </div>
+                <div class="timeline-content" id="timelineContent">
+                    <!-- Timeline items will be generated dynamically -->
+                </div>
+            </div>
+
+            <!-- Gantt View -->
+            <div class="gantt-view" id="ganttView">
+                <div class="gantt-container" id="ganttContainer">
+                    <!-- Gantt chart will be rendered here -->
+                </div>
+            </div>
+
+            <!-- List View -->
+            <div class="list-view" id="listView">
+                <table class="milestone-table">
+                    <thead>
+                        <tr>
+                            <th>Phase</th>
+                            <th>Milestone</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>Status</th>
+                            <th>Progress</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="milestoneTableBody">
+                        <!-- Table rows will be generated dynamically -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Matrix View (Hidden by default, shown for multi-entity clients) -->
+            <div class="matrix-view" id="matrixView">
+                <div class="matrix-container" id="matrixContainer">
+                    <!-- Matrix will be rendered here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Milestone Modal -->
+        <div class="modal" id="milestoneModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="modalTitle">Add New Milestone</h3>
+                    <button class="close-btn" id="closeModal">&times;</button>
+                </div>
+                <form id="milestoneForm">
+                    <div class="form-group">
+                        <label for="milestoneName">Milestone Name</label>
+                        <input type="text" id="milestoneName" required>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="startDate">Start Date</label>
+                            <input type="date" id="startDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="endDate">End Date</label>
+                            <input type="date" id="endDate" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phase">Phase</label>
+                        <select id="phase" required>
+                            <option value="activities">VESPA Activities</option>
+                            <option value="planning">Planning</option>
+                            <option value="implementation">Implementation</option>
+                            <option value="review">Review</option>
+                            <option value="delivery">Delivery</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="status">Status</label>
+                        <select id="status" required>
+                            <option value="upcoming">Upcoming</option>
+                            <option value="in-progress">In Progress</option>
+                            <option value="completed">Completed</option>
+                            <option value="delayed">Delayed</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="progress">Progress (%)</label>
+                        <input type="range" id="progress" min="0" max="100" value="0">
+                        <span id="progressValue">0%</span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea id="description" rows="3"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="vespaDeliverables" id="vespaDeliverablesLabel">VESPA Deliverables (comma-separated)</label>
+                        <input type="text" id="vespaDeliverables" placeholder="e.g., Training materials, Reports, Resources">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="schoolDeliverables" id="schoolDeliverablesLabel">Client Deliverables (comma-separated)</label>
+                        <input type="text" id="schoolDeliverables" placeholder="e.g., Implementation, Data collection, Feedback">
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Save Milestone</button>
+                        <button type="button" class="btn btn-secondary" id="cancelModal">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Client Selection Modal -->
+        <div class="modal" id="clientModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Select or Create Client</h3>
+                    <button class="close-btn" id="closeClientModal">&times;</button>
+                </div>
+                <div class="client-list" id="clientList">
+                    <!-- Existing clients will be listed here -->
+                </div>
+                <div class="new-client-form">
+                    <h4>Create New Client</h4>
+                    <input type="text" id="newClientName" placeholder="Client Name">
+                    <input type="text" id="newProjectName" placeholder="Project Name">
+                    <button class="btn btn-primary" id="createClient">Create Client</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- School Contact Modal -->
+        <div class="modal" id="schoolContactModal">
+            <div class="modal-content contact-modal-content">
+                <div class="modal-header">
+                    <h3 id="schoolContactTitle">School Contacts</h3>
+                    <button class="close-btn" id="closeContactModal">&times;</button>
+                </div>
+                <div class="school-contact-header">
+                    <img id="schoolContactLogo" src="" alt="School Logo">
+                    <h4 id="schoolContactName"></h4>
+                </div>
+                <div class="contacts-list" id="contactsList">
+                    <!-- Contacts will be populated here -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- School Management Modal -->
+        <div class="modal" id="schoolManagementModal">
+            <div class="modal-content" style="max-width: 800px;">
+                <div class="modal-header">
+                    <h3>Manage School Information</h3>
+                    <button class="close-btn" id="closeSchoolManagementModal" onclick="app.closeSchoolManagementModal()">&times;</button>
+                </div>
+                <div id="schoolManagementContent">
+                    <!-- School management forms will be populated here -->
+                </div>
+                <div class="modal-actions">
+                    <button class="btn btn-primary" onclick="app.saveSchoolChanges()">Save Changes</button>
+                    <button class="btn btn-secondary" onclick="app.closeSchoolManagementModal()">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <!-- Single unified JavaScript file -->
+    <script src="app.js"></script>
+</body>
+</html> 
