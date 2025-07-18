@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-ACT Project Timeline 2025-2026</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1 class="title">
+                    <img src="https://vespa.academy/_astro/vespalogo.BGrK1ARl.png" alt="VESPA Logo" class="logo">
+                   Project Timeline
+                </h1>
+                <div class="header-actions">
+                    <button class="btn btn-primary" id="addMilestone">
+                        <i class="fas fa-plus"></i> Add Milestone
+                    </button>
+                    <button class="btn btn-secondary" id="exportPDF">
+                        <i class="fas fa-file-pdf"></i> Export PDF
+                    </button>
+                    <button class="btn btn-secondary" id="exportCSV">
+                        <i class="fas fa-file-csv"></i> Export CSV
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Client Info Bar -->
+            <div class="client-info">
+                <div class="client-details">
+                    <h2 id="clientName">Select or Create Client</h2>
+                    <p id="projectDates">Project Timeline</p>
+                </div>
+                <div class="progress-overview">
+                    <div class="progress-stat">
+                        <span class="stat-label">Completed</span>
+                        <span class="stat-value" id="completedCount">0</span>
+                    </div>
+                    <div class="progress-stat">
+                        <span class="stat-label">In Progress</span>
+                        <span class="stat-value" id="inProgressCount">0</span>
+                    </div>
+                    <div class="progress-stat">
+                        <span class="stat-label">Upcoming</span>
+                        <span class="stat-value" id="upcomingCount">0</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- School Logos Bar -->
+            <div class="schools-bar" id="schoolsBar">
+                <div class="trust-logo">
+                    <img src="https://tse4.mm.bing.net/th/id/OIP.wCRZNZZat5R5cxhtl5Z2IwHaD7?r=0&rs=1&pid=ImgDetMain&o=7&rm=3" alt="E-ACT" title="E-ACT Trust">
+                </div>
+                <div class="schools-container">
+                    <div class="school-item" data-school="bourne-end">
+                        <img src="https://s3.amazonaws.com/media-p.slid.es/uploads/2275761/images/12230208/image.png" alt="Bourne End" title="Bourne End Academy">
+                        <div class="school-progress">
+                            <div class="school-progress-bar" style="width: 0%"></div>
+                        </div>
+                        <button class="school-info-btn" data-school="bourne-end" title="Contact Info">
+                            <i class="fas fa-info-circle"></i>
+                        </button>
+                    </div>
+                    <div class="school-item" data-school="crest">
+                        <img src="https://s3.amazonaws.com/media-p.slid.es/uploads/2275761/images/12223392/image.png" alt="Crest Academy" title="Crest Academy">
+                        <div class="school-progress">
+                            <div class="school-progress-bar" style="width: 0%"></div>
+                        </div>
+                        <button class="school-info-btn" data-school="crest" title="Contact Info">
+                            <i class="fas fa-info-circle"></i>
+                        </button>
+                    </div>
+                    <div class="school-item" data-school="daventry">
+                        <img src="https://s3.amazonaws.com/media-p.slid.es/uploads/2275761/images/12223361/image.png" alt="Daventry" title="Daventry 6th Form">
+                        <div class="school-progress">
+                            <div class="school-progress-bar" style="width: 0%"></div>
+                        </div>
+                        <button class="school-info-btn" data-school="daventry" title="Contact Info">
+                            <i class="fas fa-info-circle"></i>
+                        </button>
+                    </div>
+                    <div class="school-item" data-school="montpelier">
+                        <img src="https://s3.amazonaws.com/media-p.slid.es/uploads/2275761/images/12229812/image.png" alt="Montpelier" title="Montpelier V6">
+                        <div class="school-progress">
+                            <div class="school-progress-bar" style="width: 0%"></div>
+                        </div>
+                        <button class="school-info-btn" data-school="montpelier" title="Contact Info">
+                            <i class="fas fa-info-circle"></i>
+                        </button>
+                    </div>
+                    <div class="school-item" data-school="north-birmingham">
+                        <img src="https://s3.amazonaws.com/media-p.slid.es/uploads/2275761/images/12230314/image.png" alt="North Birmingham" title="North Birmingham Academy">
+                        <div class="school-progress">
+                            <div class="school-progress-bar" style="width: 0%"></div>
+                        </div>
+                        <button class="school-info-btn" data-school="north-birmingham" title="Contact Info">
+                            <i class="fas fa-info-circle"></i>
+                        </button>
+                    </div>
+                    <div class="school-item" data-school="bourne-end">
+                        <img src="https://s3.amazonaws.com/media-p.slid.es/uploads/2275761/images/12230208/image.png" alt="Bourne End" title="Bourne End Academy">
+                        <div class="school-progress">
+                            <div class="school-progress-bar" style="width: 0%"></div>
+                        </div>
+                        <button class="school-info-btn" data-school="bourne-end" title="Contact Info">
+                            <i class="fas fa-info-circle"></i>
+                        </button>
+                    </div>
+                    <div class="school-item" data-school="ousedale">
+                        <img src="https://s3.amazonaws.com/media-p.slid.es/uploads/2275761/images/12223361/image.png" alt="Ousedale" title="Ousedale">
+                        <div class="school-progress">
+                            <div class="school-progress-bar" style="width: 0%"></div>
+                        </div>
+                        <button class="school-info-btn" data-school="ousedale" title="Contact Info">
+                            <i class="fas fa-info-circle"></i>
+                        </button>
+                    </div>
+                    <div class="school-item" data-school="west-walsall">
+                        <img src="https://s3.amazonaws.com/media-p.slid.es/uploads/2275761/images/12229850/image.png" alt="West Walsall" title="West Walsall">
+                        <div class="school-progress">
+                            <div class="school-progress-bar" style="width: 0%"></div>
+                        </div>
+                        <button class="school-info-btn" data-school="west-walsall" title="Contact Info">
+                            <i class="fas fa-info-circle"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="school-filter">
+                    <select id="schoolFilter">
+                        <option value="all">All Schools</option>
+                        <option value="bourne-end">Bourne End Academy</option>
+                        <option value="crest">Crest Academy</option>
+                        <option value="daventry">Daventry 6th Form</option>
+                        <option value="montpelier">Montpelier V6</option>
+                        <option value="north-birmingham">North Birmingham Academy</option>
+                        <option value="ousedale">Ousedale</option>
+                        <option value="west-walsall">West Walsall</option>
+                    </select>
+                    <button class="btn btn-secondary" id="manageSchools" style="margin-left: 10px; font-size: 12px; padding: 4px 8px;">
+                        <i class="fas fa-cog"></i> Manage
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Timeline Container -->
+        <div class="timeline-container">
+            <div class="timeline-header">
+                <div class="timeline-controls">
+                    <button class="zoom-btn" id="zoomIn"><i class="fas fa-search-plus"></i></button>
+                    <button class="zoom-btn" id="zoomOut"><i class="fas fa-search-minus"></i></button>
+                    <button class="zoom-btn" id="zoomReset"><i class="fas fa-compress"></i></button>
+                </div>
+                <div class="status-legend">
+                    <div class="legend-item">
+                        <div class="legend-dot" style="background-color: #1976d2;"></div>
+                        <span>Upcoming</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-dot" style="background-color: #f57c00;"></div>
+                        <span>In Progress</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-dot" style="background-color: #388e3c;"></div>
+                        <span>Completed</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-dot" style="background-color: #c62828;"></div>
+                        <span>Delayed</span>
+                    </div>
+                </div>
+                <div class="view-toggle">
+                    <button class="view-btn active" data-view="timeline">Timeline View</button>
+                    <button class="view-btn" data-view="gantt">Gantt View</button>
+                    <button class="view-btn" data-view="list">List View</button>
+                    <button class="view-btn" data-view="matrix">School Matrix</button>
+                </div>
+            </div>
+
+            <!-- Timeline View -->
+            <div class="timeline-view active" id="timelineView">
+                <div class="timeline-months" id="monthsHeader">
+                    <!-- Months will be generated dynamically -->
+                </div>
+                <div class="timeline-content" id="timelineContent">
+                    <!-- Timeline items will be generated dynamically -->
+                </div>
+            </div>
+
+            <!-- Gantt View -->
+            <div class="gantt-view" id="ganttView">
+                <div class="gantt-container" id="ganttContainer">
+                    <!-- Gantt chart will be rendered here -->
+                </div>
+            </div>
+
+            <!-- List View -->
+            <div class="list-view" id="listView">
+                <table class="milestone-table">
+                    <thead>
+                        <tr>
+                            <th>Phase</th>
+                            <th>Milestone</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>Status</th>
+                            <th>Progress</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="milestoneTableBody">
+                        <!-- Table rows will be generated dynamically -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Matrix View -->
+            <div class="matrix-view" id="matrixView">
+                <div class="matrix-container" id="matrixContainer">
+                    <!-- Matrix will be generated dynamically -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Milestone Modal -->
+        <div class="modal" id="milestoneModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="modalTitle">Add New Milestone</h3>
+                    <button class="close-btn" id="closeModal">&times;</button>
+                </div>
+                <form id="milestoneForm">
+                    <div class="form-group">
+                        <label for="milestoneName">Milestone Name</label>
+                        <input type="text" id="milestoneName" required>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="startDate">Start Date</label>
+                            <input type="date" id="startDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="endDate">End Date</label>
+                            <input type="date" id="endDate" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phase">Phase</label>
+                        <select id="phase" required>
+                            <option value="activities">VESPA Activities</option>
+                            <option value="planning">Planning</option>
+                            <option value="implementation">Implementation</option>
+                            <option value="review">Review</option>
+                            <option value="delivery">Delivery</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="status">Status</label>
+                        <select id="status" required>
+                            <option value="upcoming">Upcoming</option>
+                            <option value="in-progress">In Progress</option>
+                            <option value="completed">Completed</option>
+                            <option value="delayed">Delayed</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="progress">Progress (%)</label>
+                        <input type="range" id="progress" min="0" max="100" value="0">
+                        <span id="progressValue">0%</span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea id="description" rows="3"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="vespaDeliverables">VESPA Deliverables (comma-separated)</label>
+                        <input type="text" id="vespaDeliverables" placeholder="e.g., Training materials, User guides, Reports">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="schoolDeliverables">School Deliverables (comma-separated)</label>
+                        <input type="text" id="schoolDeliverables" placeholder="e.g., Milestone activities, Student engagement, Data collection">
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Save Milestone</button>
+                        <button type="button" class="btn btn-secondary" id="cancelModal">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Client Selection Modal -->
+        <div class="modal" id="clientModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Select or Create Client</h3>
+                    <button class="close-btn" id="closeClientModal">&times;</button>
+                </div>
+                <div class="client-list" id="clientList">
+                    <!-- Existing clients will be listed here -->
+                </div>
+                <div class="new-client-form">
+                    <h4>Create New Client</h4>
+                    <input type="text" id="newClientName" placeholder="Client Name">
+                    <input type="text" id="newProjectName" placeholder="Project Name">
+                    <button class="btn btn-primary" id="createClient">Create Client</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- School Contact Modal -->
+        <div class="modal" id="schoolContactModal">
+            <div class="modal-content contact-modal">
+                <div class="modal-header">
+                    <h3 id="schoolContactTitle">School Contacts</h3>
+                    <button class="close-btn" id="closeContactModal">&times;</button>
+                </div>
+                <div class="contact-modal-body">
+                    <div class="school-header-info">
+                        <img id="schoolContactLogo" src="" alt="">
+                        <h4 id="schoolContactName"></h4>
+                    </div>
+                    <div class="contacts-list" id="contactsList">
+                        <!-- Contacts will be populated here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- School Management Modal -->
+        <div class="modal" id="schoolManagementModal">
+            <div class="modal-content" style="max-width: 800px;">
+                <div class="modal-header">
+                    <h3>Manage School Information</h3>
+                    <button class="close-btn" onclick="timeline.closeSchoolManagementModal()">&times;</button>
+                </div>
+                <div id="schoolManagementContent">
+                    <!-- School management form will be inserted here -->
+                </div>
+                <div class="modal-actions">
+                    <button class="btn btn-primary" onclick="timeline.saveSchoolChanges()">Save Changes</button>
+                    <button class="btn btn-secondary" onclick="timeline.closeSchoolManagementModal()">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <!-- Loading the E-ACT pre-populated version -->
+    <script src="timeline-eact.js"></script>
+</body>
+</html> 
