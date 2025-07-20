@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Supabase Connection</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        .test-result {
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 5px;
+            background: #f5f5f5;
+        }
+        .success {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+        .error {
+            background: #ffebee;
+            color: #c62828;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            background: #1976d2;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #1565c0;
+        }
+        pre {
+            background: #263238;
+            color: #aed581;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Supabase Connection Test</h1>
+    
+    <div class="test-result" id="connectionStatus">
+        Checking connection...
+    </div>
+    
+    <h2>Quick Tests:</h2>
+    <button onclick="testClients()">Test Clients Table</button>
+    <button onclick="testMilestones()">Test Milestones Table</button>
+    <button onclick="testSchools()">Test Schools Table</button>
+    
+    <h2>Results:</h2>
+    <pre id="results"></pre>
+    
+    <script src="config.local.js"></script>
+    <script>
+        const resultsDiv = document.getElementById('results');
+        const statusDiv = document.getElementById('connectionStatus');
+        let supabaseClient;
+        
+        // Initialize Supabase
+        async function init() {
+            try {
+                const { createClient } = supabase;
+                supabaseClient = createClient(window.localConfig.supabase.url, window.localConfig.supabase.anonKey);
+                
+                // Test basic connection
+                const { data, error } = await supabaseClient.from('clients').select('count', { count: 'exact' });
+                
+                if (error) {
+                    statusDiv.className = 'test-result error';
+                    statusDiv.textContent = '❌ Connection failed: ' + error.message;
+                } else {
+                    statusDiv.className = 'test-result success';
+                    statusDiv.textContent = '✅ Connected to Supabase successfully!';
+                }
+            } catch (err) {
+                statusDiv.className = 'test-result error';
+                statusDiv.textContent = '❌ Failed to initialize: ' + err.message;
+            }
+        }
+        
+        async function testClients() {
+            resultsDiv.textContent = 'Testing clients table...\n';
+            try {
+                const { data, error, count } = await supabaseClient
+                    .from('clients')
+                    .select('*', { count: 'exact' });
+                
+                if (error) throw error;
+                
+                resultsDiv.textContent += `✅ Clients table accessible\n`;
+                resultsDiv.textContent += `Found ${count} clients\n`;
+                if (data && data.length > 0) {
+                    resultsDiv.textContent += `\nClients:\n${JSON.stringify(data, null, 2)}`;
+                }
+            } catch (error) {
+                resultsDiv.textContent += `❌ Error: ${error.message}\n`;
+            }
+        }
+        
+        async function testMilestones() {
+            resultsDiv.textContent = 'Testing milestones table...\n';
+            try {
+                const { data, error, count } = await supabaseClient
+                    .from('milestones')
+                    .select('*', { count: 'exact' })
+                    .limit(5);
+                
+                if (error) throw error;
+                
+                resultsDiv.textContent += `✅ Milestones table accessible\n`;
+                resultsDiv.textContent += `Found ${count} milestones total\n`;
+                if (data && data.length > 0) {
+                    resultsDiv.textContent += `\nFirst 5 milestones:\n${JSON.stringify(data, null, 2)}`;
+                }
+            } catch (error) {
+                resultsDiv.textContent += `❌ Error: ${error.message}\n`;
+            }
+        }
+        
+        async function testSchools() {
+            resultsDiv.textContent = 'Testing schools table...\n';
+            try {
+                const { data, error, count } = await supabaseClient
+                    .from('schools')
+                    .select('*, school_contacts(*)', { count: 'exact' });
+                
+                if (error) throw error;
+                
+                resultsDiv.textContent += `✅ Schools table accessible\n`;
+                resultsDiv.textContent += `Found ${count} schools\n`;
+                if (data && data.length > 0) {
+                    resultsDiv.textContent += `\nSchools with contacts:\n${JSON.stringify(data, null, 2)}`;
+                }
+            } catch (error) {
+                resultsDiv.textContent += `❌ Error: ${error.message}\n`;
+                resultsDiv.textContent += '\nThis might mean schools table needs to be created or policies need to be set.\n';
+            }
+        }
+        
+        // Initialize on load
+        window.addEventListener('load', init);
+    </script>
+</body>
+</html> 

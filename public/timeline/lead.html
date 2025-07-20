@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VESPA Timeline Manager</title>
+    <title>VESPA Timeline - Project Lead</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Supabase Client (only loads if you're using Supabase) -->
+    <!-- Supabase Client -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
@@ -16,7 +16,7 @@
             <div class="header-content">
                 <h1 class="title">
                     <i class="fas fa-chart-line"></i>
-                    Project Timeline
+                    Project Timeline Management
                 </h1>
                 <div class="header-actions">
                     <button class="btn btn-primary" id="addMilestone">
@@ -34,7 +34,7 @@
             <!-- Client Info Bar -->
             <div class="client-info">
                 <div class="client-details">
-                    <h2 id="clientName">Select or Create Client</h2>
+                    <h2 id="clientName">Loading...</h2>
                     <p id="projectDates">Project Timeline</p>
                 </div>
                 <div class="progress-overview">
@@ -53,7 +53,7 @@
                 </div>
             </div>
             
-            <!-- Schools Bar (Hidden by default, shown for multi-entity clients) -->
+            <!-- Schools Bar (if applicable) -->
             <div class="schools-bar" id="schoolsBar" style="display: none;">
                 <div class="trust-logo" id="trustLogo" style="display: none;">
                     <!-- Trust logo will be inserted here if applicable -->
@@ -61,9 +61,17 @@
                 <div class="schools-container" id="schoolsContainer">
                     <!-- School items will be dynamically inserted here -->
                 </div>
-                <button class="btn btn-sm" id="manageSchools" style="margin-left: 10px;">
-                    <i class="fas fa-cog"></i> Manage
-                </button>
+                <div class="school-filter">
+                    <select id="schoolFilter">
+                        <option value="all">All Schools</option>
+                    </select>
+                    <button class="btn btn-sm" id="manageSchools" style="margin-left: 10px;">
+                        <i class="fas fa-cog"></i> Manage
+                    </button>
+                </div>
+                <div class="school-list" id="schoolList">
+                    <!-- School items will be populated by JavaScript -->
+                </div>
             </div>
         </header>
 
@@ -119,11 +127,11 @@
                     </tbody>
                 </table>
             </div>
-            
+
             <!-- Matrix View (Hidden by default, shown for multi-entity clients) -->
             <div class="matrix-view" id="matrixView">
                 <div class="matrix-container" id="matrixContainer">
-                    <!-- Matrix will be rendered here -->
+                    <!-- Matrix will be generated dynamically -->
                 </div>
             </div>
         </div>
@@ -155,7 +163,6 @@
                     <div class="form-group">
                         <label for="phase">Phase</label>
                         <select id="phase" required>
-                            <option value="activities">VESPA Activities</option>
                             <option value="planning">Planning</option>
                             <option value="implementation">Implementation</option>
                             <option value="review">Review</option>
@@ -184,32 +191,14 @@
                         <textarea id="description" rows="3"></textarea>
                     </div>
                     
-                    <div class="form-group" id="vespaCategoryGroup" style="display: none;">
-                        <label for="vespaCategory">VESPA Category</label>
-                        <select id="vespaCategory">
-                            <option value="">Select Category</option>
-                            <option value="VISION">VISION - Goal Setting & Future Planning</option>
-                            <option value="EFFORT">EFFORT - Time Management & Productivity</option>
-                            <option value="SYSTEMS">SYSTEMS - Organization & Task Management</option>
-                            <option value="PRACTICE">PRACTICE - Learning Strategies & Techniques</option>
-                            <option value="ATTITUDE">ATTITUDE - Mindset & Resilience</option>
-                        </select>
+                    <div class="form-group">
+                        <label for="vespaDeliverables">VESPA Deliverables (comma-separated)</label>
+                        <input type="text" id="vespaDeliverables" placeholder="e.g., Training materials, User guides, Reports">
                     </div>
                     
                     <div class="form-group">
-                        <label for="attachments">Files & Links</label>
-                        <textarea id="attachments" rows="3" placeholder="Add links or file references, one per line. Example:&#10;https://example.com/document.pdf&#10;Project Overview Document&#10;https://drive.google.com/file/..."></textarea>
-                        <small style="color: #666;">Enter URLs or file descriptions, one per line. URLs will be clickable.</small>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="vespaDeliverables" id="vespaDeliverablesLabel">VESPA Deliverables (comma-separated)</label>
-                        <input type="text" id="vespaDeliverables" placeholder="e.g., Training materials, Reports, Resources">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="schoolDeliverables" id="schoolDeliverablesLabel">Client Deliverables (comma-separated)</label>
-                        <input type="text" id="schoolDeliverables" placeholder="e.g., Implementation, Data collection, Feedback">
+                        <label for="schoolDeliverables">School Deliverables (comma-separated)</label>
+                        <input type="text" id="schoolDeliverables" placeholder="e.g., Milestone activities, Student engagement, Data collection">
                     </div>
                     
                     <div class="form-actions">
@@ -220,42 +209,6 @@
             </div>
         </div>
 
-        <!-- Client Selection Modal -->
-        <div class="modal" id="clientModal">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3>Select or Create Client</h3>
-                    <button class="close-btn" id="closeClientModal">&times;</button>
-                </div>
-                <div class="client-list" id="clientList">
-                    <!-- Existing clients will be listed here -->
-                </div>
-                <div class="new-client-form">
-                    <h4>Create New Client</h4>
-                    <input type="text" id="newClientName" placeholder="Client Name">
-                    <input type="text" id="newProjectName" placeholder="Project Name">
-                    <button class="btn btn-primary" id="createClient">Create Client</button>
-                </div>
-            </div>
-        </div>
-        
-        <!-- School Contact Modal -->
-        <div class="modal" id="schoolContactModal">
-            <div class="modal-content contact-modal-content">
-                <div class="modal-header">
-                    <h3 id="schoolContactTitle">School Contacts</h3>
-                    <button class="close-btn" id="closeContactModal">&times;</button>
-                </div>
-                <div class="school-contact-header">
-                    <img id="schoolContactLogo" src="" alt="School Logo">
-                    <h4 id="schoolContactName"></h4>
-                </div>
-                <div class="contacts-list" id="contactsList">
-                    <!-- Contacts will be populated here -->
-                </div>
-            </div>
-        </div>
-        
         <!-- School Management Modal -->
         <div class="modal" id="schoolManagementModal">
             <div class="modal-content" style="max-width: 800px;">
@@ -264,7 +217,7 @@
                     <button class="close-btn" id="closeSchoolManagementModal" onclick="app.closeSchoolManagementModal()">&times;</button>
                 </div>
                 <div id="schoolManagementContent">
-                    <!-- School management forms will be populated here -->
+                    <!-- School management form will be inserted here -->
                 </div>
                 <div class="modal-actions">
                     <button class="btn btn-primary" onclick="app.saveSchoolChanges()">Save Changes</button>
@@ -272,14 +225,20 @@
                 </div>
             </div>
         </div>
+
+        <!-- NO Client Selection Modal - Project lead is assigned to specific client -->
     </div>
 
     <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <!-- Config (optional - for local dev) -->
+    <!-- Load config.local.js for Supabase credentials -->
     <script src="config.local.js"></script>
-    <!-- Single unified JavaScript file -->
+    <script src="config.js"></script>
+    <script>
+        // Project lead view configuration
+        window.isProjectLeadView = true;
+    </script>
     <script src="app.js"></script>
 </body>
 </html> 

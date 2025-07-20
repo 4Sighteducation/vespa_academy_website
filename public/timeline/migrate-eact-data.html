@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Migrate E-ACT Data to Supabase</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        .container {
+            background: #f9f9f9;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #1976d2;
+        }
+        .actions {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        button {
+            padding: 12px 24px;
+            font-size: 16px;
+            background: #1976d2;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #1565c0;
+        }
+        button.secondary {
+            background: #757575;
+        }
+        button.secondary:hover {
+            background: #616161;
+        }
+        .status {
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 5px;
+            background: #e3f2fd;
+            color: #1565c0;
+        }
+        .status.error {
+            background: #ffebee;
+            color: #c62828;
+        }
+        .status.success {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+        pre {
+            background: #263238;
+            color: #aed581;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .warning {
+            background: #fff3e0;
+            border-left: 4px solid #ff9800;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .steps {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .steps ol {
+            margin: 10px 0 0 20px;
+        }
+        .steps li {
+            margin: 8px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>E-ACT Data Migration Tool</h1>
+        
+        <div class="warning">
+            <strong>⚠️ Important:</strong> This will migrate your E-ACT timeline data from localStorage to Supabase. 
+            Make sure you've already run the schools migration first!
+        </div>
+        
+        <div class="steps">
+            <h3>Migration Steps:</h3>
+            <ol>
+                <li>First, run "Migrate Schools" (if not done already)</li>
+                <li>Then, run "Migrate E-ACT Data" to transfer your timeline</li>
+                <li>Finally, use "Verify Migration" to check everything worked</li>
+            </ol>
+        </div>
+        
+        <div class="actions">
+            <button onclick="migrateSchools()">1. Migrate Schools</button>
+            <button onclick="migrateEactData()">2. Migrate E-ACT Data</button>
+            <button onclick="verifyMigration()" class="secondary">3. Verify Migration</button>
+        </div>
+        
+        <div class="status" id="status">
+            Ready to migrate your E-ACT timeline data...
+        </div>
+        
+        <h3>Console Output:</h3>
+        <pre id="console">Migration logs will appear here...</pre>
+    </div>
+    
+    <script src="migrate-schools.js"></script>
+    <script src="migrate-eact-data.js"></script>
+    <script>
+        // Override console methods to show in page
+        const originalLog = console.log;
+        const originalError = console.error;
+        const consoleDiv = document.getElementById('console');
+        const statusDiv = document.getElementById('status');
+        
+        console.log = function(...args) {
+            originalLog.apply(console, args);
+            const text = args.map(arg => 
+                typeof arg === 'object' ? JSON.stringify(arg, null, 2) : arg
+            ).join(' ');
+            consoleDiv.textContent += text + '\n';
+            consoleDiv.scrollTop = consoleDiv.scrollHeight;
+        };
+        
+        console.error = function(...args) {
+            originalError.apply(console, args);
+            const text = args.map(arg => 
+                typeof arg === 'object' ? JSON.stringify(arg, null, 2) : arg
+            ).join(' ');
+            consoleDiv.textContent += '❌ ERROR: ' + text + '\n';
+            consoleDiv.scrollTop = consoleDiv.scrollHeight;
+        };
+        
+        // Wrapper functions
+        async function migrateSchools() {
+            statusDiv.textContent = 'Migrating schools to Supabase...';
+            statusDiv.className = 'status';
+            consoleDiv.textContent = '';
+            
+            try {
+                await window.migrateSchools();
+                statusDiv.textContent = '✅ Schools migration completed!';
+                statusDiv.className = 'status success';
+            } catch (error) {
+                statusDiv.textContent = '❌ Schools migration failed!';
+                statusDiv.className = 'status error';
+            }
+        }
+        
+        async function migrateEactData() {
+            statusDiv.textContent = 'Migrating E-ACT timeline data...';
+            statusDiv.className = 'status';
+            consoleDiv.textContent = '';
+            
+            try {
+                await window.migrateEactData();
+            } catch (error) {
+                statusDiv.textContent = '❌ Migration failed!';
+                statusDiv.className = 'status error';
+            }
+        }
+        
+        async function verifyMigration() {
+            statusDiv.textContent = 'Verifying migration...';
+            statusDiv.className = 'status';
+            consoleDiv.textContent = '';
+            
+            try {
+                await window.verifyMigration();
+                statusDiv.textContent = 'Verification complete - check console output';
+                statusDiv.className = 'status success';
+            } catch (error) {
+                statusDiv.textContent = '❌ Verification failed!';
+                statusDiv.className = 'status error';
+            }
+        }
+    </script>
+</body>
+</html> 

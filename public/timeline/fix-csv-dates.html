@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fix CSV Date Format</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+        .upload-area {
+            border: 2px dashed #ccc;
+            border-radius: 10px;
+            padding: 40px;
+            text-align: center;
+            margin: 20px 0;
+            background: #f9f9f9;
+        }
+        .upload-area.drag-over {
+            border-color: #1976d2;
+            background: #e3f2fd;
+        }
+        input[type="file"] {
+            display: none;
+        }
+        .upload-btn {
+            padding: 12px 24px;
+            background: #1976d2;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .upload-btn:hover {
+            background: #1565c0;
+        }
+        .success {
+            background: #e8f5e9;
+            color: #2e7d32;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .error {
+            background: #ffebee;
+            color: #c62828;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .preview {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            font-family: monospace;
+            font-size: 12px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .info {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Fix CSV Date Format for Supabase</h1>
+    
+    <div class="info">
+        This tool will convert dates from UK format (DD/MM/YYYY) to ISO format (YYYY-MM-DD) that Supabase expects.
+    </div>
+    
+    <div class="upload-area" id="uploadArea">
+        <p>Drag and drop your CSV file here, or click to select</p>
+        <button class="upload-btn" onclick="document.getElementById('fileInput').click()">
+            Choose CSV File
+        </button>
+        <input type="file" id="fileInput" accept=".csv" onchange="handleFile(this.files[0])">
+    </div>
+    
+    <div id="status"></div>
+    <div id="preview"></div>
+    
+    <script>
+        const uploadArea = document.getElementById('uploadArea');
+        const statusDiv = document.getElementById('status');
+        const previewDiv = document.getElementById('preview');
+        
+        // Drag and drop
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('drag-over');
+        });
+        
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('drag-over');
+        });
+        
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('drag-over');
+            const file = e.dataTransfer.files[0];
+            if (file && file.name.endsWith('.csv')) {
+                handleFile(file);
+            }
+        });
+        
+        function convertDate(dateStr) {
+            // Handle empty dates
+            if (!dateStr || dateStr.trim() === '') return '';
+            
+            // Check if already in ISO format
+            if (dateStr.match(/^\d{4}-\d{2}-\d{2}$/)) {
+                return dateStr;
+            }
+            
+            // Convert DD/MM/YYYY to YYYY-MM-DD
+            const parts = dateStr.split('/');
+            if (parts.length === 3) {
+                const day = parts[0].padStart(2, '0');
+                const month = parts[1].padStart(2, '0');
+                const year = parts[2];
+                return `${year}-${month}-${day}`;
+            }
+            
+            return dateStr; // Return as-is if format not recognized
+        }
+        
+        function handleFile(file) {
+            if (!file) return;
+            
+            statusDiv.innerHTML = '<div class="info">Processing file...</div>';
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const content = e.target.result;
+                const lines = content.split('\n');
+                
+                // Parse CSV
+                const headers = lines[0].split(',');
+                const startDateIndex = headers.findIndex(h => h.trim().toLowerCase() === 'start_date');
+                const endDateIndex = headers.findIndex(h => h.trim().toLowerCase() === 'end_date');
+                
+                if (startDateIndex === -1 || endDateIndex === -1) {
+                    statusDiv.innerHTML = '<div class="error">Could not find start_date or end_date columns!</div>';
+                    return;
+                }
+                
+                // Process each line
+                const fixedLines = [lines[0]]; // Keep header as-is
+                let datesFixed = 0;
+                
+                for (let i = 1; i < lines.length; i++) {
+                    if (lines[i].trim() === '') continue;
+                    
+                    const cells = lines[i].split(',');
+                    
+                    // Fix dates
+                    const oldStartDate = cells[startDateIndex];
+                    const oldEndDate = cells[endDateIndex];
+                    
+                    cells[startDateIndex] = convertDate(oldStartDate);
+                    cells[endDateIndex] = convertDate(oldEndDate);
+                    
+                    if (oldStartDate !== cells[startDateIndex] || oldEndDate !== cells[endDateIndex]) {
+                        datesFixed++;
+                    }
+                    
+                    fixedLines.push(cells.join(','));
+                }
+                
+                const fixedContent = fixedLines.join('\n');
+                
+                // Show preview
+                previewDiv.innerHTML = `
+                    <h3>Preview (first 5 rows with fixed dates):</h3>
+                    <pre>${fixedLines.slice(0, 6).join('\n')}</pre>
+                `;
+                
+                // Download fixed file
+                const blob = new Blob([fixedContent], { type: 'text/csv;charset=utf-8;' });
+                const link = document.createElement('a');
+                const url = URL.createObjectURL(blob);
+                link.setAttribute('href', url);
+                link.setAttribute('download', 'eact-milestones-fixed.csv');
+                link.style.visibility = 'hidden';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                
+                statusDiv.innerHTML = `
+                    <div class="success">
+                        ✅ Fixed ${datesFixed} date entries!<br>
+                        Downloaded: <strong>eact-milestones-fixed.csv</strong>
+                    </div>
+                    <div class="info">
+                        <strong>Next steps:</strong><br>
+                        1. Check the downloaded file<br>
+                        2. Go to Supabase Table Editor<br>
+                        3. Import the fixed CSV file
+                    </div>
+                `;
+            };
+            
+            reader.readAsText(file);
+        }
+    </script>
+</body>
+</html> 

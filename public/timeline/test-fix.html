@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timeline Test - Force Refresh</title>
+</head>
+<body>
+    <h1>Timeline Test - Click below to test with forced refresh</h1>
+    <p>This will open the timeline with a cache-busting parameter to ensure fresh JavaScript loads</p>
+    
+    <ul>
+        <li><a href="index.html?v=<?php echo time(); ?>" target="_blank">Super Admin View</a></li>
+        <li><a href="lead.html?client=client-eact-2025&v=<?php echo time(); ?>" target="_blank">Project Lead View</a></li>
+        <li><a href="client.html?client=client-eact-2025&v=<?php echo time(); ?>" target="_blank">Client View</a></li>
+    </ul>
+    
+    <script>
+        // Add timestamp to all links
+        document.querySelectorAll('a').forEach(link => {
+            const href = link.getAttribute('href');
+            const timestamp = new Date().getTime();
+            link.setAttribute('href', href.replace('<?php echo time(); ?>', timestamp));
+        });
+    </script>
+</body>
+</html> 

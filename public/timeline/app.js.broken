@@ -6,10 +6,9 @@ class TimelineApp {
         this.currentClient = null;
         this.milestones = [];
         this.currentView = 'timeline';
-        this.zoomLevel = 1.2; // Set default zoom to 120% for better visibility
+        this.zoomLevel = 1;
         this.editingMilestone = null;
         this.selectedSchool = 'all';
-        this.isClientView = window.isClientView || false; // Check if we're in client view
         
         // School data with contact details
         this.schools = [
@@ -89,19 +88,6 @@ class TimelineApp {
         this.loadEACTProject();
         this.updateProgressStats();
         this.updateSchoolProgressBars();
-        
-        // Show schools bar for E-ACT project
-        const schoolsBar = document.getElementById('schoolsBar');
-        if (schoolsBar && this.currentClient && this.currentClient.name === 'E-ACT') {
-            schoolsBar.style.display = 'block';
-            this.populateSchoolsBar(); // Populate the schools
-            
-            // Show matrix view button for multi-school clients
-            const matrixBtn = document.getElementById('matrixViewBtn');
-            if (matrixBtn) {
-                matrixBtn.style.display = 'inline-block';
-            }
-        }
     }
     
     loadEACTProject() {
@@ -134,157 +120,6 @@ class TimelineApp {
     
     getEACTMilestones() {
         return [
-            // VESPA Activities (Suggested activities to run throughout the year)
-            {
-                id: 'vespa-1',
-                name: '6 Types of Goal',
-                phase: 'activities',
-                startDate: '2025-09-01',
-                endDate: '2025-09-30',
-                status: 'upcoming',
-                progress: 25,
-                description: 'Goal setting activity',
-                vespaCategory: 'VISION',
-                attachments: [
-                    'https://vespa.academy/resources/6-types-of-goal.pdf',
-                    'Activity Worksheet'
-                ]
-            },
-            {
-                id: 'vespa-2',
-                name: 'Proactive vs Reactive',
-                phase: 'activities',
-                startDate: '2025-09-15',
-                endDate: '2025-10-15',
-                status: 'upcoming',
-                progress: 0,
-                description: 'Time management activity',
-                vespaCategory: 'EFFORT'
-            },
-            {
-                id: 'vespa-3',
-                name: 'Pending, Doing, Done',
-                phase: 'activities',
-                startDate: '2025-10-01',
-                endDate: '2025-10-31',
-                status: 'upcoming',
-                progress: 0,
-                description: 'Task management activity',
-                vespaCategory: 'SYSTEMS'
-            },
-            {
-                id: 'vespa-4',
-                name: 'Environment Design',
-                phase: 'activities',
-                startDate: '2025-10-15',
-                endDate: '2025-11-15',
-                status: 'upcoming',
-                progress: 0,
-                description: 'Study environment optimization',
-                vespaCategory: 'PRACTICE'
-            },
-            {
-                id: 'vespa-5',
-                name: 'Check Ahead, Check Back',
-                phase: 'activities',
-                startDate: '2025-11-01',
-                endDate: '2025-11-30',
-                status: 'upcoming',
-                progress: 0,
-                description: 'Review and planning activity',
-                vespaCategory: 'PRACTICE'
-            },
-            {
-                id: 'vespa-6',
-                name: 'Proactive vs Reactive',
-                phase: 'activities',
-                startDate: '2025-12-01',
-                endDate: '2025-12-31',
-                status: 'upcoming',
-                progress: 0,
-                description: 'Time management reinforcement',
-                vespaCategory: 'EFFORT'
-            },
-            {
-                id: 'vespa-7',
-                name: 'A Question of Money',
-                phase: 'activities',
-                startDate: '2026-01-15',
-                endDate: '2026-02-15',
-                status: 'upcoming',
-                progress: 0,
-                description: 'Future planning activity',
-                vespaCategory: 'VISION'
-            },
-            {
-                id: 'vespa-8',
-                name: 'Have to, Ought to, Want to',
-                phase: 'activities',
-                startDate: '2026-02-01',
-                endDate: '2026-02-28',
-                status: 'upcoming',
-                progress: 0,
-                description: 'Motivation activity',
-                vespaCategory: 'ATTITUDE'
-            },
-            {
-                id: 'vespa-9',
-                name: 'Worst Case Scenarios',
-                phase: 'activities',
-                startDate: '2026-02-15',
-                endDate: '2026-03-15',
-                status: 'upcoming',
-                progress: 0,
-                description: 'Resilience building activity',
-                vespaCategory: 'ATTITUDE'
-            },
-            {
-                id: 'vespa-10',
-                name: 'Cog P vs Cog A',
-                phase: 'activities',
-                startDate: '2026-03-01',
-                endDate: '2026-03-31',
-                status: 'upcoming',
-                progress: 0,
-                description: 'Learning strategy activity',
-                vespaCategory: 'PRACTICE'
-            },
-            {
-                id: 'vespa-11',
-                name: 'Teach your imaginary Class',
-                phase: 'activities',
-                startDate: '2026-03-15',
-                endDate: '2026-04-15',
-                status: 'upcoming',
-                progress: 0,
-                description: 'Active learning technique',
-                vespaCategory: 'PRACTICE'
-            },
-            // Pre-project Planning Sessions (July)
-            {
-                id: 'pre-1',
-                name: 'Project Planning Session 1',
-                phase: 'planning',
-                startDate: '2025-07-14',
-                endDate: '2025-07-16',
-                status: 'upcoming',
-                progress: 0,
-                description: 'Initial project planning and setup',
-                vespaDeliverables: ['Project roadmap', 'Requirements gathering'],
-                schoolDeliverables: ['Key stakeholder identification', 'Initial requirements']
-            },
-            {
-                id: 'pre-2',
-                name: 'Project Planning Session 2',
-                phase: 'planning',
-                startDate: '2025-07-21',
-                endDate: '2025-07-23',
-                status: 'upcoming',
-                progress: 0,
-                description: 'Detailed planning and preparation',
-                vespaDeliverables: ['Detailed timeline', 'Resource allocation'],
-                schoolDeliverables: ['Staff allocation', 'Schedule confirmation']
-            },
             // Setup and Launch Phase
             {
                 id: 'eact-1',
@@ -296,12 +131,7 @@ class TimelineApp {
                 progress: 0,
                 description: 'Initial welcome webinar for all E-ACT schools',
                 vespaDeliverables: ['Welcome presentation', 'Portal overview'],
-                schoolDeliverables: ['School attendance', 'Q&A participation'],
-                attachments: [
-                    'https://vespa.academy/resources/welcome-presentation.pdf',
-                    'Webinar Recording Link',
-                    'https://docs.google.com/presentation/d/example'
-                ]
+                schoolDeliverables: ['School attendance', 'Q&A participation']
             },
             {
                 id: 'eact-2',
@@ -322,7 +152,7 @@ class TimelineApp {
                 startDate: '2025-08-01',
                 endDate: '2025-09-19',
                 status: 'upcoming',
-                progress: 50,
+                progress: 0,
                 description: 'Individual school training sessions - to be booked',
                 vespaDeliverables: ['Training materials', 'User guides', 'Video tutorials'],
                 schoolDeliverables: ['Book training slots', 'Ensure staff attendance']
@@ -383,7 +213,7 @@ class TimelineApp {
                 startDate: '2025-10-01',
                 endDate: '2025-11-30',
                 status: 'upcoming',
-                progress: 75,
+                progress: 0,
                 description: 'Individual coaching conversations using questionnaire results',
                 vespaDeliverables: ['Coaching framework', 'Portal tracking system'],
                 schoolDeliverables: ['Conduct 1-1 sessions', 'Record student goals', 'Submit coaching records']
@@ -548,139 +378,78 @@ class TimelineApp {
             btn.addEventListener('click', (e) => this.switchView(e.target.dataset.view));
         });
         
-        // Milestone Modal (only in admin view)
-        const addMilestoneBtn = document.getElementById('addMilestone');
-        if (addMilestoneBtn) {
-            addMilestoneBtn.addEventListener('click', () => this.openMilestoneModal());
-        }
-        
-        const closeModalBtn = document.getElementById('closeModal');
-        if (closeModalBtn) {
-            closeModalBtn.addEventListener('click', () => this.closeMilestoneModal());
-        }
-        
-        const cancelModalBtn = document.getElementById('cancelModal');
-        if (cancelModalBtn) {
-            cancelModalBtn.addEventListener('click', () => this.closeMilestoneModal());
-        }
-        
-        const milestoneForm = document.getElementById('milestoneForm');
-        if (milestoneForm) {
-            milestoneForm.addEventListener('submit', (e) => this.saveMilestone(e));
-        }
+        // Milestone Modal
+        document.getElementById('addMilestone').addEventListener('click', () => this.openMilestoneModal());
+        document.getElementById('closeModal').addEventListener('click', () => this.closeMilestoneModal());
+        document.getElementById('cancelModal').addEventListener('click', () => this.closeMilestoneModal());
+        document.getElementById('milestoneForm').addEventListener('submit', (e) => this.saveMilestone(e));
         
         // Progress slider
-        const progressSlider = document.getElementById('progress');
-        if (progressSlider) {
-            progressSlider.addEventListener('input', (e) => {
-                document.getElementById('progressValue').textContent = e.target.value + '%';
-            });
-        }
-        
-        // Phase dropdown - show/hide VESPA category
-        const phaseSelect = document.getElementById('phase');
-        if (phaseSelect) {
-            phaseSelect.addEventListener('change', (e) => {
-                const vespaCategoryGroup = document.getElementById('vespaCategoryGroup');
-                if (vespaCategoryGroup) {
-                    vespaCategoryGroup.style.display = e.target.value === 'activities' ? 'block' : 'none';
-                }
-            });
-        }
-        
-        // VESPA category dropdown - update background color
-        const vespaCategorySelect = document.getElementById('vespaCategory');
-        if (vespaCategorySelect) {
-            vespaCategorySelect.addEventListener('change', (e) => {
-                const colors = {
-                    'VISION': '#ff8f00',
-                    'EFFORT': '#86b4f0',
-                    'SYSTEMS': '#72cb44',
-                    'PRACTICE': '#7f31a4',
-                    'ATTITUDE': '#f032e6'
-                };
-                if (e.target.value && colors[e.target.value]) {
-                    e.target.style.backgroundColor = colors[e.target.value] + '20';
-                    e.target.style.borderColor = colors[e.target.value];
-                } else {
-                    e.target.style.backgroundColor = '';
-                    e.target.style.borderColor = '';
-                }
-            });
-        }
+        document.getElementById('progress').addEventListener('input', (e) => {
+            document.getElementById('progressValue').textContent = e.target.value + '%';
+        });
         
         // Export buttons
-        const exportPDFBtn = document.getElementById('exportPDF');
-        if (exportPDFBtn) {
-            exportPDFBtn.addEventListener('click', () => this.exportPDF());
-        }
-        
-        const exportCSVBtn = document.getElementById('exportCSV');
-        if (exportCSVBtn) {
-            exportCSVBtn.addEventListener('click', () => this.exportCSV());
-        }
+        document.getElementById('exportPDF').addEventListener('click', () => this.exportPDF());
+        document.getElementById('exportCSV').addEventListener('click', () => this.exportCSV());
         
         // Zoom controls
-        const zoomInBtn = document.getElementById('zoomIn');
-        if (zoomInBtn) {
-            zoomInBtn.addEventListener('click', () => this.zoom(1.2));
-        }
+        document.getElementById('zoomIn').addEventListener('click', () => this.zoom(1.2));
+        document.getElementById('zoomOut').addEventListener('click', () => this.zoom(0.8));
+        document.getElementById('zoomReset').addEventListener('click', () => this.zoomReset());
         
-        const zoomOutBtn = document.getElementById('zoomOut');
-        if (zoomOutBtn) {
-            zoomOutBtn.addEventListener('click', () => this.zoom(0.8));
-        }
-        
-        const zoomResetBtn = document.getElementById('zoomReset');
-        if (zoomResetBtn) {
-            zoomResetBtn.addEventListener('click', () => this.zoomReset());
-        }
-        
-        // Client modal (only in admin view)
-        const clientNameBtn = document.getElementById('clientName');
-        if (clientNameBtn && !this.isClientView) {
-            clientNameBtn.addEventListener('click', () => this.openClientModal());
-        }
-        
-        const closeClientModalBtn = document.getElementById('closeClientModal');
-        if (closeClientModalBtn) {
-            closeClientModalBtn.addEventListener('click', () => this.closeClientModal());
-        }
-        
-        const createClientBtn = document.getElementById('createClient');
-        if (createClientBtn) {
-            createClientBtn.addEventListener('click', () => this.createClient());
-        }
+        // Client modal
+        document.getElementById('clientName').addEventListener('click', () => this.openClientModal());
+        document.getElementById('closeClientModal').addEventListener('click', () => this.closeClientModal());
+        document.getElementById('createClient').addEventListener('click', () => this.createClient());
         
         // Close modals on outside click
         window.addEventListener('click', (e) => {
             if (e.target.classList.contains('modal')) {
-                if (document.getElementById('milestoneModal')) {
-                    this.closeMilestoneModal();
-                }
-                if (document.getElementById('clientModal')) {
-                    this.closeClientModal();
-                }
+                this.closeMilestoneModal();
+                this.closeClientModal();
             }
         });
         
-        // Note: School item clicks are now handled in populateSchoolsBar() when items are created dynamically
+        // School filter
+        document.getElementById('schoolFilter').addEventListener('change', (e) => {
+            this.selectedSchool = e.target.value;
+            this.filterBySchool();
+            this.renderCurrentView();
+        });
+        
+        // School item clicks
+        document.querySelectorAll('.school-item').forEach(item => {
+            item.addEventListener('click', (e) => {
+                // Don't trigger if clicking the info button
+                if (e.target.closest('.school-info-btn')) return;
+                
+                const school = item.dataset.school;
+                document.getElementById('schoolFilter').value = school;
+                this.selectedSchool = school;
+                this.filterBySchool();
+                this.renderCurrentView();
+            });
+        });
+        
+        // School info button clicks
+        document.querySelectorAll('.school-info-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const schoolId = btn.dataset.school;
+                this.showSchoolContacts(schoolId);
+            });
+        });
         
         // Close contact modal
-        const closeContactModalBtn = document.getElementById('closeContactModal');
-        if (closeContactModalBtn) {
-            closeContactModalBtn.addEventListener('click', () => {
-                this.closeContactModal();
-            });
-        }
+        document.getElementById('closeContactModal').addEventListener('click', () => {
+            this.closeContactModal();
+        });
         
-        // Manage schools button (only in admin view)
-        const manageSchoolsBtn = document.getElementById('manageSchools');
-        if (manageSchoolsBtn) {
-            manageSchoolsBtn.addEventListener('click', () => {
-                this.openSchoolManagementModal();
-            });
-        }
+        // Manage schools button
+        document.getElementById('manageSchools').addEventListener('click', () => {
+            this.openSchoolManagementModal();
+        });
     }
     
     // ===== Client Management =====
@@ -731,10 +500,7 @@ class TimelineApp {
     }
     
     closeClientModal() {
-        const modal = document.getElementById('clientModal');
-        if (modal) {
-            modal.classList.remove('active');
-        }
+        document.getElementById('clientModal').classList.remove('active');
     }
     
     openEditClientModal(client) {
@@ -775,10 +541,7 @@ class TimelineApp {
     }
     
     closeEditClientModal() {
-        const modal = document.getElementById('editClientModal');
-        if (modal) {
-            modal.classList.remove('active');
-        }
+        document.getElementById('editClientModal').classList.remove('active');
     }
     
     saveClientEdits() {
@@ -859,29 +622,6 @@ class TimelineApp {
         url.searchParams.set('client', client.id);
         window.history.pushState({}, '', url);
         
-        // Show schools bar if E-ACT client
-        const schoolsBar = document.getElementById('schoolsBar');
-        if (schoolsBar) {
-            if (client.name === 'E-ACT') {
-                schoolsBar.style.display = 'block';
-                this.populateSchoolsBar(); // Populate the schools
-                
-                // Show matrix view button
-                const matrixBtn = document.getElementById('matrixViewBtn');
-                if (matrixBtn) {
-                    matrixBtn.style.display = 'inline-block';
-                }
-            } else {
-                schoolsBar.style.display = 'none';
-                
-                // Hide matrix view button
-                const matrixBtn = document.getElementById('matrixViewBtn');
-                if (matrixBtn) {
-                    matrixBtn.style.display = 'none';
-                }
-            }
-        }
-        
         // Load milestones
         this.loadMilestones();
     }
@@ -933,79 +673,27 @@ class TimelineApp {
             document.getElementById('vespaDeliverables').value = (milestone.deliverables || []).join(', ');
             document.getElementById('schoolDeliverables').value = '';
         }
-        
-        // Handle VESPA category
-        const vespaCategoryGroup = document.getElementById('vespaCategoryGroup');
-        const vespaCategorySelect = document.getElementById('vespaCategory');
-        if (vespaCategoryGroup && vespaCategorySelect) {
-            if (milestone.phase === 'activities') {
-                vespaCategoryGroup.style.display = 'block';
-                vespaCategorySelect.value = milestone.vespaCategory || '';
-                
-                // Update dropdown background color
-                const colors = {
-                    'VISION': '#ff8f00',
-                    'EFFORT': '#86b4f0',
-                    'SYSTEMS': '#72cb44',
-                    'PRACTICE': '#7f31a4',
-                    'ATTITUDE': '#f032e6'
-                };
-                if (milestone.vespaCategory && colors[milestone.vespaCategory]) {
-                    vespaCategorySelect.style.backgroundColor = colors[milestone.vespaCategory] + '20';
-                    vespaCategorySelect.style.borderColor = colors[milestone.vespaCategory];
-                } else {
-                    vespaCategorySelect.style.backgroundColor = '';
-                    vespaCategorySelect.style.borderColor = '';
-                }
-            } else {
-                vespaCategoryGroup.style.display = 'none';
-            }
-        }
-        
-        // Handle attachments
-        const attachmentsField = document.getElementById('attachments');
-        if (attachmentsField) {
-            attachmentsField.value = (milestone.attachments || []).join('\n');
-        }
         } else {
             document.getElementById('modalTitle').textContent = 'Add New Milestone';
             form.reset();
             document.getElementById('progressValue').textContent = '0%';
-            
-            // Hide VESPA category by default for new milestones
-            const vespaCategoryGroup = document.getElementById('vespaCategoryGroup');
-            const vespaCategorySelect = document.getElementById('vespaCategory');
-            if (vespaCategoryGroup) {
-                vespaCategoryGroup.style.display = 'none';
-            }
-            if (vespaCategorySelect) {
-                vespaCategorySelect.style.backgroundColor = '';
-                vespaCategorySelect.style.borderColor = '';
-            }
         }
         
         modal.classList.add('active');
     }
     
     closeMilestoneModal() {
-        const modal = document.getElementById('milestoneModal');
-        if (modal) {
-            modal.classList.remove('active');
-        }
-        const form = document.getElementById('milestoneForm');
-        if (form) {
-            form.reset();
-        }
+        document.getElementById('milestoneModal').classList.remove('active');
+        document.getElementById('milestoneForm').reset();
         this.editingMilestone = null;
     }
     
     saveMilestone(e) {
         e.preventDefault();
         
-        const phase = document.getElementById('phase').value;
         const formData = {
             name: document.getElementById('milestoneName').value,
-            phase: phase,
+            phase: document.getElementById('phase').value,
             startDate: document.getElementById('startDate').value,
             endDate: document.getElementById('endDate').value,
             status: document.getElementById('status').value,
@@ -1020,24 +708,6 @@ class TimelineApp {
                 .map(d => d.trim())
                 .filter(d => d)
         };
-        
-        // Add VESPA category if it's an activity
-        if (phase === 'activities') {
-            const vespaCategory = document.getElementById('vespaCategory').value;
-            if (vespaCategory) {
-                formData.vespaCategory = vespaCategory;
-            }
-        }
-        
-        // Add attachments
-        const attachmentsText = document.getElementById('attachments').value.trim();
-        if (attachmentsText) {
-            formData.attachments = attachmentsText.split('\n')
-                .map(line => line.trim())
-                .filter(line => line);
-        } else {
-            formData.attachments = [];
-        }
         
         if (this.editingMilestone) {
             // Update existing milestone
@@ -1086,13 +756,10 @@ class TimelineApp {
     
     filterBySchool() {
         document.querySelectorAll('.school-item').forEach(item => {
-            const itemSchool = item.dataset.school;
             if (this.selectedSchool === 'all') {
-                item.classList.toggle('inactive', false);
-                item.classList.toggle('active', itemSchool === 'all');
+                item.classList.remove('inactive');
             } else {
-                item.classList.toggle('inactive', itemSchool !== this.selectedSchool && itemSchool !== 'all');
-                item.classList.toggle('active', itemSchool === this.selectedSchool);
+                item.classList.toggle('inactive', item.dataset.school !== this.selectedSchool);
             }
         });
     }
@@ -1125,177 +792,47 @@ class TimelineApp {
         
         if (this.milestones.length === 0) return;
         
-        // Fixed date range: July 14, 2025 to July 31, 2026 (54 weeks total)
-        const minDate = new Date('2025-07-14');  // Start 2 weeks before August 1
-        const maxDate = new Date('2026-07-31');
+        // Find date range
+        const dates = this.milestones.flatMap(m => [new Date(m.startDate), new Date(m.endDate)]);
+        const minDate = new Date(Math.min(...dates));
+        const maxDate = new Date(Math.max(...dates));
         
-        // Calculate dimensions - 54 weeks total (2 pre-weeks + 52 project weeks)
-        const totalDays = 378; // 54 weeks * 7 days
-        const totalWeeks = 54;
-        const containerWidth = timelineContent.offsetWidth || 1200; // fallback width
-        const pixelsPerWeek = (containerWidth * this.zoomLevel) / totalWeeks;
-        const pixelsPerDay = pixelsPerWeek / 7;
+        // Add padding
+        minDate.setMonth(minDate.getMonth() - 1);
+        maxDate.setMonth(maxDate.getMonth() + 1);
         
-        // Create month headers row
-        const monthsRow = document.createElement('div');
-        monthsRow.className = 'months-row';
-        monthsRow.style.display = 'flex';
-        monthsRow.style.height = '25px';
-        monthsRow.style.borderBottom = '1px solid #ddd';
-        monthsRow.style.backgroundColor = '#f5f5f5';
-        
-        // Calculate months with proper alignment for Jul 2025 - Jul 2026
+        // Generate month headers with week markers
         const months = [];
-        const monthNames = ['Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'];
-        const monthYears = [2025, 2025, 2025, 2025, 2025, 2025, 2026, 2026, 2026, 2026, 2026, 2026, 2026];
-        
-        // Calculate week spans for each month
-        let weekOffset = 0;
-        for (let i = 0; i < monthNames.length; i++) {
-            // Map to actual month indices: Jul=6, Aug=7, Sep=8, Oct=9, Nov=10, Dec=11, Jan=0, Feb=1, etc.
-            const monthIndex = i === 0 ? 6 : (i < 6 ? i + 6 : i - 6);
-            const monthStart = new Date(monthYears[i], monthIndex, 1);
-            const monthEnd = new Date(monthYears[i], monthIndex + 1, 0); // Last day of month
-            
-            // Calculate weeks that overlap with this month
-            const daysFromStart = Math.floor((monthStart - minDate) / (1000 * 60 * 60 * 24));
-            const daysToEnd = Math.floor((monthEnd - minDate) / (1000 * 60 * 60 * 24));
-            const startWeek = Math.floor(daysFromStart / 7);
-            const endWeek = Math.ceil((daysToEnd + 1) / 7);
-            const weekSpan = endWeek - startWeek;
-            
+        const current = new Date(minDate);
+        while (current <= maxDate) {
             months.push({
-                name: `${monthNames[i]} ${monthYears[i]}`,
-                monthOnly: monthNames[i],
-                year: monthYears[i],
-                weekSpan: weekSpan,
-                startWeek: startWeek
+                year: current.getFullYear(),
+                month: current.getMonth(),
+                name: current.toLocaleDateString('en-US', { month: 'short', year: 'numeric' }),
+                startDate: new Date(current)
             });
+            current.setMonth(current.getMonth() + 1);
         }
-        
-        // Always create year row
-        const yearRow = document.createElement('div');
-        yearRow.className = 'year-row';
-        yearRow.style.display = 'flex';
-        yearRow.style.height = '20px';
-        yearRow.style.backgroundColor = '#e9ecef';
-        yearRow.style.borderBottom = '1px solid #dee2e6';
-        
-        // Calculate year spans
-        let currentYear = null;
-        let yearStart = 0;
-        let yearWeeks = 0;
-        
-        months.forEach((month, index) => {
-            if (month.year !== currentYear) {
-                if (currentYear !== null) {
-                    // Create year header for previous year
-                    const yearHeader = document.createElement('div');
-                    yearHeader.className = 'year-header';
-                    yearHeader.style.width = (yearWeeks * pixelsPerWeek) + 'px';
-                    yearHeader.style.textAlign = 'center';
-                    yearHeader.style.fontSize = '13px';
-                    yearHeader.style.fontWeight = '700';
-                    yearHeader.style.color = '#495057';
-                    yearHeader.style.borderRight = '2px solid #dee2e6';
-                    yearHeader.style.padding = '2px';
-                    yearHeader.textContent = currentYear;
-                    yearRow.appendChild(yearHeader);
-                }
-                currentYear = month.year;
-                yearStart = month.startWeek;
-                yearWeeks = month.weekSpan;
-            } else {
-                yearWeeks += month.weekSpan;
-            }
-            
-            // Handle last year
-            if (index === months.length - 1) {
-                const yearHeader = document.createElement('div');
-                yearHeader.className = 'year-header';
-                yearHeader.style.width = (yearWeeks * pixelsPerWeek) + 'px';
-                yearHeader.style.textAlign = 'center';
-                yearHeader.style.fontSize = '13px';
-                yearHeader.style.fontWeight = '700';
-                yearHeader.style.color = '#495057';
-                yearHeader.style.padding = '2px';
-                yearHeader.textContent = currentYear;
-                yearRow.appendChild(yearHeader);
-            }
-        });
-        
-        monthsHeader.appendChild(yearRow);
         
         // Create month headers
         months.forEach(month => {
             const header = document.createElement('div');
             header.className = 'month-header';
-            header.style.width = (month.weekSpan * pixelsPerWeek) + 'px';
-            header.style.textAlign = 'center';
-            header.style.fontSize = '12px';
-            header.style.fontWeight = '600';
-            header.style.padding = '4px';
-            header.style.borderRight = '1px solid #ddd';
-            // Always show only month (year is in separate row)
-            header.textContent = month.monthOnly;
-            header.title = month.name; // Show full date on hover
-            monthsRow.appendChild(header);
+            header.textContent = month.name;
+            monthsHeader.appendChild(header);
         });
         
-        monthsHeader.appendChild(monthsRow);
-        
-        // Create week markers row
-        const weeksRow = document.createElement('div');
-        weeksRow.className = 'weeks-row';
-        weeksRow.style.display = 'flex';
-        weeksRow.style.height = '20px';
-        weeksRow.style.borderBottom = '1px solid #e0e0e0';
-        weeksRow.style.backgroundColor = '#fafafa';
-        weeksRow.style.fontSize = '10px';
-        weeksRow.style.color = '#666';
-        
+        // Add week markers
+        const weekMarkersDiv = document.createElement('div');
+        weekMarkersDiv.className = 'week-markers';
+        const totalWeeks = Math.ceil((maxDate - minDate) / (1000 * 60 * 60 * 24 * 7));
         for (let i = 0; i < totalWeeks; i++) {
-            const weekDiv = document.createElement('div');
-            weekDiv.className = 'week-marker';
-            weekDiv.style.width = pixelsPerWeek + 'px';
-            weekDiv.style.textAlign = 'center';
-            weekDiv.style.borderRight = '1px solid #f0f0f0';
-            weekDiv.style.padding = '2px';
-            weekDiv.style.cursor = 'help';
-            
-            const weekStart = new Date(minDate.getTime() + (i * 7 * 24 * 60 * 60 * 1000));
-            const weekEnd = new Date(weekStart.getTime() + (6 * 24 * 60 * 60 * 1000));
-            
-            // First 2 weeks (July) don't get week numbers
-            if (i < 2) {
-                weekDiv.textContent = ''; // No week number for pre-project weeks
-                weekDiv.style.backgroundColor = '#f9f9f9';
-                weekDiv.title = `Pre-project: ${weekStart.toLocaleDateString('en-US', { 
-                    month: 'short', 
-                    day: 'numeric'
-                })} - ${weekEnd.toLocaleDateString('en-US', { 
-                    month: 'short', 
-                    day: 'numeric',
-                    year: 'numeric'
-                })}`;
-            } else {
-                weekDiv.textContent = 'W' + (i - 1); // Subtract 2 for proper week numbering
-                weekDiv.title = `Week ${i - 1}: ${weekStart.toLocaleDateString('en-US', { 
-                    month: 'short', 
-                    day: 'numeric'
-                })} - ${weekEnd.toLocaleDateString('en-US', { 
-                    month: 'short', 
-                    day: 'numeric',
-                    year: 'numeric'
-                })}`;
-            }
-            
-            weeksRow.appendChild(weekDiv);
+            const marker = document.createElement('div');
+            marker.className = 'week-marker';
+            weekMarkersDiv.appendChild(marker);
         }
+        monthsHeader.appendChild(weekMarkersDiv);
         
-        monthsHeader.appendChild(weeksRow);
-        
-        // Rest of the timeline rendering code remains the same...
         // Add cycle indicators
         const cycleIndicators = document.createElement('div');
         cycleIndicators.className = 'cycle-indicators';
@@ -1307,42 +844,34 @@ class TimelineApp {
             { name: 'Cycle 3', start: new Date('2026-04-20'), end: new Date('2026-07-15'), class: 'cycle3' }
         ];
         
+        const totalDays = Math.ceil((maxDate - minDate) / (1000 * 60 * 60 * 24));
+        const pixelsPerDay = (timelineContent.offsetWidth * this.zoomLevel) / totalDays;
+        
         cycles.forEach(cycle => {
-            const startDays = Math.floor((cycle.start - minDate) / (1000 * 60 * 60 * 24));
+            const startDays = Math.ceil((cycle.start - minDate) / (1000 * 60 * 60 * 24));
             const endDays = Math.ceil((cycle.end - minDate) / (1000 * 60 * 60 * 24));
             
             const indicator = document.createElement('div');
             indicator.className = `cycle-indicator ${cycle.class}`;
             indicator.style.left = (startDays * pixelsPerDay) + 'px';
             indicator.style.width = ((endDays - startDays) * pixelsPerDay) + 'px';
-            indicator.style.height = '100%';
             
             const label = document.createElement('div');
             label.className = 'cycle-label';
             label.textContent = cycle.name;
-            label.title = `${cycle.name}: ${cycle.start.toLocaleDateString('en-US', { 
-                month: 'short', 
-                day: 'numeric',
-                year: 'numeric'
-            })} - ${cycle.end.toLocaleDateString('en-US', { 
-                month: 'short', 
-                day: 'numeric',
-                year: 'numeric'
-            })}`;
             indicator.appendChild(label);
             
             cycleIndicators.appendChild(indicator);
         });
         
-        // Insert cycle indicators at the beginning so they appear behind timeline items
-        timelineContent.insertBefore(cycleIndicators, timelineContent.firstChild);
+        timelineContent.appendChild(cycleIndicators);
         
-        // Group milestones by phase - continue with existing code...
+        // Group milestones by phase
         const phases = ['activities', 'planning', 'implementation', 'review', 'delivery'];
-        const phaseHeight = 240; // Increased height for each phase section
-        const rowHeight = 65; // Increased height for each row within a phase
+        const phaseHeight = 180; // Height for each phase section (increased for more rows)
+        const rowHeight = 45; // Height for each row within a phase (increased for deliverables)
         const phaseGap = 20; // Gap between phases
-        const activitiesHeight = 90; // Increased height for activities section
+        const activitiesHeight = 60; // Smaller height for activities section
         
         // Track rows within each phase to prevent overlap
         const phaseTracks = {
@@ -1389,7 +918,6 @@ class TimelineApp {
                 const startDays = Math.ceil((new Date(milestone.startDate) - minDate) / (1000 * 60 * 60 * 24));
                 const endDays = Math.ceil((new Date(milestone.endDate) - minDate) / (1000 * 60 * 60 * 24));
                 const duration = endDays - startDays;
-                const isSingleDate = milestone.startDate === milestone.endDate;
                 
                 // Find an available row within this phase
                 let rowIndex = 0;
@@ -1421,18 +949,14 @@ class TimelineApp {
                 const item = document.createElement('div');
                 item.className = `timeline-item ${milestone.phase}`;
                 item.style.left = (startDays * pixelsPerDay) + 'px';
-                item.style.width = isSingleDate ? '140px' : Math.max(duration * pixelsPerDay, 140) + 'px';
-                const itemRowHeight = phase === 'activities' ? 35 : 55; // Increased height for progress bars
+                item.style.width = Math.max(duration * pixelsPerDay, 140) + 'px';
+                // Use cumulative height for proper positioning
+                const itemRowHeight = phase === 'activities' ? 30 : rowHeight;
                 item.style.top = (cumulativeHeight + 25 + rowIndex * itemRowHeight) + 'px';
                 item.title = `${milestone.name}\n${milestone.status.replace('-', ' ')}\n${new Date(milestone.startDate).toLocaleDateString()} - ${new Date(milestone.endDate).toLocaleDateString()}`;
                 
-                // Add special styling for single-date events
-                if (isSingleDate) {
-                    item.classList.add('single-date-event');
-                }
-                
-                // All milestones can have school progress tracking (except activities)
-                const isSchoolMilestone = phase !== 'activities';
+                // Check if this is a school-trackable milestone
+                const isSchoolMilestone = ['eact-5', 'eact-8', 'eact-11', 'eact-14', 'eact-17', 'eact-20'].includes(milestone.id);
                 
                 // Filter by school if selected
                 if (this.selectedSchool !== 'all' && isSchoolMilestone) {
@@ -1476,44 +1000,13 @@ class TimelineApp {
                         ? `<a href="${milestone.description}" target="_blank" class="activity-link"><i class="fas fa-file-pdf"></i></a>`
                         : '';
                     
-                    // VESPA category colors
-                    const vespaColors = {
-                        'VISION': '#ff8f00',
-                        'EFFORT': '#86b4f0',
-                        'SYSTEMS': '#72cb44',
-                        'PRACTICE': '#7f31a4',
-                        'ATTITUDE': '#f032e6'
-                    };
-                    
-                    const categoryColor = vespaColors[milestone.vespaCategory] || '#ffc107';
-                    
-                    // Build attachments for activities
-                    let activityAttachments = '';
-                    if (milestone.attachments && milestone.attachments.length > 0) {
-                        const firstAttachment = milestone.attachments[0];
-                        const isURL = firstAttachment.match(/^https?:\/\//i);
-                        if (isURL) {
-                            activityAttachments = `<a href="${firstAttachment}" target="_blank" class="activity-link" title="${firstAttachment}">
-                                <i class="fas fa-paperclip"></i>
-                            </a>`;
-                        }
-                        if (milestone.attachments.length > 1) {
-                            activityAttachments += `<span class="more-attachments" style="font-size: 8px; margin-left: 4px;">+${milestone.attachments.length - 1}</span>`;
-                        }
-                    }
-                    
                     item.innerHTML = `
                         <div class="activity-item-content">
-                            <span class="vespa-category-badge" style="background-color: ${categoryColor}; color: white; padding: 2px 6px; border-radius: 3px; font-size: 9px; font-weight: 600; margin-right: 6px;">
-                                ${milestone.vespaCategory || 'VESPA'}
-                            </span>
                             <span class="activity-title">${milestone.name}</span>
                             ${pdfLink}
-                            ${activityAttachments}
                         </div>
                     `;
                     item.className = 'timeline-item activity-item';
-                    item.style.borderColor = categoryColor;
                 } else {
                     // Build deliverables HTML for regular milestones
                     let deliverablesHTML = '';
@@ -1534,27 +1027,6 @@ class TimelineApp {
                             (milestone.deliverables.length > 2 ? '...' : '') + '</div>';
                     }
                     
-                    // Build attachments HTML
-                    let attachmentsHTML = '';
-                    if (milestone.attachments && milestone.attachments.length > 0) {
-                        attachmentsHTML = '<div class="attachments-mini">';
-                        milestone.attachments.slice(0, 2).forEach(attachment => {
-                            const isURL = attachment.match(/^https?:\/\//i);
-                            if (isURL) {
-                                const filename = attachment.split('/').pop().split('?')[0] || 'Link';
-                                attachmentsHTML += `<a href="${attachment}" target="_blank" class="attachment-link" title="${attachment}">
-                                    <i class="fas fa-paperclip"></i> ${filename.length > 20 ? filename.substring(0, 20) + '...' : filename}
-                                </a> `;
-                            } else {
-                                attachmentsHTML += `<span class="attachment-text"><i class="fas fa-file"></i> ${attachment}</span> `;
-                            }
-                        });
-                        if (milestone.attachments.length > 2) {
-                            attachmentsHTML += `<span class="more-attachments">+${milestone.attachments.length - 2} more</span>`;
-                        }
-                        attachmentsHTML += '</div>';
-                    }
-                    
                     item.innerHTML = `
                         <div class="status-indicator ${milestone.status}" title="${milestone.status.replace('-', ' ')}"></div>
                         <div class="timeline-item-header">
@@ -1567,17 +1039,11 @@ class TimelineApp {
                             <div class="progress-bar" style="width: ${milestone.progress}%"></div>
                         </div>
                         ${deliverablesHTML}
-                        ${attachmentsHTML}
                         ${schoolIndicatorsHTML}
                     `;
                 }
                 
-                if (!this.isClientView) {
-                    item.addEventListener('click', () => {
-                        this.openMilestoneModal(milestone);
-                    });
-                }
-                
+                item.addEventListener('click', () => this.openMilestoneModal(milestone));
                 timelineContent.appendChild(item);
             });
             
@@ -1585,32 +1051,8 @@ class TimelineApp {
             cumulativeHeight += currentPhaseHeight + phaseGap;
         });
         
-        // Set content height and width based on cumulative height and timeline width
+        // Set content height based on cumulative height
         timelineContent.style.height = (cumulativeHeight + 50) + 'px';
-        timelineContent.style.minWidth = (totalWeeks * pixelsPerWeek) + 'px';
-        
-        // Add vertical pin indicators for single-date events
-        const singleDateEvents = this.milestones.filter(m => m.startDate === m.endDate);
-        singleDateEvents.forEach(event => {
-            const eventDate = new Date(event.startDate);
-            const daysSinceStart = Math.ceil((eventDate - minDate) / (1000 * 60 * 60 * 24));
-            const xPosition = daysSinceStart * pixelsPerDay;
-            
-            // Create vertical line indicator
-            const pin = document.createElement('div');
-            pin.className = 'single-date-pin';
-            pin.style.position = 'absolute';
-            pin.style.left = xPosition + 'px';
-            pin.style.top = '0';
-            pin.style.width = '2px';
-            pin.style.height = '100%';
-            pin.style.backgroundColor = event.phase === 'delivery' ? '#9c27b0' : '#ff9800';
-            pin.style.opacity = '0.3';
-            pin.style.pointerEvents = 'none';
-            pin.style.zIndex = '1';
-            
-            timelineContent.appendChild(pin);
-        });
         
         // Add current date indicator
         this.addCurrentDateIndicator(minDate, maxDate, pixelsPerDay);
@@ -1650,12 +1092,14 @@ class TimelineApp {
         
         if (this.milestones.length === 0) return;
         
-        // Filter out activities from Gantt view
-        const ganttMilestones = this.milestones.filter(m => m.phase !== 'activities');
+        // Find date range
+        const dates = this.milestones.flatMap(m => [new Date(m.startDate), new Date(m.endDate)]);
+        const minDate = new Date(Math.min(...dates));
+        const maxDate = new Date(Math.max(...dates));
         
-        // Fixed date range: July 14, 2025 to July 31, 2026 (54 weeks total)
-        const minDate = new Date('2025-07-14');  // Start 2 weeks before August 1
-        const maxDate = new Date('2026-07-31');
+        // Add padding
+        minDate.setMonth(minDate.getMonth() - 1);
+        maxDate.setMonth(maxDate.getMonth() + 1);
         
         // Create header
         const header = document.createElement('div');
@@ -1727,7 +1171,7 @@ class TimelineApp {
         tasks.className = 'gantt-tasks';
         
         // Sort milestones by start date
-        const sortedMilestones = [...ganttMilestones].sort((a, b) => 
+        const sortedMilestones = [...this.milestones].sort((a, b) => 
             new Date(a.startDate) - new Date(b.startDate)
         );
         
@@ -1793,11 +1237,7 @@ class TimelineApp {
             bar.textContent = milestone.name;
             bar.title = `${milestone.name}\n${new Date(milestone.startDate).toLocaleDateString()} - ${new Date(milestone.endDate).toLocaleDateString()}`;
             
-            // Only add click handler if not in client view
-            if (!this.isClientView) {
-                bar.addEventListener('click', () => this.openMilestoneModal(milestone));
-            }
-            
+            bar.addEventListener('click', () => this.openMilestoneModal(milestone));
             barsArea.appendChild(bar);
         });
         
@@ -1824,50 +1264,29 @@ class TimelineApp {
         const tbody = document.getElementById('milestoneTableBody');
         tbody.innerHTML = '';
         
-        // Filter out activities from list view
-        const listMilestones = this.milestones.filter(m => m.phase !== 'activities');
-        
-        listMilestones.forEach(milestone => {
+        this.milestones.forEach(milestone => {
             const row = document.createElement('tr');
-            
-            // Different content for client view vs admin view
-            if (this.isClientView) {
-                row.innerHTML = `
-                    <td>${milestone.phase}</td>
-                    <td>${milestone.name}</td>
-                    <td>${new Date(milestone.startDate).toLocaleDateString()}</td>
-                    <td>${new Date(milestone.endDate).toLocaleDateString()}</td>
-                    <td><span class="timeline-item-status status-${milestone.status}">${milestone.status.replace('-', ' ')}</span></td>
-                    <td>
-                        <div class="timeline-item-progress" style="width: 100px; display: inline-block;">
-                            <div class="progress-bar" style="width: ${milestone.progress}%"></div>
-                        </div>
-                        ${milestone.progress}%
-                    </td>
-                `;
-            } else {
-                row.innerHTML = `
-                    <td>${milestone.phase}</td>
-                    <td>${milestone.name}</td>
-                    <td>${new Date(milestone.startDate).toLocaleDateString()}</td>
-                    <td>${new Date(milestone.endDate).toLocaleDateString()}</td>
-                    <td><span class="timeline-item-status status-${milestone.status}">${milestone.status.replace('-', ' ')}</span></td>
-                    <td>
-                        <div class="timeline-item-progress" style="width: 100px; display: inline-block;">
-                            <div class="progress-bar" style="width: ${milestone.progress}%"></div>
-                        </div>
-                        ${milestone.progress}%
-                    </td>
-                    <td>
-                        <button class="action-btn" onclick="app.openMilestoneModal(app.milestones.find(m => m.id === '${milestone.id}'))">
-                            <i class="fas fa-edit"></i> Edit
-                        </button>
-                        <button class="action-btn" onclick="app.deleteMilestone('${milestone.id}')">
-                            <i class="fas fa-trash"></i> Delete
-                        </button>
-                    </td>
-                `;
-            }
+            row.innerHTML = `
+                <td>${milestone.phase}</td>
+                <td>${milestone.name}</td>
+                <td>${new Date(milestone.startDate).toLocaleDateString()}</td>
+                <td>${new Date(milestone.endDate).toLocaleDateString()}</td>
+                <td><span class="timeline-item-status status-${milestone.status}">${milestone.status.replace('-', ' ')}</span></td>
+                <td>
+                    <div class="timeline-item-progress" style="width: 100px; display: inline-block;">
+                        <div class="progress-bar" style="width: ${milestone.progress}%"></div>
+                    </div>
+                    ${milestone.progress}%
+                </td>
+                <td>
+                    <button class="action-btn" onclick="app.openMilestoneModal(app.milestones.find(m => m.id === '${milestone.id}'))">
+                        <i class="fas fa-edit"></i> Edit
+                    </button>
+                    <button class="action-btn" onclick="app.deleteMilestone('${milestone.id}')">
+                        <i class="fas fa-trash"></i> Delete
+                    </button>
+                </td>
+            `;
             tbody.appendChild(row);
         });
     }
@@ -1909,10 +1328,15 @@ class TimelineApp {
         // Create body
         const tbody = document.createElement('tbody');
         
-        // Get all milestones except activities for school tracking
-        const keyMilestones = this.milestones
-            .filter(m => m.phase !== 'activities')
-            .map(m => ({ id: m.id, name: m.name }));
+        // Key milestones to track
+        const keyMilestones = [
+            { id: 'eact-5', name: 'Student Questionnaire (Cycle 1)' },
+            { id: 'eact-8', name: '1-1 Coaching Sessions (Cycle 1)' },
+            { id: 'eact-11', name: 'Questionnaire (Cycle 2)' },
+            { id: 'eact-14', name: 'Student Check-ins (Cycle 2)' },
+            { id: 'eact-17', name: 'Questionnaire (Cycle 3)' },
+            { id: 'eact-20', name: 'Revision Support Sessions' }
+        ];
         
         keyMilestones.forEach(milestone => {
             const row = document.createElement('tr');
@@ -1948,18 +1372,17 @@ class TimelineApp {
     }
     
     initializeSchoolProgress() {
-        // Get all milestone IDs except activities
-        const milestoneIds = this.milestones
-            .filter(m => m.phase !== 'activities')
-            .map(m => m.id);
+        const milestoneIds = ['eact-5', 'eact-8', 'eact-11', 'eact-14', 'eact-17', 'eact-20'];
         
         this.schools.forEach(school => {
-            if (!this.schoolProgress[school.id]) {
-                this.schoolProgress[school.id] = {};
-            }
+            this.schoolProgress[school.id] = {};
             milestoneIds.forEach(id => {
-                // Initialize only if not already set
-                if (!this.schoolProgress[school.id][id]) {
+                // Mock data - some schools ahead, some behind
+                if (school.id === 'daventry' || school.id === 'crest') {
+                    this.schoolProgress[school.id][id] = id === 'eact-5' ? 'completed' : 'not-started';
+                } else if (school.id === 'west-walsall') {
+                    this.schoolProgress[school.id][id] = id === 'eact-5' ? 'in-progress' : 'not-started';
+                } else {
                     this.schoolProgress[school.id][id] = 'not-started';
                 }
             });
@@ -2007,12 +1430,9 @@ class TimelineApp {
     
     updateSchoolProgressBars() {
         this.schools.forEach(school => {
-            // Get all non-activity milestones
-            const milestones = this.milestones
-                .filter(m => m.phase !== 'activities')
-                .map(m => m.id);
+            const milestones = ['eact-5', 'eact-8', 'eact-11', 'eact-14', 'eact-17', 'eact-20'];
             const completed = milestones.filter(m => this.getSchoolMilestoneStatus(school.id, m) === 'completed').length;
-            const progress = milestones.length > 0 ? (completed / milestones.length) * 100 : 0;
+            const progress = (completed / milestones.length) * 100;
             
             const progressBar = document.querySelector(`[data-school="${school.id}"] .school-progress-bar`);
             if (progressBar) {
@@ -2109,7 +1529,7 @@ class TimelineApp {
         }
         
         // Create CSV content
-        const headers = ['Phase', 'Milestone', 'Start Date', 'End Date', 'Status', 'Progress', 'Description', 'VESPA Category', 'Attachments', 'VESPA Deliverables', 'School Deliverables'];
+        const headers = ['Phase', 'Milestone', 'Start Date', 'End Date', 'Status', 'Progress', 'Description', 'VESPA Deliverables', 'School Deliverables'];
         const rows = this.milestones.map(m => [
             m.phase,
             m.name,
@@ -2118,8 +1538,6 @@ class TimelineApp {
             m.status,
             m.progress + '%',
             m.description || '',
-            m.vespaCategory || '',
-            (m.attachments || []).join('; '),
             (m.vespaDeliverables || m.deliverables || []).join('; '),
             (m.schoolDeliverables || []).join('; ')
         ]);
@@ -2145,24 +1563,13 @@ class TimelineApp {
         const school = this.schools.find(s => s.id === schoolId);
         if (!school) return;
         
-        // Check if modal elements exist
-        const titleElement = document.getElementById('schoolContactTitle');
-        const nameElement = document.getElementById('schoolContactName');
-        const logoElement = document.getElementById('schoolContactLogo');
-        const contactsList = document.getElementById('contactsList');
-        const modal = document.getElementById('schoolContactModal');
-        
-        if (!titleElement || !nameElement || !logoElement || !contactsList || !modal) {
-            console.warn('School contact modal elements not found');
-            return;
-        }
-        
         // Update modal content
-        titleElement.textContent = school.name + ' Contacts';
-        nameElement.textContent = school.name;
-        logoElement.src = school.logo;
+        document.getElementById('schoolContactTitle').textContent = school.name + ' Contacts';
+        document.getElementById('schoolContactName').textContent = school.name;
+        document.getElementById('schoolContactLogo').src = school.logo;
         
         // Build contacts HTML
+        const contactsList = document.getElementById('contactsList');
         contactsList.innerHTML = '';
         
         Object.entries(school.contacts).forEach(([role, contact]) => {
@@ -2179,26 +1586,16 @@ class TimelineApp {
         });
         
         // Show modal
-        modal.classList.add('active');
+        document.getElementById('schoolContactModal').classList.add('active');
     }
     
     closeContactModal() {
-        const modal = document.getElementById('schoolContactModal');
-        if (modal) {
-            modal.classList.remove('active');
-        }
+        document.getElementById('schoolContactModal').classList.remove('active');
     }
     
     // ===== School Management Modal =====
     openSchoolManagementModal() {
         const content = document.getElementById('schoolManagementContent');
-        const modal = document.getElementById('schoolManagementModal');
-        
-        if (!content || !modal) {
-            console.warn('School management modal elements not found');
-            return;
-        }
-        
         content.innerHTML = '';
         
         // Create a form for each school
@@ -2250,14 +1647,11 @@ class TimelineApp {
         });
         
         // Show modal
-        modal.classList.add('active');
+        document.getElementById('schoolManagementModal').classList.add('active');
     }
     
     closeSchoolManagementModal() {
-        const modal = document.getElementById('schoolManagementModal');
-        if (modal) {
-            modal.classList.remove('active');
-        }
+        document.getElementById('schoolManagementModal').classList.remove('active');
     }
     
     saveSchoolChanges() {
@@ -2283,82 +1677,6 @@ class TimelineApp {
         
         // Show confirmation
         alert('School information updated successfully!');
-    }
-    
-    // ===== School Bar Population =====
-    populateSchoolsBar() {
-        const schoolsContainer = document.getElementById('schoolsContainer');
-        const trustLogo = document.getElementById('trustLogo');
-        
-        if (!schoolsContainer) return;
-        
-        // Clear existing content
-        schoolsContainer.innerHTML = '';
-        
-        // Show trust logo for E-ACT
-        if (trustLogo) {
-            trustLogo.style.display = 'block';
-            trustLogo.innerHTML = '<img src="https://tse4.mm.bing.net/th/id/OIP.wCRZNZZat5R5cxhtl5Z2IwHaD7?r=0&rs=1&pid=ImgDetMain&o=7&rm=3" alt="E-ACT" title="E-ACT Trust" style="height: 50px;">';
-        }
-        
-        // Add school items
-        // First add "All Schools" option
-        const allSchoolsItem = document.createElement('div');
-        allSchoolsItem.className = 'school-item all-schools';
-        allSchoolsItem.dataset.school = 'all';
-        allSchoolsItem.innerHTML = `
-            <div style="display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: #666;">
-                ALL
-            </div>
-        `;
-        allSchoolsItem.title = 'Show all schools';
-        
-        // Add click handler for all schools
-        allSchoolsItem.addEventListener('click', () => {
-            this.selectedSchool = 'all';
-            this.filterBySchool();
-            this.renderCurrentView();
-        });
-        
-        schoolsContainer.appendChild(allSchoolsItem);
-        
-        // Then add individual schools
-        this.schools.forEach(school => {
-            const schoolItem = document.createElement('div');
-            schoolItem.className = 'school-item';
-            schoolItem.dataset.school = school.id;
-            schoolItem.innerHTML = `
-                <img src="${school.logo}" alt="${school.name}" title="${school.name}">
-                <div class="school-progress">
-                    <div class="school-progress-bar" data-school="${school.id}" style="width: 0%"></div>
-                </div>
-                <button class="school-info-btn" data-school="${school.id}" title="Contact Info">
-                    <i class="fas fa-info-circle"></i>
-                </button>
-            `;
-            
-            // Add click handler to school item
-            schoolItem.addEventListener('click', (e) => {
-                // Don't trigger if clicking the info button
-                if (e.target.closest('.school-info-btn')) return;
-                
-                const school = schoolItem.dataset.school;
-                this.selectedSchool = school;
-                this.filterBySchool();
-                this.renderCurrentView();
-            });
-            
-            // Add click handler to info button
-            const infoBtn = schoolItem.querySelector('.school-info-btn');
-            if (infoBtn) {
-                infoBtn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    this.showSchoolContacts(school.id);
-                });
-            }
-            
-            schoolsContainer.appendChild(schoolItem);
-        });
     }
 }
 

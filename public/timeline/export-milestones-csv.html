@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Export Milestones to CSV</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+        .section {
+            background: #f5f5f5;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        button {
+            padding: 12px 24px;
+            margin: 10px;
+            background: #1976d2;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background: #1565c0;
+        }
+        .success {
+            color: #2e7d32;
+            background: #e8f5e9;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .info {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        pre {
+            background: #263238;
+            color: #aed581;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .instructions {
+            background: #fff3e0;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border-left: 4px solid #ff9800;
+        }
+        .instructions h3 {
+            margin-top: 0;
+            color: #f57c00;
+        }
+        .instructions ol {
+            margin: 10px 0 0 20px;
+        }
+        .instructions li {
+            margin: 8px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Export E-ACT Milestones to CSV</h1>
+    
+    <div class="section">
+        <h2>Step 1: Export Milestones</h2>
+        <p>Click the button below to generate a CSV file with your milestones:</p>
+        <button onclick="exportMilestones()">Export Milestones as CSV</button>
+        <div id="export-status"></div>
+    </div>
+    
+    <div class="instructions">
+        <h3>Step 2: Import to Supabase</h3>
+        <ol>
+            <li>Go to your <a href="https://supabase.com/dashboard/project/ldrbytqlphftjzafrlms/editor" target="_blank">Supabase Table Editor</a></li>
+            <li>Select the <strong>milestones</strong> table</li>
+            <li>Click the <strong>"Import data via spreadsheet"</strong> button (or similar)</li>
+            <li>Upload the CSV file you just downloaded</li>
+            <li>Map the columns if needed (they should auto-match)</li>
+            <li>Click Import</li>
+        </ol>
+    </div>
+    
+    <div class="section">
+        <h3>Preview of Data to Export:</h3>
+        <pre id="preview"></pre>
+    </div>
+    
+    <script>
+        const statusDiv = document.getElementById('export-status');
+        const previewDiv = document.getElementById('preview');
+        
+        // The client ID with milestones
+        const clientId = 'client-1752835894451';
+        const milestonesKey = 'milestones-' + clientId;
+        
+        // Get the E-ACT client ID from Supabase (the one that was already migrated)
+        // You might need to update this based on what's in your Supabase
+        const supabaseClientId = 'client-eact-2025';
+        
+        // Load and preview milestones
+        function loadMilestones() {
+            const milestonesData = localStorage.getItem(milestonesKey);
+            if (!milestonesData) {
+                previewDiv.textContent = 'No milestones found!';
+                return null;
+            }
+            
+            const milestones = JSON.parse(milestonesData);
+            previewDiv.textContent = `Found ${milestones.length} milestones:\n\n`;
+            
+            // Show first few milestones as preview
+            milestones.slice(0, 3).forEach(m => {
+                previewDiv.textContent += `${m.name} (${m.startDate} - ${m.endDate})\n`;
+            });
+            previewDiv.textContent += `\n... and ${milestones.length - 3} more`;
+            
+            return milestones;
+        }
+        
+        function exportMilestones() {
+            const milestones = loadMilestones();
+            if (!milestones) {
+                statusDiv.innerHTML = '<div class="error">No milestones found to export!</div>';
+                return;
+            }
+            
+            // Convert milestones to Supabase format
+            const csvData = milestones.map(m => {
+                return {
+                    id: m.id,
+                    client_id: supabaseClientId, // Use the E-ACT client ID from Supabase
+                    name: m.name || '',
+                    phase: m.phase || '',
+                    start_date: m.startDate || '',
+                    end_date: m.endDate || '',
+                    status: m.status || 'upcoming',
+                    progress: m.progress || 0,
+                    description: m.description || '',
+                    vespa_deliverables: Array.isArray(m.vespaDeliverables) 
+                        ? `{${m.vespaDeliverables.map(d => `"${d}"`).join(',')}}` 
+                        : '{}',
+                    school_deliverables: Array.isArray(m.schoolDeliverables) 
+                        ? `{${m.schoolDeliverables.map(d => `"${d}"`).join(',')}}` 
+                        : '{}'
+                };
+            });
+            
+            // Convert to CSV
+            const headers = Object.keys(csvData[0]);
+            const csvContent = [
+                headers.join(','),
+                ...csvData.map(row => 
+                    headers.map(header => {
+                        const value = row[header];
+                        // Escape quotes and wrap in quotes if contains comma or quotes
+                        const escaped = String(value).replace(/"/g, '""');
+                        return /[,"\n]/.test(escaped) ? `"${escaped}"` : escaped;
+                    }).join(',')
+                )
+            ].join('\n');
+            
+            // Download CSV
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+            link.setAttribute('href', url);
+            link.setAttribute('download', 'eact-milestones.csv');
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            statusDiv.innerHTML = `
+                <div class="success">
+                    ✅ Exported ${milestones.length} milestones to CSV!<br>
+                    Check your Downloads folder for <strong>eact-milestones.csv</strong>
+                </div>
+                <div class="info">
+                    <strong>Important:</strong> Before importing, check that the client_id in the CSV matches your E-ACT client ID in Supabase.<br>
+                    Current client_id in CSV: <code>${supabaseClientId}</code><br>
+                    If it's different, you can edit the CSV file before uploading.
+                </div>
+            `;
+        }
+        
+        // Load preview on page load
+        window.addEventListener('load', () => {
+            loadMilestones();
+        });
+    </script>
+</body>
+</html> 

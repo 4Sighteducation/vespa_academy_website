@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VESPA Timeline - School View</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Supabase Client -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        /* Hide elements not needed for school view */
+        .schools-bar { display: none !important; }
+        .school-filter { display: none !important; }
+        #matrixViewBtn { display: none !important; }
+        .milestone-actions { display: none !important; }
+        
+        /* School-specific header */
+        .school-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 20px;
+            background: #f5f5f5;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .school-logo {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+        }
+        
+        .school-info h2 {
+            margin: 0;
+            color: #333;
+        }
+        
+        .school-info p {
+            margin: 5px 0;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- School-specific Header -->
+        <div class="school-header" id="schoolHeader">
+            <!-- School info will be inserted here -->
+        </div>
+        
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1 class="title">
+                    <i class="fas fa-chart-line"></i>
+                    VESPA Progress Timeline
+                </h1>
+                <div class="header-actions">
+                    <button class="btn btn-secondary" id="exportPDF">
+                        <i class="fas fa-file-pdf"></i> Export PDF
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Progress Overview -->
+            <div class="client-info">
+                <div class="progress-overview">
+                    <div class="progress-stat">
+                        <span class="stat-label">Completed</span>
+                        <span class="stat-value" id="completedCount">0</span>
+                    </div>
+                    <div class="progress-stat">
+                        <span class="stat-label">In Progress</span>
+                        <span class="stat-value" id="inProgressCount">0</span>
+                    </div>
+                    <div class="progress-stat">
+                        <span class="stat-label">Upcoming</span>
+                        <span class="stat-value" id="upcomingCount">0</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Timeline Container -->
+        <div class="timeline-container">
+            <div class="timeline-header">
+                <div class="view-toggle">
+                    <button class="view-btn active" data-view="timeline">Timeline View</button>
+                    <button class="view-btn" data-view="list">List View</button>
+                </div>
+            </div>
+
+            <!-- Timeline View -->
+            <div class="timeline-view active" id="timelineView">
+                <div class="timeline-months" id="monthsHeader">
+                    <!-- Months will be generated dynamically -->
+                </div>
+                <div class="timeline-content" id="timelineContent">
+                    <!-- Timeline items will be generated dynamically -->
+                </div>
+            </div>
+
+            <!-- List View -->
+            <div class="list-view" id="listView">
+                <table class="milestone-table">
+                    <thead>
+                        <tr>
+                            <th>Activity</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>Status</th>
+                            <th>Your Progress</th>
+                        </tr>
+                    </thead>
+                    <tbody id="milestoneTableBody">
+                        <!-- Table rows will be generated dynamically -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <!-- Load config.local.js for Supabase credentials -->
+    <script src="config.local.js"></script>
+    <script src="config.js"></script>
+    <script>
+        // School view configuration
+        window.isClientView = true;
+        window.isSchoolView = true;
+    </script>
+    <script src="app.js"></script>
+    <script>
+        // Additional school-specific initialization
+        document.addEventListener('DOMContentLoaded', async () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const schoolId = urlParams.get('school');
+            const clientId = urlParams.get('client');
+            
+            if (!schoolId || !clientId) {
+                document.getElementById('schoolHeader').innerHTML = '<p>Invalid school link</p>';
+                return;
+            }
+            
+            // Load school info
+            if (window.app && window.app.schools) {
+                const school = window.app.schools.find(s => s.id === schoolId);
+                if (school) {
+                    document.getElementById('schoolHeader').innerHTML = `
+                        <img src="${school.logo}" alt="${school.name}" class="school-logo">
+                        <div class="school-info">
+                            <h2>${school.name}</h2>
+                            <p>VESPA Progress Tracker</p>
+                            <p>Academic Year 2025-2026</p>
+                        </div>
+                    `;
+                    
+                    // Filter to show only this school's relevant milestones
+                    window.app.selectedSchool = schoolId;
+                    window.app.filterBySchool();
+                }
+            }
+        });
+    </script>
+</body>
+</html> 

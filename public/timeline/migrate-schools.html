@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Migrate Schools to Supabase</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        .status {
+            margin: 20px 0;
+            padding: 10px;
+            border-radius: 5px;
+            background: #f0f0f0;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background: #1976d2;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #1565c0;
+        }
+        pre {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>E-ACT Schools Migration</h1>
+    <p>This will add the E-ACT schools to your Supabase database.</p>
+    
+    <button onclick="runMigration()">Run Schools Migration</button>
+    
+    <div class="status" id="status">
+        Ready to migrate schools...
+    </div>
+    
+    <h2>Console Output:</h2>
+    <pre id="console"></pre>
+    
+    <script src="migrate-schools.js"></script>
+    <script>
+        // Override console.log to show in page
+        const originalLog = console.log;
+        const originalError = console.error;
+        const consoleDiv = document.getElementById('console');
+        
+        console.log = function(...args) {
+            originalLog.apply(console, args);
+            consoleDiv.textContent += args.join(' ') + '\n';
+        };
+        
+        console.error = function(...args) {
+            originalError.apply(console, args);
+            consoleDiv.textContent += 'ERROR: ' + args.join(' ') + '\n';
+        };
+        
+        function runMigration() {
+            document.getElementById('status').textContent = 'Migration in progress...';
+            consoleDiv.textContent = '';
+            migrateSchools();
+        }
+    </script>
+</body>
+</html> 
