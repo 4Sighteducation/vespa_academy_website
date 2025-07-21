@@ -40,7 +40,7 @@ if (urlParams.get('supabase_url')) {
 // In production, try to fetch config from API
 if (window.location.hostname !== 'localhost' && !window.location.protocol.includes('file')) {
     // We're in production, fetch config from API
-    fetch('/timeline/api/config')
+    fetch('/api/timeline-config')
         .then(res => res.json())
         .then(data => {
             if (data.supabase && data.supabase.url && data.supabase.anonKey) {

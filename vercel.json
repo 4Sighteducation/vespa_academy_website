@@ -5,6 +5,9 @@
   "functions": {
     "api/send-report.js": {
       "maxDuration": 30
+    },
+    "api/timeline-config.js": {
+      "maxDuration": 10
     }
   },
   "redirects": [
