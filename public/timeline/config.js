@@ -37,6 +37,28 @@ if (urlParams.get('supabase_url')) {
     config.supabase.anonKey = urlParams.get('supabase_key');
 }
 
+// In production, try to fetch config from API
+if (window.location.hostname !== 'localhost' && !window.location.protocol.includes('file')) {
+    // We're in production, fetch config from API
+    fetch('/timeline/api/config')
+        .then(res => res.json())
+        .then(data => {
+            if (data.supabase && data.supabase.url && data.supabase.anonKey) {
+                config.supabase = data.supabase;
+                config.features.useSupabase = true;
+                console.log('Supabase config loaded from API');
+                
+                // Re-initialize Supabase if app is already loaded
+                if (window.initializeSupabase) {
+                    window.initializeSupabase();
+                }
+            }
+        })
+        .catch(err => {
+            console.log('Could not fetch config from API:', err);
+        });
+}
+
 // Enable Supabase if configured
 if (config.supabase.url && config.supabase.anonKey) {
     config.features.useSupabase = true;

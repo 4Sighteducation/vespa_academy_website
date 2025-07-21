@@ -280,7 +280,15 @@
     <!-- Load config.js first -->
     <script src="config.js"></script>
     <!-- Config (optional - for local dev) -->
-    <script src="config.local.js"></script>
+    <script>
+        // Try to load config.local.js but ignore if it fails (production)
+        var script = document.createElement('script');
+        script.src = 'config.local.js';
+        script.onerror = function() {
+            console.log('config.local.js not found - using API config or defaults');
+        };
+        document.head.appendChild(script);
+    </script>
     <!-- Single unified JavaScript file -->
     <script src="app.js"></script>
 </body>

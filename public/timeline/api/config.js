@@ -1,17 +1,17 @@
-// Vercel Serverless Function
-// This serves your Supabase config without exposing it in client code
+// This serves your Supabase config from environment variables
+// Set these in Vercel: SUPABASE_URL and SUPABASE_ANON_KEY
 
 export default function handler(req, res) {
-    // Only allow GET requests
-    if (req.method !== 'GET') {
-        return res.status(405).json({ error: 'Method not allowed' });
-    }
-
-    // Return configuration
+    // CORS headers for client-side access
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET');
+    res.setHeader('Content-Type', 'application/json');
+    
+    // Return config from environment variables
     res.status(200).json({
         supabase: {
-            url: process.env.SUPABASE_URL,
-            anonKey: process.env.SUPABASE_ANON_KEY
+            url: process.env.SUPABASE_URL || null,
+            anonKey: process.env.SUPABASE_ANON_KEY || null
         }
     });
 } 

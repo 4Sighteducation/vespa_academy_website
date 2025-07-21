@@ -13,6 +13,12 @@ function initializeSupabase() {
             );
             useSupabase = true;
             console.log('Supabase initialized successfully');
+            
+            // If app is already initialized, update its Supabase flag
+            if (window.app) {
+                window.app.useSupabase = true;
+            }
+            
             return true;
         } catch (error) {
             console.error('Failed to initialize Supabase:', error);
@@ -24,6 +30,9 @@ function initializeSupabase() {
         return false;
     }
 }
+
+// Expose globally for config.js to call
+window.initializeSupabase = initializeSupabase;
 
 class TimelineApp {
     constructor() {
