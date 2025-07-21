@@ -1,5 +1,30 @@
 // ===== Timeline Application with E-ACT Project Pre-loaded =====
 
+// Initialize Supabase if config is available
+let supabaseClient = null;
+let useSupabase = false;
+
+function initializeSupabase() {
+    if (window.appConfig && window.appConfig.features.useSupabase && window.supabase) {
+        try {
+            supabaseClient = window.supabase.createClient(
+                window.appConfig.supabase.url,
+                window.appConfig.supabase.anonKey
+            );
+            useSupabase = true;
+            console.log('Supabase initialized successfully');
+            return true;
+        } catch (error) {
+            console.error('Failed to initialize Supabase:', error);
+            useSupabase = false;
+            return false;
+        }
+    } else {
+        console.log('Running in localStorage-only mode');
+        return false;
+    }
+}
+
 class TimelineApp {
     constructor() {
         this.clients = this.loadClients();
@@ -10,6 +35,7 @@ class TimelineApp {
         this.editingMilestone = null;
         this.selectedSchool = 'all';
         this.isClientView = window.isClientView || false; // Check if we're in client view
+        this.useSupabase = useSupabase;
         
         // School data with contact details
         this.schools = [
@@ -80,13 +106,21 @@ class TimelineApp {
         
         // School progress data (mock data - would be loaded from storage in real app)
         this.schoolProgress = {};
-        
-        this.init();
     }
     
-    init() {
+    async init() {
         this.setupEventListeners();
-        this.loadEACTProject();
+        
+        // Try to initialize Supabase (may have been loaded after initial check)
+        if (!this.useSupabase) {
+            this.useSupabase = initializeSupabase();
+            useSupabase = this.useSupabase; // Update global flag
+        }
+        
+        // Try to load clients from Supabase first
+        await this.loadClientsFromSupabase();
+        
+        await this.loadEACTProject();
         this.updateProgressStats();
         this.updateSchoolProgressBars();
         
@@ -104,7 +138,7 @@ class TimelineApp {
         }
     }
     
-    loadEACTProject() {
+    async loadEACTProject() {
         // Check if E-ACT client exists
         let eactClient = this.clients.find(c => c.name === 'E-ACT');
         
@@ -117,18 +151,18 @@ class TimelineApp {
                 createdAt: new Date().toISOString()
             };
             this.clients.push(eactClient);
-            this.saveClients();
+            await this.saveClients();
         }
         
         // Select E-ACT client
-        this.selectClient(eactClient);
+        await this.selectClient(eactClient);
         
         // Load E-ACT milestones
         const stored = localStorage.getItem('milestones-' + eactClient.id);
-        if (!stored) {
+        if (!stored && this.milestones.length === 0) {
             // Create E-ACT milestones
             this.milestones = this.getEACTMilestones();
-            this.saveMilestones();
+            await this.saveMilestones();
         }
     }
     
@@ -685,12 +719,65 @@ class TimelineApp {
     
     // ===== Client Management =====
     loadClients() {
+        // Note: This is synchronous for now as it's called in constructor
+        // Supabase loading happens later if needed
         const stored = localStorage.getItem('vespaClients');
         return stored ? JSON.parse(stored) : [];
     }
     
-    saveClients() {
+    async loadClientsFromSupabase() {
+        if (this.useSupabase && supabaseClient) {
+            try {
+                const { data, error } = await supabaseClient
+                    .from('clients')
+                    .select('*');
+                
+                if (!error && data && data.length > 0) {
+                    this.clients = data.map(c => ({
+                        id: c.id,
+                        name: c.name,
+                        project: c.project,
+                        createdAt: c.created_at
+                    }));
+                    
+                    // Save to localStorage for offline access
+                    localStorage.setItem('vespaClients', JSON.stringify(this.clients));
+                    console.log('Clients loaded from Supabase');
+                    return true;
+                }
+            } catch (error) {
+                console.error('Error loading clients from Supabase:', error);
+            }
+        }
+        return false;
+    }
+    
+    async saveClients() {
+        // Always save to localStorage
         localStorage.setItem('vespaClients', JSON.stringify(this.clients));
+        
+        // Also save to Supabase if available
+        if (this.useSupabase && supabaseClient) {
+            try {
+                for (const client of this.clients) {
+                    const { error } = await supabaseClient
+                        .from('clients')
+                        .upsert({
+                            id: client.id,
+                            name: client.name,
+                            project: client.project,
+                            created_at: client.createdAt
+                        });
+                    
+                    if (error) {
+                        console.error('Error saving client to Supabase:', error);
+                    }
+                }
+                console.log('Clients saved to Supabase successfully');
+            } catch (error) {
+                console.error('Supabase client save error:', error);
+            }
+        }
     }
     
     checkForClient() {
@@ -781,7 +868,7 @@ class TimelineApp {
         }
     }
     
-    saveClientEdits() {
+    async saveClientEdits() {
         const newName = document.getElementById('editClientName').value.trim();
         const newProject = document.getElementById('editProjectName').value.trim();
         
@@ -791,24 +878,41 @@ class TimelineApp {
             this.currentClient.project = newProject;
             
             // Save to storage
-            this.saveClients();
+            await this.saveClients();
             
             // Update display
-            this.selectClient(this.currentClient);
+            await this.selectClient(this.currentClient);
             
             // Close modal
             this.closeEditClientModal();
         }
     }
     
-    deleteClient() {
+    async deleteClient() {
         if (confirm(`Are you sure you want to delete "${this.currentClient.name}"? This will also delete all timeline data for this client.`)) {
             // Remove client from array
             this.clients = this.clients.filter(c => c.id !== this.currentClient.id);
-            this.saveClients();
+            await this.saveClients();
             
             // Clear timeline data for this client
             localStorage.removeItem(`vespaTimeline_${this.currentClient.id}`);
+            
+            // Delete from Supabase if connected
+            if (this.useSupabase && supabaseClient) {
+                try {
+                    await supabaseClient
+                        .from('clients')
+                        .delete()
+                        .eq('id', this.currentClient.id);
+                    
+                    await supabaseClient
+                        .from('milestones')
+                        .delete()
+                        .eq('client_id', this.currentClient.id);
+                } catch (error) {
+                    console.error('Error deleting from Supabase:', error);
+                }
+            }
             
             // Reset view
             this.currentClient = null;
@@ -817,7 +921,7 @@ class TimelineApp {
         }
     }
     
-    createClient() {
+    async createClient() {
         const name = document.getElementById('newClientName').value.trim();
         const project = document.getElementById('newProjectName').value.trim();
         
@@ -830,8 +934,8 @@ class TimelineApp {
             };
             
             this.clients.push(client);
-            this.saveClients();
-            this.selectClient(client);
+            await this.saveClients();
+            await this.selectClient(client);
             this.closeClientModal();
             
             // Clear form
@@ -840,7 +944,7 @@ class TimelineApp {
         }
     }
     
-    selectClient(client) {
+    async selectClient(client) {
         this.currentClient = client;
         document.getElementById('clientName').innerHTML = `${client.name} <i class="fas fa-edit edit-icon" style="font-size: 14px; margin-left: 8px; cursor: pointer;" title="Edit client details"></i>`;
         document.getElementById('projectDates').textContent = client.project;
@@ -883,24 +987,110 @@ class TimelineApp {
         }
         
         // Load milestones
-        this.loadMilestones();
+        await this.loadMilestones();
     }
     
     // ===== Milestone Management =====
-    loadMilestones() {
+    async loadMilestones() {
         if (!this.currentClient) return;
         
-        const stored = localStorage.getItem('milestones-' + this.currentClient.id);
-        this.milestones = stored ? JSON.parse(stored) : [];
+        // Try to load from Supabase first
+        if (this.useSupabase && supabaseClient) {
+            try {
+                const { data, error } = await supabaseClient
+                    .from('milestones')
+                    .select('*')
+                    .eq('client_id', this.currentClient.id)
+                    .order('start_date', { ascending: true });
+                
+                if (!error && data) {
+                    // Convert Supabase data format to app format
+                    this.milestones = data.map(m => ({
+                        id: m.id,
+                        name: m.name,
+                        phase: m.phase,
+                        startDate: m.start_date,
+                        endDate: m.end_date,
+                        status: m.status,
+                        progress: m.progress,
+                        description: m.description,
+                        vespaDeliverables: m.vespa_deliverables || [],
+                        schoolDeliverables: m.school_deliverables || [],
+                        vespaCategory: m.vespa_category || null,
+                        attachments: m.attachments || []
+                    }));
+                    console.log('Milestones loaded from Supabase');
+                    
+                    // Also save to localStorage for offline access
+                    localStorage.setItem('milestones-' + this.currentClient.id, JSON.stringify(this.milestones));
+                } else {
+                    throw new Error(error ? error.message : 'No data from Supabase');
+                }
+            } catch (error) {
+                console.error('Error loading from Supabase, falling back to localStorage:', error);
+                // Fall back to localStorage
+                const stored = localStorage.getItem('milestones-' + this.currentClient.id);
+                this.milestones = stored ? JSON.parse(stored) : [];
+            }
+        } else {
+            // Load from localStorage only
+            const stored = localStorage.getItem('milestones-' + this.currentClient.id);
+            this.milestones = stored ? JSON.parse(stored) : [];
+        }
+        
         this.loadSchoolProgress();
         this.renderCurrentView();
         this.updateProgressStats();
         this.updateSchoolProgressBars();
     }
     
-    saveMilestones() {
+    async saveMilestones() {
         if (!this.currentClient) return;
+        
+        // Always save to localStorage
         localStorage.setItem('milestones-' + this.currentClient.id, JSON.stringify(this.milestones));
+        
+        // Also save to Supabase if available
+        if (this.useSupabase && supabaseClient) {
+            try {
+                // Delete existing milestones for this client
+                await supabaseClient
+                    .from('milestones')
+                    .delete()
+                    .eq('client_id', this.currentClient.id);
+                
+                // Insert all milestones
+                if (this.milestones.length > 0) {
+                    const supabaseMilestones = this.milestones.map(m => ({
+                        id: m.id,
+                        client_id: this.currentClient.id,
+                        name: m.name,
+                        phase: m.phase,
+                        start_date: m.startDate,
+                        end_date: m.endDate,
+                        status: m.status,
+                        progress: m.progress,
+                        description: m.description,
+                        vespa_deliverables: m.vespaDeliverables || [],
+                        school_deliverables: m.schoolDeliverables || [],
+                        vespa_category: m.vespaCategory || null,
+                        attachments: m.attachments || []
+                    }));
+                    
+                    const { error } = await supabaseClient
+                        .from('milestones')
+                        .insert(supabaseMilestones);
+                    
+                    if (error) {
+                        console.error('Error saving to Supabase:', error);
+                    } else {
+                        console.log('Milestones saved to Supabase successfully');
+                    }
+                }
+            } catch (error) {
+                console.error('Supabase save error:', error);
+            }
+        }
     }
     
     getDateString(daysFromNow) {
@@ -999,7 +1189,7 @@ class TimelineApp {
         this.editingMilestone = null;
     }
     
-    saveMilestone(e) {
+    async saveMilestone(e) {
         e.preventDefault();
         
         const phase = document.getElementById('phase').value;
@@ -1051,16 +1241,16 @@ class TimelineApp {
             });
         }
         
-        this.saveMilestones();
+        await this.saveMilestones();
         this.renderCurrentView();
         this.updateProgressStats();
         this.closeMilestoneModal();
     }
     
-    deleteMilestone(id) {
+    async deleteMilestone(id) {
         if (confirm('Are you sure you want to delete this milestone?')) {
             this.milestones = this.milestones.filter(m => m.id !== id);
-            this.saveMilestones();
+            await this.saveMilestones();
             this.renderCurrentView();
             this.updateProgressStats();
         }
@@ -2364,6 +2554,10 @@ class TimelineApp {
 
 // Initialize app when DOM is loaded
 let app;
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+    // Try to initialize Supabase when DOM is ready
+    initializeSupabase();
+    
     app = new TimelineApp();
+    await app.init();
 }); 

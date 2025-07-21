@@ -1,14 +1,17 @@
 // Copy this file to config.local.js and add your Supabase credentials
-// config.local.js is git-ignored so your keys stay private
+// This file should NOT be committed to git
 
 window.localConfig = {
     supabase: {
-        url: 'YOUR_SUPABASE_URL_HERE',
-        anonKey: 'YOUR_SUPABASE_ANON_KEY_HERE'
+        url: 'YOUR_SUPABASE_PROJECT_URL',
+        anonKey: 'YOUR_SUPABASE_ANON_KEY'
     }
 };
 
-// Instructions:
-// 1. Copy this file to config.local.js
-// 2. Replace YOUR_SUPABASE_URL_HERE and YOUR_SUPABASE_ANON_KEY_HERE with your actual values
-// 3. The HTML files should load config.local.js BEFORE config.js 
+// Example (replace with your actual values):
+// window.localConfig = {
+//     supabase: {
+//         url: 'https://abcdefghijklmnop.supabase.co',
+//         anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...'
+//     }
+// }; 
