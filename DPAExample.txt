@@ -1,0 +1,270 @@
+DATA PROCESSING AGREEMENT
+This Data Processing Agreement (DPA) is made on the date of last signature below between:
+Parties
+1.
+4Sight Education Ltd a company incorporated in England and Wales under No. 14032238 whose registered office is at
+79 Tib Street , MANCHESTER , , M4 1LS , England (Supplier);
+2.
+Cockermouth School a company incorporated in England and Wales under No. whose registered office is at , , , (
+Customer).
+(each a party and together the parties)
+Background
+3.
+4.
+5.
+The Supplier is a provider of the VESPA Academy Portal (Services).
+The parties entered into an agreement for the provision of services on 25 April 2022 (Agreement).
+The parties have agreed to enter into this DPA in relation to the processing of personal data by the Supplier in the
+course of providing the Services. The terms of this DPA are intended to apply in addition to and not in substitution of
+the terms of the Agreement.
+AGREEMENT
+Meanings
+1.
+In this DPA, the following words are defined:
+Affiliate
+any entity that directly or indirectly controls, or is controlled by, or is under common control with the
+subject entity. 'Control' for the purposes of this definition, means direct or indirect ownership or control
+of more than 50% of the voting interests of the subject entity.
+Data
+Protection
+Law
+a. all laws and regulations, including laws and regulations of the European Union, the European
+Economic Area and their member states, Switzerland and the United Kingdom applicable to the
+Processing of Personal Data under the Agreement, including, but not limited to EU Directive 95/46
+/EC, as transposed into domestic legislation of each Member State and as amended, replaced or
+superseded from time to time, including by the GDPR and laws implementing or supplementing the
+GDPR; and
+b. to the extent applicable, the data protection or privacy laws of any other country.
+GDPR
+a. Regulation (EU) 2016/679 of the European Parliament and of the Council of 27 April 2016 on the
+protection of natural persons with regard to the processing of personal data and on the free
+movement of such data, and repealing Directive 95/46/EC (the EU GDPR); and
+b. the EU GDPR as implemented or adopted under the laws of the United Kingdom ( UK GDPR)
+(General Data Protection Regulation).
+Personnel in relation to a party, those of its employees, workers, agents, consultants, contractors, sub-contractors,
+representatives or other persons employed or engaged by that party on whatever terms.
+
+ 
+Sub-
+any entity (whether or not an Affiliate of the Supplier, but excluding the Supplier’s Personnel) appointed
+processor by or on behalf of the Supplier to process Personal Data on behalf of the Customer under this DPA.
+Working
+Day
+any day, other than a Saturday, Sunday, or public holiday in England and Wales.
+2.
+3.
+Terms such as “Data Subject”, “Processing”, “Personal Data”, “Controller”, and “Processor”, "Supervisory Authority"
+and "Personal Data Breach" shall have the same meaning as ascribed to them in the Data Protection Law.
+In this DPA unless the context requires a different interpretation:
+a. the singular includes the plural and vice versa;
+b. references to sub-clauses, clauses, schedules or appendices are to sub-clauses, clauses, schedules or appendices of
+this DPA;
+c. a reference to a person includes firms, companies, government entities, trusts ad partnerships;
+d. 'including' is understood to mean 'including without limitation';
+e. reference to any statutory provision includes any modification or amendment of it;
+f. the headings and sub-headings do not form part of this DPA; and
+g. 'writing' or 'written' will include fax and email unless otherwise stated.
+Processing customer personal data
+4.
+5.
+For the purpose of Data Protection Law, the Customer shall be the Controller and the Supplier shall be the Processor.
+The Supplier and each Supplier Affiliate shall:
+a. comply with all applicable Data Protection Law in the Processing of Customer Personal Data; and
+b. only Process Personal Data on the Customer's documented instructions, unless Processing is required by any
+applicable law to which the Supplier is subject (in which case, the Supplier shall, to the extent permitted by
+applicable law, inform the Customer of such legal requirement before undertaking the Processing).
+6.
+The Supplier and each Supplier Affiliate shall take reasonable steps to ensure the reliability of Personnel who have
+access to the Personal Data, ensuring in each case that such Personnel is subject to a strict duty of confidentiality
+(whether a contractual or statutory duty) and that they Process the Personal Data in compliance with all applicable law
+and only for the purpose of delivering the Services under the Agreement.
+Security
+7.
+The Supplier will establish data security in relation to the Processing of Personal Data under this DPA. The measures
+to be taken must guarantee a protection level appropriate to the risk concerning confidentiality, integrity, availability
+and resilience of the systems. The state of the art, implementation costs, the nature, scope and purposes of the
+Processing, as well as the probability of occurrence and the severity of the risk to the rights and freedoms of natural
+persons must be taken into account. Such measures may include, as appropriate:
+a. the pseudonymisation and encryption of Personal Data;
+b. the ability to ensure the ongoing confidentiality, integrity, availability and resilience of processing systems and
+services;
+c. the ability to restore the availability and access to Personal Data in a timely manner in the event of a physical or
+technical incident; and
+d. a process for regularly testing, assessing and evaluating the effectiveness of technical and organisational measures
+for ensuring the security of the Processing.
+8.
+9.
+In assessing the appropriate level of security, the Supplier shall take into account any risks that are presented by the
+Processing, in particular, from a Personal Data Breach.
+The Supplier has laid down the technical and organisational measures in Schedule 2 of this DPA. Technical and
+organisational measures are subject to technical progress and further development. In this respect, the Processor may
+
+ 
+implement alternative adequate measures from time to time and shall notify the Customer in writing where it has done
+so.
+Sub-processors
+10. The Customer authorises the Supplier and each Supplier Affiliate to appoint the Sub-processors listed in Schedule 3.
+11. With respect to each Sub-processor, the Supplier, or the Supplier Affiliate shall:
+a. carry out appropriate due diligence prior to the Processing by such Sub-processor to ensure that the Sub-processor
+is capable of providing the level of protection for Personal Data required by the terms of the Agreement and this
+DPA;
+b. enter into a written agreement with the Sub-processor incorporating terms which are substantially similar (and no
+less onerous) than those set out in this DPA and which meet the requirements of Article 28(3) of UK GDPR; and
+c. remain fully liable to the Customer for all acts or omissions of such Sub-processor as though they were its own.
+12. The Supplier and each Supplier Affiliate may continue to use Sub-processors already engaged by the Supplier or
+Supplier Affiliate as at the date of this DPA subject to the Supplier or Supplier Affiliate meeting the obligations set
+forth in the preceding clause as soon as reasonably practicable.
+13. The Supplier shall give the Customer prior written notice of the appointment of any new Sub-processor, including the
+name of the Sub-processor it seeks to appoint and the Processing activity to be undertaken by the Sub-processor.
+14. If within 30 days of receipt of notice under the preceding clause, the Customer (acting reasonably and in good faith)
+notifies the Supplier in writing of any objections to the proposed appointment:
+a. the parties will work in good faith to make available a commercially reasonable change in the provision of the
+Services which avoids the use of the proposed Sub-processor without unreasonably burdening the Customer; and
+b. where such a change cannot be made within 30 days of the Supplier's receipt of the Customer's notice, the
+Customer may, notwithstanding the terms of the Agreement, serve written notice on the Supplier to terminate the
+Agreement to the extent that the provision of the Services is or would be affected by the appointment.
+Data subject rights
+15. Taking into account the nature of the Processing, the Supplier and each Supplier Affiliate shall assist the Customer in
+implementing appropriate technical and organisational measures, insofar as this is possible, for the fulfilment of the
+Customer's obligation to respond to requests for exercising Data Subjects' rights under the Data Protection Law.
+16. The Supplier shall:
+a. promptly (and in any event, within 24 hours) notify the Customer if it (or any of its Sub-processors) receives a
+request from a Data Subject; and
+b. fully cooperate with and assist the Customer in relation to any request made by a Data Subject,
+under the Data Protection Law in respect of Personal Data Processed by the Supplier under the terms of the
+Agreement or this DPA.
+Personal data breaches
+17. The Supplier shall:
+a. notify the Customer without undue delay (in any event, no later than 72 hours) upon becoming aware of any
+Personal Data Breach affecting the Personal Data Processed by the Supplier under this DPA;
+b. provide sufficient information to enable the Customer to evaluate the impact of such Personal Data Breach and to
+meet any obligations on the Customer to report the Personal Data Breach to a Supervisory Authority and/or notify
+the affected Data Subjects in accordance with the Data Protection Law;
+c. provide the Customer with such assistance as the Customer may reasonably request; and
+
+
+
+ 
+d. cooperate with the Customer and take such reasonable commercial steps (as directed by the Customer) to assist in
+the evaluation, investigation, mitigation and remediation of each such Personal Data Breach.
+Data Protection Impact Assessment and Prior Consultation
+18. The Supplier and each Supplier Affiliate shall provide reasonable assistance to the Customer with any data protection
+impact assessments and prior consultations with Supervisory Authorities or other competent authorities which the
+Customer considers necessary pursuant to Articles 35 and 36 of the UK GDPR.
+19. Such assistance from the Supplier shall be limited, in each case, to the Processing of Personal Data under this DPA.
+Return and deletion of personal data
+20. Subject to the subsequent clause, the Supplier and each Supplier Affiliate shall promptly and in any event, within 30
+days of the expiry or termination of the Agreement, delete or return all copies Personal Data Processed by the Supplier
+and/or its Sub-processors on behalf of the Customer by such means as the parties shall agree in writing.
+21. The Supplier (and its Sub-processors) may retain Personal Data Processed under this DPA to the extent required by
+any applicable law to which the Supplier (or any Sub-processor) is subject and only to the extent and for such period as
+required by applicable law. Where applicable, the Supplier shall notify the Customer of any such requirement and
+ensure the confidentiality of such Personal Data. Any Personal Data Processed under this DPA and retained by the
+Supplier (or any Sub-processor) in accordance with this clause shall be not Processed for any other purpose other than
+the purpose specified in the applicable laws.
+22. The Customer may require the Supplier to provide written certification confirming that it has complied in full with its
+obligations under this section entitled 'Return and deletion of personal data.'
+Audits
+23. The Supplier and each Supplier Affiliate shall make available to the Customer on request all information necessary to
+demonstrate compliance with this DPA.
+24. The Supplier shall allow for and contribute to audits, including inspections, by the Customer (or any other auditor
+mandated by the Customer) in relation to the Processing of Personal Data under this DPA.
+25. The Customer (or any other auditor mandated by the Customer) shall give the Supplier or Supplier Affiliate reasonable
+notice of any audit or inspection, and shall make all reasonable endeavours to avoid causing any damage, injury or
+disruption to the Supplier or Supplier Affiliate's premises, equipment, personnel and business in the course of the audit
+or inspection.
+26. Such audit rights may be exercised only once in any calendar year during the term of the Agreement and for a period
+of 3 years following the expiry or termination of the Agreement.
+Liability
+27. Nothing in this DPA limits or excludes either party's liability for death of personal injury caused by its negligence, or
+fraud or fraudulent misrepresentation.
+28. Subject to the preceding clause, the total liability of either party to the other for any non-compliance with this DPA
+shall be subject to any limitation regarding monetary damages set forth in the Agreement.
+General terms
+29. Except in respect of any provision of this DPA that expressly or by implication is intended to come into or continue in
+force on or after the expiry or termination of the Agreement, this DPA shall be coterminous with the Agreement.
+
+
+
+ 
+30. No party may assign, transfer or sub-contract to any third party the benefit and/or burden of the DPA without the prior
+written consent (not to be unreasonably withheld) of the other party.
+31. No variation of the DPA will be valid or binding unless it is recorded in writing and signed by or on behalf of both
+parties.
+32. No variation of the Agreement will be valid or binding unless it is recorded in writing and signed by or on behalf of
+both parties.
+33. The Contracts (Rights of Third Parties) Act 1999 does not apply to the DPA and no third party has any right to enforce
+or rely on any provision of the DPA.
+34. Unless otherwise agreed, no delay, act or omission by a party in exercising any right or remedy will be deemed a
+waiver of that, or any other, right or remedy.
+35. If any court or competent authority finds that any provision (or part) of the DPA is invalid, illegal or unenforceable,
+that provision or part-provision will, to the extent required, be deemed to be deleted, and the validity and enforceability
+of the other provisions of the DPA will not be affected.
+36. Any notice (other than in legal proceedings) to be delivered under the DPA must be in writing and delivered by pre-
+paid first class post to or left by hand delivery at the other party’s registered address or place of business, or sent by fax
+to its main fax number. Notices:
+a. sent by post will be deemed to have been received, where posted from and to addresses in the United Kingdom, on
+the second Working Day and, where posted from or to addresses outside the United Kingdom, on the tenth
+Working Day following the date of posting;
+b. delivered by hand will be deemed to have been received at the time the notice is left at the proper address; and
+c. sent by fax will be deemed to have been received on the next Working Day after transmission.
+Governing law and jurisdiction
+37. This DPA will be governed by and interpreted according to the law of England and Wales and all disputes arising
+under the DPA (including non-contractual disputes or claims) shall be subject to the exclusive jurisdiction of the
+English and Welsh courts.
+The parties have signed this DPA the date(s) below:
+Tony Dennis
+Date of signature
+Business Director
+4Sight Education Ltd
+Date of signature
+Cockermouth School
+
+ 
+Schedule 1 - Processing activities
+This Schedule 1 includes certain details of the Processing of Personal Data as required by Article 28(3) UK GDPR. The
+subject matter and duration of the Processing of the Personal Data are set out in the Agreement and this DPA.
+The nature and purpose of the Processing of Personal Data
+The Supplier will Process Personal Data as necessary to provide the Services pursuant to the Agreement, and as further
+instructed by the Customer in its use of the Services.
+The types of Personal Data to be Processed
+The Customer may submit Personal Data to the Services, the extent of which, is determined and controlled by the Customer
+in its sole discretion, and which may include, but is not limited to the following types of Personal Data:
+Personal details
+The categories of Data Subject to whom the Personal Data relates
+The Customer may submit Personal Data to the Services, the extent of which is determined and controlled by the Customer
+in its sole discretion, and which may include, but is not limited to Personal Data relating to the following categories of Data
+Subjects:
+Staff, including volunteers, temporary and casual workers
+Students
+The obligations and rights of Customer and Customer Affiliates
+The obligations and rights of the Customer (and any Customer Affiliates) are set out in the Agreement and this DPA.
+
+ 
+Schedule 2 - Technical and organisational measures
+The Supplier will conduct the activities covered by this DPA in compliance with its Information Security Policy, available
+from the Data Protection Officer or another person responsible for data protection compliance, and relevant data protection
+policies and guidance, available from the Data Protection Officer or another person responsible for data protection
+compliance.
+The Supplier also has the following technical and organisation measures in place:
+A Data Protection Officer has been appointed who is responsible for ensuring data protection compliance within the
+business.
+Agreements have been made with all sub-processors to ensure they are fully compliant with the current UK GDPR
+legislation.
+We have produced a Data Impact Protection Agreement (DPIA) which is available upon request.
+
+ 
+Schedule 3 - Sub-processors
+The Customer agrees that the Supplier may sub-contract certain obligations under this DPA to the following Sub-processors:
+Name of Sub-processor: Knack
+Contact details:
+Email address: support@knack.com
+Telephone number:
+Sub-contracted activities: Database service providers
+Name of Sub-processor: KSense Technoligies
+Contact details:
+Email address: hello@ksensetech.com
+Telephone number:
+Sub-contracted activities: Emplyed as a subcontractor development team. Ksense work alongside VESPA academy
+to build and devlelop the online portal.
+

@@ -107,6 +107,7 @@
                             <th>End Date</th>
                             <th>Status</th>
                             <th>Progress</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody id="milestoneTableBody">
@@ -126,6 +127,99 @@
         <!-- NO Client Selection Modal for client view -->
         <!-- NO Milestone Modal for client view -->
         <!-- NO School Management Modal for client view -->
+    </div>
+
+    <!-- Milestone Modal (for editing only) -->
+    <div class="modal" id="milestoneModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Edit Milestone</h3>
+                <button class="close-btn" id="closeModal">&times;</button>
+            </div>
+            <form id="milestoneForm">
+                <div class="form-group">
+                    <label for="milestoneName">Milestone Name</label>
+                    <input type="text" id="milestoneName" required>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="startDate">Start Date</label>
+                        <input type="date" id="startDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="endDate">End Date</label>
+                        <input type="date" id="endDate" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phase">Phase</label>
+                    <select id="phase" required>
+                        <option value="activities">VESPA Activities</option>
+                        <option value="planning">Planning</option>
+                        <option value="implementation">Implementation</option>
+                        <option value="review">Review</option>
+                        <option value="delivery">Delivery</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="status">Status</label>
+                    <select id="status" required>
+                        <option value="upcoming">Upcoming</option>
+                        <option value="in-progress">In Progress</option>
+                        <option value="completed">Completed</option>
+                        <option value="delayed">Delayed</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="progress">Progress (%)</label>
+                    <input type="range" id="progress" min="0" max="100" value="0">
+                    <span id="progressValue">0%</span>
+                </div>
+                
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea id="description" rows="3"></textarea>
+                </div>
+                
+                <div class="form-group" id="vespaCategoryGroup" style="display: none;">
+                    <label for="vespaCategory">VESPA Category</label>
+                    <select id="vespaCategory">
+                        <option value="">Select Category</option>
+                        <option value="VISION">VISION - Goal Setting & Future Planning</option>
+                        <option value="EFFORT">EFFORT - Time Management & Productivity</option>
+                        <option value="SYSTEMS">SYSTEMS - Organization & Task Management</option>
+                        <option value="PRACTICE">PRACTICE - Learning Strategies & Techniques</option>
+                        <option value="ATTITUDE">ATTITUDE - Mindset & Resilience</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="attachments">Files & Links</label>
+                    <textarea id="attachments" rows="3" placeholder="Add links or file references, one per line. Example:&#10;https://example.com/document.pdf&#10;Project Overview Document&#10;https://drive.google.com/file/..."></textarea>
+                    <small style="color: #666;">Enter URLs or file descriptions, one per line. URLs will be clickable.</small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="vespaDeliverables" id="vespaDeliverablesLabel">VESPA Deliverables (comma-separated)</label>
+                    <input type="text" id="vespaDeliverables" placeholder="e.g., Training materials, Reports, Resources">
+                </div>
+                
+                <div class="form-group">
+                    <label for="schoolDeliverables" id="schoolDeliverablesLabel">Client Deliverables (comma-separated)</label>
+                    <input type="text" id="schoolDeliverables" placeholder="e.g., Implementation, Data collection, Feedback">
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Save Milestone</button>
+                    <button type="button" class="btn btn-secondary" id="cancelModal">Cancel</button>
+                    <!-- No Delete button for clients -->
+                </div>
+            </form>
+        </div>
     </div>
 
     <!-- Scripts -->

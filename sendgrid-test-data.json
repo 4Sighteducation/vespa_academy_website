@@ -1,0 +1,87 @@
+{
+  "personalizations": [
+    {
+      "to": [
+        {
+          "email": "john.smith@internationalschool.edu",
+          "name": "John Smith"
+        }
+      ],
+      "dynamic_template_data": {
+        "first_name": "John",
+        "organisation": "Dubai International Academy"
+      }
+    },
+    {
+      "to": [
+        {
+          "email": "sarah.jones@britishschool.ac.th",
+          "name": "Sarah Jones"
+        }
+      ],
+      "dynamic_template_data": {
+        "first_name": "Sarah",
+        "organisation": "Bangkok British School"
+      }
+    },
+    {
+      "to": [
+        {
+          "email": "michael.brown@americanschool.sg",
+          "name": "Michael Brown"
+        }
+      ],
+      "dynamic_template_data": {
+        "first_name": "Michael",
+        "organisation": "Singapore American School"
+      }
+    },
+    {
+      "to": [
+        {
+          "email": "emma.wilson@internationalschool.hk",
+          "name": "Emma Wilson"
+        }
+      ],
+      "dynamic_template_data": {
+        "first_name": "Emma",
+        "organisation": "Hong Kong International School"
+      }
+    },
+    {
+      "to": [
+        {
+          "email": "david.chen@britishschool.sh",
+          "name": "David Chen"
+        }
+      ],
+      "dynamic_template_data": {
+        "first_name": "David",
+        "organisation": "British International School Shanghai"
+      }
+    }
+  ],
+  "from": {
+    "email": "admin@vespa.academy",
+    "name": "VESPA Academy"
+  },
+  "reply_to": {
+    "email": "admin@vespa.academy",
+    "name": "VESPA Academy"
+  },
+  "template_id": "YOUR_SENDGRID_TEMPLATE_ID",
+  "categories": ["marketing", "international-schools", "vespa-intro"],
+  "custom_args": {
+    "campaign": "international-schools-2025",
+    "version": "v1"
+  },
+  "tracking_settings": {
+    "click_tracking": {
+      "enable": true,
+      "enable_text": false
+    },
+    "open_tracking": {
+      "enable": true
+    }
+  }
+} 

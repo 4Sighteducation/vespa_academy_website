@@ -1109,6 +1109,12 @@ class TimelineApp {
     }
     
     openMilestoneModal(milestone = null) {
+        // Prevent clients from creating new milestones
+        if (this.isClientView && !milestone) {
+            console.warn('Clients cannot create new milestones');
+            return;
+        }
+        
         this.editingMilestone = milestone;
         const modal = document.getElementById('milestoneModal');
         const form = document.getElementById('milestoneForm');
@@ -1771,11 +1777,10 @@ class TimelineApp {
                     `;
                 }
                 
-                if (!this.isClientView) {
-                    item.addEventListener('click', () => {
-                        this.openMilestoneModal(milestone);
-                    });
-                }
+                // Allow both admin and client users to edit milestones
+                item.addEventListener('click', () => {
+                    this.openMilestoneModal(milestone);
+                });
                 
                 timelineContent.appendChild(item);
             });
@@ -1992,10 +1997,8 @@ class TimelineApp {
             bar.textContent = milestone.name;
             bar.title = `${milestone.name}\n${new Date(milestone.startDate).toLocaleDateString()} - ${new Date(milestone.endDate).toLocaleDateString()}`;
             
-            // Only add click handler if not in client view
-            if (!this.isClientView) {
-                bar.addEventListener('click', () => this.openMilestoneModal(milestone));
-            }
+            // Allow both admin and client users to edit milestones
+            bar.addEventListener('click', () => this.openMilestoneModal(milestone));
             
             barsArea.appendChild(bar);
         });
@@ -2042,6 +2045,11 @@ class TimelineApp {
                             <div class="progress-bar" style="width: ${milestone.progress}%"></div>
                         </div>
                         ${milestone.progress}%
+                    </td>
+                    <td>
+                        <button class="action-btn" onclick="app.openMilestoneModal(app.milestones.find(m => m.id === '${milestone.id}'))">
+                            <i class="fas fa-edit"></i> Edit
+                        </button>
                     </td>
                 `;
             } else {

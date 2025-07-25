@@ -1,0 +1,26 @@
+{
+  "personalizations": [
+    {
+      "to": [
+        {
+          "email": "test@example.com"
+        }
+      ],
+      "dynamic_template_data": {
+        "first_name": "Test",
+        "organisation": "Example International School"
+      },
+      "subject": "Transform Your Students' Mindset & Academic Performance | VESPA Academy"
+    }
+  ],
+  "from": {
+    "email": "admin@vespa.academy",
+    "name": "VESPA Academy"
+  },
+  "content": [
+    {
+      "type": "text/html",
+      "value": "This email requires HTML support."
+    }
+  ]
+} 

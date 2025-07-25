@@ -40,12 +40,14 @@ The VESPA Timeline Manager is a comprehensive project management tool designed f
 
 **Capabilities**:
 - ✅ View all project milestones
+- ✅ Edit existing milestones (name, dates, status, progress, etc.)
 - ✅ See progress across all schools
 - ✅ Export timeline to PDF/CSV
 - ✅ View attachments and resources
 - ✅ Access Timeline, Gantt, and List views
-- ❌ Cannot edit milestones
-- ❌ Cannot access admin functions
+- ❌ Cannot create new milestones
+- ❌ Cannot delete milestones
+- ❌ Cannot access admin functions (school management)
 
 **Key Features**:
 - Read-only comprehensive view
@@ -109,9 +111,16 @@ The VESPA Timeline Manager is a comprehensive project management tool designed f
 2. **Navigate Views**
    - **Timeline**: Visual project overview with cycles
    - **Gantt**: Traditional project chart
-   - **List**: Sortable table view
+   - **List**: Sortable table view with edit buttons
 
-3. **Monitor Progress**
+3. **Edit Milestones**
+   - Click on any milestone in Timeline/Gantt view
+   - Or use Edit button in List view
+   - Update dates, status, progress, deliverables
+   - Add attachments and links
+   - Click "Save Milestone" to save changes
+
+4. **Monitor Progress**
    - Check header stats (Completed/In Progress/Upcoming)
    - Look for school indicators on each milestone
    - Review deliverables and attachments
@@ -206,4 +215,4 @@ For technical issues or questions:
 ---
 
 Last Updated: December 2024
-Version: 2.0 (with attachments feature) 
+Version: 2.1 (with client editing capabilities) 
